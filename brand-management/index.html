@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>品牌經營管理 | 究極制霸檢索中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .heading { font-family: 'Outfit', sans-serif; }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.8)), url('bg.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2rem;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            border-color: #8B5CF6;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-[40vh] flex flex-col items-center justify-center text-center px-6 border-b border-white/5">
+        <h1 class="heading text-4xl md:text-6xl font-black mb-4">品牌經營管理</h1>
+        <p class="text-purple-400 font-bold tracking-[0.2em] uppercase text-xs">Standard 24 究極制霸檢索中心</p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto w-full px-6 -mt-12 flex-1 pb-24">
+        
+        <!-- Search -->
+        <div class="glass-card p-6 mb-12 shadow-2xl">
+            <div class="search-bar flex items-center px-5 py-4 rounded-2xl">
+                <i class="fa-solid fa-magnifying-glass text-white/30 mr-4"></i>
+                <input type="text" placeholder="輸入關鍵字檢索考試內容 (如: 品牌權益, 定位...)" class="bg-transparent border-none outline-none w-full text-lg">
+            </div>
+        </div>
+
+        <!-- Modules -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="glass-card p-8 hover:bg-white/5 transition-colors cursor-pointer">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-book-open text-purple-400 text-xl"></i>
+                </div>
+                <h3 class="heading font-bold text-xl mb-2">章節導讀</h3>
+                <p class="text-white/40 text-sm">快速查閱第 1-8 章的核心內容摘要與重點提示。</p>
+            </div>
+            <div class="glass-card p-8 hover:bg-white/5 transition-colors cursor-pointer">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-graduation-cap text-blue-400 text-xl"></i>
+                </div>
+                <h3 class="heading font-bold text-xl mb-2">奪分特訓</h3>
+                <p class="text-white/40 text-sm">模擬顏老師理財達人模式，進行品牌管理模擬測驗。</p>
+            </div>
+        </div>
+
+        <!-- Reference Documents -->
+        <div class="space-y-4">
+            <h2 class="heading font-bold text-xl px-4">參考文件清單</h2>
+            <div class="glass-card p-4 space-y-2">
+                <div class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-file-word text-blue-400 mr-4"></i>
+                        <span class="text-sm">品牌經營管理_Standard24_零死角檢索版</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-white/20"></i>
+                </div>
+                <div class="flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-file-word text-blue-400 mr-4"></i>
+                        <span class="text-sm">00_戰前回報與奪分叮嚀</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-white/20"></i>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center text-white/20 text-[10px] tracking-widest uppercase">
+        © 2026 BRAND MANAGEMENT PORTAL.
+    </footer>
+
+    <!-- Back to Home -->
+    <a href="../index.html" class="fixed bottom-10 right-6 w-14 h-14 bg-white text-black rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-95 transition-transform">
+        <i class="fa-solid fa-house"></i>
+    </a>
+
+</body>
+</html>

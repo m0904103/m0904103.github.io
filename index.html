@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>M0904103 | 個人任務控制中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;700&display=swap');
+        
+        :root {
+            --iphone-safe-top: env(safe-area-inset-top);
+            --iphone-safe-bottom: env(safe-area-inset-bottom);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            padding-top: var(--iphone-safe-top);
+            padding-bottom: var(--iphone-safe-bottom);
+        }
+        
+        .heading { font-family: 'Outfit', sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% -20%, rgba(16, 185, 129, 0.15) 0%, rgba(5, 5, 5, 1) 70%);
+        }
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-glass:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .heading-responsive { font-size: 2.5rem !important; line-height: 1.1; }
+        }
+
+        .tab-bar-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen hero-gradient flex flex-col">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between px-6 py-6 w-full z-50">
+        <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-gradient-to-br from-[#10B981] to-[#3B82F6] rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <i class="fa-solid fa-rocket text-black text-xl"></i>
+            </div>
+            <span class="heading font-bold text-xl tracking-tight uppercase">Mission Control</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+            <i class="fa-solid fa-user text-xs"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-12 pb-8 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full mb-6">
+                <span class="flex h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-white/60">System Online</span>
+            </div>
+            <h1 class="heading heading-responsive text-5xl font-extrabold mb-6">
+                M0904103 <br>
+                <span class="gradient-text">專屬任務控制中心</span>
+            </h1>
+            <p class="text-white/40 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                整合全球金融掃描、考試特訓與學術資源。一站式智慧管理您的所有專案。
+            </p>
+        </div>
+    </section>
+
+    <!-- Project Grid -->
+    <section class="max-w-6xl mx-auto px-6 py-8 w-full flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- AI Trader Pro -->
+            <a href="trading/index.html" class="card-glass p-8 rounded-[2rem] flex flex-col group">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
+                    <i class="fa-solid fa-chart-line text-[#10B981] text-2xl"></i>
+                </div>
+                <h3 class="heading font-bold text-2xl mb-3">AI Trader Pro</h3>
+                <p class="text-white/40 text-sm mb-6 flex-1">美股/台股雙市場量化選股系統。內建海龜法則與顏老師 MA60 策略。</p>
+                <div class="flex items-center text-[#10B981] font-bold text-sm">
+                    進入系統 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- English Exam -->
+            <a href="english-exam/index.html" class="card-glass p-8 rounded-[2rem] flex flex-col group">
+                <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                    <i class="fa-solid fa-language text-[#3B82F6] text-2xl"></i>
+                </div>
+                <h3 class="heading font-bold text-2xl mb-3">Reading English</h3>
+                <p class="text-white/40 text-sm mb-6 flex-1">閱讀英文學文化期末考特訓。隨機盲選題庫，模擬真實考試環境。</p>
+                <div class="flex items-center text-[#3B82F6] font-bold text-sm">
+                    開始特訓 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- Brand Management -->
+            <a href="brand-management/index.html" class="card-glass p-8 rounded-[2rem] flex flex-col group">
+                <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
+                    <i class="fa-solid fa-briefcase text-purple-400 text-2xl"></i>
+                </div>
+                <h3 class="heading font-bold text-2xl mb-3">品牌經營管理</h3>
+                <p class="text-white/40 text-sm mb-6 flex-1">期末考試參考書與檢索中心。快速查閱 Standard 24 究極制霸版內容。</p>
+                <div class="flex items-center text-purple-400 font-bold text-sm">
+                    查閱參考書 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-white/20 text-[10px] tracking-widest uppercase">
+        © 2026 M0904103. POWERED BY ANTIGRAVITY ENGINE.
+    </footer>
+
+    <!-- Mobile Navigation Bar -->
+    <nav class="md:hidden fixed bottom-0 w-full tab-bar-blur z-50 px-10 pb-[calc(var(--iphone-safe-bottom)+15px)] pt-4">
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col items-center space-y-1 text-[#10B981]">
+                <i class="fa-solid fa-house text-xl"></i>
+                <span class="text-[9px] font-bold uppercase">Portal</span>
+            </div>
+            <div class="flex flex-col items-center space-y-1 text-white/30">
+                <i class="fa-solid fa-grid-2 text-xl"></i>
+                <span class="text-[9px] font-bold uppercase">Apps</span>
+            </div>
+            <div class="flex flex-col items-center space-y-1 text-white/30">
+                <i class="fa-solid fa-gear text-xl"></i>
+                <span class="text-[9px] font-bold uppercase">Settings</span>
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

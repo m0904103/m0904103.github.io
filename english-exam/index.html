@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>閱讀英文學文化 - 期末考特訓</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --accent-color: #ffd700;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: -webkit-fill-available; /* For mobile browser height issues */
+            background: #0f0c29;
+            background: url('quiz_bg.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            overflow-x: hidden;
+            padding: 20px;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        html {
+            height: -webkit-fill-available;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        header p {
+            color: #aaa;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #ffd700, #ff8c00);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        .question-card {
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid var(--glass-border);
+        }
+
+        .unit-label {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .speak-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--accent-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .speak-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 20px 25px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.15rem;
+            text-align: left;
+            color: #fff;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .option.correct {
+            background: rgba(76, 175, 80, 0.2) !important;
+            border-color: var(--success-color) !important;
+            color: #fff;
+        }
+
+        .option.wrong {
+            background: rgba(244, 67, 54, 0.2) !important;
+            border-color: var(--error-color) !important;
+        }
+
+        .feedback {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 16px;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: rgba(76, 175, 80, 0.08);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .feedback.wrong {
+            background: rgba(244, 67, 54, 0.08);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .feedback h3 {
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .explanation {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #eee;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 35px;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px -5px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -5px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        #summary {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            border: 6px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 40px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent-color);
+        }
+
+        .score-label {
+            font-size: 1rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { 
+                padding: 30px 20px; 
+                border-radius: 30px;
+                width: 95%;
+            }
+            h1 { font-size: 2rem; }
+            header p { font-size: 0.9rem; }
+            .question-text { font-size: 1.3rem; }
+            .option { 
+                font-size: 1.1rem; 
+                padding: 22px 20px; 
+                border-radius: 18px;
+            }
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px;
+            }
+            .countdown-value { font-size: 1.5rem; }
+            .btn {
+                width: 100%;
+                padding: 18px;
+                font-size: 1.2rem;
+            }
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+            .score-value { font-size: 3.5rem; }
+        }
+
+        /* Landing Page Styles */
+        #landing-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.1);
+            transition: transform 10s ease;
+        }
+
+        #landing-page:hover .hero-banner img {
+            transform: scale(1.1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .exam-info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        .exam-info-card li {
+            list-style: none;
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #ddd;
+        }
+
+        .exam-info-card b {
+            color: var(--accent-color);
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0;
+            justify-content: center;
+        }
+
+        .countdown-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #ff4444;
+            padding: 12px;
+            border-radius: 12px;
+            min-width: 75px;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.2);
+            animation: pulse-border 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 5px rgba(255, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 68, 68, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(255, 68, 68, 0.2); }
+        }
+
+        .countdown-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ff4444;
+            display: block;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            color: #ffaaaa;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* 錯題清單樣式 */
+        .wrong-answers-section {
+            margin-top: 40px;
+            text-align: left;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            width: 100%;
+        }
+        .wrong-answer-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--error-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+        .wrong-answer-card:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .wrong-q {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.1rem;
+        }
+        .wrong-detail {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        .wrong-detail p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 style="letter-spacing: 2px;">閱讀英文學文化</h1>
+            <p style="color: var(--accent-color); font-weight: 800; font-size: 1.4rem; margin-top: 5px; text-transform: none;">期末考特訓</p>
+        </header>
+
+        <!-- Landing Page -->
+        <div id="landing-page">
+            <div class="hero-banner">
+                <img src="quiz_img/hero_landing.png" alt="Reading English and Learning Culture">
+                <div class="hero-overlay">
+                    <span style="font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-color);">Reading English & Learning Culture</span>
+                </div>
+            </div>
+
+            <div class="exam-info-card">
+                <ul>
+                    <li>🎯 <b>特訓邏輯</b>：從 45 題完整題庫中，每次<b>隨機盲選 25 題</b>。</li>
+                    <li>📝 <b>測驗方式</b>：線上電腦測驗 (每次題目選取與選項順序皆隨機)。</li>
+                    <li>📖 <b>測驗範圍</b>：Unit 10 到 Unit 18。</li>
+                    <li>⏰ <b>期末時間</b>：6月27日 00:00 至 6月28日 23:59。</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 20px; color: #fff;">距離期末考試還有</h3>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="cd-days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="cd-hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="cd-mins">00</span>
+                    <span class="countdown-label">Mins</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="cd-secs">00</span>
+                    <span class="countdown-label">Secs</span>
+                </div>
+            </div>
+
+            <button class="btn" id="start-quiz-btn" style="padding: 18px 60px; font-size: 1.3rem;">開始特訓 Start Training</button>
+        </div>
+
+        <div id="quiz-ui" style="display: none;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="quiz-info">
+                <span id="question-number">Question 1 / 45</span>
+                <span id="current-score">Score: 0</span>
+            </div>
+
+            <div class="question-card">
+                <div class="unit-label" id="unit-label">UNIT 10</div>
+                <img id="question-image" class="question-image" src="" alt="Question Image">
+                <div class="question-text">
+                    <button class="speak-btn" onclick="speakCurrentQuestion()" title="朗讀題目">🔊</button>
+                    <span id="question-text">準備好開始挑戰了嗎？</span>
+                </div>
+                <div class="options" id="options"></div>
+            </div>
+
+            <div class="feedback" id="feedback">
+                <h3 id="feedback-title">Result</h3>
+                <div class="explanation" id="explanation"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn" id="next-btn" disabled>下一題 Next →</button>
+            </div>
+        </div>
+
+        <div id="summary">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">特訓任務完成！</h2>
+            <div class="score-circle">
+                <div class="score-value" id="final-score">0</div>
+                <div class="score-label">Points</div>
+            </div>
+            <p id="time-spent" style="color: var(--accent-color); font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;"></p>
+            <p id="summary-text" style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 40px; color: #ccc;"></p>
+            
+            <div id="wrong-answers-container" class="wrong-answers-section" style="display: none;">
+                <h3 style="color: var(--error-color); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span>🚩</span> 錯題複習 Review Wrong Answers
+                </h3>
+                <div id="wrong-answers-list"></div>
+            </div>
+
+            <button class="btn" onclick="location.reload()" style="margin-top: 20px;">重新特訓 Retry</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 優先初始化倒數計時 Priority Initialization ---
+        function startCountdown() {
+            const targetDate = new Date(2026, 5, 27, 0, 0, 0).getTime();
+            
+            function update() {
+                const now = Date.now();
+                const diff = targetDate - now;
+
+                const dEl = document.getElementById("cd-days");
+                const hEl = document.getElementById("cd-hours");
+                const mEl = document.getElementById("cd-mins");
+                const sEl = document.getElementById("cd-secs");
+
+                if (!dEl || !hEl || !mEl || !sEl) return;
+
+                if (diff <= 0) {
+                    dEl.textContent = "00";
+                    hEl.textContent = "00";
+                    mEl.textContent = "00";
+                    sEl.textContent = "00";
+                    const h3 = document.querySelector("#landing-page h3");
+                    if (h3) h3.textContent = "期末考進行中！Fighting!";
+                    return;
+                }
+
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+
+                dEl.textContent = d.toString().padStart(2, '0');
+                hEl.textContent = h.toString().padStart(2, '0');
+                mEl.textContent = m.toString().padStart(2, '0');
+                sEl.textContent = s.toString().padStart(2, '0');
+            }
+            
+            setInterval(update, 1000);
+            update();
+        }
+        
+        // 確保 DOM 載入後啟動
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startCountdown);
+        } else {
+            startCountdown();
+        }
+
+        // --- 2. 測驗資料與變數 ---
+        const quizData = [
+            // UNIT 10
+            { unit: "UNIT 10: SONGS AND SINGERS", q: "Why was the song “Do They Know It's Christmas?” written?", options: ["To raise awareness about environmental issues.", "To celebrate the holiday season.", "To raise money for famine relief in Ethiopia."], correct: 2, exp: "這首歌是 1984 年為了援助衣索比亞大飢荒而發起的義賣單曲。", img: "quiz_img/q10_1.png" },
+            { unit: "UNIT 10: SONGS AND SINGERS", q: "Which statement accurately describes “We Are The World”?", options: ["It was written as a celebration to holiday.", "It was written to raise awareness about climate change.", "It was written as the American version to raise money for famine relief in Africa."], correct: 2, exp: "這是呼應英國行動的美國版援非歌曲（USA for Africa）。", img: "quiz_img/q10_2.png" },
+            { unit: "UNIT 10: SONGS AND SINGERS", q: "What concept did Michael Jackson emphasize in the song “Heal the World”?", options: ["Self-improvement for personal gain.", "Cooperation and assistance for collective improvement.", "Competition for success."], correct: 1, exp: "邁克爾·傑克遜強調透過合作與互助來改善世界。", img: "quiz_img/heal_the_world_unity.png" },
+            { unit: "UNIT 10: SONGS AND SINGERS", q: "Who wrote the song “Imagine”?", options: ["John Lennon.", "Michael Jackson.", "Steve Wonder."], correct: 0, exp: "《Imagine》是由約翰·藍儂（John Lennon）所創作的和平聖歌。", img: "quiz_img/john_lennon_imagine.png" },
+            { unit: "UNIT 10: SONGS AND SINGERS", q: "Whose version of the song “That’s life” is the most famous?", options: ["Marion Montgomery.", "Frank Sinatra.", "Elvis Presley."], correct: 1, exp: "法蘭克·辛納屈（Frank Sinatra）的版本最為家喻戶曉。", img: "quiz_img/frank_sinatra_thats_life.png" },
+            
+            // UNIT 11
+            { unit: "UNIT 11: SHERLOCK HOLMES", q: "Who is the main character in the stories by Sir Arthur Conan Doyle?", options: ["Dr. John Watson.", "Hercule Poirot.", "Sherlock Holmes."], correct: 2, exp: "柯南·道爾筆下的主角是名偵探夏洛克·福爾摩斯。", img: "quiz_img/q11_1.png" },
+            { unit: "UNIT 11: SHERLOCK HOLMES", q: "What is Sherlock Holmes’ main job?", options: ["Consulting detective.", "Medical doctor.", "Lawyer."], correct: 0, exp: "他在小說中自稱為「諮詢偵探」(Consulting Detective)。", img: "quiz_img/sherlock_consulting_detective.png" },
+            { unit: "UNIT 11: SHERLOCK HOLMES", q: "Where do Sherlock Holmes and Dr. John H. Watson reside together?", options: ["10 Downing Street, London", "10 Rillington Place, London", "221B Baker Street, London"], correct: 2, exp: "貝克街 221B 是福爾摩斯著名的住宅地址。", img: "quiz_img/q11_3.png" },
+            { unit: "UNIT 11: SHERLOCK HOLMES", q: "How did Dr. Watson characterize Sherlock Holmes in the stories?", options: ["As a straightforward and predictable individual.", "As a complex and moody character.", "As an easygoing personality."], correct: 1, exp: "華生醫生將福爾摩斯描述為一個性格複雜且情緒多變的人。", img: "quiz_img/q11_4.png" },
+            { unit: "UNIT 11: SHERLOCK HOLMES", q: "Who is the only woman that Sherlock Holmes held in high regard?", options: ["Mary Morstan.", "Irene Adler.", "Ms. Hudson."], correct: 1, exp: "艾琳·艾德勒（Irene Adler）是福爾摩斯唯一敬重且稱為「那位女性」的人。", img: "quiz_img/q11_5.png" },
+
+            // UNIT 12
+            { unit: "UNIT 12: BALLADS", q: "What are the defining characteristics of ballads?", options: ["Lengthy and descriptive narratives.", "Complex structures with minimal repetition.", "Short, stanzaic poems with suspenseful storylines."], correct: 2, exp: "敘事民謠通常結構簡單、短小，且有懸疑或引人入勝的情節。", img: "quiz_img/q12_1.png" },
+            { unit: "UNIT 12: BALLADS", q: "What is the main theme of the ballad “Frankie and Johnny”?", options: ["Romantic love and devotion.", "Betrayal and murder.", "Adventure and exploration."], correct: 1, exp: "這首民謠講述了背叛與情殺的故事。", img: "quiz_img/frankie_and_johnny.png" },
+            { unit: "UNIT 12: BALLADS", q: "What is the main theme of the ballad “Bonnie and Clyde”?", options: ["Romantic escapades and adventure.", "Historical events and political activism.", "Outlaw life and crime."], correct: 2, exp: "邦妮和克萊德的故事核心是亡命之徒的生活與犯罪。", img: "quiz_img/q12_3.png" },
+            { unit: "UNIT 12: BALLADS", q: "Who were Bonnie and Clyde?", options: ["Outlaws known for their bank robberies.", "Famous Hollywood actors.", "Aviation pioneer."], correct: 0, exp: "他們是 1930 年代著名的銀行搶匪搭檔。", img: "quiz_img/q12_4.png" },
+            { unit: "UNIT 12: BALLADS", q: "To fall for someone.Which of the following phrases is not about love?", options: ["To fall for someone.", "To take care of someone.", "To be fond of someone."], correct: 1, exp: "To take care of someone 是「照顧」，不一定帶有愛慕之情。", img: "quiz_img/q12_5.png" },
+
+            // UNIT 13
+            { unit: "UNIT 13: FAMILY COMMUNICATION", q: "What is the main theme of the book “Not Now, Bernard”?", options: ["Adventure and exploration.", "Friendship and loyalty.", "Childhood innocence and neglect."], correct: 2, exp: "這本書探討了孩童被父母忽視的主題。", img: "quiz_img/q13_1.png" },
+            { unit: "UNIT 13: FAMILY COMMUNICATION", q: "Who is the author of the book “Not Now, Bernard”?", options: ["David McKee.", "Roald Dahl.", "J.K. Rowling."], correct: 0, exp: "作者是 David McKee。", img: "quiz_img/david_mckee_author.png" },
+            { unit: "UNIT 13: FAMILY COMMUNICATION", q: "How has the book “Not Now, Bernard” been updated to reflect modern times?", options: ["New illustrations with digital devices.", "Modern themes about technology.", "All of the above."], correct: 2, exp: "新版反映了現代科技（如手機）帶來的家庭疏離。", img: "quiz_img/not_now_bernard_modern.png" },
+            { unit: "UNIT 13: FAMILY COMMUNICATION", q: "What insight did the author not share about the dynamics of “Not Now, Bernard” in a recent interview?", options: ["Children in modern times also say “not now” to their parents.", "The parents constantly ignore both Bernard and the monster.", "The parents are paying more attention to their children."], correct: 2, exp: "作者實際上是在強調父母並沒有付出足夠的關注。", img: "quiz_img/not_now_bernard_neglect.png" },
+            { unit: "UNIT 13: FAMILY COMMUNICATION", q: "What is NOT needed in family communication?", options: ["Attention.", "Listening.", "Yelling."], correct: 2, exp: "吼叫（Yelling）對於健康的家庭溝通是沒有幫助且不必要的。", img: "quiz_img/family_communication_no_yelling.png" },
+
+            // UNIT 14
+            { unit: "UNIT 14: SURVEILLANCE: THE GIVER", q: "What does the term “utopia” refer to?", options: ["An imagined place where everything is perfect.", "A society with chaos.", "The current society we live in."], correct: 0, exp: "烏托邦（Utopia）指的是想像中完美的理想世界。", img: "quiz_img/utopia_perfect_world.png" },
+            { unit: "UNIT 14: SURVEILLANCE: THE GIVER", q: "What is the main theme of the novel “The Giver”?", options: ["The suppression of emotions in a controlled society.", "The value of memories and experiences in life.", "The quest for power and wealth."], correct: 0, exp: "根據學校網頁公佈，此題正確答案為 (A) 情緒的壓抑。", img: "quiz_img/the_giver_suppression.png" },
+            { unit: "UNIT 14: SURVEILLANCE: THE GIVER", q: "Who is the author of the novel “The Giver”?", options: ["Stephen King.", "Suzanne Collins.", "Lois Lowry."], correct: 2, exp: "作者是 Lois Lowry。", img: "quiz_img/lois_lowry_author.png" },
+            { unit: "UNIT 14: SURVEILLANCE: THE GIVER", q: "For which age group was “The Giver” primarily written as a young adult novel?", options: ["5 to 10 year-old.", "19 to 23 year-old.", "12 to 18 year-old."], correct: 2, exp: "這是一本針對 12 到 18 歲青少年的小說 (Young Adult Novel)。", img: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&q=80&w=600" },
+            { unit: "UNIT 14: SURVEILLANCE: THE GIVER", q: "What following advantage do young adult novels have compared to other novels?", options: ["They are longer in length.", "They have clear central themes.", "They contain complex vocabulary."], correct: 1, exp: "青少年小說通常具備鮮明且易於理解的中心主題。", img: "quiz_img/ya_novels_themes.png" },
+
+            // UNIT 15
+            { unit: "UNIT 15: ENGLISH CULTURE", q: "What are “Graded Readers”?", options: ["Novels with complex vocabulary for advanced language learners.", "Non-fiction texts recommended for beginners in language learning.", "Books of different genres tailored for learners of foreign languages."], correct: 2, exp: "分級閱讀物（Graded Readers）是專為語言學習者改寫的各種難度的讀本。", img: "quiz_img/graded_readers_genres.png" },
+            { unit: "UNIT 15: ENGLISH CULTURE", q: "What is the main theme of the book “Frozen Pizza and other slices of life”?", options: ["Modern-day struggles in England.", "Food culture in England.", "The representation of life through various stories."], correct: 2, exp: "這本書透過不同的故事切片來展現生活的多樣性。", img: "quiz_img/frozen_pizza_slices_of_life.png" },
+            { unit: "UNIT 15: ENGLISH CULTURE", q: "What is not a reason for forming the stereotype “British people love talking about the weather”?", options: ["The weather is a common topic of conversation.", "British people have a strong interest in climate change.", "The weather is famously unpredictable."], correct: 1, exp: "英國人愛聊天氣是因為天氣難以預測，而非出於對氣候變遷的學術興趣。", img: "quiz_img/british_weather_talk.png" },
+            { unit: "UNIT 15: ENGLISH CULTURE", q: "What does the stereotype “British people have a stiff upper lip” imply about British culture?", options: ["British people tend not to show their emotions openly.", "British people tend to blame on someone directly.", "British people tend to yell at someone rudely."], correct: 0, exp: "Stiff upper lip（堅毅的嘴唇）象徵英國人內斂、不輕易表露情感的文化特質。", img: "quiz_img/stiff_upper_lip.png" },
+            { unit: "UNIT 15: ENGLISH CULTURE", q: "What does the addition of milk in tea imply?", options: ["It reflects weather.", "It reflects social class.", "It reflects time."], correct: 1, exp: "在歷史上，茶中加牛奶的方式曾反映出不同的社會階級與品味。", img: "quiz_img/tea_milk_social_class.png" },
+
+            // UNIT 16
+            { unit: "UNIT 16: CREATIVITY", q: "What is the purpose of the Ig Nobel Prize?", options: ["To honor serious scientific breakthroughs.", "To encourage responsible experimentation.", "Childhood innocence and neglect."], correct: 2, exp: "註：根據課程紀錄，此題正確選項設定為 (C)。請掌握此考試特定答案。", img: "quiz_img/ignobel_purpose_neglect.png" },
+            { unit: "UNIT 16: CREATIVITY", q: "Where were the first ceremony of the Ig Nobel Prize held?", options: ["Harvard University.", "Massachusetts Institute of Technology (MIT).", "Stanford University."], correct: 1, exp: "首屆搞笑諾貝爾獎頒獎典禮是在麻省理工學院（MIT）舉行的。", img: "quiz_img/mit_ignobel_ceremony.png" },
+            { unit: "UNIT 16: CREATIVITY", q: "Who is the founder of the Ig Nobel awards?", options: ["Richard Dawkins.", "James Randi.", "Marc Abrahams."], correct: 2, exp: "創辦人是 Marc Abrahams。", img: "quiz_img/marc_abrahams.png" },
+            { unit: "UNIT 16: CREATIVITY", q: "What is the total number of winners selected annually for the Ig Nobel awards?", options: ["Five.", "Ten.", "Fifteen."], correct: 1, exp: "每年會選出 10 個領域的獲獎者。", img: "quiz_img/ignobel_ten_winners.png" },
+            { unit: "UNIT 16: CREATIVITY", q: "How would you describe the design of the Ig Nobel Prize awarded each year?", options: ["Handmade and inexpensive.", "Elaborate and expensive.", "Mass-produced and decorative."], correct: 0, exp: "獎牌通常是手工製作且低成本的，符合其搞笑且具創意的精神。", img: "quiz_img/ignobel_handmade_prize.png" },
+
+            // UNIT 17
+            { unit: "UNIT 17: VACCINATION", q: "Where did the COVID-19 first break out?", options: ["Wuhan, China.", "New York, USA.", "London, UK."], correct: 0, exp: "COVID-19 最初於中國武漢爆發。", img: "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&q=80&w=600" },
+            { unit: "UNIT 17: VACCINATION", q: "What is the potential effect of a lockdown situation on individuals?", options: ["Economic hardships and job losses.", "Free to go anywhere.", "High quality of life."], correct: 0, exp: "封城（Lockdown）會帶來經濟困境與失業問題。", img: "https://images.unsplash.com/photo-1584931423298-c576fda54bd2?auto=format&fit=crop&q=80&w=600" },
+            { unit: "UNIT 17: VACCINATION", q: "How does school closure impact children’s access to critical elements of childhood?", options: ["It enhances their academic performance.", "It improves their mental health and well-being.", "It limits their social interactions and emotional development."], correct: 2, exp: "學校關閉會限制孩童的社交互動與情緒發展。", img: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&q=80&w=600" },
+            { unit: "UNIT 17: VACCINATION", q: "What measure was not adopted by countries worldwide to lift lockdown in 2020？", options: ["Mask wearing in public.", "Self-isolation following a positive test.", "Rules for sleeping schedule."], correct: 2, exp: "睡眠時間規定並非各國解封時採用的防疫措施。", img: "quiz_img/covid_general_measures.png" },
+            { unit: "UNIT 17: VACCINATION", q: "How do vaccines work to protect against diseases like COVID-19?", options: ["By introducing a weakened form of the virus into the body.", "By training the immune system to recognize the target virus.", "By directly eliminating the virus from the body."], correct: 1, exp: "疫苗的作用是訓練免疫系統辨識目標病毒。", img: "quiz_img/vaccine_training_immune_system.png" },
+
+            // UNIT 18
+            { unit: "UNIT 18: MODERN ARTS", q: "What types of art forms did Andy Warhol explore during his career?", options: ["Painting and sculpture.", "Music composition and dance performance.", "Performance art, filmmaking, and video installations."], correct: 2, exp: "普普藝術大師安迪·沃荷探索了多種藝術形式，包括行為藝術、電影與錄像裝置。", img: "quiz_img/q18_1_warhol.jpg" },
+            { unit: "UNIT 18: MODERN ARTS", q: "What artistic concept did Andy Warhol introduce in the 1960s?", options: ["Surrealism.", "Pop Art.", "Abstract Expressionism."], correct: 1, exp: "他在 1960 年代引入了「普普藝術」(Pop Art)。", img: "quiz_img/andy_warhol_pop_art.png" },
+            { unit: "UNIT 18: MODERN ARTS", q: "What is Kusama Yayoi known for in the art world?", options: ["Her realistic portraits of famous figures.", "Her use of polka dots and infinity installations.", "Her abstract sculptures made from recycled materials."], correct: 1, exp: "草間彌生以其著名的波點元素與無限鏡屋裝置聞名於世。", img: "quiz_img/yayoi_kusama_infinity.png" },
+            { unit: "UNIT 18: MODERN ARTS", q: "Where is the Andy Warhol Museum located?", options: ["Pittsburgh, Pennsylvania, USA.", "New York City, USA.", "Los Angeles, California, USA."], correct: 0, exp: "安迪·沃荷博物館位於他的故鄉——美國賓州匹茲堡。", img: "quiz_img/andy_warhol_museum.png" },
+            { unit: "UNIT 18: MODERN ARTS", q: "Where is the Yayoi Kusama Museum located?", options: ["New York City, USA.", "Tokyo, Japan.", "London, UK."], correct: 1, exp: "草間彌生美術館位於日本東京。", img: "quiz_img/yayoi_kusama_museum.png" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+        let quizStartTime = 0;
+        let userResults = [];
+        let currentShuffledOptions = [];
+
+        const questionNumberText = document.getElementById('question-number');
+        const scoreText = document.getElementById('current-score');
+        const unitLabel = document.getElementById('unit-label');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options');
+        const feedbackContainer = document.getElementById('feedback');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const explanationText = document.getElementById('explanation');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const quizUI = document.getElementById('quiz-ui');
+        const summaryUI = document.getElementById('summary');
+        const finalScoreText = document.getElementById('final-score');
+        const summaryText = document.getElementById('summary-text');
+
+        // 語音合成引擎 Speech Synthesis (加上相容性檢查)
+        const synth = window.speechSynthesis || null;
+        let voices = [];
+
+        function loadVoices() {
+            if (synth) {
+                voices = synth.getVoices();
+            }
+        }
+        loadVoices();
+        if (synth && synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+
+        function speakText(text) {
+            if (synth.speaking) synth.cancel();
+            if (!text) return;
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // 尋找自然女聲 (iOS 優先尋找 Samantha)
+            const preferredVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.includes('Apple')));
+            if (preferredVoices.length > 0) {
+                utterance.voice = preferredVoices[0];
+            }
+            
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9; // 稍微放慢一點以求清晰
+            utterance.pitch = 1.05; // 稍微高一點點，聽起來更清脆
+            synth.speak(utterance);
+        }
+
+        function speakCurrentQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            speakText(currentQuestion.q);
+        }
+
+        // 音效產生器 Sound Generator (加上相容性檢查)
+        let audioCtx = null;
+        try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.warn("AudioContext not supported");
+        }
+
+        function playSound(type) {
+            if (!audioCtx) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                // 獎勵刺激：清脆的登登聲 (Positive stimulus)
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                oscillator.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1); // A5
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            } else if (type === 'wrong') {
+                // 嫌惡刺激：低沉且不悅的嗡鳴聲 (Aversive stimulus)
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(150, audioCtx.currentTime); // F3
+                oscillator.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 0.2); // Drop frequency
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.5);
+            } else if (type === 'victory') {
+                // 勝利慶祝音效：上升的高亢和弦 (Triumphant arpeggio)
+                const now = audioCtx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+                notes.forEach((freq, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.connect(g);
+                    g.connect(audioCtx.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                    g.gain.setValueAtTime(0, now + i * 0.08);
+                    g.gain.linearRampToValueAtTime(0.15, now + i * 0.08 + 0.05);
+                    g.gain.linearRampToValueAtTime(0, now + i * 0.08 + 0.5);
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.5);
+                });
+            }
+        }
+
+        // 彩帶慶祝效果 (Confetti Effect)
+        function triggerConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '9999';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ['#FFD700', '#FFA500', '#FF4500', '#ADFF2F', '#00BFFF', '#EE82EE', '#FF69B4'];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 6 + 3,
+                    angle: Math.random() * 360,
+                    rotation: Math.random() * 10 - 5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.y += p.speed;
+                    p.angle += p.rotation;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.angle * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    ctx.restore();
+                });
+                if (particles.some(p => p.y < canvas.height)) {
+                    requestAnimationFrame(animate);
+                } else {
+                    document.body.removeChild(canvas);
+                }
+            }
+            animate();
+        }
+
+        const questionImage = document.getElementById('question-image');
+
+        function loadQuestion() {
+            answered = false;
+            nextBtn.disabled = true;
+            nextBtn.textContent = (currentQuestionIndex === quizData.length - 1) ? "查看結果 Result" : "下一題 Next →";
+            feedbackContainer.style.display = 'none';
+            optionsContainer.innerHTML = '';
+
+            const currentQuestion = quizData[currentQuestionIndex];
+            unitLabel.textContent = currentQuestion.unit;
+            questionText.textContent = currentQuestion.q;
+            questionNumberText.textContent = `Question ${currentQuestionIndex + 1} / ${quizData.length}`;
+            
+            // Handle Question Image
+            if (currentQuestion.img) {
+                questionImage.src = currentQuestion.img;
+                questionImage.style.display = 'block';
+            } else {
+                questionImage.style.display = 'none';
+            }
+
+            progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
+
+            // 判斷是否應該打亂選項 (如果包含 "以上皆是" 等選項則不打亂)
+            const shouldShuffle = !currentQuestion.options.some(opt => 
+                opt.toLowerCase().includes("all of the above") || 
+                opt.toLowerCase().includes("none of the above") ||
+                opt.toLowerCase().includes("以上皆是") ||
+                opt.toLowerCase().includes("以上皆非")
+            );
+
+            if (shouldShuffle) {
+                currentShuffledOptions = currentQuestion.options.map((opt, i) => ({
+                    text: opt,
+                    isCorrect: i === currentQuestion.correct
+                })).sort(() => Math.random() - 0.5);
+            } else {
+                currentShuffledOptions = currentQuestion.options.map((opt, i) => ({
+                    text: opt,
+                    isCorrect: i === currentQuestion.correct
+                }));
+            }
+
+            currentShuffledOptions.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.classList.add('option');
+                button.innerHTML = `<span style="color: var(--accent-color); margin-right: 10px; font-weight: bold;">${String.fromCharCode(65 + index)}.</span> ${option.text}`;
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+
+            // 自動朗讀題目 (延遲一下確保介面渲染完成)
+            setTimeout(() => {
+                speakText(currentQuestion.q);
+            }, 500);
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            answered = true;
+
+            const currentQuestion = quizData[currentQuestionIndex];
+            const options = optionsContainer.getElementsByClassName('option');
+            const isCorrect = currentShuffledOptions[index].isCorrect;
+
+            if (isCorrect) {
+                options[index].classList.add('correct');
+                score++;
+                scoreText.textContent = `Score: ${score * 4}`;
+                feedbackContainer.className = 'feedback correct';
+                feedbackTitle.innerHTML = '<span>✅</span> 正確！ Correct!';
+                feedbackTitle.style.color = 'var(--success-color)';
+                playSound('correct');
+            } else {
+                options[index].classList.add('wrong');
+                // 尋找正確選項並標示
+                const correctIdx = currentShuffledOptions.findIndex(opt => opt.isCorrect);
+                options[correctIdx].classList.add('correct');
+                feedbackContainer.className = 'feedback wrong';
+                feedbackTitle.innerHTML = '<span>❌</span> 答錯了 Incorrect';
+                feedbackTitle.style.color = 'var(--error-color)';
+                playSound('wrong');
+            }
+
+            userResults.push({
+                question: currentQuestion,
+                selectedText: currentShuffledOptions[index].text,
+                correctText: currentShuffledOptions.find(opt => opt.isCorrect).text,
+                isCorrect: isCorrect
+            });
+
+            explanationText.textContent = currentQuestion.exp;
+            feedbackContainer.style.display = 'block';
+            nextBtn.disabled = false;
+            
+            progressBar.style.width = `${((currentQuestionIndex + 1) / quizData.length) * 100}%`;
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showSummary();
+            }
+        };
+
+        function showSummary() {
+            quizUI.style.display = 'none';
+            summaryUI.style.display = 'block';
+            finalScoreText.textContent = score * 4;
+            
+            // 計算總時間
+            const quizEndTime = Date.now();
+            const totalSeconds = Math.floor((quizEndTime - quizStartTime) / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            document.getElementById('time-spent').textContent = `總答題時間 Total Time: ${minutes}分 ${seconds}秒`;
+            
+            const percentage = (score / quizData.length) * 100;
+            
+            // 處理錯題清單
+            const wrongAnswers = userResults.filter(res => !res.isCorrect);
+            if (wrongAnswers.length > 0) {
+                const container = document.getElementById('wrong-answers-container');
+                const list = document.getElementById('wrong-answers-list');
+                container.style.display = 'block';
+                list.innerHTML = '';
+                wrongAnswers.forEach(ans => {
+                    const card = document.createElement('div');
+                    card.className = 'wrong-answer-card';
+                    card.innerHTML = `
+                        <span class="wrong-q">${ans.question.q}</span>
+                        <div class="wrong-detail">
+                            <p><span style="color: var(--error-color); font-weight: bold;">✘ 你的答案：</span>${ans.selectedText}</p>
+                            <p><span style="color: var(--success-color); font-weight: bold;">✔ 正確答案：</span>${ans.correctText}</p>
+                            <p style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; color: #eee; font-size: 0.9rem;">
+                                💡 <b>解析：</b>${ans.question.exp}
+                            </p>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }
+
+            if (percentage === 100) {
+                summaryText.textContent = "太驚人了！完美滿分！💯 你已經徹底掌握了所有期末考重點，準備好迎接 A+ 了吧！✨";
+                playSound('victory');
+                setTimeout(triggerConfetti, 300);
+            } else if (percentage >= 80) {
+                summaryText.textContent = "表現非常優異！✨ 你對課程內容已經非常熟悉，只要再複習一下少數錯題，正式考試絕對沒問題！💪";
+            } else if (percentage >= 60) {
+                summaryText.textContent = "不錯喔！大部分的題目都難不倒你。😊 建議可以再多做幾次，讓記憶更穩固，目標邁向滿分！📚";
+            } else {
+                summaryText.textContent = "加油！距離期末考還有一點時間。🏃‍♂️ 建議多多閱讀解析，熟悉題庫的邏輯，你一定可以進步的！💪";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+
+        // Screen Transition
+        document.getElementById('start-quiz-btn').onclick = () => {
+            // 從 45 題中隨機抽取 25 題 (Randomly pick 25 out of 45)
+            const shuffled = [...quizData].sort(() => 0.5 - Math.random());
+            const selectedQuestions = shuffled.slice(0, 25);
+            
+            // 更新 quizData 為挑選後的題目
+            quizData.length = 0;
+            quizData.push(...selectedQuestions);
+            
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('quiz-ui').style.display = 'block';
+            quizStartTime = Date.now();
+            loadQuestion();
+            
+            // 解鎖語音合成 (iOS 需要用戶交互)
+            speakText("Starting Final Exam Special Training. Good luck!");
+        };
+
+        // loadQuestion(); // Moved to start-quiz-btn click
+    </script>
+</body>
+</html>
