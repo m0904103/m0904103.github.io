@@ -157,22 +157,31 @@ async def update_data_loop():
             # Phase 2: Batch Stock Update (TW)
             for s in STOCKS_TW:
                 try:
-                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", progress=False))
+                    # Use a more robust download method
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1mo", interval="1d", progress=False, timeout=10))
+                    if df.empty:
+                        print(f"Empty data for {s}")
+                        continue
                     res = calculate_indicators(s, df)
                     if res:
                         cached_scan_results_tw = [r for r in cached_scan_results_tw if r['symbol'] != res['symbol']] + [res]
-                except: continue
-                await asyncio.sleep(2) # Give breathing room
+                    else:
+                        print(f"Indicator calculation failed for {s}")
+                except Exception as e: 
+                    print(f"Error fetching {s}: {e}")
+                    continue
+                await asyncio.sleep(3) # Very slow for Cloud stability
             
             # Phase 3: Batch Stock Update (US)
             for s in STOCKS_US:
                 try:
-                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", progress=False))
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1mo", interval="1d", progress=False, timeout=10))
+                    if df.empty: continue
                     res = calculate_indicators(s, df)
                     if res:
                         cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
                 except: continue
-                await asyncio.sleep(2)
+                await asyncio.sleep(3)
 
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception as e: print(f"Loop error: {e}")
