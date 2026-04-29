@@ -139,46 +139,44 @@ def calculate_indicators(symbol: str, df: pd.DataFrame) -> Dict:
 
 async def update_data_loop():
     global cached_scan_results_tw, cached_scan_results_us, cached_indices_results, last_update
+    executor = ThreadPoolExecutor(max_workers=2) # Very conservative for Cloud Free tier
+    loop = asyncio.get_event_loop()
+
     while True:
         try:
             # Phase 1: Rapid Index Update
             for name, sym in INDICES.items():
                 try:
                     ticker = yf.Ticker(sym)
-                    hist = ticker.history(period="2d")
+                    hist = await loop.run_in_executor(executor, lambda: ticker.history(period="2d"))
                     if not hist.empty:
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2), "signal": "Buy" if c>=p else "Sell"}
                 except: continue
             
             # Phase 2: Batch Stock Update (TW)
-            for i in range(0, len(STOCKS_TW), 5):
-                batch = STOCKS_TW[i:i+5]
-                for s in batch:
-                    try:
-                        df = yf.download(s, period="1y", progress=False)
-                        res = calculate_indicators(s, df)
-                        if res:
-                            # Update existing or append
-                            cached_scan_results_tw = [r for r in cached_scan_results_tw if r['symbol'] != res['symbol']] + [res]
-                    except: continue
-                await asyncio.sleep(1) # Grace period for Cloud CPU
+            for s in STOCKS_TW:
+                try:
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", progress=False))
+                    res = calculate_indicators(s, df)
+                    if res:
+                        cached_scan_results_tw = [r for r in cached_scan_results_tw if r['symbol'] != res['symbol']] + [res]
+                except: continue
+                await asyncio.sleep(2) # Give breathing room
             
             # Phase 3: Batch Stock Update (US)
-            for i in range(0, len(STOCKS_US), 5):
-                batch = STOCKS_US[i:i+5]
-                for s in batch:
-                    try:
-                        df = yf.download(s, period="1y", progress=False)
-                        res = calculate_indicators(s, df)
-                        if res:
-                            cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
-                    except: continue
-                await asyncio.sleep(1)
+            for s in STOCKS_US:
+                try:
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", progress=False))
+                    res = calculate_indicators(s, df)
+                    if res:
+                        cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
+                except: continue
+                await asyncio.sleep(2)
 
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception as e: print(f"Loop error: {e}")
-        await asyncio.sleep(300) # Longer sleep for cloud stability
+        await asyncio.sleep(300)
 
 @app.get("/health")
 def health():
