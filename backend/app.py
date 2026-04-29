@@ -176,7 +176,7 @@ async def update_data_loop():
                     except: continue
                 await asyncio.sleep(1)
 
-            last_update = datetime.datetime.now()
+            last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception as e: print(f"Loop error: {e}")
         await asyncio.sleep(300) # Longer sleep for cloud stability
 
