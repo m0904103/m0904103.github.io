@@ -46,7 +46,7 @@ STOCKS_US = [
 
 INDICES = {
     "台股加權": "^TWII",
-    "櫃買指數": "^TWO",
+    "費城半導體": "^SOX",
     "美股標普": "^GSPC",
     "那斯達克": "^IXIC",
     "VIX (恐慌)": "^VIX"
