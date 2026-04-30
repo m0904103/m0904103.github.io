@@ -58,7 +58,30 @@ cached_scan_results_tw = []
 cached_scan_results_us = []
 cached_indices_results = {}
 cached_turtle_us = []
+cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
+
+def fetch_fear_greed():
+    try:
+        url = "https://edition.cnn.com/markets/fear-and-greed"
+        headers = {"User-Agent": "Mozilla/5.0"}
+        r = requests.get(url, headers=headers, timeout=10)
+        # CNN embeds the value in the page. Let's look for the pattern "Index Value: XX" or similar.
+        # Often it's in a JSON-like string in the source.
+        import re
+        match = re.search(r'"score":([\d\.]+)', r.text)
+        if match:
+            val = int(float(match.group(1)))
+            sent = "Neutral"
+            if val < 25: sent = "Extreme Fear"
+            elif val < 45: sent = "Fear"
+            elif val < 55: sent = "Neutral"
+            elif val < 75: sent = "Greed"
+            else: sent = "Extreme Greed"
+            return {"value": val, "sentiment": sent}
+    except Exception as e:
+        print(f"Fear & Greed fetch error: {e}")
+    return {"value": 50, "sentiment": "Neutral"}
 
 def clean_dict(data):
     if isinstance(data, list):
@@ -223,6 +246,9 @@ async def update_data_loop():
     while True:
         try:
             # Phase 1: Rapid Index Update
+            global cached_fear_greed
+            cached_fear_greed = fetch_fear_greed()
+            
             for name, sym in INDICES.items():
                 try:
                     ticker = yf.Ticker(sym)
@@ -279,7 +305,7 @@ async def scan_stocks():
 
 @app.get("/indices")
 async def get_indices():
-    return clean_dict(cached_indices_results)
+    return clean_dict({**cached_indices_results, "fear_greed": cached_fear_greed})
 
 @app.get("/diagnose/{symbol}")
 async def diagnose(symbol: str):
