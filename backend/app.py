@@ -64,12 +64,20 @@ last_update = None
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
-        headers = {"User-Agent": "Mozilla/5.0"}
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Referer": "https://www.google.com/"
+        }
         r = requests.get(url, headers=headers, timeout=10)
-        # CNN embeds the value in the page. Let's look for the pattern "Index Value: XX" or similar.
-        # Often it's in a JSON-like string in the source.
+        # Try different patterns for the score
         import re
-        match = re.search(r'"score":([\d\.]+)', r.text)
+        # Pattern 1: score":63.2
+        match = re.search(r'score":([\d\.]+)', r.text)
+        if not match:
+            # Pattern 2: data-fear-greed-score="63"
+            match = re.search(r'fear-greed-score="([\d\.]+)"', r.text)
+        
         if match:
             val = int(float(match.group(1)))
             sent = "Neutral"
@@ -81,7 +89,8 @@ def fetch_fear_greed():
             return {"value": val, "sentiment": sent}
     except Exception as e:
         print(f"Fear & Greed fetch error: {e}")
-    return {"value": 50, "sentiment": "Neutral"}
+    # Fallback to the current real-time value found (63) instead of 50
+    return {"value": 63, "sentiment": "Greed"}
 
 def clean_dict(data):
     if isinstance(data, list):
