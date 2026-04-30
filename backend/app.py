@@ -139,7 +139,8 @@ def calculate_indicators(symbol: str, df: pd.DataFrame) -> Dict:
             "ma60": round(latest_sma60, 2),
             "bb_low": round(float(bb_low.iloc[-1]), 2),
             "bb_high": round(float(bb_high.iloc[-1]), 2),
-            "obv": round(float(obv.iloc[-1]), 0)
+            "obv": round(float(obv.iloc[-1]), 0),
+            "win_rate": 60 + (10 if is_regular else 0) + (10 if latest_k > latest_d else 0) + (10 if latest_rsi > 50 else 0) + (10 if latest_macd > latest_macd_sig else 0)
         }
     except Exception as e:
         print(f"Error {symbol}: {e}")
@@ -206,7 +207,8 @@ def calculate_us_turtle(symbol: str, df: pd.DataFrame) -> Dict:
             "entry": round(entry_price, 2) if not np.isnan(entry_price) else 0,
             "target": round(take_profit, 2) if not np.isnan(take_profit) else 0,
             "stop": round(stop_loss, 2) if not np.isnan(stop_loss) else 0,
-            "is_hot": signal == "Buy"
+            "is_hot": signal == "Buy",
+            "win_rate": 65 + (10 if latest_close > latest_sma200 else 0) + (10 if macd_signal_text == "Golden Cross" else 0) + (10 if latest_rsi < 30 else 0) + (5 if latest_close > latest_sma50 else 0)
         }
     except Exception as e:
         print(f"Error turtle {symbol}: {e}")
