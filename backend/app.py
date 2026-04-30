@@ -1,56 +1,29 @@
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import pandas as pd
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import datetime
 import requests
-import re
+import json
 
-app = FastAPI(title="AI Stock Scanner Cloud v2.0")
+app = FastAPI(title="AI Stock Scanner Cloud v2.1")
 
-# The "Desperate Scraper": Scraping Yahoo Taiwan HTML directly (Hardest to block)
-class TaiwanStockScraper:
+# The "Mobile App Gateway": Using Yahoo's v7 API (Most stable)
+class MobileStockScraper:
     def __init__(self):
-        self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        self.headers = {'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1'}
 
-    def get_stock_data(self, symbol):
-        # Format for Yahoo Taiwan: 2330.TW -> 2330
-        clean_sym = symbol.split('.')[0]
-        url = f"https://tw.stock.yahoo.com/quote/{clean_sym}"
+    def get_quotes(self, symbols):
+        sym_str = ",".join(symbols)
+        url = f"https://query2.finance.yahoo.com/v7/finance/quote?symbols={sym_str}"
         try:
             resp = requests.get(url, headers=self.headers, timeout=5)
-            html = resp.text
-            
-            # Use Regex to find price and historical data in the page
-            # This is a bit fragile but very hard for Yahoo to block without breaking their own site
-            price_match = re.search(r'"price":"([\d\.]+)"', html)
-            prev_close_match = re.search(r'"previousClose":"([\d\.]+)"', html)
-            high_match = re.search(r'"high":"([\d\.]+)"', html)
-            low_match = re.search(r'"low":"([\d\.]+)"', html)
-            
-            p = float(price_match.group(1)) if price_match else 0
-            pc = float(prev_close_match.group(1)) if prev_close_match else p
-            h = float(high_match.group(1)) if high_match else p
-            l = float(low_match.group(1)) if low_match else p
-            
-            return {"price": p, "prev_close": pc, "high": h, "low": l}
-        except: return None
+            data = resp.json()
+            return data['quoteResponse']['result']
+        except: return []
 
-    def get_twii(self):
-        url = "https://tw.stock.yahoo.com/quote/%5ETWII"
-        try:
-            resp = requests.get(url, headers=self.headers, timeout=5)
-            html = resp.text
-            price_match = re.search(r'"price":"([\d\.]+)"', html)
-            change_match = re.search(r'"changePercent":"([\d\.\-]+)"', html)
-            p = float(price_match.group(1)) if price_match else 23000.0
-            c = float(change_match.group(1).replace('%','')) if change_match else 0.0
-            return {"close": p, "change": c, "signal": "Buy" if c >= 0 else "Sell"}
-        except: return {"close": 23000.0, "change": 0.0, "signal": "Buy"}
-
-scraper = TaiwanStockScraper()
+scraper = MobileStockScraper()
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
@@ -60,46 +33,54 @@ STOCK_NAMES = {
     "1519.TW": "華城", "2603.TW": "長榮", "2303.TW": "聯電", "3017.TW": "奇鋐"
 }
 STOCKS_TW = list(STOCK_NAMES.keys())
+INDICES_SYMS = ["^TWII", "^SOX", "^GSPC", "^IXIC", "^VIX"]
 
 cached_active_results = []
 cached_indices_results = {}
 last_update = None
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 
 async def update_data_loop():
     global cached_active_results, cached_indices_results, last_update
     while True:
         try:
-            # 1. Indices
+            # 1. Fetch All Data in one or two calls
+            all_syms = INDICES_SYMS + STOCKS_TW
+            results = scraper.get_quotes(all_syms)
+            
+            res_map = {r['symbol']: r for r in results}
+            
+            # 2. Process Indices
             new_indices = {}
-            tw_idx = scraper.get_twii()
-            if tw_idx: new_indices["台股加權"] = tw_idx
-            
-            # US Indices Fallback (Hardcoded if blocked, better than empty)
-            new_indices["費城半導體"] = {"close": 5100.0, "change": 1.2, "signal": "Buy"}
-            new_indices["那斯達克"] = {"close": 16000.0, "change": 0.5, "signal": "Buy"}
-            
-            cached_indices_results = new_indices
+            for name, sym in {"台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC", "那斯達克": "^IXIC", "VIX (恐慌)": "^VIX"}.items():
+                if sym in res_map:
+                    r = res_map[sym]
+                    new_indices[name] = {
+                        "close": r.get('regularMarketPrice', 0),
+                        "change": r.get('regularMarketChangePercent', 0),
+                        "signal": "Buy" if r.get('regularMarketChangePercent', 0) >= 0 else "Sell"
+                    }
+            if new_indices: cached_indices_results = new_indices
 
-            # 2. Turtle Scan
+            # 3. Process Stocks (Turtle Logic)
             active_list = []
             for s in STOCKS_TW:
-                data = scraper.get_stock_data(s)
-                if not data or data['price'] == 0: continue
-                
-                c, h, l, pc = data['price'], data['high'], data['low'], data['prev_close']
-                
-                # Signal Logic (Simulated Turtle as we only have 1d high/low in this simple scraper)
-                signal = "🎯 買入突破" if c >= h else "觀望"
-                score = 100 if c >= h else 50
-                
-                active_list.append({
-                    "symbol": s.replace(".TW",""), "name": STOCK_NAMES.get(s, s),
-                    "price": c, "change": round(((c-pc)/pc)*100, 2),
-                    "signal": signal, "advice": "多頭持股" if c >= h else "等待突破",
-                    "score": score, "reasons": f"昨日高: {h}",
-                    "entry": c, "target": round(c*1.03, 2), "stop": round(c*0.97, 2)
-                })
+                if s in res_map:
+                    r = res_map[s]
+                    c = r.get('regularMarketPrice', 0)
+                    h = r.get('regularMarketDayHigh', 0)
+                    pc = r.get('regularMarketPreviousClose', 0)
+                    
+                    signal = "🎯 買入突破" if c >= h else "觀望"
+                    score = 100 if c >= h else 50
+                    
+                    active_list.append({
+                        "symbol": s.replace(".TW",""), "name": STOCK_NAMES.get(s, s),
+                        "price": c, "change": round(r.get('regularMarketChangePercent', 0), 2),
+                        "signal": signal, "advice": "多頭持股" if c >= h else "等待突破",
+                        "score": score, "reasons": f"今日高: {h}",
+                        "entry": c, "target": round(c*1.03, 2), "stop": round(c*0.97, 2)
+                    })
             
             if active_list: cached_active_results = sorted(active_list, key=lambda x: x['score'], reverse=True)
             last_update = datetime.datetime.now().strftime("%H:%M:%S")
