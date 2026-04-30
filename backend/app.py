@@ -311,6 +311,8 @@ async def get_active_market():
                 if abs(change) > 0.5: score += 30  # Increased sensitivity
                 if v_now > v_avg * 1.2: score += 40
                 if c > o: score += 30
+
+                if c <= 0: continue
                 
                 # Tactical Specs
                 is_tw = sym.endswith('.TW')
@@ -325,11 +327,17 @@ async def get_active_market():
                     "reasons": "量能激增" if v_now > v_avg else "價格推升",
                     "entry": round(c, 2),
                     "target": round(c * 1.025, 2),
-                    "stop": round(c * 0.988, 2)
+                    "stop": round(c * 0.988, 2),
+                    "win_rate": 60 # Base win rate for hot momentum
                 })
             except: continue
             
-        return clean_dict(sorted(results + cached_turtle_us, key=lambda x: x['score'], reverse=True))
+        # Merge and De-duplicate (prefer cached_turtle_us which has richer strategy data)
+        combined = {s['symbol']: s for s in results}
+        for s in cached_turtle_us:
+            combined[s['symbol']] = s
+            
+        return clean_dict(sorted(list(combined.values()), key=lambda x: x.get('win_rate', 0), reverse=True))
     except Exception as e:
         print(f"Active scan error: {e}")
         return []
