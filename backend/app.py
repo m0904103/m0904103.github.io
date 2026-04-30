@@ -313,7 +313,7 @@ async def get_active_market():
                 # Tactical Specs
                 is_tw = sym.endswith('.TW')
                 results.append({
-                    "symbol": sym.replace(".TW",""), 
+                    "symbol": sym, 
                     "name": STOCK_NAMES.get(sym, sym),
                     "price": round(c, 2), 
                     "change": round(change, 2), 
