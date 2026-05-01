@@ -61,6 +61,12 @@ cached_turtle_us = []
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
+def flatten_yf_df(df):
+    if df.empty: return df
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
+    return df
+
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
@@ -319,6 +325,7 @@ async def get_indices():
 @app.get("/diagnose/{symbol}")
 async def diagnose(symbol: str):
     df = yf.download(symbol, period="1y", progress=False)
+    df = flatten_yf_df(df)
     if df.empty: raise HTTPException(status_code=404, detail="Not found")
     res = calculate_indicators(symbol, df)
     return clean_dict(res)
@@ -381,9 +388,19 @@ async def get_active_market():
 @app.get("/history/{symbol}")
 async def get_history(symbol: str):
     df = yf.download(symbol, period="1y", progress=False)
+    df = flatten_yf_df(df)
     history = []
     for idx, row in df.iterrows():
-        history.append({"time": idx.strftime("%Y-%m-%d"), "open": float(row["Open"]), "high": float(row["High"]), "low": float(row["Low"]), "close": float(row["Close"]), "volume": float(row["Volume"])})
+        try:
+            history.append({
+                "time": idx.strftime("%Y-%m-%d"), 
+                "open": float(row["Open"]), 
+                "high": float(row["High"]), 
+                "low": float(row["Low"]), 
+                "close": float(row["Close"]), 
+                "volume": float(row["Volume"])
+            })
+        except: continue
     return clean_dict(history)
 
 @app.on_event("startup")
