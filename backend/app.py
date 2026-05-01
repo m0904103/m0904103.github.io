@@ -296,18 +296,28 @@ def get_sentiment():
 def diagnose(symbol: str):
     try:
         ticker_sym = symbol.upper()
-        if not (ticker_sym.endswith(".TW") or any(char.isalpha() for char in ticker_sym)):
-            if not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
-        df = yf.download(ticker_sym, period="7mo", progress=False)
+        if ticker_sym.isdigit(): ticker_sym += ".TW"
+        
+        # Check cache FIRST to be fast
+        for r in cached_scan_results_tw + cached_scan_results_us + cached_turtle_us:
+            if r['symbol'] == ticker_sym and "ma60" in r: return clean_dict(r)
+            
+        df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
         df = flatten_yf_df(df)
         if df.empty: raise HTTPException(status_code=404, detail="Symbol not found")
+        
         res = calculate_indicators(ticker_sym, df)
         if not res: raise HTTPException(status_code=500, detail="Calculation failed")
+        
         close = df['Close']
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
         res["ma60"] = round(float(sma60.iloc[-1]), 2) if not np.isnan(sma60.iloc[-1]) else res["price"]
+        
         return clean_dict(res)
     except Exception as e:
+        # Final fallback from cache even without ma60
+        for r in cached_scan_results_tw + cached_scan_results_us:
+            if r['symbol'] == ticker_sym: return clean_dict(r)
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
