@@ -18,7 +18,7 @@ app = FastAPI(title="AI Stock Scanner API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://m0904103.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -274,7 +274,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER API ONLINE", "version": "v3.8.7", "update": last_update}
+    return {"status": "AI TRADER API ONLINE", "version": "v3.8.8", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
