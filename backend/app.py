@@ -120,22 +120,21 @@ def process_stock(symbol, df):
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
         
         prev_high_20 = float(high_20.iloc[-2])
-        prev_low_10 = float(low_10.iloc[-2])
         latest_atr = float(atr.iloc[-1])
         
         is_breakout = latest_close > prev_high_20
         
-        # Turtle Values - Restored
+        # Turtle Values
         entry = round(latest_close, 2)
         stop = round(latest_close - (2 * latest_atr), 2)
         target = round(latest_close + (3 * latest_atr), 2)
         
-        # History for Chart - Fixed mapping
+        # History for Chart - FIXED: time key for lightweight-charts
         history = []
         recent_df = df.tail(60)
         for idx, row in recent_df.iterrows():
             history.append({
-                "date": idx.strftime("%Y-%m-%d"),
+                "time": idx.strftime("%Y-%m-%d"),
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -146,6 +145,7 @@ def process_stock(symbol, df):
             "symbol": symbol,
             "name": STOCK_NAMES.get(symbol, symbol),
             "price": round(latest_close, 2),
+            "currentPrice": round(latest_close, 2), # Redundancy
             "change": round(((latest_close - float(close.iloc[-2])) / float(close.iloc[-2])) * 100, 2),
             "is_regular": is_regular,
             "is_breakout": is_breakout,
@@ -196,7 +196,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.3.0 ONLINE", "update": last_update}
+    return {"status": "AI TRADER v4.3.1 ONLINE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
