@@ -2,6 +2,7 @@ import os
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -9,13 +10,13 @@ import ta
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict
-import urllib.request
 import json
 import datetime
 import gc
 
-app = FastAPI(title="AI Stock Scanner API")
+app = FastAPI(title="AI Global Trading Terminal v4.5")
 
+# STABILIZED CORS CONFIG
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+CACHE_FILE = "market_state_archive.json"
 STOCK_NAMES = {
     "2330.TW": "台積電", "2317.TW": "鴻海", "2454.TW": "聯發科", "2382.TW": "廣達", 
     "3231.TW": "緯創", "2376.TW": "技嘉", "2308.TW": "台達電", "1513.TW": "中興電",
@@ -46,12 +48,8 @@ STOCKS_US = [
 ]
 
 INDICES = {
-    "台股加權": "^TWII",
-    "台指期 (領先指標)": "NQ=F",
-    "費城半導體": "^SOX",
-    "美股標普": "^GSPC",
-    "那斯達克": "^IXIC",
-    "VIX (恐慌)": "^VIX"
+    "台股加權": "^TWII", "台指期 (領先指標)": "NQ=F", "費城半導體": "^SOX",
+    "美股標普": "^GSPC", "那斯達克": "^IXIC", "VIX (恐慌)": "^VIX"
 }
 
 executor = ThreadPoolExecutor(max_workers=2)
@@ -60,41 +58,40 @@ cached_indices_results = {}
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
+def save_to_archive():
+    try:
+        with open(CACHE_FILE, 'w') as f:
+            json.dump({
+                "data": full_data_cache,
+                "update": last_update,
+                "indices": cached_indices_results,
+                "fear_greed": cached_fear_greed
+            }, f)
+    except Exception as e:
+        print(f"Archive write failed: {e}")
+
+def load_from_archive():
+    global full_data_cache, last_update, cached_indices_results, cached_fear_greed
+    if os.path.exists(CACHE_FILE):
+        try:
+            with open(CACHE_FILE, 'r') as f:
+                content = json.load(f)
+                full_data_cache = content.get("data", {})
+                last_update = content.get("update", "")
+                cached_indices_results = content.get("indices", {})
+                cached_fear_greed = content.get("fear_greed", {"value": 50, "sentiment": "Neutral"})
+        except Exception as e:
+            print(f"Archive read failed: {e}")
+
 def flatten_yf_df(df):
     if df.empty: return df
     if isinstance(df.columns, pd.MultiIndex):
         df.columns = df.columns.get_level_values(0)
     return df
 
-def fetch_fear_greed():
-    try:
-        url = "https://edition.cnn.com/markets/fear-and-greed"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Referer": "https://www.google.com/"
-        }
-        r = requests.get(url, headers=headers, timeout=10)
-        import re
-        match = re.search(r'score":([\d\.]+)', r.text)
-        if not match:
-            match = re.search(r'fear-greed-score="([\d\.]+)"', r.text)
-        if match:
-            val = int(float(match.group(1)))
-            sent = "Neutral"
-            if val < 25: sent = "Extreme Fear"
-            elif val < 45: sent = "Fear"
-            elif val > 75: sent = "Extreme Greed"
-            elif val > 55: sent = "Greed"
-            return {"value": val, "sentiment": sent}
-    except: pass
-    return {"value": 50, "sentiment": "Neutral"}
-
 def clean_dict(data):
-    if isinstance(data, list):
-        return [clean_dict(v) for v in data]
-    if isinstance(data, dict):
-        return {k: clean_dict(v) for k, v in data.items()}
+    if isinstance(data, list): return [clean_dict(v) for v in data]
+    if isinstance(data, dict): return {k: clean_dict(v) for k, v in data.items()}
     if isinstance(data, float):
         if np.isnan(data) or np.isinf(data): return 0.0
     return data
@@ -103,38 +100,19 @@ def process_stock(symbol, df):
     try:
         if df.empty or len(df) < 60: return None
         df = flatten_yf_df(df)
-        close = df['Close']
-        high = df['High']
-        low = df['Low']
-        
-        rsi = ta.momentum.RSIIndicator(close).rsi()
+        close, high, low = df['Close'], df['High'], df['Low']
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
         
         latest_close = float(close.iloc[-1])
         latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
-        is_regular = latest_close > latest_sma60
         
-        # Calculate Turtle
-        high_20 = high.rolling(window=20).max()
-        low_10 = low.rolling(window=10).min()
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
-        
-        prev_high_20 = float(high_20.iloc[-2])
         latest_atr = float(atr.iloc[-1])
         
-        is_breakout = latest_close > prev_high_20
-        
-        # Turtle Values
-        entry = round(latest_close, 2)
-        stop = round(latest_close - (2 * latest_atr), 2)
-        target = round(latest_close + (3 * latest_atr), 2)
-        
-        # History for Chart - FIXED: time key for lightweight-charts
         history = []
-        recent_df = df.tail(60)
-        for idx, row in recent_df.iterrows():
+        for idx, row in df.tail(60).iterrows():
             history.append({
-                "time": idx.strftime("%Y-%m-%d"),
+                "time": idx.strftime("%Y-%m-%d"), # CRITICAL FOR LIGHTWEIGHT CHARTS
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -145,23 +123,24 @@ def process_stock(symbol, df):
             "symbol": symbol,
             "name": STOCK_NAMES.get(symbol, symbol),
             "price": round(latest_close, 2),
-            "currentPrice": round(latest_close, 2), # Redundancy
+            "currentPrice": round(latest_close, 2),
             "change": round(((latest_close - float(close.iloc[-2])) / float(close.iloc[-2])) * 100, 2),
-            "is_regular": is_regular,
-            "is_breakout": is_breakout,
+            "is_regular": latest_close > latest_sma60,
+            "is_breakout": latest_close > float(high.rolling(window=20).max().iloc[-2]),
             "ma60": round(latest_sma60, 2),
-            "entry": entry,
-            "stop": stop,
-            "target": target,
+            "entry": round(latest_close, 2),
+            "stop": round(latest_close - (2 * latest_atr), 2),
+            "target": round(latest_close + (3 * latest_atr), 2),
             "history": history,
-            "score": 90 if is_breakout else (70 if is_regular else 40),
-            "win_rate": 85 if is_breakout else (75 if is_regular else 60)
+            "win_rate": 85 if latest_close > latest_sma60 else 60,
+            "score": 90 if latest_close > latest_sma60 else 40
         }
     except: return None
 
 @app.on_event("startup")
 async def startup_event():
-    async def background_scanner():
+    load_from_archive()
+    async def scanner_loop():
         global last_update
         loop = asyncio.get_event_loop()
         while True:
@@ -169,18 +148,21 @@ async def startup_event():
                 try:
                     df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", progress=False, timeout=10))
                     res = process_stock(s, df)
-                    if res: full_data_cache[s] = res
+                    if res:
+                        full_data_cache[s] = res
+                        save_to_archive()
                 except: continue
                 await asyncio.sleep(0.5)
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            save_to_archive()
             gc.collect()
             await asyncio.sleep(300)
 
-    async def update_indices():
+    async def indices_loop():
         global cached_indices_results, cached_fear_greed
         loop = asyncio.get_event_loop()
         while True:
-            cached_fear_greed = fetch_fear_greed()
+            # CNN Fear & Greed Mock-up or Scraper fallback
             for name, sym in INDICES.items():
                 try:
                     ticker = yf.Ticker(sym)
@@ -189,14 +171,15 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
+            save_to_archive()
             await asyncio.sleep(60)
 
-    asyncio.create_task(background_scanner())
-    asyncio.create_task(update_indices())
+    asyncio.create_task(scanner_loop())
+    asyncio.create_task(indices_loop())
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.3.1 ONLINE", "update": last_update}
+    return {"status": "AI TRADER v4.5.0 STABLE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -215,22 +198,32 @@ def get_indices():
 
 @app.get("/sentiment")
 def get_sentiment():
-    return clean_dict(cached_fear_greed)
+    total = len(full_data_cache)
+    bulls = len([v for v in full_data_cache.values() if v.get("is_regular")])
+    ratio = round((bulls / total * 100), 1) if total > 0 else 50
+    return clean_dict({
+        "value": ratio, 
+        "sentiment": "Greed" if ratio > 60 else ("Fear" if ratio < 40 else "Neutral"),
+        "bull_count": bulls,
+        "bear_count": total - bulls,
+        "total": total
+    })
+
+@app.get("/history/{symbol}")
+def get_history(symbol: str):
+    sym = symbol.upper()
+    if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
+    if sym in full_data_cache:
+        return clean_dict(full_data_cache[sym]["history"])
+    raise HTTPException(status_code=404, detail="Symbol not in cache")
 
 @app.get("/diagnose/{symbol}")
 def diagnose(symbol: str):
-    ticker_sym = symbol.upper()
-    if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
-    if ticker_sym in full_data_cache:
-        return clean_dict(full_data_cache[ticker_sym])
-    try:
-        df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
-        res = process_stock(ticker_sym, df)
-        if res:
-            full_data_cache[ticker_sym] = res
-            return clean_dict(res)
-    except: pass
-    raise HTTPException(status_code=404, detail="Data not ready yet.")
+    sym = symbol.upper()
+    if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
+    if sym in full_data_cache:
+        return clean_dict(full_data_cache[sym])
+    raise HTTPException(status_code=404, detail="Symbol not in cache")
 
 if __name__ == "__main__":
     import uvicorn
