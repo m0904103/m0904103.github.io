@@ -2,19 +2,17 @@ import os
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 import yfinance as yf
 import pandas as pd
 import numpy as np
 import ta
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-from typing import List, Dict
 import json
 import datetime
 import gc
 
-app = FastAPI(title="AI Global Trading Terminal v4.5.8")
+app = FastAPI(title="AI Global Trading Terminal v4.6.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,46 +22,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CACHE_FILE = "market_state_archive.json"
+# SEED DATA: Ensure the list is NEVER empty on restart
+SEED_STOCKS = {
+    "2330.TW": {"name": "台積電", "price": 1085.0, "is_regular": True, "score": 90},
+    "NVDA": {"name": "NVIDIA", "price": 145.0, "is_regular": True, "score": 95},
+    "AAPL": {"name": "APPLE", "price": 282.0, "is_regular": True, "score": 85}
+}
+
 STOCK_NAMES = {
     "2330.TW": "台積電", "2317.TW": "鴻海", "2454.TW": "聯發科", "2382.TW": "廣達", 
     "3231.TW": "緯創", "2376.TW": "技嘉", "2308.TW": "台達電", "1513.TW": "中興電",
-    "1519.TW": "華城", "1503.TW": "士電", "2603.TW": "長榮", "2609.TW": "陽明",
-    "2303.TW": "聯電", "2408.TW": "南亞科", "3443.TW": "創意", "3035.TW": "智原",
-    "3661.TW": "世芯-KY", "2379.TW": "瑞昱", "3017.TW": "奇鋐", "2882.TW": "國泰金",
-    "2881.TW": "富邦金", "2357.TW": "華碩", "6669.TW": "緯穎", "2353.TW": "宏碁",
-    "2324.TW": "仁寶", "3037.TW": "欣興", "2409.TW": "友達", "3481.TW": "群創",
-    "0050.TW": "元大台灣50", "0056.TW": "元大高股息", "00878.TW": "國泰永續高股息"
+    "2603.TW": "長榮", "2609.TW": "陽明", "2881.TW": "富邦金", "6669.TW": "緯穎"
 }
 
 STOCKS_TW = list(STOCK_NAMES.keys())
 STOCKS_US = ["AAPL","NVDA","MSFT","GOOGL","AMZN","META","TSLA","AMD","NFLX","TSM","AVGO","MU","SMCI"]
 
-INDICES = {
-    "台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC", "那斯達克": "^IXIC"
-}
+INDICES = {"台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC"}
 
-executor = ThreadPoolExecutor(max_workers=2)
+executor = ThreadPoolExecutor(max_workers=1) # FORCE SINGLE THREAD TO SAVE RAM
 full_data_cache = {} 
 cached_indices_results = {}
 last_update = None
-
-def save_to_archive():
-    try:
-        with open(CACHE_FILE, 'w') as f:
-            json.dump({"data": full_data_cache, "update": last_update, "indices": cached_indices_results}, f)
-    except: pass
-
-def load_from_archive():
-    global full_data_cache, last_update, cached_indices_results
-    if os.path.exists(CACHE_FILE):
-        try:
-            with open(CACHE_FILE, 'r') as f:
-                content = json.load(f)
-                full_data_cache.update(content.get("data", {}))
-                last_update = content.get("update", "")
-                cached_indices_results.update(content.get("indices", {}))
-        except: pass
 
 def flatten_yf_df(df):
     if df.empty: return df
@@ -83,14 +63,18 @@ def process_stock(symbol, df):
         if df.empty or len(df) < 60: return None
         df = flatten_yf_df(df)
         close, high, low = df['Close'], df['High'], df['Low']
-        sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
-        latest_close = float(close.iloc[-1])
-        latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
-        atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
-        latest_atr = float(atr.iloc[-1])
         
+        # Calculate Indicators (Memory Efficient)
+        sma60_series = ta.trend.SMAIndicator(close, window=60).sma_indicator()
+        latest_close = float(close.iloc[-1])
+        latest_sma60 = float(sma60_series.iloc[-1]) if not np.isnan(sma60_series.iloc[-1]) else latest_close
+        
+        atr_series = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
+        latest_atr = float(atr_series.iloc[-1]) if not np.isnan(atr_series.iloc[-1]) else 1.0
+        
+        # Build history (Reduced to 40 days to save RAM)
         history = []
-        for idx, row in df.tail(60).iterrows():
+        for idx, row in df.tail(40).iterrows():
             history.append({
                 "time": idx.strftime("%Y-%m-%d"),
                 "open": round(float(row['Open']), 2),
@@ -99,7 +83,7 @@ def process_stock(symbol, df):
                 "close": round(float(row['Close']), 2)
             })
 
-        return {
+        res = {
             "symbol": symbol,
             "name": STOCK_NAMES.get(symbol, symbol),
             "price": round(latest_close, 2),
@@ -115,27 +99,38 @@ def process_stock(symbol, df):
             "score": 90 if latest_close > latest_sma60 else 40,
             "win_rate": 85 if latest_close > latest_sma60 else 60
         }
+        # Explicitly delete heavy objects
+        del df, close, high, low, sma60_series, atr_series
+        return res
     except: return None
 
 @app.on_event("startup")
 async def startup_event():
-    load_from_archive()
+    # Initialize with SEED to prevent blank screen
+    for s, meta in SEED_STOCKS.items():
+        full_data_cache[s] = {
+            "symbol": s, "name": meta["name"], "price": meta["price"], "currentPrice": meta["price"],
+            "change": 0.0, "is_regular": meta["is_regular"], "is_breakout": False, "ma60": meta["price"]*0.95,
+            "entry": meta["price"], "stop": meta["price"]*0.9, "target": meta["price"]*1.1,
+            "history": [], "score": meta["score"], "win_rate": 80
+        }
+
     async def scanner_loop():
         global last_update
         loop = asyncio.get_event_loop()
         while True:
             for s in STOCKS_TW + STOCKS_US:
                 try:
-                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", progress=False, timeout=10))
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", progress=False, timeout=15))
                     res = process_stock(s, df)
                     if res:
                         full_data_cache[s] = res
-                        save_to_archive()
+                    # Clean up every iteration
+                    gc.collect()
                 except: continue
-                await asyncio.sleep(1)
+                await asyncio.sleep(2) # SLOWER SCAN = HIGHER STABILITY
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            gc.collect()
-            await asyncio.sleep(600)
+            await asyncio.sleep(300)
 
     async def indices_loop():
         global cached_indices_results
@@ -149,7 +144,6 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
-            save_to_archive()
             await asyncio.sleep(60)
 
     asyncio.create_task(scanner_loop())
@@ -157,7 +151,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.5.8 STABLE", "update": last_update}
+    return {"status": "AI TRADER v4.6.0 LEAN-MODE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -165,7 +159,11 @@ def get_scan():
     us = [v for k, v in full_data_cache.items() if not k.endswith(".TW")]
     return clean_dict({"tw": tw, "us": us})
 
-# RESTORED: Full sentiment diagnostic engine
+@app.get("/market/active")
+def get_active():
+    active = [v for k, v in full_data_cache.items() if v.get("is_breakout")]
+    return clean_dict(active)
+
 @app.get("/sentiment")
 def get_sentiment():
     total = len(full_data_cache)
@@ -174,9 +172,7 @@ def get_sentiment():
     return clean_dict({
         "value": ratio, 
         "sentiment": "Greed" if ratio > 60 else ("Fear" if ratio < 40 else "Neutral"),
-        "bull_count": bulls,
-        "bear_count": total - bulls,
-        "total": total
+        "bull_count": bulls, "bear_count": total - bulls, "total": total
     })
 
 @app.get("/indices")
@@ -188,8 +184,8 @@ def get_history(symbol: str):
     sym = symbol.upper()
     if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
     if sym in full_data_cache:
-        return clean_dict(full_data_cache[sym]["history"])
-    raise HTTPException(status_code=404, detail="History not ready.")
+        return clean_dict(full_data_cache[sym].get("history", []))
+    raise HTTPException(status_code=404, detail="Symbol not in cache")
 
 @app.get("/diagnose/{symbol}")
 def diagnose(symbol: str):
@@ -197,7 +193,7 @@ def diagnose(symbol: str):
     if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
     if sym in full_data_cache:
         return clean_dict(full_data_cache[sym])
-    raise HTTPException(status_code=404, detail="Data not ready.")
+    raise HTTPException(status_code=404, detail="Symbol not in cache")
 
 if __name__ == "__main__":
     import uvicorn
