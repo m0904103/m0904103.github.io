@@ -14,9 +14,8 @@ import json
 import datetime
 import gc
 
-app = FastAPI(title="AI Global Trading Terminal v4.5.5")
+app = FastAPI(title="AI Global Trading Terminal v4.5.8")
 
-# MAX-STABILITY CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,7 +40,7 @@ STOCKS_TW = list(STOCK_NAMES.keys())
 STOCKS_US = ["AAPL","NVDA","MSFT","GOOGL","AMZN","META","TSLA","AMD","NFLX","TSM","AVGO","MU","SMCI"]
 
 INDICES = {
-    "台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC"
+    "台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC", "那斯達克": "^IXIC"
 }
 
 executor = ThreadPoolExecutor(max_workers=2)
@@ -113,8 +112,8 @@ def process_stock(symbol, df):
             "stop": round(latest_close - (2 * latest_atr), 2),
             "target": round(latest_close + (3 * latest_atr), 2),
             "history": history,
-            "win_rate": 85 if latest_close > latest_sma60 else 60,
-            "score": 90 if latest_close > latest_sma60 else 40
+            "score": 90 if latest_close > latest_sma60 else 40,
+            "win_rate": 85 if latest_close > latest_sma60 else 60
         }
     except: return None
 
@@ -150,6 +149,7 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
+            save_to_archive()
             await asyncio.sleep(60)
 
     asyncio.create_task(scanner_loop())
@@ -157,7 +157,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.5.5 STABLE", "update": last_update}
+    return {"status": "AI TRADER v4.5.8 STABLE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -165,6 +165,7 @@ def get_scan():
     us = [v for k, v in full_data_cache.items() if not k.endswith(".TW")]
     return clean_dict({"tw": tw, "us": us})
 
+# RESTORED: Full sentiment diagnostic engine
 @app.get("/sentiment")
 def get_sentiment():
     total = len(full_data_cache)
@@ -173,8 +174,14 @@ def get_sentiment():
     return clean_dict({
         "value": ratio, 
         "sentiment": "Greed" if ratio > 60 else ("Fear" if ratio < 40 else "Neutral"),
-        "bull_count": bulls, "bear_count": total - bulls, "total": total
+        "bull_count": bulls,
+        "bear_count": total - bulls,
+        "total": total
     })
+
+@app.get("/indices")
+def get_indices():
+    return clean_dict(cached_indices_results)
 
 @app.get("/history/{symbol}")
 def get_history(symbol: str):
@@ -182,7 +189,7 @@ def get_history(symbol: str):
     if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
     if sym in full_data_cache:
         return clean_dict(full_data_cache[sym]["history"])
-    raise HTTPException(status_code=404, detail="Symbol not in cache")
+    raise HTTPException(status_code=404, detail="History not ready.")
 
 @app.get("/diagnose/{symbol}")
 def diagnose(symbol: str):
@@ -190,7 +197,7 @@ def diagnose(symbol: str):
     if sym.isdigit() and not sym.endswith(".TW"): sym += ".TW"
     if sym in full_data_cache:
         return clean_dict(full_data_cache[sym])
-    raise HTTPException(status_code=404, detail="Symbol not in cache")
+    raise HTTPException(status_code=404, detail="Data not ready.")
 
 if __name__ == "__main__":
     import uvicorn
