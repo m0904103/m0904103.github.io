@@ -301,12 +301,13 @@ async def update_data_loop():
                     res = calculate_indicators(s, df)
                     if res:
                         cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
-                    res_turtle = calculate_us_turtle(s, df)
+                    res_turtle = calculate_turtle_strategy(s, df)
                     if res_turtle:
-                        global cached_turtle_us
                         cached_turtle_us = [r for r in cached_turtle_us if r['symbol'] != res_turtle['symbol']] + [res_turtle]
-                except: continue
-                await asyncio.sleep(3)
+                except Exception as e: 
+                    print(f"US Scan Error {s}: {e}")
+                    continue
+                await asyncio.sleep(1)
 
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception as e: print(f"Loop error: {e}")
