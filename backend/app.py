@@ -55,7 +55,6 @@ INDICES = {
 }
 
 executor = ThreadPoolExecutor(max_workers=2)
-# Stores full data including history
 full_data_cache = {} 
 cached_indices_results = {}
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
@@ -80,7 +79,6 @@ def fetch_fear_greed():
         match = re.search(r'score":([\d\.]+)', r.text)
         if not match:
             match = re.search(r'fear-greed-score="([\d\.]+)"', r.text)
-        
         if match:
             val = int(float(match.group(1)))
             sent = "Neutral"
@@ -120,11 +118,19 @@ def process_stock(symbol, df):
         high_20 = high.rolling(window=20).max()
         low_10 = low.rolling(window=10).min()
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
+        
         prev_high_20 = float(high_20.iloc[-2])
+        prev_low_10 = float(low_10.iloc[-2])
         latest_atr = float(atr.iloc[-1])
+        
         is_breakout = latest_close > prev_high_20
         
-        # History for Chart
+        # Turtle Values - Restored
+        entry = round(latest_close, 2)
+        stop = round(latest_close - (2 * latest_atr), 2)
+        target = round(latest_close + (3 * latest_atr), 2)
+        
+        # History for Chart - Fixed mapping
         history = []
         recent_df = df.tail(60)
         for idx, row in recent_df.iterrows():
@@ -144,6 +150,9 @@ def process_stock(symbol, df):
             "is_regular": is_regular,
             "is_breakout": is_breakout,
             "ma60": round(latest_sma60, 2),
+            "entry": entry,
+            "stop": stop,
+            "target": target,
             "history": history,
             "score": 90 if is_breakout else (70 if is_regular else 40),
             "win_rate": 85 if is_breakout else (75 if is_regular else 60)
@@ -187,7 +196,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.1.0 ONLINE", "update": last_update}
+    return {"status": "AI TRADER v4.3.0 ONLINE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -212,12 +221,8 @@ def get_sentiment():
 def diagnose(symbol: str):
     ticker_sym = symbol.upper()
     if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
-    
-    # 100% CACHE BASED - NO YFINANCE CALLS TO AVOID RATE LIMIT
     if ticker_sym in full_data_cache:
         return clean_dict(full_data_cache[ticker_sym])
-    
-    # If not in cache, trigger a one-time download (only if absolutely necessary)
     try:
         df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
         res = process_stock(ticker_sym, df)
@@ -225,8 +230,7 @@ def diagnose(symbol: str):
             full_data_cache[ticker_sym] = res
             return clean_dict(res)
     except: pass
-    
-    raise HTTPException(status_code=404, detail="Data not ready yet. Please wait for background scan.")
+    raise HTTPException(status_code=404, detail="Data not ready yet.")
 
 if __name__ == "__main__":
     import uvicorn
