@@ -10,12 +10,12 @@ import ta
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict
+import json
 import datetime
 import gc
 
 app = FastAPI(title="AI Stock Scanner API")
 
-# ULTIMATE CORS: Triple protection
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+CACHE_FILE = "last_market_state.json"
 STOCK_NAMES = {
     "2330.TW": "台積電", "2317.TW": "鴻海", "2454.TW": "聯發科", "2382.TW": "廣達", 
     "3231.TW": "緯創", "2376.TW": "技嘉", "2308.TW": "台達電", "1513.TW": "中興電",
@@ -60,6 +61,27 @@ cached_indices_results = {}
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
+def save_cache():
+    try:
+        with open(CACHE_FILE, 'w') as f:
+            json.dump({
+                "data": full_data_cache,
+                "update": last_update,
+                "indices": cached_indices_results
+            }, f)
+    except: pass
+
+def load_cache():
+    global full_data_cache, last_update, cached_indices_results
+    if os.path.exists(CACHE_FILE):
+        try:
+            with open(CACHE_FILE, 'r') as f:
+                content = json.load(f)
+                full_data_cache = content.get("data", {})
+                last_update = content.get("update", "")
+                cached_indices_results = content.get("indices", {})
+        except: pass
+
 def flatten_yf_df(df):
     if df.empty: return df
     if isinstance(df.columns, pd.MultiIndex):
@@ -69,8 +91,7 @@ def flatten_yf_df(df):
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
-        headers = {"User-Agent": "Mozilla/5.0"}
-        r = requests.get(url, headers=headers, timeout=5)
+        r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=5)
         import re
         match = re.search(r'score":([\d\.]+)', r.text)
         if match:
@@ -95,14 +116,10 @@ def process_stock(symbol, df):
     try:
         if df.empty or len(df) < 60: return None
         df = flatten_yf_df(df)
-        close = df['Close']
-        high = df['High']
-        low = df['Low']
-        
+        close, high, low = df['Close'], df['High'], df['Low']
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
         latest_close = float(close.iloc[-1])
         latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
-        
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
         latest_atr = float(atr.iloc[-1])
         
@@ -110,7 +127,7 @@ def process_stock(symbol, df):
         for idx, row in df.tail(60).iterrows():
             history.append({
                 "time": idx.strftime("%Y-%m-%d"),
-                "date": idx.strftime("%Y-%m-%d"), # Compatibility
+                "date": idx.strftime("%Y-%m-%d"),
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -130,13 +147,14 @@ def process_stock(symbol, df):
             "stop": round(latest_close - (2 * latest_atr), 2),
             "target": round(latest_close + (3 * latest_atr), 2),
             "history": history,
-            "score": 70 if latest_close > latest_sma60 else 40,
-            "win_rate": 75 if latest_close > latest_sma60 else 60
+            "score": 90 if latest_close > latest_sma60 else 40,
+            "win_rate": 85 if latest_close > latest_sma60 else 60
         }
     except: return None
 
 @app.on_event("startup")
 async def startup_event():
+    load_cache()
     async def background_scanner():
         global last_update
         loop = asyncio.get_event_loop()
@@ -145,10 +163,13 @@ async def startup_event():
                 try:
                     df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", progress=False, timeout=10))
                     res = process_stock(s, df)
-                    if res: full_data_cache[s] = res
+                    if res:
+                        full_data_cache[s] = res
+                        save_cache()
                 except: continue
                 await asyncio.sleep(0.5)
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            save_cache()
             gc.collect()
             await asyncio.sleep(300)
 
@@ -165,6 +186,7 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
+            save_cache()
             await asyncio.sleep(60)
 
     asyncio.create_task(background_scanner())
@@ -172,7 +194,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return JSONResponse(content={"status": "AI TRADER v4.3.8 ONLINE", "update": last_update}, headers={"Access-Control-Allow-Origin": "*"})
+    return JSONResponse(content={"status": "AI TRADER v4.4.0 ONLINE", "update": last_update}, headers={"Access-Control-Allow-Origin": "*"})
 
 @app.get("/scan")
 def get_scan():
@@ -185,15 +207,20 @@ def get_active():
     active = [v for k, v in full_data_cache.items() if v.get("is_breakout")]
     return clean_dict(active)
 
-@app.get("/indices")
-def get_indices():
-    return clean_dict(cached_indices_results)
-
 @app.get("/sentiment")
 def get_sentiment():
-    return clean_dict(cached_fear_greed)
+    bull_count = len([v for v in full_data_cache.values() if v.get("is_regular")])
+    total = len(full_data_cache)
+    sentiment_score = round((bull_count / total * 100), 1) if total > 0 else 50
+    return clean_dict({
+        "value": cached_fear_greed.get("value", 50),
+        "sentiment": cached_fear_greed.get("sentiment", "Neutral"),
+        "bull_ratio": sentiment_score,
+        "bull_count": bull_count,
+        "bear_count": total - bull_count,
+        "total": total
+    })
 
-# RESTORED: Specific history endpoint to fix 404 on frontend charts
 @app.get("/history/{symbol}")
 def get_history(symbol: str):
     ticker_sym = symbol.upper()
