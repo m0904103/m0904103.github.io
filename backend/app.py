@@ -278,6 +278,7 @@ async def update_data_loop():
                 try:
                     # Use a more robust download method
                     df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", interval="1d", progress=False, timeout=10))
+                    df = flatten_yf_df(df)
                     if df.empty:
                         print(f"Empty data for {s}")
                         continue
@@ -295,6 +296,7 @@ async def update_data_loop():
             for s in STOCKS_US:
                 try:
                     df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", interval="1d", progress=False, timeout=10))
+                    df = flatten_yf_df(df)
                     if df.empty: continue
                     res = calculate_indicators(s, df)
                     if res:
