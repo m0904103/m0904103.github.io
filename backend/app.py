@@ -274,7 +274,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER API ONLINE", "version": "v3.8.8", "update": last_update}
+    return {"status": "AI TRADER API ONLINE", "version": "v3.8.9", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -298,10 +298,6 @@ def diagnose(symbol: str):
         ticker_sym = symbol.upper()
         if ticker_sym.isdigit(): ticker_sym += ".TW"
         
-        # Check cache FIRST to be fast
-        for r in cached_scan_results_tw + cached_scan_results_us + cached_turtle_us:
-            if r['symbol'] == ticker_sym and "ma60" in r: return clean_dict(r)
-            
         df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
         df = flatten_yf_df(df)
         if df.empty: raise HTTPException(status_code=404, detail="Symbol not found")
@@ -309,13 +305,25 @@ def diagnose(symbol: str):
         res = calculate_indicators(ticker_sym, df)
         if not res: raise HTTPException(status_code=500, detail="Calculation failed")
         
+        history = []
+        recent_df = df.tail(60)
+        for idx, row in recent_df.iterrows():
+            history.append({
+                "date": idx.strftime("%Y-%m-%d"),
+                "open": round(float(row['Open']), 2),
+                "high": round(float(row['High']), 2),
+                "low": round(float(row['Low']), 2),
+                "close": round(float(row['Close']), 2),
+                "volume": int(row['Volume'])
+            })
+        res["history"] = history
+        
         close = df['Close']
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
         res["ma60"] = round(float(sma60.iloc[-1]), 2) if not np.isnan(sma60.iloc[-1]) else res["price"]
         
         return clean_dict(res)
     except Exception as e:
-        # Final fallback from cache even without ma60
         for r in cached_scan_results_tw + cached_scan_results_us:
             if r['symbol'] == ticker_sym: return clean_dict(r)
         raise HTTPException(status_code=500, detail=str(e))
