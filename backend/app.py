@@ -213,61 +213,68 @@ def calculate_turtle_strategy(symbol, df):
 
 @app.on_event("startup")
 async def startup_event():
-    async def update_data_loop():
-        global cached_scan_results_tw, cached_scan_results_us, cached_indices_results, cached_turtle_us, last_update
-        executor = ThreadPoolExecutor(max_workers=2)
+    async def scan_tw():
+        global cached_scan_results_tw
+        executor_tw = ThreadPoolExecutor(max_workers=1)
         loop = asyncio.get_event_loop()
-
         while True:
-            try:
-                global cached_fear_greed
-                cached_fear_greed = fetch_fear_greed()
-                
-                for name, sym in INDICES.items():
-                    try:
-                        ticker = yf.Ticker(sym)
-                        hist = await loop.run_in_executor(executor, lambda: ticker.history(period="2d"))
-                        if not hist.empty:
-                            c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
-                            cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2), "signal": "Buy" if c>=p else "Sell"}
-                    except: continue
-                
-                for s in STOCKS_TW:
-                    try:
-                        df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
-                        df = flatten_yf_df(df)
-                        if df.empty: continue
-                        res = calculate_indicators(s, df)
-                        if res:
-                            cached_scan_results_tw = [r for r in cached_scan_results_tw if r['symbol'] != res['symbol']] + [res]
-                    except: continue
-                    await asyncio.sleep(3)
-                
-                global cached_scan_results_us
-                for s in STOCKS_US:
-                    try:
-                        df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
-                        df = flatten_yf_df(df)
-                        if df.empty: continue
-                        res = calculate_indicators(s, df)
-                        if res:
-                            cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
-                        res_turtle = calculate_turtle_strategy(s, df)
-                        if res_turtle:
-                            cached_turtle_us = [r for r in cached_turtle_us if r['symbol'] != res_turtle['symbol']] + [res_turtle]
-                    except: continue
-                    await asyncio.sleep(0.1)
-
-                last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                gc.collect() 
-            except Exception as e: print(f"Loop error: {e}")
+            for s in STOCKS_TW:
+                try:
+                    df = await loop.run_in_executor(executor_tw, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
+                    df = flatten_yf_df(df)
+                    if df.empty: continue
+                    res = calculate_indicators(s, df)
+                    if res:
+                        cached_scan_results_tw = [r for r in cached_scan_results_tw if r['symbol'] != res['symbol']] + [res]
+                except: continue
+                await asyncio.sleep(3)
             await asyncio.sleep(300)
 
-    asyncio.create_task(update_data_loop())
+    async def scan_us():
+        global cached_scan_results_us, cached_turtle_us, last_update
+        executor_us = ThreadPoolExecutor(max_workers=1)
+        loop = asyncio.get_event_loop()
+        while True:
+            for s in STOCKS_US:
+                try:
+                    df = await loop.run_in_executor(executor_us, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
+                    df = flatten_yf_df(df)
+                    if df.empty: continue
+                    res = calculate_indicators(s, df)
+                    if res:
+                        cached_scan_results_us = [r for r in cached_scan_results_us if r['symbol'] != res['symbol']] + [res]
+                    res_turtle = calculate_turtle_strategy(s, df)
+                    if res_turtle:
+                        cached_turtle_us = [r for r in cached_turtle_us if r['symbol'] != res_turtle['symbol']] + [res_turtle]
+                except: continue
+                await asyncio.sleep(0.1)
+            last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            gc.collect()
+            await asyncio.sleep(300)
+
+    async def update_indices():
+        global cached_indices_results, cached_fear_greed
+        executor_idx = ThreadPoolExecutor(max_workers=2)
+        loop = asyncio.get_event_loop()
+        while True:
+            cached_fear_greed = fetch_fear_greed()
+            for name, sym in INDICES.items():
+                try:
+                    ticker = yf.Ticker(sym)
+                    hist = await loop.run_in_executor(executor_idx, lambda: ticker.history(period="2d"))
+                    if not hist.empty:
+                        c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
+                        cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2), "signal": "Buy" if c>=p else "Sell"}
+                except: continue
+            await asyncio.sleep(60)
+
+    asyncio.create_task(scan_tw())
+    asyncio.create_task(scan_us())
+    asyncio.create_task(update_indices())
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER API ONLINE", "version": "v3.8.6", "update": last_update}
+    return {"status": "AI TRADER API ONLINE", "version": "v3.8.7", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
