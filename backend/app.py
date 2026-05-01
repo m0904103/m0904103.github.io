@@ -2,6 +2,7 @@ import os
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -9,13 +10,12 @@ import ta
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict
-import urllib.request
-import json
 import datetime
 import gc
 
 app = FastAPI(title="AI Stock Scanner API")
 
+# ULTIMATE CORS: Triple protection
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -69,16 +69,10 @@ def flatten_yf_df(df):
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Referer": "https://www.google.com/"
-        }
-        r = requests.get(url, headers=headers, timeout=10)
+        headers = {"User-Agent": "Mozilla/5.0"}
+        r = requests.get(url, headers=headers, timeout=5)
         import re
         match = re.search(r'score":([\d\.]+)', r.text)
-        if not match:
-            match = re.search(r'fear-greed-score="([\d\.]+)"', r.text)
         if match:
             val = int(float(match.group(1)))
             sent = "Neutral"
@@ -91,10 +85,8 @@ def fetch_fear_greed():
     return {"value": 50, "sentiment": "Neutral"}
 
 def clean_dict(data):
-    if isinstance(data, list):
-        return [clean_dict(v) for v in data]
-    if isinstance(data, dict):
-        return {k: clean_dict(v) for k, v in data.items()}
+    if isinstance(data, list): return [clean_dict(v) for v in data]
+    if isinstance(data, dict): return {k: clean_dict(v) for k, v in data.items()}
     if isinstance(data, float):
         if np.isnan(data) or np.isinf(data): return 0.0
     return data
@@ -107,34 +99,18 @@ def process_stock(symbol, df):
         high = df['High']
         low = df['Low']
         
-        rsi = ta.momentum.RSIIndicator(close).rsi()
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
-        
         latest_close = float(close.iloc[-1])
         latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
-        is_regular = latest_close > latest_sma60
         
-        # Calculate Turtle
-        high_20 = high.rolling(window=20).max()
-        low_10 = low.rolling(window=10).min()
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
-        
-        prev_high_20 = float(high_20.iloc[-2])
         latest_atr = float(atr.iloc[-1])
         
-        is_breakout = latest_close > prev_high_20
-        
-        # Turtle Values
-        entry = round(latest_close, 2)
-        stop = round(latest_close - (2 * latest_atr), 2)
-        target = round(latest_close + (3 * latest_atr), 2)
-        
-        # History for Chart - FIXED: time key for lightweight-charts
         history = []
-        recent_df = df.tail(60)
-        for idx, row in recent_df.iterrows():
+        for idx, row in df.tail(60).iterrows():
             history.append({
                 "time": idx.strftime("%Y-%m-%d"),
+                "date": idx.strftime("%Y-%m-%d"), # Compatibility
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -145,17 +121,17 @@ def process_stock(symbol, df):
             "symbol": symbol,
             "name": STOCK_NAMES.get(symbol, symbol),
             "price": round(latest_close, 2),
-            "currentPrice": round(latest_close, 2), # Redundancy
+            "currentPrice": round(latest_close, 2),
             "change": round(((latest_close - float(close.iloc[-2])) / float(close.iloc[-2])) * 100, 2),
-            "is_regular": is_regular,
-            "is_breakout": is_breakout,
+            "is_regular": latest_close > latest_sma60,
+            "is_breakout": latest_close > float(high.rolling(window=20).max().iloc[-2]),
             "ma60": round(latest_sma60, 2),
-            "entry": entry,
-            "stop": stop,
-            "target": target,
+            "entry": round(latest_close, 2),
+            "stop": round(latest_close - (2 * latest_atr), 2),
+            "target": round(latest_close + (3 * latest_atr), 2),
             "history": history,
-            "score": 90 if is_breakout else (70 if is_regular else 40),
-            "win_rate": 85 if is_breakout else (75 if is_regular else 60)
+            "score": 70 if latest_close > latest_sma60 else 40,
+            "win_rate": 75 if latest_close > latest_sma60 else 60
         }
     except: return None
 
@@ -196,7 +172,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.3.1 ONLINE", "update": last_update}
+    return JSONResponse(content={"status": "AI TRADER v4.3.8 ONLINE", "update": last_update}, headers={"Access-Control-Allow-Origin": "*"})
 
 @app.get("/scan")
 def get_scan():
@@ -217,20 +193,22 @@ def get_indices():
 def get_sentiment():
     return clean_dict(cached_fear_greed)
 
+# RESTORED: Specific history endpoint to fix 404 on frontend charts
+@app.get("/history/{symbol}")
+def get_history(symbol: str):
+    ticker_sym = symbol.upper()
+    if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
+    if ticker_sym in full_data_cache:
+        return clean_dict(full_data_cache[ticker_sym]["history"])
+    raise HTTPException(status_code=404, detail="History not ready.")
+
 @app.get("/diagnose/{symbol}")
 def diagnose(symbol: str):
     ticker_sym = symbol.upper()
     if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
     if ticker_sym in full_data_cache:
         return clean_dict(full_data_cache[ticker_sym])
-    try:
-        df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
-        res = process_stock(ticker_sym, df)
-        if res:
-            full_data_cache[ticker_sym] = res
-            return clean_dict(res)
-    except: pass
-    raise HTTPException(status_code=404, detail="Data not ready yet.")
+    raise HTTPException(status_code=404, detail="Data not ready.")
 
 if __name__ == "__main__":
     import uvicorn
