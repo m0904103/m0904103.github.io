@@ -11,6 +11,7 @@ from typing import List, Dict
 import urllib.request
 import json
 import datetime
+import gc
 
 app = FastAPI(title="AI Stock Scanner API")
 
@@ -24,14 +25,14 @@ app.add_middleware(
 )
 
 STOCK_NAMES = {
-    "2330.TW": "台積電", "2317.TW": "鴻海", "2454.TW": "聯發科", "2382.TW": "廣達", 
-    "3231.TW": "緯創", "2376.TW": "技嘉", "2308.TW": "台達電", "1513.TW": "中興電",
-    "1519.TW": "華城", "1503.TW": "士電", "2603.TW": "長榮", "2609.TW": "陽明",
-    "2303.TW": "聯電", "2408.TW": "南亞科", "3443.TW": "創意", "3035.TW": "智原",
-    "3661.TW": "世芯-KY", "2379.TW": "瑞昱", "3017.TW": "奇鋐", "2882.TW": "國泰金",
-    "2881.TW": "富邦金", "2357.TW": "華碩", "6669.TW": "緯穎", "2353.TW": "宏碁",
-    "2324.TW": "仁寶", "3037.TW": "欣興", "2409.TW": "友達", "3481.TW": "群創",
-    "0050.TW": "元大台灣50", "0056.TW": "元大高股息", "00878.TW": "國泰永續高股息"
+    "2330.TW": "?��???, "2317.TW": "鴻海", "2454.TW": "?�發�?, "2382.TW": "�??", 
+    "3231.TW": "緯創", "2376.TW": "?�??, "2308.TW": "?��???, "1513.TW": "中�???,
+    "1519.TW": "?��?", "1503.TW": "士電", "2603.TW": "?�榮", "2609.TW": "?��?",
+    "2303.TW": "?�電", "2408.TW": "?��?�?, "3443.TW": "?��?", "3035.TW": "?��?",
+    "3661.TW": "世芯-KY", "2379.TW": "?�昱", "3017.TW": "奇�?", "2882.TW": "?�泰??,
+    "2881.TW": "富邦??, "2357.TW": "?�碩", "6669.TW": "緯�?", "2353.TW": "宏�?",
+    "2324.TW": "仁寶", "3037.TW": "�??", "2409.TW": "?��?", "3481.TW": "群創",
+    "0050.TW": "?�大?�灣50", "0056.TW": "?�大高股??, "00878.TW": "?�泰永�?高股??
 }
 
 STOCKS_TW = list(STOCK_NAMES.keys())
@@ -45,15 +46,15 @@ STOCKS_US = [
 ]
 
 INDICES = {
-    "台股加權": "^TWII",
-    "台指期 (領先指標)": "NQ=F",
-    "費城半導體": "^SOX",
+    "?�股?��?": "^TWII",
+    "?��???(?��??��?)": "NQ=F",
+    "費�??��?�?: "^SOX",
     "美股標普": "^GSPC",
-    "那斯達克": "^IXIC",
-    "VIX (恐慌)": "^VIX"
+    "??��?��?": "^IXIC",
+    "VIX (?��?)": "^VIX"
 }
 
-executor = ThreadPoolExecutor(max_workers=10)
+executor = ThreadPoolExecutor(max_workers=2)
 cached_scan_results_tw = []
 cached_scan_results_us = []
 cached_indices_results = {}
@@ -143,13 +144,13 @@ def calculate_indicators(symbol: str, df: pd.DataFrame) -> Dict:
         
         if is_regular: 
             strength += 40
-            reasons.append("正規軍(站穩季線)")
+            reasons.append("�??�?站穩�??)")
         else:
-            reasons.append("非正規軍(季線之下)")
+            reasons.append("?�正規�?(�??之�?)")
             
         if latest_k > latest_d: 
             strength += 20
-            reasons.append("KD金叉")
+            reasons.append("KD?��?")
         if latest_rsi > 50: 
             strength += 20
             reasons.append("RSI強勢")
@@ -158,8 +159,8 @@ def calculate_indicators(symbol: str, df: pd.DataFrame) -> Dict:
             reasons.append("MACD多頭")
         
         # Actionable Tags
-        if is_regular and latest_k > 80: reasons.append("極強勢(追蹤)")
-        if latest_close < bb_low.iloc[-1]: reasons.append("超跌反彈機會")
+        if is_regular and latest_k > 80: reasons.append("極強??追蹤)")
+        if latest_close < bb_low.iloc[-1]: reasons.append("超�??��?機�?")
         
         signal = "Neutral"
         if strength >= 80: signal = "Buy"
@@ -241,8 +242,8 @@ def calculate_us_turtle(symbol: str, df: pd.DataFrame) -> Dict:
             "price": round(latest_close, 2),
             "change": round(change, 2),
             "score": score,
-            "advice": "🎯 海龜突破" if signal == "Buy" else ("空頭風險" if signal == "Sell" else "觀察中"),
-            "reasons": f"MACD:{'金叉' if macd_signal_text=='Golden Cross' else ('死叉' if macd_signal_text=='Death Cross' else '整理')}",
+            "advice": "?�� 海�?突破" if signal == "Buy" else ("空頭風險" if signal == "Sell" else "觀察中"),
+            "reasons": f"MACD:{'?��?' if macd_signal_text=='Golden Cross' else ('死�?' if macd_signal_text=='Death Cross' else '?��?')}",
             "entry": round(entry_price, 2) if not np.isnan(entry_price) else 0,
             "target": round(take_profit, 2) if not np.isnan(take_profit) else 0,
             "stop": round(stop_loss, 2) if not np.isnan(stop_loss) else 0,
@@ -277,7 +278,7 @@ async def update_data_loop():
             for s in STOCKS_TW:
                 try:
                     # Use a more robust download method
-                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", interval="1d", progress=False, timeout=10))
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
                     df = flatten_yf_df(df)
                     if df.empty:
                         print(f"Empty data for {s}")
@@ -295,7 +296,7 @@ async def update_data_loop():
             # Phase 3: Batch Stock Update (US)
             for s in STOCKS_US:
                 try:
-                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="1y", interval="1d", progress=False, timeout=10))
+                    df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", interval="1d", progress=False, timeout=10))
                     df = flatten_yf_df(df)
                     if df.empty: continue
                     res = calculate_indicators(s, df)
@@ -310,6 +311,7 @@ async def update_data_loop():
                 await asyncio.sleep(1)
 
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            gc.collect() # Force free memory
         except Exception as e: print(f"Loop error: {e}")
         await asyncio.sleep(300)
 
@@ -327,7 +329,7 @@ async def get_indices():
 
 @app.get("/diagnose/{symbol}")
 async def diagnose(symbol: str):
-    df = yf.download(symbol, period="1y", progress=False)
+    df = yf.download(symbol, period="7mo", progress=False)
     df = flatten_yf_df(df)
     if df.empty: raise HTTPException(status_code=404, detail="Not found")
     res = calculate_indicators(symbol, df)
@@ -369,8 +371,8 @@ async def get_active_market():
                     "change": round(change, 2), 
                     "is_hot": v_now > v_avg * 1.5,
                     "score": score, 
-                    "advice": "🎯 重點監控" if score >= 80 else "🔥 動能強" if score >= 50 else "觀察中",
-                    "reasons": "量能激增" if v_now > v_avg else "價格推升",
+                    "advice": "?�� ?��???��" if score >= 80 else "?�� ?�能�? if score >= 50 else "觀察中",
+                    "reasons": "?�能激�? if v_now > v_avg else "?�格?��?",
                     "entry": round(c, 2),
                     "target": round(c * 1.025, 2),
                     "stop": round(c * 0.988, 2),
@@ -390,7 +392,7 @@ async def get_active_market():
 
 @app.get("/history/{symbol}")
 async def get_history(symbol: str):
-    df = yf.download(symbol, period="1y", progress=False)
+    df = yf.download(symbol, period="7mo", progress=False)
     df = flatten_yf_df(df)
     history = []
     for idx, row in df.iterrows():
