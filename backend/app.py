@@ -14,9 +14,9 @@ import json
 import datetime
 import gc
 
-app = FastAPI(title="AI Global Trading Terminal v4.5")
+app = FastAPI(title="AI Global Trading Terminal v4.5.5")
 
-# STABILIZED CORS CONFIG
+# MAX-STABILITY CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -38,50 +38,33 @@ STOCK_NAMES = {
 }
 
 STOCKS_TW = list(STOCK_NAMES.keys())
-STOCKS_US = [
-    "AAPL","NVDA","MSFT","GOOGL","AMZN","META","TSLA","JPM","JNJ",
-    "AMD","NFLX","ADBE","CRM","PYPL","V","UNH","XOM","ORCL","MA","XLE",
-    "QQQ","SPY","SMH","SOXX","LLY","PLTR","TSM","AVGO","MU","DELL",
-    "MARA","MSTR","IGV","MGV","DXYZ","XOVR","SARK","VTI","VGT","VOO","ASML",
-    "FTNT", "SOFI", "HOOD", "COIN", "SMCI", "RIVN", "LCID", "GME", "AMC",
-    "DJT", "RDDT", "ALAB", "ARM", "APP", "CVNA", "AFRM", "UPST"
-]
+STOCKS_US = ["AAPL","NVDA","MSFT","GOOGL","AMZN","META","TSLA","AMD","NFLX","TSM","AVGO","MU","SMCI"]
 
 INDICES = {
-    "台股加權": "^TWII", "台指期 (領先指標)": "NQ=F", "費城半導體": "^SOX",
-    "美股標普": "^GSPC", "那斯達克": "^IXIC", "VIX (恐慌)": "^VIX"
+    "台股加權": "^TWII", "費城半導體": "^SOX", "美股標普": "^GSPC"
 }
 
 executor = ThreadPoolExecutor(max_workers=2)
 full_data_cache = {} 
 cached_indices_results = {}
-cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
 def save_to_archive():
     try:
         with open(CACHE_FILE, 'w') as f:
-            json.dump({
-                "data": full_data_cache,
-                "update": last_update,
-                "indices": cached_indices_results,
-                "fear_greed": cached_fear_greed
-            }, f)
-    except Exception as e:
-        print(f"Archive write failed: {e}")
+            json.dump({"data": full_data_cache, "update": last_update, "indices": cached_indices_results}, f)
+    except: pass
 
 def load_from_archive():
-    global full_data_cache, last_update, cached_indices_results, cached_fear_greed
+    global full_data_cache, last_update, cached_indices_results
     if os.path.exists(CACHE_FILE):
         try:
             with open(CACHE_FILE, 'r') as f:
                 content = json.load(f)
-                full_data_cache = content.get("data", {})
+                full_data_cache.update(content.get("data", {}))
                 last_update = content.get("update", "")
-                cached_indices_results = content.get("indices", {})
-                cached_fear_greed = content.get("fear_greed", {"value": 50, "sentiment": "Neutral"})
-        except Exception as e:
-            print(f"Archive read failed: {e}")
+                cached_indices_results.update(content.get("indices", {}))
+        except: pass
 
 def flatten_yf_df(df):
     if df.empty: return df
@@ -102,17 +85,15 @@ def process_stock(symbol, df):
         df = flatten_yf_df(df)
         close, high, low = df['Close'], df['High'], df['Low']
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
-        
         latest_close = float(close.iloc[-1])
         latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
-        
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
         latest_atr = float(atr.iloc[-1])
         
         history = []
         for idx, row in df.tail(60).iterrows():
             history.append({
-                "time": idx.strftime("%Y-%m-%d"), # CRITICAL FOR LIGHTWEIGHT CHARTS
+                "time": idx.strftime("%Y-%m-%d"),
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -152,17 +133,15 @@ async def startup_event():
                         full_data_cache[s] = res
                         save_to_archive()
                 except: continue
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            save_to_archive()
             gc.collect()
-            await asyncio.sleep(300)
+            await asyncio.sleep(600)
 
     async def indices_loop():
-        global cached_indices_results, cached_fear_greed
+        global cached_indices_results
         loop = asyncio.get_event_loop()
         while True:
-            # CNN Fear & Greed Mock-up or Scraper fallback
             for name, sym in INDICES.items():
                 try:
                     ticker = yf.Ticker(sym)
@@ -171,7 +150,6 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
-            save_to_archive()
             await asyncio.sleep(60)
 
     asyncio.create_task(scanner_loop())
@@ -179,22 +157,13 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return {"status": "AI TRADER v4.5.0 STABLE", "update": last_update}
+    return {"status": "AI TRADER v4.5.5 STABLE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
     tw = [v for k, v in full_data_cache.items() if k.endswith(".TW")]
     us = [v for k, v in full_data_cache.items() if not k.endswith(".TW")]
     return clean_dict({"tw": tw, "us": us})
-
-@app.get("/market/active")
-def get_active():
-    active = [v for k, v in full_data_cache.items() if v.get("is_breakout")]
-    return clean_dict(active)
-
-@app.get("/indices")
-def get_indices():
-    return clean_dict(cached_indices_results)
 
 @app.get("/sentiment")
 def get_sentiment():
@@ -204,9 +173,7 @@ def get_sentiment():
     return clean_dict({
         "value": ratio, 
         "sentiment": "Greed" if ratio > 60 else ("Fear" if ratio < 40 else "Neutral"),
-        "bull_count": bulls,
-        "bear_count": total - bulls,
-        "total": total
+        "bull_count": bulls, "bear_count": total - bulls, "total": total
     })
 
 @app.get("/history/{symbol}")
