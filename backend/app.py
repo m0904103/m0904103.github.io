@@ -2,7 +2,6 @@ import os
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -10,6 +9,7 @@ import ta
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Dict
+import urllib.request
 import json
 import datetime
 import gc
@@ -24,7 +24,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CACHE_FILE = "last_market_state.json"
 STOCK_NAMES = {
     "2330.TW": "台積電", "2317.TW": "鴻海", "2454.TW": "聯發科", "2382.TW": "廣達", 
     "3231.TW": "緯創", "2376.TW": "技嘉", "2308.TW": "台達電", "1513.TW": "中興電",
@@ -61,27 +60,6 @@ cached_indices_results = {}
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
-def save_cache():
-    try:
-        with open(CACHE_FILE, 'w') as f:
-            json.dump({
-                "data": full_data_cache,
-                "update": last_update,
-                "indices": cached_indices_results
-            }, f)
-    except: pass
-
-def load_cache():
-    global full_data_cache, last_update, cached_indices_results
-    if os.path.exists(CACHE_FILE):
-        try:
-            with open(CACHE_FILE, 'r') as f:
-                content = json.load(f)
-                full_data_cache = content.get("data", {})
-                last_update = content.get("update", "")
-                cached_indices_results = content.get("indices", {})
-        except: pass
-
 def flatten_yf_df(df):
     if df.empty: return df
     if isinstance(df.columns, pd.MultiIndex):
@@ -91,9 +69,16 @@ def flatten_yf_df(df):
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
-        r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=5)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Referer": "https://www.google.com/"
+        }
+        r = requests.get(url, headers=headers, timeout=10)
         import re
         match = re.search(r'score":([\d\.]+)', r.text)
+        if not match:
+            match = re.search(r'fear-greed-score="([\d\.]+)"', r.text)
         if match:
             val = int(float(match.group(1)))
             sent = "Neutral"
@@ -106,8 +91,10 @@ def fetch_fear_greed():
     return {"value": 50, "sentiment": "Neutral"}
 
 def clean_dict(data):
-    if isinstance(data, list): return [clean_dict(v) for v in data]
-    if isinstance(data, dict): return {k: clean_dict(v) for k, v in data.items()}
+    if isinstance(data, list):
+        return [clean_dict(v) for v in data]
+    if isinstance(data, dict):
+        return {k: clean_dict(v) for k, v in data.items()}
     if isinstance(data, float):
         if np.isnan(data) or np.isinf(data): return 0.0
     return data
@@ -116,18 +103,38 @@ def process_stock(symbol, df):
     try:
         if df.empty or len(df) < 60: return None
         df = flatten_yf_df(df)
-        close, high, low = df['Close'], df['High'], df['Low']
+        close = df['Close']
+        high = df['High']
+        low = df['Low']
+        
+        rsi = ta.momentum.RSIIndicator(close).rsi()
         sma60 = ta.trend.SMAIndicator(close, window=60).sma_indicator()
+        
         latest_close = float(close.iloc[-1])
         latest_sma60 = float(sma60.iloc[-1]) if not np.isnan(sma60.iloc[-1]) else latest_close
+        is_regular = latest_close > latest_sma60
+        
+        # Calculate Turtle
+        high_20 = high.rolling(window=20).max()
+        low_10 = low.rolling(window=10).min()
         atr = ta.volatility.AverageTrueRange(high, low, close).average_true_range()
+        
+        prev_high_20 = float(high_20.iloc[-2])
         latest_atr = float(atr.iloc[-1])
         
+        is_breakout = latest_close > prev_high_20
+        
+        # Turtle Values
+        entry = round(latest_close, 2)
+        stop = round(latest_close - (2 * latest_atr), 2)
+        target = round(latest_close + (3 * latest_atr), 2)
+        
+        # History for Chart - FIXED: time key for lightweight-charts
         history = []
-        for idx, row in df.tail(60).iterrows():
+        recent_df = df.tail(60)
+        for idx, row in recent_df.iterrows():
             history.append({
                 "time": idx.strftime("%Y-%m-%d"),
-                "date": idx.strftime("%Y-%m-%d"),
                 "open": round(float(row['Open']), 2),
                 "high": round(float(row['High']), 2),
                 "low": round(float(row['Low']), 2),
@@ -138,23 +145,22 @@ def process_stock(symbol, df):
             "symbol": symbol,
             "name": STOCK_NAMES.get(symbol, symbol),
             "price": round(latest_close, 2),
-            "currentPrice": round(latest_close, 2),
+            "currentPrice": round(latest_close, 2), # Redundancy
             "change": round(((latest_close - float(close.iloc[-2])) / float(close.iloc[-2])) * 100, 2),
-            "is_regular": latest_close > latest_sma60,
-            "is_breakout": latest_close > float(high.rolling(window=20).max().iloc[-2]),
+            "is_regular": is_regular,
+            "is_breakout": is_breakout,
             "ma60": round(latest_sma60, 2),
-            "entry": round(latest_close, 2),
-            "stop": round(latest_close - (2 * latest_atr), 2),
-            "target": round(latest_close + (3 * latest_atr), 2),
+            "entry": entry,
+            "stop": stop,
+            "target": target,
             "history": history,
-            "score": 90 if latest_close > latest_sma60 else 40,
-            "win_rate": 85 if latest_close > latest_sma60 else 60
+            "score": 90 if is_breakout else (70 if is_regular else 40),
+            "win_rate": 85 if is_breakout else (75 if is_regular else 60)
         }
     except: return None
 
 @app.on_event("startup")
 async def startup_event():
-    load_cache()
     async def background_scanner():
         global last_update
         loop = asyncio.get_event_loop()
@@ -163,13 +169,10 @@ async def startup_event():
                 try:
                     df = await loop.run_in_executor(executor, lambda: yf.download(s, period="7mo", progress=False, timeout=10))
                     res = process_stock(s, df)
-                    if res:
-                        full_data_cache[s] = res
-                        save_cache()
+                    if res: full_data_cache[s] = res
                 except: continue
                 await asyncio.sleep(0.5)
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            save_cache()
             gc.collect()
             await asyncio.sleep(300)
 
@@ -186,7 +189,6 @@ async def startup_event():
                         c, p = hist['Close'].iloc[-1], hist['Close'].iloc[-2]
                         cached_indices_results[name] = {"close": round(c, 2), "change": round(((c-p)/p)*100, 2)}
                 except: continue
-            save_cache()
             await asyncio.sleep(60)
 
     asyncio.create_task(background_scanner())
@@ -194,7 +196,7 @@ async def startup_event():
 
 @app.get("/")
 def read_root():
-    return JSONResponse(content={"status": "AI TRADER v4.4.0 ONLINE", "update": last_update}, headers={"Access-Control-Allow-Origin": "*"})
+    return {"status": "AI TRADER v4.3.1 ONLINE", "update": last_update}
 
 @app.get("/scan")
 def get_scan():
@@ -207,27 +209,13 @@ def get_active():
     active = [v for k, v in full_data_cache.items() if v.get("is_breakout")]
     return clean_dict(active)
 
+@app.get("/indices")
+def get_indices():
+    return clean_dict(cached_indices_results)
+
 @app.get("/sentiment")
 def get_sentiment():
-    bull_count = len([v for v in full_data_cache.values() if v.get("is_regular")])
-    total = len(full_data_cache)
-    sentiment_score = round((bull_count / total * 100), 1) if total > 0 else 50
-    return clean_dict({
-        "value": cached_fear_greed.get("value", 50),
-        "sentiment": cached_fear_greed.get("sentiment", "Neutral"),
-        "bull_ratio": sentiment_score,
-        "bull_count": bull_count,
-        "bear_count": total - bull_count,
-        "total": total
-    })
-
-@app.get("/history/{symbol}")
-def get_history(symbol: str):
-    ticker_sym = symbol.upper()
-    if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
-    if ticker_sym in full_data_cache:
-        return clean_dict(full_data_cache[ticker_sym]["history"])
-    raise HTTPException(status_code=404, detail="History not ready.")
+    return clean_dict(cached_fear_greed)
 
 @app.get("/diagnose/{symbol}")
 def diagnose(symbol: str):
@@ -235,7 +223,14 @@ def diagnose(symbol: str):
     if ticker_sym.isdigit() and not ticker_sym.endswith(".TW"): ticker_sym += ".TW"
     if ticker_sym in full_data_cache:
         return clean_dict(full_data_cache[ticker_sym])
-    raise HTTPException(status_code=404, detail="Data not ready.")
+    try:
+        df = yf.download(ticker_sym, period="7mo", progress=False, timeout=10)
+        res = process_stock(ticker_sym, df)
+        if res:
+            full_data_cache[ticker_sym] = res
+            return clean_dict(res)
+    except: pass
+    raise HTTPException(status_code=404, detail="Data not ready yet.")
 
 if __name__ == "__main__":
     import uvicorn
