@@ -1,4 +1,5 @@
 import os
+import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import yfinance as yf
@@ -308,7 +309,7 @@ async def update_data_loop():
                 except Exception as e: 
                     print(f"US Scan Error {s}: {e}")
                     continue
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.1)
 
             last_update = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             gc.collect() # Force free memory
