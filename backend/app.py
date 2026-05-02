@@ -267,11 +267,34 @@ def calculate_us_turtle(symbol: str, df: pd.DataFrame) -> Dict:
 
 async def update_data_loop():
     global cached_scan_results_tw, cached_scan_results_us, cached_indices_results, cached_turtle_us, last_update
-    executor = ThreadPoolExecutor(max_workers=2) # Very conservative for Cloud Free tier
+    executor = ThreadPoolExecutor(max_workers=2)
     loop = asyncio.get_event_loop()
 
     while True:
         try:
+            # Check market status to adjust frequency
+            now = datetime.datetime.now()
+            is_weekend = now.weekday() >= 5
+            
+            # Phase 0: Real-time Price Update for Core Stocks (Every minute)
+            core_stocks = STOCKS_TW[:5] + STOCKS_US[:5]
+            try:
+                # Fast bulk download for core stocks
+                data = await loop.run_in_executor(executor, lambda: yf.download(core_stocks, period="1d", interval="1m", group_by='ticker', progress=False, timeout=10))
+                for s in core_stocks:
+                    try:
+                        d = data[s] if len(core_stocks)>1 else data
+                        if not d.empty:
+                            c = round(float(d['Close'].iloc[-1]), 2)
+                            # Update in-place in caches
+                            for cache in [cached_scan_results_tw, cached_scan_results_us]:
+                                for item in cache:
+                                    if item['symbol'] == s:
+                                        item['price'] = c
+                                        item['close'] = c
+                    except: continue
+            except: pass
+
             # Phase 1: Rapid Index Update
             global cached_fear_greed
             cached_fear_greed = fetch_fear_greed()
