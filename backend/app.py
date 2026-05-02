@@ -348,6 +348,7 @@ async def diagnose(symbol: str):
 
 @app.get("/market/active")
 async def get_active_market():
+    try:
         # Simplified: Use cached data to avoid live download timeouts on Render
         tw_hot = sorted(cached_scan_results_tw, key=lambda x: x.get('win_rate', 0), reverse=True)[:10]
         us_hot = sorted(cached_scan_results_us, key=lambda x: x.get('win_rate', 0), reverse=True)[:10]
