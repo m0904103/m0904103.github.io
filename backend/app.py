@@ -13,7 +13,7 @@ import json
 import datetime
 import gc
 
-app = FastAPI(title="AI Global Trading Terminal v4.6.9")
+app = FastAPI(title="AI Global Trading Terminal v4.7.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,14 +29,14 @@ STOCK_NAMES = {
     "2603.TW": "長榮", "2609.TW": "陽明", "2881.TW": "富邦金", "6669.TW": "緯穎"
 }
 
-# SEED DATA: Pre-populate with closing prices to prevent blank UI
+# SEED DATA: Refined for total compatibility
 SEED_DATA = {
-    "AAPL": {"name": "APPLE", "price": 280.14, "change": 3.24, "is_regular": True, "ma60": 265.5, "score": 90},
-    "NVDA": {"name": "NVIDIA", "price": 145.26, "change": 1.58, "is_regular": True, "ma60": 138.2, "score": 95},
-    "TSLA": {"name": "TESLA", "price": 320.45, "change": -0.85, "is_regular": True, "ma60": 298.4, "score": 88},
-    "AMD": {"name": "AMD", "price": 360.54, "change": 1.71, "is_regular": True, "ma60": 345.1, "score": 85},
-    "MU": {"name": "MICRON", "price": 542.21, "change": 4.84, "is_regular": True, "ma60": 510.4, "score": 92},
-    "2330.TW": {"name": "台積電", "price": 1085.0, "change": 0.0, "is_regular": True, "ma60": 980.0, "score": 90}
+    "AAPL": {"name": "APPLE", "price": 280.14, "currentPrice": 280.14, "change": 3.24, "is_regular": True, "ma60": 265.5, "score": 90},
+    "NVDA": {"name": "NVIDIA", "price": 145.26, "currentPrice": 145.26, "change": 1.58, "is_regular": True, "ma60": 138.2, "score": 95},
+    "TSLA": {"name": "TESLA", "price": 320.45, "currentPrice": 320.45, "change": -0.85, "is_regular": True, "ma60": 298.4, "score": 88},
+    "AMD": {"name": "AMD", "price": 360.54, "currentPrice": 360.54, "change": 1.71, "is_regular": True, "ma60": 345.1, "score": 85},
+    "MU": {"name": "MICRON", "price": 542.21, "currentPrice": 542.21, "change": 4.84, "is_regular": True, "ma60": 510.4, "score": 92},
+    "2330.TW": {"name": "台積電", "price": 1085.0, "currentPrice": 1085.0, "change": 0.0, "is_regular": True, "ma60": 980.0, "score": 90}
 }
 
 STOCKS_TW = list(STOCK_NAMES.keys())
@@ -89,10 +89,10 @@ def process_stock(symbol, df):
 
 @app.on_event("startup")
 async def startup_event():
-    # Load SEED DATA immediately
+    # Load Refined SEED DATA
     for s, meta in SEED_DATA.items():
         full_data_cache[s] = {
-            "symbol": s, "name": meta["name"], "price": meta["price"], "currentPrice": meta["price"],
+            "symbol": s, "name": meta["name"], "price": meta["price"], "currentPrice": meta["currentPrice"],
             "change": meta["change"], "is_regular": meta["is_regular"], "is_breakout": False,
             "ma60": meta["ma60"], "entry": meta["price"], "stop": meta["price"]*0.9, "target": meta["price"]*1.1,
             "history": [], "score": meta["score"], "win_rate": 85
