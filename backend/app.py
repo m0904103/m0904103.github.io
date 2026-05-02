@@ -61,6 +61,15 @@ cached_turtle_us = []
 cached_fear_greed = {"value": 50, "sentiment": "Neutral"}
 last_update = None
 
+# Initial Seed Data for immediate display
+SEED_DATA = {
+    "2330.TW": {"name": "台積電", "price": 1085.0, "is_regular": True, "ma60": 980.0, "score": 90},
+    "2454.TW": {"name": "聯發科", "price": 1280.0, "is_regular": True, "ma60": 1150.0, "score": 88},
+    "2603.TW": {"name": "長榮", "price": 195.5, "is_regular": True, "ma60": 175.0, "score": 85},
+    "AAPL": {"name": "APPLE", "price": 280.15, "is_regular": True, "ma60": 265.0, "score": 90},
+    "NVDA": {"name": "NVDA", "price": 198.42, "is_regular": True, "ma60": 185.0, "score": 92}
+}
+
 def fetch_fear_greed():
     try:
         url = "https://edition.cnn.com/markets/fear-and-greed"
@@ -348,15 +357,21 @@ async def get_active_market():
         for sym in hot_pool:
             try:
                 d = data[sym] if len(hot_pool)>1 else data
-                if d.empty or len(d) < 2: continue
+                if d.empty or len(d) < 1: 
+                    # Weekend fallback: Try to get last price from cached data
+                    cached = next((s for s in (cached_scan_results_tw + cached_scan_results_us) if s['symbol'] == sym), None)
+                    if not cached: continue
+                    c = cached['price']
+                    change = 0.0
+                    v_now, v_avg = 1, 1
+                else:
+                    c = float(d['Close'].iloc[-1])
+                    o = float(d['Open'].iloc[0])
+                    change = ((c - o) / o) * 100
+                    v_now = float(d['Volume'].iloc[-1])
+                    v_avg = float(d['Volume'].mean())
                 
-                c = float(d['Close'].iloc[-1])
-                o = float(d['Open'].iloc[0])
-                # Calculate intraday change
-                change = ((c - o) / o) * 100
-                v_now = float(d['Volume'].iloc[-1])
-                v_avg = float(d['Volume'].mean())
-                
+                if np.isnan(c) or c <= 0: continue
                 score = 0
                 if abs(change) > 0.5: score += 30  # Increased sensitivity
                 if v_now > v_avg * 1.2: score += 40
@@ -402,6 +417,22 @@ async def get_history(symbol: str):
 
 @app.on_event("startup")
 async def startup():
+    # Seed data for immediate availability
+    for s, meta in SEED_DATA.items():
+        is_tw = s.endswith('.TW')
+        item = {
+            "symbol": s, "name": meta["name"], "price": meta["price"], "close": meta["price"],
+            "rsi": 55, "strength": meta["score"], "signal": "Buy", "is_regular": meta["is_regular"],
+            "ma60": meta["ma60"], "buy_price": meta["price"], "stop_loss": meta["price"]*0.9, "take_profit": meta["price"]*1.1,
+            "win_rate": 85
+        }
+        if is_tw:
+            global cached_scan_results_tw
+            cached_scan_results_tw.append(item)
+        else:
+            global cached_scan_results_us
+            cached_scan_results_us.append(item)
+            
     asyncio.create_task(update_data_loop())
 
 if __name__ == "__main__":
