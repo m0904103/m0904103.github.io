@@ -369,11 +369,30 @@ async def get_active_market():
 
 @app.get("/history/{symbol}")
 async def get_history(symbol: str):
-    df = yf.download(symbol, period="1y", progress=False)
-    history = []
-    for idx, row in df.iterrows():
-        history.append({"time": idx.strftime("%Y-%m-%d"), "open": float(row["Open"]), "high": float(row["High"]), "low": float(row["Low"]), "close": float(row["Close"]), "volume": float(row["Volume"])})
-    return clean_dict(history)
+    try:
+        loop = asyncio.get_event_loop()
+        df = await loop.run_in_executor(executor, lambda: yf.download(symbol, period="1y", progress=False))
+        if df.empty: return []
+        
+        # Handle multi-index columns if necessary
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
+            
+        history = []
+        for idx, row in df.iterrows():
+            if np.isnan(row['Close']): continue
+            history.append({
+                "time": idx.strftime("%Y-%m-%d"), 
+                "open": round(float(row["Open"]), 2), 
+                "high": round(float(row["High"]), 2), 
+                "low": round(float(row["Low"]), 2), 
+                "close": round(float(row["Close"]), 2), 
+                "volume": int(row["Volume"])
+            })
+        return clean_dict(history)
+    except Exception as e:
+        print(f"History error for {symbol}: {e}")
+        return []
 
 @app.on_event("startup")
 async def startup():
