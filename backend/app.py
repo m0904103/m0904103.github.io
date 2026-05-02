@@ -348,61 +348,20 @@ async def diagnose(symbol: str):
 
 @app.get("/market/active")
 async def get_active_market():
-    try:
-        # Dual Market Scan: Top 10 TW + Top 10 US for maximum tactical coverage
-        hot_pool = STOCKS_TW[:10] + STOCKS_US[:10]
-        data = yf.download(hot_pool, period="1d", interval="2m", group_by='ticker', progress=False, threads=True)
-        results = []
+        # Simplified: Use cached data to avoid live download timeouts on Render
+        tw_hot = sorted(cached_scan_results_tw, key=lambda x: x.get('win_rate', 0), reverse=True)[:10]
+        us_hot = sorted(cached_scan_results_us, key=lambda x: x.get('win_rate', 0), reverse=True)[:10]
         
-        for sym in hot_pool:
-            try:
-                d = data[sym] if len(hot_pool)>1 else data
-                if d.empty or len(d) < 1: 
-                    # Weekend fallback: Try to get last price from cached data
-                    cached = next((s for s in (cached_scan_results_tw + cached_scan_results_us) if s['symbol'] == sym), None)
-                    if not cached: continue
-                    c = cached['price']
-                    change = 0.0
-                    v_now, v_avg = 1, 1
-                else:
-                    c = float(d['Close'].iloc[-1])
-                    o = float(d['Open'].iloc[0])
-                    change = ((c - o) / o) * 100
-                    v_now = float(d['Volume'].iloc[-1])
-                    v_avg = float(d['Volume'].mean())
-                
-                if np.isnan(c) or c <= 0: continue
-                score = 0
-                if abs(change) > 0.5: score += 30  # Increased sensitivity
-                if v_now > v_avg * 1.2: score += 40
-                if c > o: score += 30
-
-                if c <= 0: continue
-                
-                # Tactical Specs
-                is_tw = sym.endswith('.TW')
-                results.append({
-                    "symbol": sym, 
-                    "name": STOCK_NAMES.get(sym, sym),
-                    "price": round(c, 2), 
-                    "change": round(change, 2), 
-                    "is_hot": v_now > v_avg * 1.5,
-                    "score": score, 
-                    "advice": "🎯 重點監控" if score >= 80 else "🔥 動能強" if score >= 50 else "觀察中",
-                    "reasons": "量能激增" if v_now > v_avg else "價格推升",
-                    "entry": round(c, 2),
-                    "target": round(c * 1.025, 2),
-                    "stop": round(c * 0.988, 2),
-                    "win_rate": 60 # Base win rate for hot momentum
-                })
-            except: continue
+        results = []
+        for s in (tw_hot + us_hot):
+            results.append({
+                **s,
+                "is_hot": True,
+                "advice": "🎯 重點監控",
+                "is_breakout": s.get('is_breakout', False)
+            })
             
-        # Merge and De-duplicate (prefer cached_turtle_us which has richer strategy data)
-        combined = {s['symbol']: s for s in results}
-        for s in cached_turtle_us:
-            combined[s['symbol']] = s
-            
-        return clean_dict(sorted(list(combined.values()), key=lambda x: x.get('win_rate', 0), reverse=True))
+        return clean_dict(results)
     except Exception as e:
         print(f"Active scan error: {e}")
         return []
