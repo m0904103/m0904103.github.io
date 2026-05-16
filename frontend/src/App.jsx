@@ -39,9 +39,11 @@ import {
 import TradingChart from './components/TradingChart';
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
+import StrategyBoard from './components/StrategyBoard';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
+const RENDER_API_URL = "https://m0904103-github-io.onrender.com";
 
 function App() {
   const [stocks, setStocks] = useState({ tw: [], us: [] });
@@ -74,7 +76,8 @@ function App() {
     try {
       const timestamp = new Date().getTime();
       const scanUrl = IS_PROD ? `${API_BASE}/scan_results.json?t=${timestamp}` : `${API_BASE}/scan`;
-      const indexUrl = IS_PROD ? `${API_BASE}/index_results.json?t=${timestamp}` : `${API_BASE}/indices`;
+      // Always fetch indices from Render Cloud for 24/7 real-time data
+      const indexUrl = `${RENDER_API_URL}/indices?t=${timestamp}`;
 
       const [scanRes, indexRes] = await Promise.all([
         axios.get(scanUrl),
@@ -132,7 +135,21 @@ function App() {
   };
 
   const handleSelectStock = async (stock) => {
+    // Auto-switch market tab if needed
+    if (stock.market && stock.market !== activeMarket) {
+      setActiveMarket(stock.market);
+    }
+    
     setSelectedStock(stock);
+    
+    // Smooth scroll to chart/detail
+    setTimeout(() => {
+      const element = document.getElementById('trading-chart');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+
     try {
       const historyUrl = IS_PROD 
         ? `${API_BASE}/assets/history_${stock.symbol}.json` 
@@ -148,6 +165,27 @@ function App() {
     if (signal?.includes("Strong Buy") || signal === "Buy") return "text-red-500 bg-red-500/10 border-red-500/20";
     if (signal?.includes("Strong Sell") || signal === "Sell") return "text-green-500 bg-green-500/10 border-green-500/20";
     return "text-yellow-500 bg-yellow-500/10 border-yellow-500/20";
+  };
+
+  const calculateRegularArmyScore = (stock) => {
+    if (!stock) return 0;
+    let score = 0;
+    
+    // 1. Price above MA60 (Core Principle)
+    if (stock.close > stock.ma60) score += 50;
+    
+    // 2. Trend Score (Aggregated sentiment)
+    score += (stock.trend_score || 0) / 10;
+    
+    // 3. RSI Health (Not overbought, not oversold)
+    if (stock.rsi >= 40 && stock.rsi <= 70) score += 20;
+    else if (stock.rsi > 70) score += 10; // Overbought but strong
+    
+    // 4. Volume Confirmation
+    if (stock.vol_ratio > 1.0) score += 20;
+    else score += (stock.vol_ratio || 0) * 10;
+    
+    return Math.min(100, Math.round(score));
   };
 
   const currentStocks = (activeMarket === "tw" ? stocks?.tw : stocks?.us) || [];
@@ -194,13 +232,16 @@ function App() {
 
   const renderWeatherStation = () => {
     const fearGreed = indices.fear_greed?.value || 50;
-    const vix = indices["US VIX (恐慌)"]?.close || 15;
+    const vix = indices["VIX (恐慌)"]?.close || 15;
+    const twVix = indices["台指VIX (波動率)"]?.close || 15;
     const adr = indices.adr_premium?.close || 0;
     
-    // Dynamic Cash Suggestion based on VIX and Course Principles (30-50%)
+    // Dynamic Cash Suggestion based on Dual VIX and Course Principles
     let suggestedCash = 30;
-    if (vix > 20) suggestedCash = 40;
-    if (vix > 25 || fearGreed > 80) suggestedCash = 50;
+    const maxVix = Math.max(vix, twVix);
+    if (maxVix > 18) suggestedCash = 40;
+    if (maxVix > 25) suggestedCash = 50;
+    if (maxVix > 35 || fearGreed > 90) suggestedCash = 70; // Extreme Defense Mode
     if (indices.suggested_cash) suggestedCash = indices.suggested_cash;
 
     // Check main indices status
@@ -218,14 +259,16 @@ function App() {
     }
 
     // Override with volatility/greed warnings
+    if (twVix > 22) wisdom = "「警報：本土恐慌升溫」：台指 VIX 異常走高，內資情緒不穩。此時應優先檢視台股部位，守住生命線，不輕易加碼。";
     if (vix > 18 && vix <= 25) wisdom = "「盤中震盪加劇是散戶的毒藥，卻是正規軍的試金石。」：VIX 升溫，當下切勿急躁追高，建議調升現金比例，耐心等待支撐確認。";
     if (adr < -1) wisdom = "「外資的態度藏在溢價裡」：TSM ADR 呈現折價，注意開盤科技股賣壓，切勿追價，寧可錯過不可做錯。";
     if (fearGreed > 80) wisdom = "「人取我棄，鎖住人性」：市場進入極端貪婪區，切勿聽信市場喧嘩。觀望不動，本身就是一種高階決策。";
-    if (vix > 25) wisdom = "「保命第一，留得青山在」：高度警戒區！嚴禁摸底，強制執行季線停損紀律，跌破 MA60 的標的一律砍倉。";
+    if (maxVix > 25) wisdom = "「保命第一，留得青山在」：高度警戒區！雙 VIX 噴發！嚴禁摸底，強制執行季線停損紀律，跌破 MA60 的標的一律砍倉。";
+    if (maxVix > 35) wisdom = "「最高級別紅色警戒：市場系統性崩潰風險」：台指 VIX 突破 35！這已非正常震盪，而是極端恐慌拋售。請立即執行清倉式防禦，保留 70% 現金，觀望不動是您現在最高階的決策！";
 
     return (
       <div className="space-y-4 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Fear & Greed */}
           <div className="glass rounded-2xl p-4 flex flex-col justify-between border-l-4 border-l-orange-500">
             <div className="flex justify-between items-start">
@@ -254,6 +297,23 @@ function App() {
             <div className="flex items-center mt-3 space-x-1">
                {[...Array(5)].map((_, i) => (
                   <div key={i} className={`h-1.5 flex-1 rounded-full ${i < (vix/10) ? 'bg-red-500' : 'bg-gray-800'}`}></div>
+               ))}
+            </div>
+          </div>
+
+          {/* TW VIX Risk */}
+          <div className="glass rounded-2xl p-4 flex flex-col justify-between border-l-4 border-l-purple-500">
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">台指 VIX 監測</span>
+              <ShieldAlert size={16} className={twVix > 18 ? "text-purple-500 animate-pulse" : "text-green-500"} />
+            </div>
+            <div className="mt-2">
+              <div className="text-3xl font-black text-white">{twVix}</div>
+              <div className="text-[10px] font-bold text-gray-400">{twVix > 18 ? "內資恐慌中：防範本土賣壓" : "穩定：適合正規軍操作"}</div>
+            </div>
+            <div className="flex items-center mt-3 space-x-1">
+               {[...Array(5)].map((_, i) => (
+                  <div key={i} className={`h-1.5 flex-1 rounded-full ${i < (twVix/8) ? 'bg-purple-500' : 'bg-gray-800'}`}></div>
                ))}
             </div>
           </div>
@@ -381,19 +441,19 @@ function App() {
               <div className="flex items-center space-x-6 overflow-x-auto no-scrollbar pb-1">
                  <button 
                   onClick={() => document.getElementById('weather-station')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-[10px] md:text-[11px] font-black text-white border-b-2 border-red-500 pb-1 whitespace-nowrap"
+                  className="text-[10px] md:text-[11px] font-black text-white border-b-2 border-red-500 pb-1 whitespace-nowrap hover:text-red-400 transition-colors"
                  >
                    🌟 戰情儀表板
                  </button>
                  <button 
                   onClick={() => document.getElementById('sector-heatmap')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-[10px] md:text-[11px] font-black text-gray-500 hover:text-gray-300 pb-1 whitespace-nowrap"
+                  className="text-[10px] md:text-[11px] font-black text-gray-500 hover:text-red-500 pb-1 whitespace-nowrap transition-colors"
                  >
                    📊 產業分佈
                  </button>
                  <button 
                   onClick={() => document.getElementById('sensei-wisdom')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-[10px] md:text-[11px] font-black text-gray-500 hover:text-gray-300 pb-1 whitespace-nowrap"
+                  className="text-[10px] md:text-[11px] font-black text-gray-500 hover:text-yellow-500 pb-1 whitespace-nowrap transition-colors"
                  >
                    🏛️ 顏師語錄
                  </button>
@@ -416,6 +476,12 @@ function App() {
                  />
               </div>
            </div>
+
+           {/* 2026 Sector Strategy Board */}
+           <StrategyBoard 
+             stocks={[...stocks.tw, ...stocks.us]} 
+             onSelectStock={handleSelectStock} 
+           />
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
@@ -534,6 +600,12 @@ function App() {
                           <span className="text-[8px] font-black text-red-500/80 uppercase mt-1 ml-1">{selectedStock.sector}</span>
                         </div>
                         <span className={`text-xl md:text-2xl font-black ${selectedStock.change > 0 ? 'text-red-500' : 'text-green-500'}`}>{selectedStock.change}%</span>
+                        <div className="ml-auto flex items-center bg-red-600/10 border border-red-500/20 px-3 py-1 rounded-xl">
+                          <div className="flex flex-col items-center">
+                            <span className="text-[8px] font-black text-red-500 uppercase tracking-widest">正規軍評分</span>
+                            <span className="text-xl font-black text-white">{calculateRegularArmyScore(selectedStock)}</span>
+                          </div>
+                        </div>
                         {selectedStock.close < selectedStock.ma60 && (
                           <span className="px-2 py-1 bg-red-600/20 text-red-500 rounded-lg text-[10px] font-black uppercase flex items-center">
                             <AlertTriangle size={12} className="mr-1" /> 空頭禁區：嚴禁摸底

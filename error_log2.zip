@@ -1,0 +1,329 @@
+﻿2026-02-27T13:43:17.5261134Z Current runner version: '2.331.0'
+2026-02-27T13:43:17.5332962Z ##[group]Runner Image Provisioner
+2026-02-27T13:43:17.5334525Z Hosted Compute Agent
+2026-02-27T13:43:17.5335459Z Version: 20260213.493
+2026-02-27T13:43:17.5336553Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-02-27T13:43:17.5337945Z Build Date: 2026-02-13T00:28:41Z
+2026-02-27T13:43:17.5339115Z Worker ID: {98cf46c9-9db9-4169-9119-19e0ce3b17f1}
+2026-02-27T13:43:17.5340364Z Azure Region: northcentralus
+2026-02-27T13:43:17.5361942Z ##[endgroup]
+2026-02-27T13:43:17.5365039Z ##[group]Operating System
+2026-02-27T13:43:17.5366039Z Ubuntu
+2026-02-27T13:43:17.5366888Z 24.04.3
+2026-02-27T13:43:17.5367823Z LTS
+2026-02-27T13:43:17.5368635Z ##[endgroup]
+2026-02-27T13:43:17.5369529Z ##[group]Runner Image
+2026-02-27T13:43:17.5370655Z Image: ubuntu-24.04
+2026-02-27T13:43:17.5371790Z Version: 20260224.36.1
+2026-02-27T13:43:17.5373853Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260224.36/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-27T13:43:17.5376679Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260224.36
+2026-02-27T13:43:17.5378468Z ##[endgroup]
+2026-02-27T13:43:17.5380547Z ##[group]GITHUB_TOKEN Permissions
+2026-02-27T13:43:17.5403859Z Contents: read
+2026-02-27T13:43:17.5404884Z Metadata: read
+2026-02-27T13:43:17.5405807Z Packages: read
+2026-02-27T13:43:17.5406591Z ##[endgroup]
+2026-02-27T13:43:17.5409795Z Secret source: Actions
+2026-02-27T13:43:17.5410953Z Prepare workflow directory
+2026-02-27T13:43:17.6314739Z Prepare all required actions
+2026-02-27T13:43:17.6454101Z Getting action download info
+2026-02-27T13:43:17.9711123Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-27T13:43:18.1222576Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-02-27T13:43:18.3197418Z Complete job name: run-daily-scan
+2026-02-27T13:43:18.3904340Z ##[group]Run actions/checkout@v4
+2026-02-27T13:43:18.3905207Z with:
+2026-02-27T13:43:18.3905652Z   repository: m0904103/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.3906372Z   token: ***
+2026-02-27T13:43:18.3906766Z   ssh-strict: true
+2026-02-27T13:43:18.3907171Z   ssh-user: git
+2026-02-27T13:43:18.3907583Z   persist-credentials: true
+2026-02-27T13:43:18.3908042Z   clean: true
+2026-02-27T13:43:18.3908450Z   sparse-checkout-cone-mode: true
+2026-02-27T13:43:18.3908938Z   fetch-depth: 1
+2026-02-27T13:43:18.3909330Z   fetch-tags: false
+2026-02-27T13:43:18.3909741Z   show-progress: true
+2026-02-27T13:43:18.3910151Z   lfs: false
+2026-02-27T13:43:18.3910527Z   submodules: false
+2026-02-27T13:43:18.3910939Z   set-safe-directory: true
+2026-02-27T13:43:18.3911769Z ##[endgroup]
+2026-02-27T13:43:18.5212489Z Syncing repository: m0904103/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.5215610Z ##[group]Getting Git version info
+2026-02-27T13:43:18.5217138Z Working directory is '/home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud'
+2026-02-27T13:43:18.5219201Z [command]/usr/bin/git version
+2026-02-27T13:43:18.5221359Z git version 2.53.0
+2026-02-27T13:43:18.5224425Z ##[endgroup]
+2026-02-27T13:43:18.5240978Z Temporarily overriding HOME='/home/runner/work/_temp/de0229ec-08f3-434e-96d3-a5d0038c8926' before making global git config changes
+2026-02-27T13:43:18.5245578Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-27T13:43:18.5260663Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.5306512Z Deleting the contents of '/home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud'
+2026-02-27T13:43:18.5311797Z ##[group]Initializing the repository
+2026-02-27T13:43:18.5318071Z [command]/usr/bin/git init /home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.6227249Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-27T13:43:18.6229225Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-27T13:43:18.6233169Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-27T13:43:18.6235758Z hint: call:
+2026-02-27T13:43:18.6236403Z hint:
+2026-02-27T13:43:18.6237230Z hint: 	git config --global init.defaultBranch <name>
+2026-02-27T13:43:18.6238235Z hint:
+2026-02-27T13:43:18.6238889Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-27T13:43:18.6239809Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-27T13:43:18.6240516Z hint:
+2026-02-27T13:43:18.6240900Z hint: 	git branch -m <name>
+2026-02-27T13:43:18.6241346Z hint:
+2026-02-27T13:43:18.6242523Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-27T13:43:18.6244445Z Initialized empty Git repository in /home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud/.git/
+2026-02-27T13:43:18.6247543Z [command]/usr/bin/git remote add origin https://github.com/m0904103/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.6250553Z ##[endgroup]
+2026-02-27T13:43:18.6252030Z ##[group]Disabling automatic garbage collection
+2026-02-27T13:43:18.6253144Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-27T13:43:18.6255402Z ##[endgroup]
+2026-02-27T13:43:18.6256537Z ##[group]Setting up auth
+2026-02-27T13:43:18.6257702Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-27T13:43:18.6261240Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-27T13:43:18.6265473Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-27T13:43:18.6280730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-27T13:43:18.6546210Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-27T13:43:18.6582811Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-27T13:43:18.6964002Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-27T13:43:18.6966895Z ##[endgroup]
+2026-02-27T13:43:18.6969725Z ##[group]Fetching the repository
+2026-02-27T13:43:18.6973358Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0e306164eed34ceafdcbcf0204fafd37d765befb:refs/remotes/origin/main
+2026-02-27T13:43:18.9397448Z From https://github.com/m0904103/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:18.9399314Z  * [new ref]         0e306164eed34ceafdcbcf0204fafd37d765befb -> origin/main
+2026-02-27T13:43:18.9430929Z ##[endgroup]
+2026-02-27T13:43:18.9434823Z ##[group]Determining the checkout info
+2026-02-27T13:43:18.9442165Z ##[endgroup]
+2026-02-27T13:43:18.9453907Z [command]/usr/bin/git sparse-checkout disable
+2026-02-27T13:43:18.9523562Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-27T13:43:18.9573089Z ##[group]Checking out the ref
+2026-02-27T13:43:18.9576872Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-02-27T13:43:18.9644060Z Switched to a new branch 'main'
+2026-02-27T13:43:18.9649666Z branch 'main' set up to track 'origin/main'.
+2026-02-27T13:43:18.9665244Z ##[endgroup]
+2026-02-27T13:43:18.9709890Z [command]/usr/bin/git log -1 --format=%H
+2026-02-27T13:43:18.9746968Z 0e306164eed34ceafdcbcf0204fafd37d765befb
+2026-02-27T13:43:19.0102833Z ##[group]Run actions/setup-python@v5
+2026-02-27T13:43:19.0103742Z with:
+2026-02-27T13:43:19.0104279Z   python-version: 3.10
+2026-02-27T13:43:19.0104944Z   check-latest: false
+2026-02-27T13:43:19.0105819Z   token: ***
+2026-02-27T13:43:19.0106350Z   update-environment: true
+2026-02-27T13:43:19.0107037Z   allow-prereleases: false
+2026-02-27T13:43:19.0107968Z   freethreaded: false
+2026-02-27T13:43:19.0108534Z ##[endgroup]
+2026-02-27T13:43:19.1865137Z ##[group]Installed versions
+2026-02-27T13:43:19.2018790Z Successfully set up CPython (3.10.19)
+2026-02-27T13:43:19.2024173Z ##[endgroup]
+2026-02-27T13:43:19.2186048Z ##[group]Run python -m pip install --upgrade pip
+2026-02-27T13:43:19.2187609Z [36;1mpython -m pip install --upgrade pip[0m
+2026-02-27T13:43:19.2188968Z [36;1mpip install -r requirements.txt[0m
+2026-02-27T13:43:19.2254856Z shell: /usr/bin/bash -e {0}
+2026-02-27T13:43:19.2255948Z env:
+2026-02-27T13:43:19.2257003Z   pythonLocation: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:19.2258832Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.10.19/x64/lib/pkgconfig
+2026-02-27T13:43:19.2260694Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:19.2262520Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:19.2264212Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:19.2265948Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.19/x64/lib
+2026-02-27T13:43:19.2267366Z ##[endgroup]
+2026-02-27T13:43:19.9597597Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.10.19/x64/lib/python3.10/site-packages (26.0.1)
+2026-02-27T13:43:20.8024729Z Collecting yfinance (from -r requirements.txt (line 1))
+2026-02-27T13:43:20.9080015Z   Downloading yfinance-1.2.0-py2.py3-none-any.whl.metadata (6.1 kB)
+2026-02-27T13:43:20.9244347Z Collecting ta (from -r requirements.txt (line 2))
+2026-02-27T13:43:20.9443141Z   Downloading ta-0.11.0.tar.gz (25 kB)
+2026-02-27T13:43:20.9649508Z   Installing build dependencies: started
+2026-02-27T13:43:21.9330717Z   Installing build dependencies: finished with status 'done'
+2026-02-27T13:43:21.9335502Z   Getting requirements to build wheel: started
+2026-02-27T13:43:22.3070687Z   Getting requirements to build wheel: finished with status 'done'
+2026-02-27T13:43:22.3083755Z   Preparing metadata (pyproject.toml): started
+2026-02-27T13:43:22.5252315Z   Preparing metadata (pyproject.toml): finished with status 'done'
+2026-02-27T13:43:22.6801375Z Collecting pandas (from -r requirements.txt (line 3))
+2026-02-27T13:43:22.7005000Z   Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+2026-02-27T13:43:22.9900717Z Collecting numpy (from -r requirements.txt (line 4))
+2026-02-27T13:43:23.0105479Z   Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+2026-02-27T13:43:23.0283280Z Collecting tabulate (from -r requirements.txt (line 5))
+2026-02-27T13:43:23.0485031Z   Downloading tabulate-0.9.0-py3-none-any.whl.metadata (34 kB)
+2026-02-27T13:43:23.0717146Z Collecting colorama (from -r requirements.txt (line 6))
+2026-02-27T13:43:23.0914020Z   Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+2026-02-27T13:43:23.1228193Z Collecting requests (from -r requirements.txt (line 7))
+2026-02-27T13:43:23.1426577Z   Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-02-27T13:43:23.1668267Z Collecting multitasking>=0.0.7 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:23.1870390Z   Downloading multitasking-0.0.12.tar.gz (19 kB)
+2026-02-27T13:43:23.1958774Z   Installing build dependencies: started
+2026-02-27T13:43:23.9105266Z   Installing build dependencies: finished with status 'done'
+2026-02-27T13:43:23.9119285Z   Getting requirements to build wheel: started
+2026-02-27T13:43:24.2345284Z   Getting requirements to build wheel: finished with status 'done'
+2026-02-27T13:43:24.2355770Z   Preparing metadata (pyproject.toml): started
+2026-02-27T13:43:24.4100665Z   Preparing metadata (pyproject.toml): finished with status 'done'
+2026-02-27T13:43:24.4325473Z Collecting platformdirs>=2.0.0 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.4532940Z   Downloading platformdirs-4.9.2-py3-none-any.whl.metadata (4.7 kB)
+2026-02-27T13:43:24.5137377Z Collecting pytz>=2022.5 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.5337360Z   Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+2026-02-27T13:43:24.5875749Z Collecting frozendict>=2.3.4 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.6079875Z   Downloading frozendict-2.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (23 kB)
+2026-02-27T13:43:24.6494137Z Collecting peewee>=3.16.2 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.6694110Z   Downloading peewee-4.0.0-py3-none-any.whl.metadata (8.1 kB)
+2026-02-27T13:43:24.6887095Z Collecting beautifulsoup4>=4.11.1 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.7084726Z   Downloading beautifulsoup4-4.14.3-py3-none-any.whl.metadata (3.8 kB)
+2026-02-27T13:43:24.7686661Z Collecting curl_cffi<0.14,>=0.7 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:24.7886518Z   Downloading curl_cffi-0.13.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+2026-02-27T13:43:24.9838265Z Collecting protobuf>=3.19.0 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.0039931Z   Downloading protobuf-7.34.0-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+2026-02-27T13:43:25.1055826Z Collecting websockets>=13.0 (from yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.1259687Z   Downloading websockets-16.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-02-27T13:43:25.2477146Z Collecting cffi>=1.12.0 (from curl_cffi<0.14,>=0.7->yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.2677423Z   Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+2026-02-27T13:43:25.3135139Z Collecting certifi>=2024.2.2 (from curl_cffi<0.14,>=0.7->yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.3336076Z   Downloading certifi-2026.2.25-py3-none-any.whl.metadata (2.5 kB)
+2026-02-27T13:43:25.3538060Z Collecting python-dateutil>=2.8.2 (from pandas->-r requirements.txt (line 3))
+2026-02-27T13:43:25.3735749Z   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-02-27T13:43:25.3920374Z Collecting tzdata>=2022.7 (from pandas->-r requirements.txt (line 3))
+2026-02-27T13:43:25.4120390Z   Downloading tzdata-2025.3-py2.py3-none-any.whl.metadata (1.4 kB)
+2026-02-27T13:43:25.5068562Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 7))
+2026-02-27T13:43:25.5276202Z   Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-02-27T13:43:25.5452125Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 7))
+2026-02-27T13:43:25.5653760Z   Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-02-27T13:43:25.5940769Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 7))
+2026-02-27T13:43:25.6139193Z   Downloading urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-02-27T13:43:25.6404244Z Collecting soupsieve>=1.6.1 (from beautifulsoup4>=4.11.1->yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.6604766Z   Downloading soupsieve-2.8.3-py3-none-any.whl.metadata (4.6 kB)
+2026-02-27T13:43:25.6803676Z Collecting typing-extensions>=4.0.0 (from beautifulsoup4>=4.11.1->yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.7001098Z   Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-02-27T13:43:25.7132321Z Collecting pycparser (from cffi>=1.12.0->curl_cffi<0.14,>=0.7->yfinance->-r requirements.txt (line 1))
+2026-02-27T13:43:25.7327205Z   Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+2026-02-27T13:43:25.7495738Z Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas->-r requirements.txt (line 3))
+2026-02-27T13:43:25.7695583Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-02-27T13:43:25.7958744Z Downloading yfinance-1.2.0-py2.py3-none-any.whl (130 kB)
+2026-02-27T13:43:25.8253564Z Downloading curl_cffi-0.13.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.3 MB)
+2026-02-27T13:43:25.9276682Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.3/8.3 MB 96.7 MB/s  0:00:00
+2026-02-27T13:43:25.9483491Z Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+2026-02-27T13:43:26.0290131Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 164.7 MB/s  0:00:00
+2026-02-27T13:43:26.0495662Z Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+2026-02-27T13:43:26.1477883Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 175.4 MB/s  0:00:00
+2026-02-27T13:43:26.1678432Z Downloading tabulate-0.9.0-py3-none-any.whl (35 kB)
+2026-02-27T13:43:26.1900795Z Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+2026-02-27T13:43:26.2122510Z Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+2026-02-27T13:43:26.2349537Z Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (153 kB)
+2026-02-27T13:43:26.2573220Z Downloading idna-3.11-py3-none-any.whl (71 kB)
+2026-02-27T13:43:26.2800072Z Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-02-27T13:43:26.3025884Z Downloading beautifulsoup4-4.14.3-py3-none-any.whl (107 kB)
+2026-02-27T13:43:26.3252448Z Downloading certifi-2026.2.25-py3-none-any.whl (153 kB)
+2026-02-27T13:43:26.3478556Z Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216 kB)
+2026-02-27T13:43:26.3709539Z Downloading frozendict-2.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (120 kB)
+2026-02-27T13:43:26.3952715Z Downloading peewee-4.0.0-py3-none-any.whl (139 kB)
+2026-02-27T13:43:26.4180772Z Downloading platformdirs-4.9.2-py3-none-any.whl (21 kB)
+2026-02-27T13:43:26.4409696Z Downloading protobuf-7.34.0-cp310-abi3-manylinux2014_x86_64.whl (324 kB)
+2026-02-27T13:43:26.4640219Z Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-02-27T13:43:26.4873152Z Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+2026-02-27T13:43:26.5112448Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-02-27T13:43:26.5336177Z Downloading soupsieve-2.8.3-py3-none-any.whl (37 kB)
+2026-02-27T13:43:26.5558991Z Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-02-27T13:43:26.5781671Z Downloading tzdata-2025.3-py2.py3-none-any.whl (348 kB)
+2026-02-27T13:43:26.6021076Z Downloading websockets-16.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (183 kB)
+2026-02-27T13:43:26.6252059Z Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+2026-02-27T13:43:26.7003317Z Building wheels for collected packages: ta, multitasking
+2026-02-27T13:43:26.7013541Z   Building wheel for ta (pyproject.toml): started
+2026-02-27T13:43:26.9084777Z   Building wheel for ta (pyproject.toml): finished with status 'done'
+2026-02-27T13:43:26.9093184Z   Created wheel for ta: filename=ta-0.11.0-py3-none-any.whl size=29482 sha256=d6828197053f68befd55bda7a47a997a96c6c50b7ac799b8d974235dcc81ad0d
+2026-02-27T13:43:26.9097267Z   Stored in directory: /home/runner/.cache/pip/wheels/5f/67/4f/8a9f252836e053e532c6587a3230bc72a4deb16b03a829610b
+2026-02-27T13:43:26.9117475Z   Building wheel for multitasking (pyproject.toml): started
+2026-02-27T13:43:27.1177882Z   Building wheel for multitasking (pyproject.toml): finished with status 'done'
+2026-02-27T13:43:27.1184643Z   Created wheel for multitasking: filename=multitasking-0.0.12-py3-none-any.whl size=15635 sha256=ed29b9b67b7ed25ae4f17c78b098d5b0269e9f19152fdb702628ed6870c23e68
+2026-02-27T13:43:27.1186698Z   Stored in directory: /home/runner/.cache/pip/wheels/e9/25/85/25d2e1cfc0ece64b930b16972f7e4cc3599c43b531f1eba06d
+2026-02-27T13:43:27.1207101Z Successfully built ta multitasking
+2026-02-27T13:43:27.2131319Z Installing collected packages: pytz, peewee, multitasking, websockets, urllib3, tzdata, typing-extensions, tabulate, soupsieve, six, pycparser, protobuf, platformdirs, numpy, idna, frozendict, colorama, charset_normalizer, certifi, requests, python-dateutil, cffi, beautifulsoup4, pandas, curl_cffi, yfinance, ta
+2026-02-27T13:43:34.5652581Z 
+2026-02-27T13:43:34.5696332Z Successfully installed beautifulsoup4-4.14.3 certifi-2026.2.25 cffi-2.0.0 charset_normalizer-3.4.4 colorama-0.4.6 curl_cffi-0.13.0 frozendict-2.4.7 idna-3.11 multitasking-0.0.12 numpy-2.2.6 pandas-2.3.3 peewee-4.0.0 platformdirs-4.9.2 protobuf-7.34.0 pycparser-3.0 python-dateutil-2.9.0.post0 pytz-2025.2 requests-2.32.5 six-1.17.0 soupsieve-2.8.3 ta-0.11.0 tabulate-0.9.0 typing-extensions-4.15.0 tzdata-2025.3 urllib3-2.6.3 websockets-16.0 yfinance-1.2.0
+2026-02-27T13:43:34.7589186Z ##[group]Run python main.py
+2026-02-27T13:43:34.7589476Z [36;1mpython main.py[0m
+2026-02-27T13:43:34.7641913Z shell: /usr/bin/bash -e {0}
+2026-02-27T13:43:34.7642154Z env:
+2026-02-27T13:43:34.7642410Z   pythonLocation: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:34.7642829Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.10.19/x64/lib/pkgconfig
+2026-02-27T13:43:34.7643249Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:34.7643628Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:34.7643993Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.19/x64
+2026-02-27T13:43:34.7644365Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.19/x64/lib
+2026-02-27T13:43:34.7644995Z   TELEGRAM_TOKEN: ***
+2026-02-27T13:43:34.7645213Z   CHAT_ID: ***
+2026-02-27T13:43:34.7645391Z ##[endgroup]
+2026-02-27T13:43:45.0342410Z 
+2026-02-27T13:43:45.0343689Z 📋 技術指標總表（彩色顯示）
+2026-02-27T13:43:45.0410049Z +--------+---------+---------+----------------+-----------+-------------+----------+------------+-----------+------------+-----------+-------------+--------+
+2026-02-27T13:43:45.0412195Z | Symbol |  Close  |  SMA20  | Price_vs_SMA20 | MACD_Diff | MACD_Signal | BB_Width | Volatility | Buy_Price | Sell_Price | Stop_Loss | Take_Profit | Signal |
+2026-02-27T13:43:45.0422097Z +--------+---------+---------+----------------+-----------+-------------+----------+------------+-----------+------------+-----------+-------------+--------+
+2026-02-27T13:43:45.0423810Z |  AAPL  | 272.95  | 268.31  |     Above      |  0.7115   |   Neutral   | 26.8926  |    High    | 269.7713  |  276.1288  | 266.5925  |   285.665   |  Hold  |
+2026-02-27T13:43:45.0429395Z |  NVDA  | 184.89  | 186.75  |     Below      |  0.4124   |   Neutral   | 23.1974  |    High    | 181.7589  |  188.0211  | 178.6278  |  197.4143   |  Hold  |
+2026-02-27T13:43:45.0432907Z |  MSFT  | 401.72  | 404.83  |     Below      |  1.7605   |   Neutral   | 49.0164  |    High    | 396.2744  |  407.1656  | 390.8289  |  423.5023   |  Sell  |
+2026-02-27T13:43:45.0434265Z | GOOGL  | 307.38  | 319.06  |     Below      |  -0.8952  |   Neutral   | 53.7152  |    High    | 302.8773  |  311.8827  | 298.3746  |  325.3908   |  Sell  |
+2026-02-27T13:43:45.0435612Z |  AMZN  | 207.92  |  215.0  |     Below      |  0.4953   |   Neutral   |  59.334  |    High    | 204.6681  |  211.1719  | 201.4162  |  220.9275   |  Sell  |
+2026-02-27T13:43:45.0436916Z |  META  | 657.01  |  666.5  |     Below      |  -1.594   |   Neutral   | 108.7442 |    High    | 647.3432  |  666.6768  | 637.6764  |  695.6772   |  Sell  |
+2026-02-27T13:43:45.0438257Z |  TSLA  | 408.58  | 414.55  |     Below      |  0.5586   |   Neutral   | 33.4828  |    High    | 401.3249  |  415.8351  | 394.0698  |  437.6003   |  Hold  |
+2026-02-27T13:43:45.0439477Z |  JPM   | 306.13  | 309.03  |     Below      |  -0.5714  |   Neutral   | 27.6738  |    High    | 302.1817  |  310.0783  | 298.2334  |  321.9232   |  Sell  |
+2026-02-27T13:43:45.0440779Z |  JNJ   | 243.47  | 238.68  |     Above      |  -0.5009  |   Neutral   | 24.7975  |   Medium   |  241.621  |  245.319   |  239.772  |   250.866   |  Sell  |
+2026-02-27T13:43:45.0442304Z |  AMD   | 203.68  | 213.33  |     Below      |  -0.3249  |   Neutral   | 67.1149  |    High    | 198.0339  |  209.3261  | 192.3878  |  226.2644   |  Sell  |
+2026-02-27T13:43:45.0443504Z |  NFLX  |  84.59  |  80.03  |     Above      |  0.9756   |   Neutral   | 10.6345  |   Medium   |  83.1706  |  86.0094   |  81.7513  |   90.2675   |  Sell  |
+2026-02-27T13:43:45.0453371Z |  ADBE  | 259.04  | 267.15  |     Below      |  1.3164   |   Neutral   | 50.6487  |    High    | 254.1966  |  263.8834  | 249.3532  |  278.4136   |  Sell  |
+2026-02-27T13:43:45.0454661Z |  CRM   | 199.47  | 192.96  |     Above      |  2.5324   |   Neutral   | 38.7483  |    High    | 195.0002  |  203.9398  | 190.5304  |  217.3491   |  Sell  |
+2026-02-27T13:43:45.0456220Z |  PYPL  |  45.53  |  43.66  |     Above      |  1.1598   |   Neutral   | 17.5293  |   Medium   |  44.4253  |  46.6347   |  43.3207  |   49.9486   |  Sell  |
+2026-02-27T13:43:45.0457163Z |   V    |  316.7  |  322.3  |     Below      |  -0.5986  |   Neutral   | 30.6285  |    High    | 312.9919  |  320.4081  | 309.2838  |  331.5325   |  Sell  |
+2026-02-27T13:43:45.0458018Z |  UNH   | 286.66  | 282.99  |     Above      |  1.8759   |   Neutral   | 27.4052  |    High    | 281.8795  |  291.4406  | 277.0989  |  305.7822   |  Sell  |
+2026-02-27T13:43:45.0458857Z |  XOM   | 148.54  | 147.33  |     Above      |  -0.9069  |   Neutral   | 16.8598  |   Medium   | 146.7756  |  150.3043  | 145.0113  |  155.5974   |  Sell  |
+2026-02-27T13:43:45.0459691Z |  ORCL  | 150.31  | 153.25  |     Below      |  0.8159   |   Neutral   | 31.7991  |    High    |  146.195  |  154.425   | 142.0801  |  166.7698   |  Sell  |
+2026-02-27T13:43:45.0460508Z |   MA   | 514.77  | 530.83  |     Below      |  -1.8948  |   Neutral   | 69.5944  |    High    | 508.1221  |  521.418   | 501.4742  |  541.3617   |  Sell  |
+2026-02-27T13:43:45.0461299Z |  XLE   |  55.05  |  53.54  |     Above      |  -0.1177  |   Neutral   |  6.4182  |    Low     |  54.498   |   55.602   |  53.946   |   57.2579   |  Sell  |
+2026-02-27T13:43:45.0462427Z |  QQQ   | 609.24  | 610.12  |     Below      |  0.6763   |   Neutral   | 34.0815  |    High    | 604.1981  |  614.2818  | 599.1563  |  629.4074   |  Hold  |
+2026-02-27T13:43:45.0463314Z |  SPY   |  689.3  | 688.08  |     Above      |  0.2239   |   Neutral   | 19.6701  |    High    | 685.2791  |  693.3208  | 681.2583  |  705.3834   |  Hold  |
+2026-02-27T13:43:45.0464159Z |  SMH   | 412.01  | 407.34  |     Above      |  0.1207   |   Neutral   | 42.7179  |    High    | 406.0763  |  417.9437  | 400.1426  |  435.7449   |  Hold  |
+2026-02-27T13:43:45.0465032Z |  SOXX  |  356.8  | 352.85  |     Above      |  -0.3191  | Death Cross | 36.4206  |    High    | 351.5212  |  362.0787  | 346.2425  |   377.915   |  Sell  |
+2026-02-27T13:43:45.0465888Z |  LLY   | 1022.02 | 1034.0  |     Below      |  -0.0376  | Death Cross |  86.92   |    High    | 1004.129  |  1039.911  |  986.238  |  1093.5841  |  Sell  |
+2026-02-27T13:43:45.0466764Z |  PLTR  | 135.94  | 137.81  |     Below      |  1.1404   |   Neutral   | 30.8097  |    High    | 132.1934  |  139.6867  | 128.4467  |  150.9266   |  Sell  |
+2026-02-27T13:43:45.0467606Z |  TSM   | 376.81  | 357.81  |     Above      |   1.215   |   Neutral   | 72.4303  |    High    | 370.1172  |  383.5028  | 363.4245  |   403.581   |  Hold  |
+2026-02-27T13:43:45.0468443Z |  AVGO  |  321.7  | 329.55  |     Below      |  0.0595   |   Neutral   | 35.6684  |    High    | 314.2771  |  329.1229  | 306.8542  |  351.3916   |  Hold  |
+2026-02-27T13:43:45.0469284Z |   MU   | 415.56  | 410.37  |     Above      |  -2.3116  |   Neutral   |  73.268  |    High    | 403.3792  |  427.7408  | 391.1983  |  464.2833   |  Sell  |
+2026-02-27T13:43:45.0470135Z |  DELL  | 121.45  | 119.36  |     Above      |  0.6264   |   Neutral   | 13.2392  |    High    | 118.6402  |  124.2598  | 115.8304  |  132.6891   |  Sell  |
+2026-02-27T13:43:45.0471033Z |  MARA  |  8.45   |  8.16   |     Above      |  0.1667   |   Neutral   |  2.9996  |    Low     |  8.0912   |   8.8088   |  7.7324   |   9.8853    |  Sell  |
+2026-02-27T13:43:45.0471996Z |  MSTR  |  133.4  | 131.15  |     Above      |  1.7517   |   Neutral   | 34.5505  |    High    | 128.0871  |  138.7129  | 122.7743  |  154.6514   |  Sell  |
+2026-02-27T13:43:45.0473606Z |  IGV   |  82.6   |  83.26  |     Below      |  0.5194   |   Neutral   | 15.1471  |   Medium   |  81.2148  |  83.9852   |  79.8296  |   88.1408   |  Sell  |
+2026-02-27T13:43:45.0475034Z |  MGV   | 152.66  | 151.67  |     Above      |  -0.2619  |   Neutral   |  6.3656  |    Low     | 151.9847  |  153.3353  | 151.3095  |   155.361   |  Sell  |
+2026-02-27T13:43:45.0476227Z |  DXYZ  |  27.92  |  30.22  |     Below      |  -0.3758  |   Neutral   |  8.0378  |    Low     |  26.9755  |  28.8645   |  26.031   |   31.698    |  Sell  |
+2026-02-27T13:43:45.0477640Z |  XOVR  |  17.64  |  17.66  |     Below      |  0.0766   |   Neutral   |  2.1435  |    Low     |  17.4337  |  17.8463   |  17.2274  |   18.4652   |  Sell  |
+2026-02-27T13:43:45.0478885Z |  SARK  |  30.45  |  31.88  |     Below      |  -0.2819  |   Neutral   |  4.2763  |    Low     |  29.9184  |  30.9816   |  29.3868  |   32.5765   |  Sell  |
+2026-02-27T13:43:45.0480145Z |  VTI   | 340.49  | 339.46  |     Above      |  0.1049   |   Neutral   |  9.6617  |   Medium   | 338.4789  |  342.5011  | 336.4678  |  348.5344   |  Hold  |
+2026-02-27T13:43:45.0481426Z |  VGT   | 740.19  | 738.69  |     Above      |  1.2918   |   Neutral   | 47.8483  |    High    | 732.0977  |  748.2823  | 724.0053  |  772.5593   |  Hold  |
+2026-02-27T13:43:45.0482882Z |  VOO   | 633.95  |  632.8  |     Above      |  0.2136   |   Neutral   | 18.1831  |    High    | 630.2537  |  637.6464  | 626.5573  |  648.7354   |  Hold  |
+2026-02-27T13:43:45.0484201Z |  ASML  | 1463.8  | 1434.31 |     Above      |  -1.5926  | Death Cross | 180.6927 |    High    | 1439.1633 | 1488.4368  | 1414.5266 |  1562.347   |  Sell  |
+2026-02-27T13:43:45.0485512Z |  FTNT  |  79.2   |  81.34  |     Below      |  -0.7388  |   Neutral   | 13.0307  |   Medium   |  77.6149  |  80.7851   |  76.0298  |   85.5403   |  Sell  |
+2026-02-27T13:43:45.0486772Z |  CRWV  |  97.63  |  92.81  |     Above      |  0.2158   |   Neutral   | 23.6011  |    High    |  93.5535  |  101.7065  |  89.477   |  113.9359   |  Sell  |
+2026-02-27T13:43:45.0488004Z |  CSCO  |  78.1   |  80.26  |     Below      |  -0.4418  |   Neutral   |  13.393  |   Medium   |  77.0013  |  79.1987   |  75.9025  |   82.4949   |  Sell  |
+2026-02-27T13:43:45.0489305Z +--------+---------+---------+----------------+-----------+-------------+----------+------------+-----------+------------+-----------+-------------+--------+
+2026-02-27T13:43:46.0819590Z 
+2026-02-27T13:43:46.0823897Z 📊 五大指數概況（含 VIX）：
+2026-02-27T13:43:46.0831881Z +--------------------+----------+----------+--------+
+2026-02-27T13:43:46.0832585Z |                    |  Close   |  SMA20   | Signal |
+2026-02-27T13:43:46.0834896Z +--------------------+----------+----------+--------+
+2026-02-27T13:43:46.0835615Z |      S&P 500       | 6908.86  | 6900.57  |  Buy   |
+2026-02-27T13:43:46.0838382Z |     Dow Jones      | 49499.2  | 49485.68 |  Buy   |
+2026-02-27T13:43:46.0838834Z |       Nasdaq       | 22878.38 | 22972.21 |  Sell  |
+2026-02-27T13:43:46.0839299Z |    Russell 2000    | 2677.29  | 2648.93  |  Buy   |
+2026-02-27T13:43:46.0839780Z | PHLX Semiconductor | 8197.26  | 8124.04  |  Buy   |
+2026-02-27T13:43:46.0840232Z |        VIX         |  21.06   |  19.21   |  Sell  |
+2026-02-27T13:43:46.0840692Z +--------------------+----------+----------+--------+
+2026-02-27T13:43:46.0840988Z 
+2026-02-27T13:43:46.0841263Z 沒有符合 Buy + MACD 金叉 的股票。
+2026-02-27T13:43:46.1670745Z Post job cleanup.
+2026-02-27T13:43:46.3677219Z Post job cleanup.
+2026-02-27T13:43:46.4704179Z [command]/usr/bin/git version
+2026-02-27T13:43:46.4750177Z git version 2.53.0
+2026-02-27T13:43:46.4804935Z Temporarily overriding HOME='/home/runner/work/_temp/b67a6ad7-9963-4afc-9749-4447335b130f' before making global git config changes
+2026-02-27T13:43:46.4812453Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-27T13:43:46.4821200Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AI_Stock_Scanner_Cloud/AI_Stock_Scanner_Cloud
+2026-02-27T13:43:46.4878911Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-27T13:43:46.4914072Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-27T13:43:46.5182951Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-27T13:43:46.5210476Z http.https://github.com/.extraheader
+2026-02-27T13:43:46.5225379Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-27T13:43:46.5260853Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-27T13:43:46.5518424Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-27T13:43:46.5554967Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-27T13:43:46.5931206Z Cleaning up orphan processes
