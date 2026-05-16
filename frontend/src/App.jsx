@@ -5,7 +5,7 @@ import {
   Cell, PieChart, Pie
 } from 'recharts';
 import { 
-  TrendingUp, TrendingDown, AlertCircle, CheckCircle2, Search, RefreshCcw, RefreshCw,
+  TrendingUp, TrendingDown, AlertCircle, CheckCircle2, Search, RefreshCcw, 
   ChevronRight, BarChart3, PieChart as PieChartIcon, Activity, Wind, CloudRain,
   ShieldCheck, Zap, AlertTriangle, ShieldAlert, Navigation2, Target, Sword, Crosshair, HelpCircle,
   Menu, X, ExternalLink, Globe, LayoutDashboard, History, Settings, Info, Bell, MessageSquare,
@@ -29,18 +29,33 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [systemStatus, setSystemStatus] = useState("online");
+  const [cloudStatus, setCloudStatus] = useState("connecting"); 
   const [activeMarket, setActiveMarket] = useState(() => {
     const hour = new Date().getHours();
     return (hour >= 8 && hour < 18) ? "tw" : "us";
   });
-  const [activeTab, setActiveTab] = useState("regular"); // regular, intraday
+  const [activeTab, setActiveTab] = useState("regular"); 
   const [selectedSector, setSelectedSector] = useState(null);
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 30000); // 30s update
-    return () => clearInterval(interval);
+    checkCloudStatus();
+    const interval = setInterval(fetchData, 30000);
+    const cloudInterval = setInterval(checkCloudStatus, 60000);
+    return () => {
+      clearInterval(interval);
+      clearInterval(cloudInterval);
+    };
   }, []);
+
+  const checkCloudStatus = async () => {
+    try {
+      await axios.get(`${RENDER_API_URL}/health`, { timeout: 5000 });
+      setCloudStatus("online");
+    } catch (e) {
+      setCloudStatus("offline");
+    }
+  };
 
   const fetchData = async () => {
     setSystemStatus("connecting");
@@ -66,7 +81,6 @@ function App() {
       setLastUpdated(new Date());
       setSystemStatus("online");
     } catch (error) {
-      console.error("Fetch error:", error);
       setSystemStatus("offline");
     } finally {
       setLoading(false);
@@ -77,8 +91,8 @@ function App() {
     if (stock.market && stock.market !== activeMarket) setActiveMarket(stock.market);
     setSelectedStock(stock);
     setTimeout(() => {
-      const el = document.getElementById('stock-details');
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const element = document.getElementById('trading-chart');
+      if (element) element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
 
     try {
@@ -90,131 +104,162 @@ function App() {
     }
   };
 
-  const handleSelectSector = (name) => {
-    setSelectedSector(name === selectedSector ? null : name);
+  const handleSelectSector = (sectorName) => {
+    if (!sectorName) { setSelectedSector(null); return; }
+    const trimmedSector = sectorName.trim();
+    setSelectedSector(trimmedSector);
+    const currentMarketStocks = activeMarket === 'tw' ? stocks.tw : stocks.us;
+    const hasInCurrent = currentMarketStocks.some(s => s.sector?.trim() === trimmedSector);
+    if (!hasInCurrent) {
+      const otherMarket = activeMarket === 'tw' ? 'us' : 'tw';
+      const hasInOther = (otherMarket === 'tw' ? stocks.tw : stocks.us).some(s => s.sector?.trim() === trimmedSector);
+      if (hasInOther) setActiveMarket(otherMarket);
+    }
   };
-
-  const getSignalStyle = (signal) => {
-    if (signal?.includes("Strong Buy")) return "text-red-500 bg-red-500/10 border-red-500/20";
-    if (signal?.includes("Sell")) return "text-green-500 bg-green-500/10 border-green-500/20";
-    return "text-yellow-500 bg-yellow-500/10 border-yellow-500/20";
-  };
-
-  const currentStocks = (activeMarket === "tw" ? stocks?.tw : stocks?.us) || [];
-  const displayStocks = currentStocks.filter(s => {
-    const matchSearch = s.symbol.includes(searchTerm) || s.name.includes(searchTerm);
-    const matchSector = selectedSector ? s.sector === selectedSector : true;
-    return matchSearch && matchSector;
-  });
 
   const renderWeatherStation = () => {
-    const vix = indices["VIX (恐慌)"]?.close || 15;
+    const vix = indices["台指VIX (波動率)"]?.close || indices["VIX (恐慌)"]?.close || 15;
     const adr = indices.adr_premium?.close || 0;
-    const suggestedCash = indices.suggested_cash || (vix > 25 ? 70 : 30);
+    let suggestedCash = indices.suggested_cash || 30;
+    if (vix > 35) suggestedCash = 70;
+
+    let wisdom = "大格局看大勢，耐心等待屬於您的擊球區。";
+    if (vix > 35) wisdom = "【極端預警】台指 VIX 突破 38，這是一場生存遊戲。嚴格執行 70% 現金水位，保護救命錢。";
 
     return (
       <div className="space-y-4 mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-xl font-black text-white tracking-tighter flex items-center gap-2">
-            <Thermometer className="text-red-500" size={20} />
-            市場氣象台 <span className="text-gray-500 italic text-sm">WEATHER STATION</span>
-          </h2>
-          
-          <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-bold ${
-            indices.cloud_status === 'live' ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'
-          }`}>
-            <div className={`w-1.5 h-1.5 rounded-full ${indices.cloud_status === 'live' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
-            CLOUD {indices.cloud_status === 'live' ? 'LIVE' : 'OFFLINE'} {indices.cloud_time}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="glass rounded-2xl p-4 border-l-4 border-l-red-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase">台指 VIX 恐慌</span>
-            <div className="text-3xl font-black text-white mt-1">{vix}</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className={`glass rounded-2xl p-4 border-l-4 ${vix > 35 ? 'border-l-purple-600 bg-purple-600/5' : 'border-l-orange-500'}`}>
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">市場波動率 (VIX)</span>
+            <div className="text-2xl font-black mt-1 flex items-center">
+               {vix} <span className="ml-2 text-xs font-bold text-gray-400">極端恐慌</span>
+            </div>
           </div>
           <div className="glass rounded-2xl p-4 border-l-4 border-l-blue-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase">TSM ADR 溢價</span>
-            <div className="text-3xl font-black text-white mt-1">{adr}%</div>
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">建議現金水位</span>
+            <div className="text-2xl font-black mt-1 text-blue-400">{suggestedCash}%</div>
           </div>
-          <div className="glass rounded-2xl p-4 border-l-4 border-l-green-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase">建議現金水位</span>
-            <div className="text-3xl font-black text-white mt-1">{suggestedCash}%</div>
+          <div className="glass rounded-2xl p-4 border-l-4 border-l-red-500">
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">TSM ADR 溢價</span>
+            <div className="text-2xl font-black mt-1 text-red-400">{adr}%</div>
           </div>
-          <div className="glass rounded-2xl p-4 border-l-4 border-l-yellow-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase">生命線狀態</span>
-            <div className="text-xl font-black text-white mt-1">MA60 支撐中</div>
-          </div>
+        </div>
+        <div className="bg-white/5 p-4 rounded-2xl border border-white/10 italic text-sm text-gray-300">
+          <Quote size={14} className="inline mr-2 text-yellow-500" /> {wisdom}
         </div>
       </div>
     );
   };
 
+  const displayStocks = (activeMarket === 'tw' ? stocks.tw : stocks.us).filter(s => {
+    const matchSearch = s.symbol.toLowerCase().includes(searchTerm.toLowerCase()) || s.name.includes(searchTerm);
+    const matchSector = selectedSector ? s.sector === selectedSector : true;
+    return matchSearch && matchSector;
+  });
+
   return (
-    <div className="min-h-screen bg-[#0B0E11] text-gray-200 p-4 md:p-8">
-      <header className="mb-8 flex justify-between items-center">
-        <h1 className="text-2xl font-black italic text-white">REGULAR ARMY <span className="text-red-500">COMMAND</span></h1>
-        <div className="flex gap-2 bg-gray-900 p-1 rounded-xl">
-          <button onClick={() => setActiveMarket('tw')} className={`px-4 py-1 rounded-lg text-xs font-bold ${activeMarket === 'tw' ? 'bg-red-600 text-white' : 'text-gray-500'}`}>TAIWAN</button>
-          <button onClick={() => setActiveMarket('us')} className={`px-4 py-1 rounded-lg text-xs font-bold ${activeMarket === 'us' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}>USA</button>
+    <div className="min-h-screen bg-[#0B0E11] text-gray-100 font-['Inter', 'Noto Sans TC', sans-serif]">
+      <header className="px-4 md:px-8 py-4 border-b border-white/5 bg-[#0B0E11]/80 backdrop-blur-xl sticky top-0 z-50 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center space-x-3">
+          <div className="bg-red-600 p-2 rounded-xl shadow-lg shadow-red-600/20">
+            <ShieldCheck className="text-white" size={24} />
+          </div>
+          <div>
+            <h1 className="text-lg md:text-xl font-black tracking-tighter uppercase leading-none">正規軍量化交易終端</h1>
+            <span className="text-[9px] font-black text-red-500 uppercase tracking-widest opacity-80">Regular Army Strategic Command</span>
+          </div>
         </div>
-      </header>
 
-      {renderWeatherStation()}
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <aside className="lg:col-span-4 glass rounded-3xl p-4 h-[600px] overflow-y-auto">
-          <div className="mb-4">
+        <div className="flex-1 max-w-md hidden lg:block">
+          <div className="relative group">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-red-500 transition-colors" size={16} />
             <input 
-              type="text" placeholder="搜尋股票..." 
-              className="w-full bg-gray-800 border-none rounded-xl py-2 px-4 text-sm"
+              type="text" 
+              placeholder="搜尋代號或名稱..." 
+              className="w-full bg-[#161A1E] border border-white/5 rounded-2xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-red-500/50 transition-all font-bold"
+              value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="space-y-2">
-            {displayStocks.map(s => (
-              <div key={s.symbol} onClick={() => handleSelectStock(s)} className="p-4 bg-white/5 rounded-2xl border border-transparent hover:border-red-500/50 cursor-pointer">
-                <div className="flex justify-between">
-                  <span className="font-black">{s.symbol} {s.name}</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${getSignalStyle(s.signal)}`}>{s.signal}</span>
-                </div>
-                <div className="mt-2 text-xs text-gray-500">價格: ${s.close} | MA60: ${s.ma60}</div>
-              </div>
-            ))}
-          </div>
-        </aside>
+        </div>
 
-        <main id="stock-details" className="lg:col-span-8 space-y-6">
-          {selectedStock ? (
-            <div className="glass rounded-3xl p-8 border border-white/5">
-              <h2 className="text-4xl font-black italic mb-4">{selectedStock.symbol} {selectedStock.name}</h2>
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-white/5 p-4 rounded-2xl">
-                  <span className="text-[10px] text-gray-500 uppercase">當前策略</span>
-                  <p className="font-bold text-red-400">{selectedStock.tactic || "守住生命線，不摸底。"}</p>
-                </div>
-                <div className="bg-white/5 p-4 rounded-2xl">
-                  <span className="text-[10px] text-gray-500 uppercase">趨勢分數</span>
-                  <p className="text-2xl font-black">{selectedStock.trend_score}/100</p>
-                </div>
+        <div className="flex items-center space-x-4">
+          {/* Cloud Signal Indicator */}
+          <div className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border transition-all ${
+            cloudStatus === 'online' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
+            'bg-red-500/10 border-red-500/30 text-red-400'
+          }`}>
+            <div className={`w-2 h-2 rounded-full ${cloudStatus === 'online' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+            <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">
+              {cloudStatus === 'online' ? 'Render Cloud Active' : 'Local Backup Mode'}
+            </span>
+          </div>
+
+          <div className="flex bg-[#161A1E] p-1 rounded-xl border border-white/5">
+            <button onClick={() => setActiveMarket("tw")} className={`px-4 py-1.5 text-xs font-black rounded-lg ${activeMarket === 'tw' ? 'bg-red-600 text-white' : 'text-gray-500'}`}>TAIWAN</button>
+            <button onClick={() => setActiveMarket("us")} className={`px-4 py-1.5 text-xs font-black rounded-lg ${activeMarket === 'us' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}>USA</button>
+          </div>
+        </div>
+      </header>
+
+      <main className="p-4 md:p-8 max-w-[1600px] mx-auto w-full space-y-8">
+        <section id="weather-station">{renderWeatherStation()}</section>
+        
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
+              <LayoutDashboard size={16} className="mr-2" /> 2026 產業戰略地圖
+            </h2>
+          </div>
+          <StrategyBoard 
+            onSelectStock={handleSelectStock} 
+            stocks={[...stocks.tw, ...stocks.us]} 
+          />
+        </section>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <aside className="lg:col-span-4 glass rounded-3xl overflow-hidden border border-white/5 h-[600px] flex flex-col">
+             <div className="p-4 bg-[#161A1E] border-b border-white/5 flex justify-between">
+                <span className="text-xs font-black text-gray-400 uppercase tracking-widest">市場診斷名單</span>
+                <span className="text-[10px] text-gray-500">最後更新: {lastUpdated.toLocaleTimeString()}</span>
+             </div>
+             <div className="flex-1 overflow-y-auto p-2 space-y-2">
+                {displayStocks.map(stock => (
+                  <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-4 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
+                    <div className="flex justify-between items-center">
+                      <span className="font-black">{stock.symbol} {stock.name}</span>
+                      <span className={`px-2 py-1 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
+                    </div>
+                  </div>
+                ))}
+             </div>
+          </aside>
+
+          <section id="trading-chart" className="lg:col-span-8 space-y-6">
+            {selectedStock ? (
+              <div className="glass rounded-3xl p-6 border border-white/5 space-y-6">
+                 <div className="flex justify-between items-start">
+                    <div>
+                      <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol} {selectedStock.name}</h2>
+                      <p className="text-sm text-gray-400 font-bold mt-1">{selectedStock.tactic}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-xs text-gray-500 font-black uppercase">目前股價</span>
+                      <div className="text-3xl font-mono font-bold">${selectedStock.close}</div>
+                    </div>
+                 </div>
+                 <div className="h-[400px] bg-[#161A1E] rounded-2xl border border-white/5 flex items-center justify-center text-gray-500 italic">
+                    [ 圖表載入中 - 這裡將顯示 {selectedStock.symbol} 的 MA60 生命線與量化分析 ]
+                 </div>
               </div>
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={historyData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                    <XAxis dataKey="date" hide />
-                    <YAxis hide domain={['auto', 'auto']} />
-                    <Tooltip contentStyle={{backgroundColor: '#111', border: 'none'}} />
-                    <Area type="monotone" dataKey="close" stroke="#ef4444" fill="rgba(239, 68, 68, 0.1)" />
-                  </AreaChart>
-                </ResponsiveContainer>
+            ) : (
+              <div className="h-full flex items-center justify-center glass rounded-3xl border border-dashed border-white/10 text-gray-500 italic">
+                請從上方地圖或左側名單選取個股進行診斷
               </div>
-            </div>
-          ) : (
-            <div className="h-full flex items-center justify-center text-gray-600 italic">請從左側選取股票進行量化診斷</div>
-          )}
-        </main>
-      </div>
+            )}
+          </section>
+        </div>
+      </main>
     </div>
   );
 }
