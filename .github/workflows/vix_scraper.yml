@@ -7,18 +7,21 @@ on:
     - cron: '0 1-6 * * 1-5'
   workflow_dispatch: # Allow manual trigger
 
+permissions:
+  contents: write  # Required to commit and push vix.json back to the repo
+
 jobs:
   scrape-vix:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
@@ -34,12 +37,7 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        
-        # Check if vix.json was modified
-        if git diff --quiet trading/vix.json; then
-          echo "No changes to vix.json"
-        else
-          git add trading/vix.json
-          git commit -m "Auto-update Taiwan VIX data"
-          git push
-        fi
+        git add -f trading/vix.json
+        git diff --staged --quiet && echo "No changes to commit" || git commit -m "Auto-update Taiwan VIX data"
+        git push origin HEAD:main
+
