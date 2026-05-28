@@ -5,10 +5,166 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Regular Army Quant Terminal | 投資理財戰情室</title>
-    <script type="module" crossorigin src="./assets/index-BaPdXYEC.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DtRprBLg.css">
+    <script type="module" crossorigin src="./assets/index-O-2aTHxF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-GUvyFFAb.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+
+  
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let lastSymbol = "";
+        
+        const observer = new MutationObserver((mutations) => {
+            const chartContainer = document.querySelector('#trading-chart');
+            if (!chartContainer) return;
+            
+            const h2 = chartContainer.querySelector('h2');
+            if (!h2) return;
+            
+            const text = h2.textContent; 
+            const match = text.match(/^([0-9A-Z]+)\.(TW|TWO)/);
+            if (!match) return;
+            
+            const symbol = match[1];
+            const market = match[2];
+            const tvSymbol = (market === 'TW' ? 'TWSE:' : 'TPEX:') + symbol;
+            
+            if (tvSymbol !== lastSymbol) {
+                lastSymbol = tvSymbol;
+                
+                const placeholder = chartContainer.querySelector('.h-\\[400px\\]');
+                if (placeholder) {
+                    placeholder.innerHTML = ''; 
+                    placeholder.className = 'h-[400px] w-full rounded-2xl overflow-hidden border border-white/5'; 
+                    
+                    const widgetDiv = document.createElement('div');
+                    widgetDiv.className = "tradingview-widget-container";
+                    widgetDiv.style.height = "100%";
+                    widgetDiv.style.width = "100%";
+                    
+                    const widgetInner = document.createElement('div');
+                    widgetInner.className = "tradingview-widget-container__widget";
+                    widgetInner.style.height = "100%";
+                    widgetInner.style.width = "100%";
+                    widgetDiv.appendChild(widgetInner);
+                    
+                    placeholder.appendChild(widgetDiv);
+                    
+                    const script = document.createElement('script');
+                    script.type = "text/javascript";
+                    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+                    script.async = true;
+                    script.innerHTML = JSON.stringify({
+                      "autosize": true,
+                      "symbol": tvSymbol,
+                      "interval": "D",
+                      "timezone": "Asia/Taipei",
+                      "theme": "dark",
+                      "style": "1",
+                      "locale": "zh_TW",
+                      "enable_publishing": false,
+                      "backgroundColor": "#161A1E",
+                      "gridColor": "rgba(255, 255, 255, 0.06)",
+                      "hide_top_toolbar": false,
+                      "hide_legend": true,
+                      "save_image": false,
+                      "support_host": "https://www.tradingview.com"
+                    });
+                    widgetDiv.appendChild(script);
+                }
+            }
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+    </script>
+
+  
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let stockDataMap = {};
+        Promise.all([
+            fetch('./scan_results.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({})),
+            fetch('./guru_army_data_v9.json?t=' + Date.now()).then(r=>r.json()).catch(()=>({}))
+        ]).then(([scan, guru]) => {
+            [...(scan.stocks||[]), ...(guru.stocks||[])].forEach(s => {
+                stockDataMap[s.symbol] = s;
+            });
+        });
+
+        const quoteObserver = new MutationObserver((mutations) => {
+            const chartContainer = document.querySelector('#trading-chart');
+            if (!chartContainer) return;
+            
+            const h2 = chartContainer.querySelector('h2');
+            if (!h2) return;
+            
+            const text = h2.textContent; 
+            const match = text.match(/^([0-9A-Z]+)\.(TW|TWO)/);
+            if (!match) return;
+            
+            const symbol = match[1] + '.' + match[2];
+            const stockData = stockDataMap[symbol];
+            if (!stockData) return;
+            
+            const checklist = document.getElementById('mobile-checklist');
+            if (!checklist || !checklist.nextElementSibling) return;
+            
+            const quoteContainer = checklist.nextElementSibling;
+            
+            if (quoteContainer.dataset.injectedSymbol === symbol) return;
+            quoteContainer.dataset.injectedSymbol = symbol;
+            
+            const price = stockData.close;
+            const ma60 = stockData.ma60;
+            const isStrong = price > ma60;
+            const isGolden = price >= ma60 && price < ma60 * 1.05; 
+            
+            let yenQuote = "";
+            let tsunQuote = "";
+            
+            if (!isStrong) {
+                yenQuote = "目前股價落於 MA60 之下，屬於空頭禁區。量化回測判定下行風險大於期望報酬，系統嚴禁操作。";
+                tsunQuote = "哎呀！這檔跌破生命線了，上面全是套牢的冤魂！手上有部位的趕快冰冷停損，空手的千萬別去當接盤俠！";
+            } else if (isGolden) {
+                yenQuote = "股價於季線邊緣測試支撐。這是一個風險報酬比（R/R Ratio）極佳的量化試單點，建議按紀律分批佈局。";
+                tsunQuote = "剛回測生命線！主力正在洗盤，這時候用老油條買法分批買進，停損點很近，看錯頂多賠便當錢，看對就賺一波大的！";
+            } else {
+                yenQuote = "數據顯示勝率具備統計優勢，多頭結構完整。請嚴格依照部位規劃器，控制單筆虧損在總資金 1% 以內，切忌 FOMO 追高滿倉。";
+                tsunQuote = "這檔現在勢頭正旺！均線多頭排列，不要猶豫，掛在五日線附近買零股，只要沒跌破生命線，抱著等主力抬轎！";
+            }
+            
+            quoteContainer.className = "flex flex-col gap-3 mt-2 mb-8";
+            quoteContainer.innerHTML = `
+                <div class="relative bg-blue-950/20 border border-blue-500/30 rounded-2xl p-4 overflow-hidden shadow-lg shadow-blue-500/5 backdrop-blur-sm animate-fadeIn">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-blue-400 text-[13px] font-black tracking-widest">🧑‍🏫 顏春煌教授</span>
+                        <span class="text-[9px] text-blue-500/60 font-mono border border-blue-500/20 px-1 rounded bg-blue-500/10">THEORY</span>
+                    </div>
+                    <p class="relative z-10 text-[11px] text-blue-100/80 font-bold leading-relaxed italic pl-3 border-l border-blue-500/20">
+                        "\${yenQuote}"
+                    </p>
+                </div>
+                
+                <div class="relative bg-orange-950/20 border border-orange-500/30 rounded-2xl p-4 overflow-hidden shadow-lg shadow-orange-500/5 backdrop-blur-sm animate-fadeIn" style="animation-delay: 0.1s">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-orange-400 text-[13px] font-black tracking-widest">👴 阿村伯</span>
+                        <span class="text-[9px] text-orange-500/60 font-mono border border-orange-500/20 px-1 rounded bg-orange-500/10">PRACTICE</span>
+                    </div>
+                    <p class="relative z-10 text-[11px] text-orange-100/80 font-bold leading-relaxed italic pl-3 border-l border-orange-500/20">
+                        "\${tsunQuote}"
+                    </p>
+                </div>
+            `;
+        });
+        
+        quoteObserver.observe(document.body, { childList: true, subtree: true });
+    });
+    </script>
+
   </body>
 </html>
