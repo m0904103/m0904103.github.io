@@ -9,6 +9,77 @@
     <link rel="stylesheet" crossorigin href="./assets/index-GUvyFFAb.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+
+  
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let lastSymbol = "";
+        
+        const observer = new MutationObserver((mutations) => {
+            const chartContainer = document.querySelector('#trading-chart');
+            if (!chartContainer) return;
+            
+            const h2 = chartContainer.querySelector('h2');
+            if (!h2) return;
+            
+            const text = h2.textContent; 
+            const match = text.match(/^([0-9A-Z]+)\.(TW|TWO)/);
+            if (!match) return;
+            
+            const symbol = match[1];
+            const market = match[2];
+            const tvSymbol = (market === 'TW' ? 'TWSE:' : 'TPEX:') + symbol;
+            
+            if (tvSymbol !== lastSymbol) {
+                lastSymbol = tvSymbol;
+                
+                const placeholder = chartContainer.querySelector('.h-\\[400px\\]');
+                if (placeholder) {
+                    placeholder.innerHTML = ''; 
+                    placeholder.className = 'h-[400px] w-full rounded-2xl overflow-hidden border border-white/5'; 
+                    
+                    const widgetDiv = document.createElement('div');
+                    widgetDiv.className = "tradingview-widget-container";
+                    widgetDiv.style.height = "100%";
+                    widgetDiv.style.width = "100%";
+                    
+                    const widgetInner = document.createElement('div');
+                    widgetInner.className = "tradingview-widget-container__widget";
+                    widgetInner.style.height = "100%";
+                    widgetInner.style.width = "100%";
+                    widgetDiv.appendChild(widgetInner);
+                    
+                    placeholder.appendChild(widgetDiv);
+                    
+                    const script = document.createElement('script');
+                    script.type = "text/javascript";
+                    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+                    script.async = true;
+                    script.innerHTML = JSON.stringify({
+                      "autosize": true,
+                      "symbol": tvSymbol,
+                      "interval": "D",
+                      "timezone": "Asia/Taipei",
+                      "theme": "dark",
+                      "style": "1",
+                      "locale": "zh_TW",
+                      "enable_publishing": false,
+                      "backgroundColor": "#161A1E",
+                      "gridColor": "rgba(255, 255, 255, 0.06)",
+                      "hide_top_toolbar": false,
+                      "hide_legend": true,
+                      "save_image": false,
+                      "support_host": "https://www.tradingview.com"
+                    });
+                    widgetDiv.appendChild(script);
+                }
+            }
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+    </script>
+
   </body>
 </html>
