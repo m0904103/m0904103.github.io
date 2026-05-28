@@ -11,6 +11,7 @@ import {
   Menu, X, ExternalLink, Globe, LayoutDashboard, History, Settings, Info, Bell, MessageSquare,
   Lock, ArrowRight, MousePointer2, Thermometer, Droplets, Sun, Moon, Clock, Quote
 } from 'lucide-react';
+import MarketStatus from './components/MarketStatus';
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
 import StrategyBoard from './components/StrategyBoard';
