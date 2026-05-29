@@ -86,6 +86,7 @@ STRATEGIC_SECTORS = {
         "2408.TW": "南亞科",
         "8299.TW": "群聯",
         "3260.TW": "威剛",
+        "5289.TW": "宜鼎",
         "2344.TW": "華邦電"
     },
     "高階 PCB": {
@@ -101,6 +102,7 @@ STRATEGIC_SECTORS = {
 DATA_FILE = os.path.join('frontend', 'public', 'scan_results.json')
 
 def sync_data():
+    import math
     print(f"🚀 Starting 2026 Regular Army Strategic Sync...")
     
     if not os.path.exists(DATA_FILE):
@@ -111,82 +113,109 @@ def sync_data():
         data = json.load(f)
 
     existing_stocks = {s['symbol']: s for s in data.get('stocks', [])}
-    updated_count = 0
-
+    
+    # Merge strategic sectors into existing stocks so they get updated too
     for sector, stocks in STRATEGIC_SECTORS.items():
-        print(f"\n📂 Syncing Sector: {sector}")
         for sym, name in stocks.items():
-            try:
-                print(f"  - Processing {sym} ({name})...", end="", flush=True)
-                ticker = yf.Ticker(sym)
-                df = ticker.history(period='120d')
+            if sym not in existing_stocks:
+                existing_stocks[sym] = {"symbol": sym, "name": name, "sector": sector}
+            else:
+                existing_stocks[sym]["sector"] = sector
+                existing_stocks[sym]["name"] = name
+
+    updated_count = 0
+    symbols = list(existing_stocks.keys())
+    
+    print(f"\n📂 Syncing {len(symbols)} total stocks in database...")
+    for sym in symbols:
+        stock_obj = existing_stocks[sym]
+        name = stock_obj.get('name', sym)
+        try:
+            print(f"  - Processing {sym} ({name})...", end="", flush=True)
+            ticker = yf.Ticker(sym)
+            df = ticker.history(period='120d')
+            
+            if df.empty:
+                if sym.endswith('.TW'):
+                    sym = sym.replace('.TW', '.TWO')
+                    ticker = yf.Ticker(sym)
+                    df = ticker.history(period='120d')
                 
                 if df.empty:
-                    # Try .TWO if .TW fails
-                    if sym.endswith('.TW'):
-                        sym = sym.replace('.TW', '.TWO')
-                        ticker = yf.Ticker(sym)
-                        df = ticker.history(period='120d')
-                    
-                    if df.empty:
-                        print(" [FAILED: No Data]")
-                        continue
+                    print(" [FAILED: No Data]")
+                    continue
 
-                latest_close = round(float(df['Close'].iloc[-1]), 2)
-                prev_close = float(df['Close'].iloc[-2])
-                change = round(((latest_close - prev_close) / prev_close) * 100, 2)
+            # Base prices on daily history
+            latest_close = round(float(df['Close'].iloc[-1]), 2)
+            prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else latest_close
+            
+            # Try to get live intraday price
+            try:
+                live_price = ticker.fast_info.last_price
+                if live_price is not None and not math.isnan(live_price):
+                    latest_close = round(float(live_price), 2)
+            except Exception:
+                pass
                 
-                ma60 = 0
-                if len(df) >= 60:
-                    ma60 = round(float(df['Close'].rolling(60).mean().iloc[-1]), 2)
-                else:
-                    ma60 = latest_close
+            change = round(((latest_close - prev_close) / prev_close) * 100, 2) if prev_close else 0.0
+            
+            ma60 = 0
+            if len(df) >= 60:
+                ma60 = round(float(df['Close'].rolling(60).mean().iloc[-1]), 2)
+            else:
+                ma60 = latest_close
 
-                is_regular = latest_close > ma60
-                signal = "Strong Buy" if is_regular else "Hold"
-                tactic = "「正規軍」：趨勢確認，沿生命線操作。" if is_regular else "「觀望區」：跌破生命線，暫避鋒芒。"
+            is_regular = latest_close > ma60
+            signal = "Strong Buy" if is_regular else "Hold"
+            default_tactic = "「正規軍」：趨勢確認，沿生命線操作。" if is_regular else "「觀望區」：跌破生命線，暫避鋒芒。"
+            
+            # Update the fields but preserve custom tactics and backtest
+            stock_obj["symbol"] = sym
+            stock_obj["signal"] = signal
+            stock_obj["close"] = latest_close
+            stock_obj["ma60"] = ma60
+            stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
+            stock_obj["change"] = change
+            stock_obj["is_regular"] = is_regular
+            
+            if "vol_ratio" not in stock_obj:
+                stock_obj["vol_ratio"] = 1.5
+            if "sector" not in stock_obj:
+                stock_obj["sector"] = "其他族群"
+            if "tactic" not in stock_obj:
+                stock_obj["tactic"] = default_tactic
                 
-                stock_obj = {
-                    "symbol": sym,
-                    "name": name,
-                    "signal": signal,
-                    "close": latest_close,
-                    "ma60": ma60,
-                    "market": "tw" if ".TW" in sym or ".TWO" in sym else "us",
-                    "change": change,
-                    "vol_ratio": 1.5,
-                    "tactic": tactic,
-                    "sector": sector,
-                    "is_regular": is_regular,
-                    "plan": {
-                        "entry": latest_close,
-                        "sl": ma60,
-                        "tp": round(latest_close * 1.25, 2)
-                    },
-                    "backtest": {
-                        "win_rate": 65.0 if is_regular else 45.0,
-                        "total_return": 25.4 if is_regular else -5.2
-                    }
+            if "plan" not in stock_obj:
+                stock_obj["plan"] = {}
+            # Update dynamic plan based on new prices, but keep the dict structure
+            stock_obj["plan"]["entry"] = latest_close
+            stock_obj["plan"]["sl"] = ma60
+            stock_obj["plan"]["tp"] = round(latest_close * 1.25, 2)
+            
+            if "backtest" not in stock_obj:
+                stock_obj["backtest"] = {
+                    "win_rate": 65.0 if is_regular else 45.0,
+                    "total_return": 25.4 if is_regular else -5.2
                 }
 
-                existing_stocks[sym] = stock_obj
-                updated_count += 1
-                print(" [OK]")
+            existing_stocks[sym] = stock_obj
+            updated_count += 1
+            print(" [OK]")
 
-            except Exception as e:
-                print(f" [ERROR: {e}]")
+        except Exception as e:
+            print(f" [ERROR: {e}]")
 
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
     data['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M')
     
     # Sort stocks: US first, then TW
-    data['stocks'].sort(key=lambda x: (x['market'] != 'us', x['symbol']))
+    data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))
 
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✨ Sync Complete! Updated {updated_count} strategic stocks.")
+    print(f"\n✨ Sync Complete! Updated {updated_count} stocks out of {len(symbols)}.")
     print(f"Current database size: {len(data['stocks'])} stocks.")
 
 if __name__ == "__main__":

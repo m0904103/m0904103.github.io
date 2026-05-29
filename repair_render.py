@@ -7,7 +7,7 @@ with open(file_path, "r", encoding="utf-8") as f:
 new_content = """                      <div className="flex justify-between items-start">
                         <div className="flex flex-col">
                           <span className={`text-lg md:text-xl font-black tracking-tighter transition-colors ${!isAboveMA60 ? 'text-gray-300 group-hover:text-[#10B981]' : 'text-white group-hover:text-red-500'}`}>
-                            {stock.symbol.replace('.TW', '')} {stock.name}
+                            {stock.symbol.replace('.TWO', '').replace('.TW', '')} {stock.name}
                           </span>
                           <span className="text-[9px] md:text-[10px] text-gray-500 font-bold opacity-0 h-0">.</span>
                         </div>
