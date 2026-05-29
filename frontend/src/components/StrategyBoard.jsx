@@ -4,7 +4,7 @@ import { Thermometer, Zap, PlugZap, BrainCircuit, Bot, Layers, ShieldCheck, Cpu 
 const StrategyBoard = ({ onSelectStock, stocks }) => {
   const sectors = [
     { name: "極限算力基建", change: "+12.4%", count: 5, icon: <Thermometer size={16} />, color: "text-red-500", bg: "bg-red-500/10", border: "border-red-500/20", symbols: ["NVDA", "VRT", "3017", "2308", "3324"] },
-    { name: "全光化資料中心", change: "+8.7%", count: 6, icon: <Zap size={16} />, color: "text-yellow-500", bg: "bg-yellow-500/10", border: "border-yellow-500/20", symbols: ["AVGO", "MRVL", "2330", "6451", "3081", "6669"] },
+    { name: "矽光子／CPO", change: "+8.7%", count: 6, icon: <Zap size={16} />, color: "text-yellow-500", bg: "bg-yellow-500/10", border: "border-yellow-500/20", symbols: ["AVGO", "MRVL", "2330", "6451", "3081", "6669"] },
     { name: "核能與智慧電網", change: "+5.2%", count: 6, icon: <PlugZap size={16} />, color: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/20", symbols: ["CEG", "VST", "GEV", "1519", "1513", "1503"] },
     { name: "代理型 AI 軟體", change: "+15.1%", count: 6, icon: <BrainCircuit size={16} />, color: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/20", symbols: ["PLTR", "PATH", "APP", "6811", "3029", "6112"] },
     { name: "實體 AI 機器人", change: "+18.3%", count: 5, icon: <Bot size={16} />, color: "text-orange-500", bg: "bg-orange-500/10", border: "border-orange-500/20", symbols: ["TSLA", "ARM", "2359", "2049", "8069"] },
