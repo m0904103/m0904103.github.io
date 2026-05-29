@@ -276,6 +276,7 @@ function App() {
                         buyPrice={selectedStock.plan?.entry}
                         stopLoss={selectedStock.plan?.sl}
                         takeProfit={selectedStock.plan?.tp}
+                        currentPrice={selectedStock.close}
                       />
                     ) : (
                       <div className="w-full h-full bg-[#161A1E] border border-white/5 flex items-center justify-center text-gray-500 italic">

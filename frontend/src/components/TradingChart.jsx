@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
 
-const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit }) => {
+const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPrice }) => {
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -19,15 +19,11 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit }) => {
       width: chartContainerRef.current.clientWidth,
       height: 400,
       grid: {
-        vertLines: { color: 'rgba(70, 70, 70, 0.5)' },
-        horzLines: { color: 'rgba(70, 70, 70, 0.5)' },
+        vertLines: { color: 'rgba(70, 70, 70, 0.3)' },
+        horzLines: { color: 'rgba(70, 70, 70, 0.3)' },
       },
-      crosshair: {
-        mode: 0,
-      },
-      timeScale: {
-        borderColor: '#485c7b',
-      },
+      crosshair: { mode: 0 },
+      timeScale: { borderColor: '#485c7b' },
     });
 
     const candlestickSeries = chart.addCandlestickSeries({
@@ -40,99 +36,105 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit }) => {
 
     candlestickSeries.setData(data);
 
-    // Add markers for Buy/Sell signals (Backtest Visualization)
+    // Buy/Sell markers at MA60 crossover
     const markers = [];
     for (let i = 1; i < data.length; i++) {
       const prev = data[i-1];
       const curr = data[i];
       if (prev.ma60 && curr.ma60) {
-        // Buy signal: Price crosses above MA60
         if (prev.close <= prev.ma60 && curr.close > curr.ma60) {
-          markers.push({
-            time: curr.time,
-            position: 'belowBar',
-            color: '#EF4444',
-            shape: 'arrowUp',
-            text: 'BUY',
-          });
-        }
-        // Sell signal: Price crosses below MA60
-        else if (prev.close >= prev.ma60 && curr.close < curr.ma60) {
-          markers.push({
-            time: curr.time,
-            position: 'aboveBar',
-            color: '#10B981',
-            shape: 'arrowDown',
-            text: 'SELL',
-          });
+          markers.push({ time: curr.time, position: 'belowBar', color: '#EF4444', shape: 'arrowUp', text: 'BUY' });
+        } else if (prev.close >= prev.ma60 && curr.close < curr.ma60) {
+          markers.push({ time: curr.time, position: 'aboveBar', color: '#10B981', shape: 'arrowDown', text: 'SELL' });
         }
       }
     }
     candlestickSeries.setMarkers(markers);
 
-    // Add MA60 Line (生命線)
+    // MA60 生命線
     const ma60Points = data.filter(d => d.ma60).map(d => ({ time: d.time, value: d.ma60 }));
     if (ma60Points.length > 0) {
       const maSeries = chart.addLineSeries({
         color: '#EF4444',
-        lineWidth: 1.5,
+        lineWidth: 2,
         priceLineVisible: false,
         title: 'MA60',
       });
       maSeries.setData(ma60Points);
     }
 
-    // Add horizontal lines for Buy, Stop Loss, Take Profit
-    if (buyPrice) {
+    // ✅ 現價線（最重要！）
+    const livePrice = currentPrice || (data.length > 0 ? data[data.length - 1].close : null);
+    if (livePrice) {
+      candlestickSeries.createPriceLine({
+        price: livePrice,
+        color: '#38BDF8',   // Sky blue
+        lineWidth: 2,
+        lineStyle: 0,       // Solid
+        axisLabelVisible: true,
+        title: `NOW`,
+      });
+    }
+
+    // 建議買進價 (只在與現價有明顯差距時才顯示)
+    if (buyPrice && livePrice && Math.abs(buyPrice - livePrice) / livePrice > 0.01) {
       candlestickSeries.createPriceLine({
         price: buyPrice,
         color: '#EAB308',
-        lineWidth: 2,
-        lineStyle: 2, // Dashed
+        lineWidth: 1.5,
+        lineStyle: 2,
         axisLabelVisible: true,
         title: 'BUY',
       });
     }
 
+    // 停損線
     if (stopLoss) {
       candlestickSeries.createPriceLine({
         price: stopLoss,
         color: '#10B981',
-        lineWidth: 2,
+        lineWidth: 1.5,
         lineStyle: 2,
         axisLabelVisible: true,
         title: 'STOP',
       });
     }
 
+    // 目標獲利線
     if (takeProfit) {
       candlestickSeries.createPriceLine({
         price: takeProfit,
-        color: '#EF4444',
-        lineWidth: 2,
+        color: '#F97316',
+        lineWidth: 1.5,
         lineStyle: 2,
         axisLabelVisible: true,
-        title: 'PROFIT',
+        title: 'TARGET',
       });
     }
 
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
       chart.remove();
     };
-  }, [data, buyPrice, stopLoss, takeProfit]);
+  }, [data, buyPrice, stopLoss, takeProfit, currentPrice]);
+
+  const livePrice = currentPrice || (data?.length > 0 ? data[data.length - 1]?.close : null);
 
   return (
     <div className="relative w-full h-full bg-dark-card rounded-lg overflow-hidden border border-gray-800 shadow-xl">
       <div className="p-3 md:p-4 flex flex-col md:flex-row justify-between items-center bg-[#2B3139] gap-2">
         <h3 className="text-sm md:text-lg font-bold text-white">{symbol} 即時戰情圖</h3>
-        <div className="flex space-x-3 md:space-x-4 text-[10px] md:text-xs">
+        <div className="flex flex-wrap gap-2 md:gap-4 text-[10px] md:text-xs">
+           {livePrice && (
+             <span className="flex items-center font-black text-sky-400">
+               <div className="w-2 h-2 rounded-full bg-sky-400 mr-1"></div>
+               現價 ${typeof livePrice === 'number' ? livePrice.toFixed(2) : livePrice}
+             </span>
+           )}
            <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EF4444] mr-1"></div> MA60 生命線</span>
-           <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EAB308] mr-1"></div> Buy</span>
-           <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#10B981] mr-1"></div> Stop</span>
-           <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EF4444] mr-1"></div> Profit</span>
+           {stopLoss && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#10B981] mr-1"></div> 停損 ${stopLoss}</span>}
+           {takeProfit && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#F97316] mr-1"></div> 目標 ${takeProfit}</span>}
         </div>
       </div>
       <div ref={chartContainerRef} className="w-full h-[300px] md:h-[400px]" />
@@ -141,3 +143,6 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit }) => {
 };
 
 export default TradingChart;
+
+
+
