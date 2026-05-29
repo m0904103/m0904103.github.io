@@ -158,10 +158,20 @@ function App() {
     );
   };
 
+  const signalRank = { 'Strong Buy': 0, 'Buy': 1, 'Hold': 2, 'Sell': 3, 'Strong Sell': 4 };
+
   const displayStocks = (activeMarket === 'tw' ? stocks.tw : stocks.us).filter(s => {
     const matchSearch = s.symbol.toLowerCase().includes(searchTerm.toLowerCase()) || s.name.includes(searchTerm);
     const matchSector = selectedSector ? s.sector === selectedSector : true;
     return matchSearch && matchSector;
+  }).sort((a, b) => {
+    // 1. Sort by signal strength (Strong Buy first)
+    const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
+    if (rankDiff !== 0) return rankDiff;
+    // 2. Within same signal: sort by MA60 deviation ascending (closest to MA60 = lowest risk)
+    const deviationA = a.ma60 > 0 ? Math.abs((a.close - a.ma60) / a.ma60) : 999;
+    const deviationB = b.ma60 > 0 ? Math.abs((b.close - b.ma60) / b.ma60) : 999;
+    return deviationA - deviationB;
   });
 
   return (
