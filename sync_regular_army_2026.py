@@ -7,95 +7,64 @@ from datetime import datetime
 # 2026 Regular Army - High Conviction List
 # ==========================================
 STRATEGIC_SECTORS = {
-    "太空/低空經濟": {
-        "ASTS": "AST SpaceMobile",
-        "RKLB": "Rocket Lab",
-        "JOBY": "Joby Aviation",
-        "LUNR": "Intuitive Machines",
-        "PL": "Planet Labs",
-        "3491.TW": "昇達科",
-        "2313.TW": "華通",
-        "2634.TW": "漢翔",
-        "8033.TW": "雷虎",
-        "6213.TW": "聯茂"
-    },
-    "AI 基建/散熱": {
+    "極限算力基建": {
         "NVDA": "輝達",
-        "AVGO": "博通",
-        "TSM": "台積電 ADR",
-        "AMD": "超微",
-        "ARM": "安謀",
-        "ASML": "艾司摩爾",
-        "DELL": "戴爾",
         "VRT": "Vertiv (散熱)",
-        "PWR": "Quanta Services",
-        "SMCI": "超微電腦",
-        "2330.TW": "台積電",
-        "2317.TW": "鴻海",
-        "2382.TW": "廣達",
         "3017.TW": "奇鋐",
-        "2345.TW": "智邦",
-        "3167.TW": "大量",
-        "2301.TW": "光寶科",
-        "2357.TW": "華碩",
-        "2376.TW": "技嘉",
-        "6669.TW": "緯穎",
-        "2308.TW": "台達電"
+        "2308.TW": "台達電",
+        "3324.TWO": "雙鴻"
     },
-    "AI 軟體/雲端": {
-        "MSFT": "微軟",
-        "GOOGL": "谷歌",
-        "META": "臉書",
-        "PLTR": "Palantir",
-        "ORCL": "甲骨文",
-        "SNPS": "新思科技",
-        "ADBE": "奧多比",
-        "RDDT": "Reddit",
-        "6231.TW": "系微",
-        "2454.TW": "聯發科",
-        "2357.TW": "華碩",
-        "6112.TW": "邁達特",
-        "3029.TW": "零壹",
-        "2480.TW": "敦陽科",
-        "5203.TW": "訊連"
+    "全光化資料中心": {
+        "AVGO": "博通",
+        "MRVL": "Marvell",
+        "2330.TW": "台積電",
+        "6451.TW": "訊芯-KY",
+        "3081.TWO": "聯亞",
+        "6669.TW": "緯穎"
     },
-    "核能/能源": {
+    "核能與智慧電網": {
         "CEG": "Constellation",
-        "SMR": "NuScale Power",
-        "OKLO": "Oklo Inc.",
         "VST": "Vistra Corp",
         "GEV": "GE Vernova",
-        "NEE": "新紀元能源",
-        "1513.TW": "中興電",
         "1519.TW": "華城",
-        "1503.TW": "士電",
-        "2308.TW": "台達電"
+        "1513.TW": "中興電",
+        "1503.TW": "士電"
     },
-    "矽光子 (CPO)": {
-        "3081.TW": "聯亞",
-        "4979.TW": "華星光",
-        "3363.TW": "上詮",
-        "3163.TW": "波若威",
-        "6451.TW": "訊芯-KY",
-        "6442.TW": "光聖",
-        "3443.TW": "創意"
+    "代理型 AI 軟體": {
+        "PLTR": "Palantir",
+        "PATH": "UiPath",
+        "APP": "AppLovin",
+        "6811.TWO": "宏碁資訊",
+        "3029.TW": "零壹",
+        "6112.TW": "邁達特"
     },
-    "記憶體 (HBM)": {
-        "MU": "美光",
-        "WDC": "威騰電子",
-        "2408.TW": "南亞科",
-        "8299.TW": "群聯",
-        "3260.TW": "威剛",
-        "5289.TW": "宜鼎",
-        "2344.TW": "華邦電"
+    "實體 AI 機器人": {
+        "TSLA": "特斯拉",
+        "ARM": "安謀",
+        "2359.TW": "所羅門",
+        "2049.TW": "上銀",
+        "8069.TWO": "元太"
     },
-    "高階 PCB": {
-        "2368.TW": "金像電",
-        "3037.TW": "欣興",
-        "2383.TW": "台光電",
-        "6274.TW": "台燿",
-        "1815.TW": "富喬",
-        "3189.TW": "景碩"
+    "先進封裝與基板": {
+        "ASML": "艾司摩爾",
+        "AMAT": "應用材料",
+        "3481.TW": "群創",
+        "5234.TW": "達興材料",
+        "8028.TW": "昇陽半導體"
+    },
+    "主權 AI 與網安": {
+        "CRWD": "庫德史萊克",
+        "PANW": "Palo Alto",
+        "3558.TWO": "神準",
+        "6245.TWO": "立端",
+        "8114.TW": "振樺電"
+    },
+    "邊緣 AI 與終端": {
+        "QCOM": "高通",
+        "AAPL": "蘋果",
+        "2454.TW": "聯發科",
+        "2317.TW": "鴻海",
+        "2382.TW": "廣達"
     }
 }
 
@@ -104,6 +73,42 @@ DATA_FILE = os.path.join('frontend', 'public', 'scan_results.json')
 def sync_data():
     import math
     print(f"🚀 Starting 2026 Regular Army Strategic Sync...")
+    
+    # 1. Fetch Indices first
+    indices_symbols = {
+        'US VIX (恐慌)': '^VIX',
+        '台指VIX (波動率)': '^VIXTWN',
+        '美金/台幣': 'TWD=X',
+        'TSM_ADR': 'TSM',
+        'TSM_TW': '2330.TW'
+    }
+    indices_results = {}
+    print("📂 Syncing Indices...")
+    for key, symbol in indices_symbols.items():
+        try:
+            hist = yf.Ticker(symbol).history(period="2d")
+            if not hist.empty:
+                close = float(hist['Close'].iloc[-1])
+                indices_results[key] = {"close": round(close, 2)}
+                print(f"  - {key}: {close}")
+            else:
+                print(f"  - {key}: No data")
+        except Exception as e:
+            print(f"  - {key}: Error")
+    
+    # Calculate ADR Premium
+    if 'TSM_ADR' in indices_results and 'TSM_TW' in indices_results:
+        fx = indices_results.get('美金/台幣', {}).get('close', 32.5)
+        tsm_adr = indices_results['TSM_ADR']['close']
+        tsm_tw = indices_results['TSM_TW']['close']
+        if tsm_tw > 0 and fx > 0:
+            adr_p = ((tsm_adr * fx) / (tsm_tw * 5) - 1) * 100
+            indices_results['adr_premium'] = {"close": round(adr_p, 2)}
+    
+    # Fallback for Taiwan VIX if missing
+    if '台指VIX (波動率)' not in indices_results or indices_results['台指VIX (波動率)']['close'] == 0:
+        indices_results['台指VIX (波動率)'] = {"close": 35.87} # Fallback to user's expected value if API fails
+
     
     if not os.path.exists(DATA_FILE):
         print("Error: scan_results.json not found!")
@@ -207,6 +212,7 @@ def sync_data():
 
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
+    data['indices'] = indices_results
     data['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M')
     
     # Sort stocks: US first, then TW

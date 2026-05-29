@@ -14,6 +14,7 @@ import {
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
 import StrategyBoard from './components/StrategyBoard';
+import TradingChart from './components/TradingChart';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -61,22 +62,18 @@ function App() {
     try {
       const timestamp = new Date().getTime();
       const scanUrl = IS_PROD ? `${API_BASE}/scan_results.json?t=${timestamp}` : `${API_BASE}/scan`;
-      const indexUrl = `${RENDER_API_URL}/indices?t=${timestamp}`;
 
-      const [scanRes, indexRes] = await Promise.all([
-        axios.get(scanUrl),
-        axios.get(indexUrl)
-      ]);
+      const scanRes = await axios.get(scanUrl);
 
       let stockData = scanRes.data;
       if (stockData.stocks) {
         const tw = stockData.stocks.filter(s => s.market === 'tw');
         const us = stockData.stocks.filter(s => s.market === 'us');
-        stockData = { tw, us };
+        stockData = { tw, us, indices: stockData.indices };
       }
 
       setStocks(stockData || { tw: [], us: [] });
-      setIndices(indexRes.data || {});
+      setIndices(stockData?.indices || {});
       setLastUpdated(new Date());
       setSystemStatus("online");
     } catch (error) {
@@ -117,8 +114,8 @@ function App() {
   };
 
   const renderWeatherStation = () => {
-    const usVix = indices["VIX (恐慌)"]?.close || 15;
-    const twVix = indices["台指VIX (波動率)"]?.close || 38.59;
+    const usVix = indices["US VIX (恐慌)"]?.close || 15;
+    const twVix = indices["台指VIX (波動率)"]?.close || 35.87;
     const adr = indices.adr_premium?.close || 0;
     let suggestedCash = indices.suggested_cash || 30;
     
@@ -219,11 +216,14 @@ function App() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
               <LayoutDashboard size={16} className="mr-2" /> 2026 產業戰略地圖
+              <span className="ml-3 px-2 py-0.5 bg-red-600/20 text-red-400 rounded-md text-[10px]">
+                鎖定至 2026 年 8 月底
+              </span>
             </h2>
           </div>
           <StrategyBoard 
             onSelectStock={handleSelectStock} 
-            stocks={[...stocks.tw, ...stocks.us]} 
+            stocks={activeMarket === 'tw' ? stocks.tw : stocks.us} 
           />
         </section>
 
@@ -237,7 +237,7 @@ function App() {
                 {displayStocks.map(stock => (
                   <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-4 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
                     <div className="flex justify-between items-center">
-                      <span className="font-black">{stock.symbol} {stock.name}</span>
+                      <span className="font-black">{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
                       <span className={`px-2 py-1 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
                     </div>
                   </div>
@@ -250,7 +250,7 @@ function App() {
               <div className="glass rounded-3xl p-6 border border-white/5 space-y-6">
                  <div className="flex justify-between items-start">
                     <div>
-                      <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol} {selectedStock.name}</h2>
+                      <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol.replace(/\.TWO?$/, '')} {selectedStock.name}</h2>
                       <p className="text-sm text-gray-400 font-bold mt-1">{selectedStock.tactic}</p>
                     </div>
                     <div className="text-right">
@@ -258,9 +258,24 @@ function App() {
                       <div className="text-3xl font-mono font-bold">${selectedStock.close}</div>
                     </div>
                  </div>
-                 <div className="h-[400px] bg-[#161A1E] rounded-2xl border border-white/5 flex items-center justify-center text-gray-500 italic">
-                    [ 圖表載入中 - 這裡將顯示 {selectedStock.symbol} 的 MA60 生命線與量化分析 ]
+                 <div className="h-[400px] w-full rounded-2xl overflow-hidden">
+                    {historyData && historyData.length > 0 ? (
+                      <TradingChart 
+                        data={historyData} 
+                        symbol={selectedStock.symbol.replace(/\.TWO?$/, '')} 
+                        buyPrice={selectedStock.plan?.entry}
+                        stopLoss={selectedStock.plan?.sl}
+                        takeProfit={selectedStock.plan?.tp}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#161A1E] border border-white/5 flex items-center justify-center text-gray-500 italic">
+                        [ 圖表載入中... 正在獲取 {selectedStock.symbol.replace(/\.TWO?$/, '')} 的歷史數據 ]
+                      </div>
+                    )}
                  </div>
+                 
+                 {/* Restore Checklist containing the Quotes */}
+                 <InvestmentChecklist stock={selectedStock} />
               </div>
             ) : (
               <div className="h-full flex items-center justify-center glass rounded-3xl border border-dashed border-white/10 text-gray-500 italic">

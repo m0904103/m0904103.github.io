@@ -15,7 +15,7 @@ def generate_history():
         return
 
     # Create assets directory if not exists
-    os.makedirs('trading/assets', exist_ok=True)
+    os.makedirs('frontend/public/assets', exist_ok=True)
 
     for stock in stocks:
         symbol = stock['symbol']
@@ -47,7 +47,7 @@ def generate_history():
                 })
 
             # Save to assets
-            filename = f"trading/assets/history_{symbol}.json"
+            filename = f"frontend/public/assets/history_{symbol}.json"
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(history, f, ensure_ascii=False)
             

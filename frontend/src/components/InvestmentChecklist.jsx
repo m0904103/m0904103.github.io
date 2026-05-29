@@ -151,9 +151,12 @@ const InvestmentChecklist = ({ stock }) => {
         </div>
       )}
       
-      <div className="mt-6 md:mt-8 p-3 md:p-4 bg-[#161A1E] border border-white/5 rounded-2xl">
+      <div className="mt-6 md:mt-8 p-3 md:p-4 bg-[#161A1E] border border-white/5 rounded-2xl space-y-2">
          <p className="text-[9px] md:text-[10px] text-gray-500 font-bold italic leading-relaxed text-center">
            "Python 只是工具，真正的力量來自於您對量化紀律的堅持。" — 顏春煌教授
+         </p>
+         <p className="text-[9px] md:text-[10px] text-gray-500 font-bold italic leading-relaxed text-center">
+           "股票市場是比氣長的，看錯停損，看對抱緊，這才是正規軍的打法。" — 阿村伯
          </p>
       </div>
     </div>

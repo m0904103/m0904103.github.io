@@ -8,15 +8,15 @@ dist_dir = os.path.join(repo_root, "frontend", "dist")
 trading_dir = os.path.join(repo_root, "trading")
 
 def deploy():
-    print("🚀 Starting deployment process...")
+    print("[START] Starting deployment process...")
     
     # 1. Ensure dist directory exists
     if not os.path.exists(dist_dir):
-        print(f"❌ Error: {dist_dir} does not exist. Please run 'npm run build' first.")
+        print(f"[ERROR] {dist_dir} does not exist. Please run 'npm run build' first.")
         return
 
     # 2. Clear out old files in trading directory
-    print("🧹 Cleaning old files in trading directory...")
+    print("[CLEAN] Cleaning old files in trading directory...")
     if not os.path.exists(trading_dir):
         os.makedirs(trading_dir)
     else:
@@ -31,7 +31,7 @@ def deploy():
                 os.remove(item_path)
 
     # 3. Copy dist files to trading directory
-    print("📂 Copying new files to trading directory...")
+    print("[COPY] Copying new files to trading directory...")
     for item in os.listdir(dist_dir):
         s = os.path.join(dist_dir, item)
         d = os.path.join(trading_dir, item)
@@ -41,7 +41,7 @@ def deploy():
             shutil.copy2(s, d)
 
     # 4. Git add, commit, push
-    print("📦 Committing and pushing to GitHub...")
+    print("[GIT] Committing and pushing to GitHub...")
     try:
         os.chdir(repo_root)
         
@@ -60,12 +60,12 @@ def deploy():
         commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to trading/"])
         if commit_res.returncode == 0:
             subprocess.run(["git", "push"], check=True)
-            print("✅ Frontend successfully deployed to GitHub Pages via Git Push!")
+            print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")
         else:
-            print("⚡ No changes to deploy. Everything is up to date!")
+            print("[SKIP] No changes to deploy. Everything is up to date!")
             
     except subprocess.CalledProcessError as e:
-        print(f"❌ Git operation failed: {e}")
+        print(f"[ERROR] Git operation failed: {e}")
 
 if __name__ == "__main__":
     deploy()
