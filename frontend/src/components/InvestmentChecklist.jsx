@@ -151,13 +151,21 @@ const InvestmentChecklist = ({ stock }) => {
         </div>
       )}
       
-      <div className="mt-6 md:mt-8 p-3 md:p-4 bg-[#161A1E] border border-white/5 rounded-2xl space-y-2">
-         <p className="text-[9px] md:text-[10px] text-gray-500 font-bold italic leading-relaxed text-center">
-           "Python 只是工具，真正的力量來自於您對量化紀律的堅持。" — 顏春煌教授
-         </p>
-         <p className="text-[9px] md:text-[10px] text-gray-500 font-bold italic leading-relaxed text-center">
-           "股票市場是比氣長的，看錯停損，看對抱緊，這才是正規軍的打法。" — 阿村伯
-         </p>
+      <div className="mt-6 md:mt-8 space-y-3">
+         <div className="p-3 md:p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl relative overflow-hidden">
+           <div className="absolute top-0 left-0 w-1 h-full bg-yellow-500 rounded-full"></div>
+           <p className="text-[10px] md:text-xs text-yellow-300 font-bold leading-relaxed pl-3">
+             「Python 只是工具，真正的力量來自於您對量化紀律的堅持。」
+           </p>
+           <p className="text-[9px] text-yellow-500 font-black uppercase tracking-widest mt-1 pl-3">— 顏春煌教授</p>
+         </div>
+         <div className="p-3 md:p-4 bg-red-500/10 border border-red-500/30 rounded-2xl relative overflow-hidden">
+           <div className="absolute top-0 left-0 w-1 h-full bg-red-500 rounded-full"></div>
+           <p className="text-[10px] md:text-xs text-red-300 font-bold leading-relaxed pl-3">
+             「股票市場是比氣長的，看錯停損，看對抱緊，這才是正規軍的打法。」
+           </p>
+           <p className="text-[9px] text-red-400 font-black uppercase tracking-widest mt-1 pl-3">— 阿村伯</p>
+         </div>
       </div>
     </div>
   );
