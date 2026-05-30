@@ -245,9 +245,18 @@ function App() {
              </div>
              <div className="flex-1 overflow-y-auto p-2 space-y-2">
                 {displayStocks.map(stock => (
-                  <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-4 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="font-black">{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
+                  <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-3 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
+                    <div className="flex justify-between items-start">
+                      <div className="flex flex-col">
+                        <span className="font-black">{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
+                        {activeMarket === 'tw' && (
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {stock.fundamentals?.three_rates_rising && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">🟢 三率三升</span>}
+                            {stock.chips?.foreign_buy && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">🔵 外資買超</span>}
+                            {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
+                          </div>
+                        )}
+                      </div>
                       <span className={`px-2 py-1 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
                     </div>
                   </div>
@@ -277,6 +286,7 @@ function App() {
                         stopLoss={selectedStock.plan?.sl}
                         takeProfit={selectedStock.plan?.tp}
                         currentPrice={selectedStock.close}
+                        stock={selectedStock}
                       />
                     ) : (
                       <div className="w-full h-full bg-[#161A1E] border border-white/5 flex items-center justify-center text-gray-500 italic">

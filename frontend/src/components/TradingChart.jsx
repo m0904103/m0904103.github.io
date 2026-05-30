@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
 
-const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPrice }) => {
+const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPrice, stock }) => {
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -124,7 +124,12 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
   return (
     <div className="relative w-full h-full bg-dark-card rounded-lg overflow-hidden border border-gray-800 shadow-xl">
       <div className="p-3 md:p-4 flex flex-col md:flex-row justify-between items-center bg-[#2B3139] gap-2">
-        <h3 className="text-sm md:text-lg font-bold text-white">{symbol} 即時戰情圖</h3>
+        <h3 className="text-sm md:text-lg font-bold text-white flex items-center flex-wrap gap-2">
+          {symbol} 即時戰情圖
+          {stock?.market === 'tw' && stock?.fundamentals?.three_rates_rising && <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">🟢 三率三升</span>}
+          {stock?.market === 'tw' && stock?.chips?.foreign_buy && <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">🔵 外資連買</span>}
+          {stock?.market === 'tw' && stock?.chips?.margin_surge && <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">⚠️ 融資暴增</span>}
+        </h3>
         <div className="flex flex-wrap gap-2 md:gap-4 text-[10px] md:text-xs">
            {livePrice && (
              <span className="flex items-center font-black text-sky-400">
