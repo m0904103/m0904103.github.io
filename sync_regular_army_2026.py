@@ -105,6 +105,18 @@ def sync_data():
             adr_p = ((tsm_adr * fx) / (tsm_tw * 5) - 1) * 100
             indices_results['adr_premium'] = {"close": round(adr_p, 2)}
     
+    # Try to fetch actual Taiwan VIX using fetch_vix script
+    try:
+        import fetch_vix
+        fetch_vix.fetch_vix()
+        if os.path.exists("trading/vix.json"):
+            with open("trading/vix.json", "r", encoding="utf-8") as f:
+                vix_data = json.load(f)
+                if "vix" in vix_data:
+                    indices_results['台指VIX (波動率)'] = {"close": vix_data["vix"]}
+    except Exception as e:
+        print(f"Failed to fetch TW VIX via scraper: {e}")
+        
     # Fallback for Taiwan VIX if missing
     if '台指VIX (波動率)' not in indices_results or indices_results['台指VIX (波動率)']['close'] == 0:
         indices_results['台指VIX (波動率)'] = {"close": 35.87} # Fallback to user's expected value if API fails
