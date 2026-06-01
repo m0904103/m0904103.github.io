@@ -187,7 +187,7 @@ function App() {
           </div>
         </div>
 
-        <div className="flex-1 max-w-md hidden lg:block">
+        <div className="w-full lg:flex-1 max-w-md order-3 lg:order-none mt-2 lg:mt-0">
           <div className="relative group">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-red-500 transition-colors" size={16} />
             <input 
