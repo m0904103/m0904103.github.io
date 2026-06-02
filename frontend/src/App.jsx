@@ -9,7 +9,8 @@ import {
   ChevronRight, BarChart3, PieChart as PieChartIcon, Activity, Wind, CloudRain,
   ShieldCheck, Zap, AlertTriangle, ShieldAlert, Navigation2, Target, Sword, Crosshair, HelpCircle,
   Menu, X, ExternalLink, Globe, LayoutDashboard, History, Settings, Info, Bell, MessageSquare,
-  Lock, ArrowRight, MousePointer2, Thermometer, Droplets, Sun, Moon, Clock, Quote
+  Lock, ArrowRight, MousePointer2, Thermometer, Droplets, Sun, Moon, Clock, Quote,
+  Building2, LineChart as LineChartIcon, FileText, Coins, BookOpen
 } from 'lucide-react';
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
@@ -305,6 +306,57 @@ function App() {
             )}
           </section>
         </div>
+
+        {/* 顏老師量化武器庫 (Yen's Quant Toolbox) */}
+        <section className="mt-12">
+          <div className="flex items-center mb-6">
+            <BookOpen size={20} className="text-blue-400 mr-3" />
+            <h2 className="text-lg font-black text-white uppercase tracking-widest">
+              顏老師量化武器庫 <span className="text-gray-500 text-xs ml-2">Yen's Recommended Resources</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            <a href="https://mops.twse.com.tw/" target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-5 border border-white/5 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all group">
+              <Search className="text-blue-400 mb-3 group-hover:scale-110 transition-transform" size={28} />
+              <h3 className="font-black text-lg mb-2">公開資訊觀測站 (MOPS)</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                由政府與相關機構提供，當我們需要「更及時或者是更精確的企業訊息與公告」時，這是一個最具權威性的必備網站。
+              </p>
+            </a>
+            
+            <a href="https://statementdog.com/" target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-5 border border-white/5 hover:border-green-500/50 hover:bg-green-500/5 transition-all group">
+              <FileText className="text-green-400 mb-3 group-hover:scale-110 transition-transform" size={28} />
+              <h3 className="font-black text-lg mb-2">財報狗 (Statementdog)</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                這個網站以「基本面選股」為主要特色，並提供「股票健診」功能。建議同學即使不付費登入，也可以嘗試使用它的健診結果來驗證自己的投資知識。
+              </p>
+            </a>
+
+            <a href="https://www.cmoney.tw/" target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-5 border border-white/5 hover:border-yellow-500/50 hover:bg-yellow-500/5 transition-all group">
+              <Coins className="text-yellow-400 mb-3 group-hover:scale-110 transition-transform" size={28} />
+              <h3 className="font-black text-lg mb-2">CMoney 理財寶</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                提供多元的理財資訊與財經網站，裡面包含了非常多投資理財方面的軟體、籌碼分析與相關雜誌資訊。
+              </p>
+            </a>
+
+            <a href="https://tw.stock.yahoo.com/" target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-5 border border-white/5 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all group">
+              <LineChartIcon className="text-purple-400 mb-3 group-hover:scale-110 transition-transform" size={28} />
+              <h3 className="font-black text-lg mb-2">Yahoo 奇摩股市</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                除了豐富財經新聞，課程中也教導如何使用 Python 套件串接 Yahoo Finance 的 API 來下載交易資料並繪製 K 線圖。
+              </p>
+            </a>
+
+            <a href="https://www.twse.com.tw/" target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-5 border border-white/5 hover:border-red-500/50 hover:bg-red-500/5 transition-all group">
+              <Building2 className="text-red-400 mb-3 group-hover:scale-110 transition-transform" size={28} />
+              <h3 className="font-black text-lg mb-2">台灣證券交易所</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                在進行「量化金融資料處理」時，透過 Python 去證交所抓取上市櫃公司的基本資料與每日交易數據，是量化分析的基石。
+              </p>
+            </a>
+          </div>
+        </section>
       </main>
     </div>
   );
