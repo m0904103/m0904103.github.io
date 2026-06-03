@@ -1,7 +1,7 @@
 import json
 import os
 import yfinance as yf
-from datetime import datetime
+from datetime import datetime, timezone
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -227,7 +227,7 @@ def sync_data():
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
     data['indices'] = indices_results
-    data['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M')
+    data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
     
     # Sort stocks: US first, then TW
     data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))

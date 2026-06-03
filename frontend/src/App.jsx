@@ -69,12 +69,17 @@ function App() {
       const scanRes = await axios.get(scanUrl);
 
       let stockData = scanRes.data;
-      // Calculate data age
+      // Calculate data age - handles both UTC ISO format ("2026-06-03T12:01:00Z") and legacy ("2026-06-03 12:01")
       if (stockData.last_updated) {
-        setDataLastUpdatedStr(stockData.last_updated);
-        const dataTime = new Date(stockData.last_updated.replace(' ', 'T'));
+        const rawStr = stockData.last_updated;
+        // Parse: if it ends with Z it's UTC ISO, otherwise assume legacy local format
+        const dataTime = new Date(rawStr.includes('Z') ? rawStr : rawStr.replace(' ', 'T'));
         const ageMs = new Date() - dataTime;
-        setDataAgeMinutes(Math.floor(ageMs / 60000));
+        const ageMin = Math.floor(ageMs / 60000);
+        setDataAgeMinutes(ageMin);
+        // Display in Taiwan time (UTC+8)
+        const displayStr = dataTime.toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+        setDataLastUpdatedStr(displayStr);
       }
       if (stockData.stocks) {
         const tw = stockData.stocks.filter(s => s.market === 'tw');
