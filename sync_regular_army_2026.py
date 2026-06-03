@@ -3,7 +3,6 @@ import os
 import yfinance as yf
 from datetime import datetime, timezone
 import sys
-from us_stock_list import US_STOCKS
 from esg_list import ESG_ELITE_STOCKS
 sys.stdout.reconfigure(encoding='utf-8')
 
