@@ -2,6 +2,8 @@ import json
 import os
 import yfinance as yf
 from datetime import datetime
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 # ==========================================
 # 2026 Regular Army - High Conviction List
