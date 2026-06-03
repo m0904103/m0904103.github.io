@@ -4,10 +4,10 @@
       "symbol": "AAPL",
       "name": "蘋果",
       "signal": "Strong Buy",
-      "close": 309.32,
+      "close": 309.41,
       "ma60": 274.49,
       "market": "us",
-      "change": -1.87,
+      "change": -1.84,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -23,22 +23,23 @@
       "is_regular": true,
       "price": 312.06,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "ABNB",
       "name": "Airbnb",
       "signal": "Strong Buy",
-      "close": 134.61,
+      "close": 134.37,
       "ma60": 133.96,
       "market": "us",
-      "change": 0.19,
+      "change": 0.01,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 134.61,
+        "entry": 134.37,
         "sl": 133.96,
-        "tp": 168.26
+        "tp": 167.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -48,13 +49,45 @@
       "is_regular": true,
       "price": 133.31,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 132.59,
+          "support": 122.87,
+          "target": 142.31,
+          "breakthrough_pct": 1.34,
+          "bottom1_price": 126.3,
+          "bottom2_price": 122.87,
+          "days_formed": 57,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 144.18,
+          "support": 122.87,
+          "target": 165.49,
+          "avg_bottom": 126.78,
+          "days_formed": 57,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "ADBE",
       "name": "奧多比",
       "signal": "Strong Buy",
-      "close": 256.51,
+      "close": 256.49,
       "ma60": 247.25,
       "market": "us",
       "change": -2.14,
@@ -73,22 +106,54 @@
       },
       "price": 259.21,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 256.51,
+          "support": 236.07,
+          "target": 276.95,
+          "breakthrough_pct": -0.01,
+          "bottom1_price": 238.98,
+          "bottom2_price": 236.07,
+          "days_formed": 29,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 255.94,
+          "support": 225.35,
+          "target": 286.53,
+          "avg_bottom": 233.06,
+          "days_formed": 47,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底形成中",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "AMAT",
       "name": "應用材料",
       "signal": "Strong Buy",
-      "close": 500.0,
-      "ma60": 395.17,
+      "close": 500.7,
+      "ma60": 395.18,
       "market": "us",
-      "change": 2.03,
+      "change": 2.17,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 403.07,
-        "sl": 395.17,
-        "tp": 503.84
+        "entry": 403.08,
+        "sl": 395.18,
+        "tp": 503.85
       },
       "sector": "先進封裝與基板",
       "backtest": {
@@ -98,24 +163,56 @@
       "is_regular": true,
       "price": 450.06,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 373.53,
+          "support": 322.72,
+          "target": 424.33,
+          "breakthrough_pct": 34.06,
+          "bottom1_price": 324.34,
+          "bottom2_price": 322.72,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 443.07,
+          "support": 380.64,
+          "target": 505.5,
+          "avg_bottom": 392.15,
+          "days_formed": 34,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "AMD",
       "name": "超微",
       "signal": "Strong Buy",
-      "close": 538.85,
-      "ma60": 322.83,
+      "close": 543.22,
+      "ma60": 322.9,
       "market": "us",
-      "change": 3.32,
+      "change": 4.16,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 329.29,
-        "sl": 322.83,
-        "tp": 411.61
+        "entry": 329.36,
+        "sl": 322.9,
+        "tp": 411.7
       },
       "backtest": {
         "win_rate": 65.0,
@@ -123,22 +220,43 @@
       },
       "price": 516.1,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 220.27,
+          "support": 190.95,
+          "target": 249.59,
+          "breakthrough_pct": 146.62,
+          "bottom1_price": 190.95,
+          "bottom2_price": 196.04,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "AME",
       "name": "阿美特克",
       "signal": "Strong Buy",
-      "close": 228.25,
+      "close": 228.26,
       "ma60": 225.46,
       "market": "us",
       "change": 0.23,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 228.25,
+        "entry": 228.26,
         "sl": 225.46,
-        "tp": 285.31
+        "tp": 285.32
       },
       "sector": "其他族群",
       "backtest": {
@@ -148,22 +266,41 @@
       "is_regular": true,
       "price": 225.85,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 241.38,
+          "support": 221.28,
+          "target": 261.48,
+          "avg_bottom": 226.42,
+          "days_formed": 35,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "AMZN",
       "name": "亞馬遜",
       "signal": "Strong Buy",
-      "close": 248.82,
+      "close": 249.07,
       "ma60": 243.02,
       "market": "us",
-      "change": -3.0,
+      "change": -2.9,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 248.82,
+        "entry": 249.07,
         "sl": 243.02,
-        "tp": 311.02
+        "tp": 311.34
       },
       "sector": "電商/雲端",
       "backtest": {
@@ -173,7 +310,28 @@
       "is_regular": true,
       "price": 270.64,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 218.94,
+          "support": 198.79,
+          "target": 239.09,
+          "breakthrough_pct": 13.76,
+          "bottom1_price": 198.79,
+          "bottom2_price": 199.34,
+          "days_formed": 76,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "APP",
@@ -198,24 +356,45 @@
       "is_regular": true,
       "price": 613.09,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 517.23,
+          "support": 366.91,
+          "target": 667.55,
+          "breakthrough_pct": 10.18,
+          "bottom1_price": 366.91,
+          "bottom2_price": 372.08,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "ARM",
       "name": "安謀",
       "signal": "Strong Buy",
-      "close": 408.59,
-      "ma60": 199.85,
+      "close": 412.92,
+      "ma60": 199.92,
       "market": "us",
-      "change": 1.46,
+      "change": 2.54,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "實體 AI 機器人",
       "is_regular": true,
       "plan": {
-        "entry": 203.85,
-        "sl": 199.85,
-        "tp": 254.81
+        "entry": 203.92,
+        "sl": 199.92,
+        "tp": 254.9
       },
       "backtest": {
         "win_rate": 65.0,
@@ -223,24 +402,25 @@
       },
       "price": 353.29,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "ASML",
       "name": "艾司摩爾",
       "signal": "Strong Buy",
-      "close": 1729.72,
-      "ma60": 1455.58,
+      "close": 1733.81,
+      "ma60": 1455.65,
       "market": "us",
-      "change": 1.43,
+      "change": 1.67,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "先進封裝與基板",
       "is_regular": true,
       "plan": {
-        "entry": 1484.69,
-        "sl": 1455.58,
-        "tp": 1855.86
+        "entry": 1484.76,
+        "sl": 1455.65,
+        "tp": 1855.95
       },
       "backtest": {
         "win_rate": 65.0,
@@ -248,24 +428,43 @@
       },
       "price": 1612.76,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 1592.02,
+          "support": 1384.56,
+          "target": 1799.48,
+          "avg_bottom": 1417.25,
+          "days_formed": 34,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 4,
+          "signals": [
+            "三重底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "ASTS",
       "name": "AST SpaceMobile",
       "signal": "Strong Buy",
-      "close": 106.92,
-      "ma60": 88.32,
+      "close": 108.54,
+      "ma60": 88.35,
       "market": "us",
-      "change": -9.52,
+      "change": -8.15,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 90.09,
-        "sl": 88.32,
-        "tp": 112.61
+        "entry": 90.12,
+        "sl": 88.35,
+        "tp": 112.65
       },
       "backtest": {
         "win_rate": 65.0,
@@ -273,24 +472,25 @@
       },
       "price": 113.41,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "AVGO",
       "name": "博通",
       "signal": "Strong Buy",
-      "close": 486.38,
-      "ma60": 383.52,
+      "close": 488.2,
+      "ma60": 383.55,
       "market": "us",
-      "change": 1.0,
+      "change": 1.38,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "全光化資料中心",
       "is_regular": true,
       "plan": {
-        "entry": 391.19,
-        "sl": 383.52,
-        "tp": 488.99
+        "entry": 391.22,
+        "sl": 383.55,
+        "tp": 489.03
       },
       "backtest": {
         "win_rate": 65.0,
@@ -298,16 +498,17 @@
       },
       "price": 446.77,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "AXP",
       "name": "美國運通",
       "signal": "Hold",
-      "close": 303.75,
+      "close": 303.55,
       "ma60": 311.36,
       "market": "us",
-      "change": -2.32,
+      "change": -2.39,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -323,22 +524,23 @@
       "is_regular": false,
       "price": 316.47,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "BA",
       "name": "波音",
       "signal": "Hold",
-      "close": 213.69,
-      "ma60": 218.26,
+      "close": 212.74,
+      "ma60": 218.24,
       "market": "us",
-      "change": -1.84,
+      "change": -2.28,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 220.44,
-        "sl": 218.26,
-        "tp": 275.55
+        "entry": 220.42,
+        "sl": 218.24,
+        "tp": 275.52
       },
       "sector": "其他族群",
       "backtest": {
@@ -348,7 +550,8 @@
       "is_regular": false,
       "price": 231.15,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "BAC",
@@ -374,22 +577,23 @@
       },
       "price": 51.6,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "BLK",
       "name": "貝萊德",
       "signal": "Hold",
-      "close": 988.9,
-      "ma60": 1020.68,
+      "close": 989.31,
+      "ma60": 1020.69,
       "market": "us",
-      "change": -2.95,
+      "change": -2.91,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1030.89,
-        "sl": 1020.68,
-        "tp": 1288.61
+        "entry": 1030.9,
+        "sl": 1020.69,
+        "tp": 1288.62
       },
       "sector": "其他族群",
       "backtest": {
@@ -399,22 +603,43 @@
       "is_regular": false,
       "price": 1046.88,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 981.35,
+          "support": 922.9,
+          "target": 1039.8,
+          "breakthrough_pct": 0.81,
+          "bottom1_price": 922.9,
+          "bottom2_price": 933.85,
+          "days_formed": 58,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "BRK-B",
       "name": "波克夏",
       "signal": "Hold",
-      "close": 477.69,
-      "ma60": 478.54,
+      "close": 476.86,
+      "ma60": 478.53,
       "market": "us",
-      "change": 1.31,
+      "change": 1.13,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 483.33,
-        "sl": 478.54,
-        "tp": 604.16
+        "entry": 483.32,
+        "sl": 478.53,
+        "tp": 604.15
       },
       "sector": "其他族群",
       "backtest": {
@@ -424,22 +649,54 @@
       "is_regular": false,
       "price": 474.48,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 485.2,
+          "support": 465.4,
+          "target": 505.0,
+          "breakthrough_pct": -1.72,
+          "bottom1_price": 468.49,
+          "bottom2_price": 465.4,
+          "days_formed": 47,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 485.2,
+          "support": 465.4,
+          "target": 505.0,
+          "avg_bottom": 466.47,
+          "days_formed": 47,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "BX",
       "name": "黑石",
       "signal": "Hold",
-      "close": 109.11,
-      "ma60": 116.84,
+      "close": 108.95,
+      "ma60": 116.83,
       "market": "us",
-      "change": -5.05,
+      "change": -5.19,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 118.01,
-        "sl": 116.84,
-        "tp": 147.51
+        "entry": 118.0,
+        "sl": 116.83,
+        "tp": 147.5
       },
       "sector": "其他族群",
       "backtest": {
@@ -449,22 +706,46 @@
       "is_regular": false,
       "price": 116.97,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC底部",
+          "pattern_en": "ABC_BOTTOM",
+          "wave_top": 160.14,
+          "a_bottom": 101.18,
+          "b_top": 128.99,
+          "c_bottom": 114.26,
+          "a_drop_pct": 36.8,
+          "b_rebound_pct": 47.2,
+          "fib_target_50": 130.66,
+          "fib_target_618": 137.62,
+          "support": 114.26,
+          "days_formed": 95,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "ABC底部完成"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "CAT",
       "name": "卡特彼勒",
       "signal": "Strong Buy",
-      "close": 923.55,
-      "ma60": 805.1,
+      "close": 924.5,
+      "ma60": 805.11,
       "market": "us",
-      "change": 1.51,
+      "change": 1.61,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 821.2,
-        "sl": 805.1,
-        "tp": 1026.5
+        "entry": 821.21,
+        "sl": 805.11,
+        "tp": 1026.51
       },
       "sector": "其他族群",
       "backtest": {
@@ -474,22 +755,23 @@
       "is_regular": true,
       "price": 875.87,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "CDNS",
       "name": "Cadence",
       "signal": "Strong Buy",
-      "close": 406.5,
-      "ma60": 322.95,
+      "close": 406.06,
+      "ma60": 322.94,
       "market": "us",
-      "change": -2.38,
+      "change": -2.48,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 329.41,
-        "sl": 322.95,
-        "tp": 411.76
+        "entry": 329.4,
+        "sl": 322.94,
+        "tp": 411.75
       },
       "sector": "其他族群",
       "backtest": {
@@ -499,24 +781,25 @@
       "is_regular": true,
       "price": 374.93,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "CEG",
       "name": "Constellation",
       "signal": "Hold",
-      "close": 265.42,
-      "ma60": 292.66,
+      "close": 266.48,
+      "ma60": 292.67,
       "market": "us",
-      "change": -2.65,
+      "change": -2.26,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 295.59,
-        "sl": 292.66,
-        "tp": 369.49
+        "entry": 295.6,
+        "sl": 292.67,
+        "tp": 369.5
       },
       "backtest": {
         "win_rate": 45.0,
@@ -524,22 +807,23 @@
       },
       "price": 287.75,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "CI",
       "name": "信諾",
       "signal": "Hold",
-      "close": 273.72,
-      "ma60": 276.64,
+      "close": 273.04,
+      "ma60": 276.63,
       "market": "us",
-      "change": 0.37,
+      "change": 0.12,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 279.41,
-        "sl": 276.64,
-        "tp": 349.26
+        "entry": 279.4,
+        "sl": 276.63,
+        "tp": 349.25
       },
       "sector": "其他族群",
       "backtest": {
@@ -549,22 +833,54 @@
       "is_regular": false,
       "price": 277.4,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 272.08,
+          "support": 258.08,
+          "target": 286.08,
+          "breakthrough_pct": 0.35,
+          "bottom1_price": 260.87,
+          "bottom2_price": 258.08,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 292.32,
+          "support": 258.08,
+          "target": 326.56,
+          "avg_bottom": 267.46,
+          "days_formed": 46,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "COIN",
       "name": "Coinbase",
       "signal": "Hold",
-      "close": 165.41,
-      "ma60": 189.82,
+      "close": 165.54,
+      "ma60": 189.83,
       "market": "us",
-      "change": -4.93,
+      "change": -4.86,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 191.72,
-        "sl": 189.82,
-        "tp": 239.65
+        "entry": 191.73,
+        "sl": 189.83,
+        "tp": 239.66
       },
       "sector": "其他族群",
       "backtest": {
@@ -574,22 +890,44 @@
       "is_regular": false,
       "price": 189.03,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 255.86,
+          "a_bottom": 141.09,
+          "b_top": 216.6,
+          "a_drop_pct": 44.9,
+          "b_rebound_pct": 65.8,
+          "estimated_c_bottom": 138.27,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 97,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      }
     },
     {
       "symbol": "COST",
       "name": "好市多",
       "signal": "Hold",
-      "close": 961.48,
-      "ma60": 1002.65,
+      "close": 959.7,
+      "ma60": 1002.62,
       "market": "us",
-      "change": 0.76,
+      "change": 0.57,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1012.68,
-        "sl": 1002.65,
-        "tp": 1265.85
+        "entry": 1012.65,
+        "sl": 1002.62,
+        "tp": 1265.81
       },
       "sector": "其他族群",
       "backtest": {
@@ -599,22 +937,23 @@
       "is_regular": false,
       "price": 956.32,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "CRWD",
       "name": "庫德史萊克",
       "signal": "Strong Buy",
-      "close": 749.62,
-      "ma60": 491.35,
+      "close": 750.58,
+      "ma60": 491.36,
       "market": "us",
-      "change": -2.51,
+      "change": -2.39,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 501.18,
-        "sl": 491.35,
-        "tp": 626.48
+        "entry": 501.19,
+        "sl": 491.36,
+        "tp": 626.49
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -624,16 +963,17 @@
       "is_regular": true,
       "price": 731.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "CSCO",
       "name": "思科",
       "signal": "Strong Buy",
-      "close": 128.97,
+      "close": 128.71,
       "ma60": 92.94,
       "market": "us",
-      "change": 0.76,
+      "change": 0.55,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -649,16 +989,37 @@
       "is_regular": true,
       "price": 120.42,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 80.43,
+          "support": 74.6,
+          "target": 86.27,
+          "breakthrough_pct": 60.02,
+          "bottom1_price": 74.6,
+          "bottom2_price": 75.8,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "CSX",
       "name": "CSX運輸",
       "signal": "Strong Buy",
-      "close": 46.44,
+      "close": 46.42,
       "ma60": 43.04,
       "market": "us",
-      "change": 0.65,
+      "change": 0.61,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -674,22 +1035,23 @@
       "is_regular": true,
       "price": 45.26,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "CVS",
       "name": "CVS健康",
       "signal": "Strong Buy",
-      "close": 92.61,
-      "ma60": 81.35,
+      "close": 92.2,
+      "ma60": 81.34,
       "market": "us",
-      "change": 3.47,
+      "change": 3.02,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 82.98,
-        "sl": 81.35,
-        "tp": 103.73
+        "entry": 82.97,
+        "sl": 81.34,
+        "tp": 103.71
       },
       "sector": "其他族群",
       "backtest": {
@@ -699,16 +1061,17 @@
       "is_regular": true,
       "price": 90.98,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "DDOG",
       "name": "Datadog",
       "signal": "Strong Buy",
-      "close": 248.53,
+      "close": 248.33,
       "ma60": 155.65,
       "market": "us",
-      "change": -7.65,
+      "change": -7.73,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -724,24 +1087,25 @@
       "is_regular": true,
       "price": 247.35,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "DELL",
       "name": "戴爾",
       "signal": "Strong Buy",
-      "close": 418.85,
-      "ma60": 219.15,
+      "close": 421.88,
+      "ma60": 219.2,
       "market": "us",
-      "change": -3.78,
+      "change": -3.09,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 223.53,
-        "sl": 219.15,
-        "tp": 279.41
+        "entry": 223.58,
+        "sl": 219.2,
+        "tp": 279.48
       },
       "backtest": {
         "win_rate": 65.0,
@@ -749,16 +1113,17 @@
       },
       "price": 420.91,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "DIA",
       "name": "道瓊工業指數ETF",
       "signal": "Strong Buy",
-      "close": 509.77,
+      "close": 509.49,
       "ma60": 484.79,
       "market": "us",
-      "change": -0.83,
+      "change": -0.89,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -774,16 +1139,37 @@
       "is_regular": true,
       "price": 510.78,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 498.77,
+          "support": 488.4,
+          "target": 509.15,
+          "breakthrough_pct": 2.15,
+          "bottom1_price": 488.4,
+          "bottom2_price": 493.98,
+          "days_formed": 25,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "DKNG",
       "name": "DraftKings",
       "signal": "Strong Buy",
-      "close": 24.92,
+      "close": 24.88,
       "ma60": 23.88,
       "market": "us",
-      "change": -1.5,
+      "change": -1.66,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -799,22 +1185,23 @@
       "is_regular": true,
       "price": 24.49,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "DOV",
       "name": "Dover Corp",
       "signal": "Strong Buy",
-      "close": 215.6,
-      "ma60": 214.15,
+      "close": 215.06,
+      "ma60": 214.14,
       "market": "us",
-      "change": 1.77,
+      "change": 1.52,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 215.6,
-        "sl": 214.15,
-        "tp": 269.5
+        "entry": 215.06,
+        "sl": 214.14,
+        "tp": 268.82
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -825,22 +1212,54 @@
       },
       "price": 211.36,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 215.05,
+          "support": 202.31,
+          "target": 227.79,
+          "breakthrough_pct": 0.0,
+          "bottom1_price": 203.3,
+          "bottom2_price": 202.31,
+          "days_formed": 58,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 227.59,
+          "support": 202.31,
+          "target": 252.87,
+          "avg_bottom": 207.67,
+          "days_formed": 46,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "ELV",
       "name": "Elevance Health",
       "signal": "Strong Buy",
-      "close": 393.64,
-      "ma60": 341.01,
+      "close": 392.94,
+      "ma60": 341.0,
       "market": "us",
-      "change": 1.18,
+      "change": 1.01,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 347.83,
-        "sl": 341.01,
-        "tp": 434.79
+        "entry": 347.82,
+        "sl": 341.0,
+        "tp": 434.77
       },
       "sector": "其他族群",
       "backtest": {
@@ -850,7 +1269,28 @@
       "is_regular": true,
       "price": 393.19,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 295.75,
+          "support": 279.02,
+          "target": 312.48,
+          "breakthrough_pct": 32.86,
+          "bottom1_price": 279.02,
+          "bottom2_price": 284.79,
+          "days_formed": 61,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "EMR",
@@ -876,22 +1316,41 @@
       },
       "price": 143.82,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 147.39,
+          "support": 130.65,
+          "target": 164.14,
+          "avg_bottom": 135.12,
+          "days_formed": 34,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "EQIX",
       "name": "艾奎尼克斯",
       "signal": "Strong Buy",
-      "close": 1083.34,
-      "ma60": 1037.07,
+      "close": 1084.87,
+      "ma60": 1037.09,
       "market": "us",
-      "change": 1.08,
+      "change": 1.22,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1057.81,
-        "sl": 1037.07,
-        "tp": 1322.26
+        "entry": 1057.83,
+        "sl": 1037.09,
+        "tp": 1322.29
       },
       "sector": "其他族群",
       "backtest": {
@@ -901,22 +1360,43 @@
       "is_regular": true,
       "price": 1068.04,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 979.61,
+          "support": 932.59,
+          "target": 1026.64,
+          "breakthrough_pct": 10.74,
+          "bottom1_price": 932.59,
+          "bottom2_price": 954.44,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "ETN",
       "name": "伊頓",
       "signal": "Strong Buy",
-      "close": 420.22,
-      "ma60": 389.6,
+      "close": 420.74,
+      "ma60": 389.61,
       "market": "us",
-      "change": 0.62,
+      "change": 0.75,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 397.39,
-        "sl": 389.6,
-        "tp": 496.74
+        "entry": 397.4,
+        "sl": 389.61,
+        "tp": 496.75
       },
       "sector": "其他族群",
       "backtest": {
@@ -926,16 +1406,37 @@
       "is_regular": true,
       "price": 400.6,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 373.97,
+          "support": 342.58,
+          "target": 405.35,
+          "breakthrough_pct": 12.51,
+          "bottom1_price": 345.71,
+          "bottom2_price": 342.58,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "FDX",
       "name": "聯邦快遞",
       "signal": "Strong Buy",
-      "close": 325.25,
+      "close": 325.3,
       "ma60": 302.67,
       "market": "us",
-      "change": -1.14,
+      "change": -1.12,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -951,16 +1452,48 @@
       "is_regular": true,
       "price": 411.75,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 324.99,
+          "support": 288.32,
+          "target": 361.66,
+          "breakthrough_pct": 0.09,
+          "bottom1_price": 294.05,
+          "bottom2_price": 288.32,
+          "days_formed": 35,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 324.99,
+          "support": 275.39,
+          "target": 374.59,
+          "avg_bottom": 285.92,
+          "days_formed": 46,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "FTNT",
       "name": "飛塔",
       "signal": "Strong Buy",
-      "close": 146.47,
+      "close": 146.43,
       "ma60": 97.27,
       "market": "us",
-      "change": -1.61,
+      "change": -1.63,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -976,16 +1509,17 @@
       "is_regular": true,
       "price": 137.97,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "GD",
       "name": "通用動力",
       "signal": "Hold",
-      "close": 340.17,
+      "close": 339.83,
       "ma60": 341.8,
       "market": "us",
-      "change": 0.76,
+      "change": 0.66,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -1002,24 +1536,25 @@
       },
       "price": 346.82,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "GEV",
       "name": "GE Vernova",
       "signal": "Hold",
-      "close": 965.93,
-      "ma60": 979.77,
+      "close": 966.41,
+      "ma60": 979.78,
       "market": "us",
-      "change": -0.39,
+      "change": -0.34,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 989.57,
-        "sl": 979.77,
-        "tp": 1236.96
+        "entry": 989.58,
+        "sl": 979.78,
+        "tp": 1236.98
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1027,22 +1562,23 @@
       },
       "price": 968.32,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "GLW",
       "name": "康寧",
       "signal": "Strong Buy",
-      "close": 200.29,
-      "ma60": 163.86,
+      "close": 201.35,
+      "ma60": 163.88,
       "market": "us",
-      "change": -0.05,
+      "change": 0.47,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 167.14,
-        "sl": 163.86,
-        "tp": 208.92
+        "entry": 167.16,
+        "sl": 163.88,
+        "tp": 208.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -1052,22 +1588,23 @@
       "is_regular": true,
       "price": 181.16,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "GM",
       "name": "通用汽車",
       "signal": "Strong Buy",
-      "close": 82.59,
-      "ma60": 76.84,
+      "close": 82.36,
+      "ma60": 76.83,
       "market": "us",
-      "change": 1.05,
+      "change": 0.77,
       "vol_ratio": 1.2,
       "tactic": "空頭禁區：建議觀望",
       "plan": {
-        "entry": 78.38,
-        "sl": 76.84,
-        "tp": 97.97
+        "entry": 78.37,
+        "sl": 76.83,
+        "tp": 97.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -1077,24 +1614,56 @@
       "is_regular": true,
       "price": 83.24,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 76.61,
+          "support": 72.39,
+          "target": 80.83,
+          "breakthrough_pct": 7.5,
+          "bottom1_price": 72.39,
+          "bottom2_price": 72.54,
+          "days_formed": 57,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 81.32,
+          "support": 72.39,
+          "target": 90.25,
+          "avg_bottom": 72.52,
+          "days_formed": 57,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "GOOGL",
       "name": "谷歌",
       "signal": "Strong Buy",
-      "close": 359.36,
-      "ma60": 343.7,
+      "close": 360.07,
+      "ma60": 343.71,
       "market": "us",
-      "change": -0.69,
+      "change": -0.49,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 350.57,
-        "sl": 343.7,
-        "tp": 438.21
+        "entry": 350.58,
+        "sl": 343.71,
+        "tp": 438.22
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1102,22 +1671,43 @@
       },
       "price": 380.34,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 314.76,
+          "support": 298.31,
+          "target": 331.21,
+          "breakthrough_pct": 14.4,
+          "bottom1_price": 301.81,
+          "bottom2_price": 298.31,
+          "days_formed": 75,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "GS",
       "name": "高盛",
       "signal": "Strong Buy",
-      "close": 1047.24,
-      "ma60": 903.48,
+      "close": 1047.63,
+      "ma60": 903.49,
       "market": "us",
-      "change": -1.63,
+      "change": -1.59,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 921.55,
-        "sl": 903.48,
-        "tp": 1151.94
+        "entry": 921.56,
+        "sl": 903.49,
+        "tp": 1151.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -1127,16 +1717,17 @@
       "is_regular": true,
       "price": 1025.56,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "HOOD",
       "name": "Robinhood",
       "signal": "Strong Buy",
-      "close": 83.75,
+      "close": 83.92,
       "ma60": 77.27,
       "market": "us",
-      "change": -5.0,
+      "change": -4.81,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1152,22 +1743,23 @@
       "is_regular": true,
       "price": 94.3,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "HPE",
       "name": "慧與科技",
       "signal": "Strong Buy",
-      "close": 55.01,
-      "ma60": 28.98,
+      "close": 55.63,
+      "ma60": 28.99,
       "market": "us",
-      "change": -2.03,
+      "change": -0.93,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 29.56,
-        "sl": 28.98,
-        "tp": 36.95
+        "entry": 29.57,
+        "sl": 28.99,
+        "tp": 36.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -1177,22 +1769,23 @@
       "is_regular": true,
       "price": 43.04,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "HUM",
       "name": "Humana",
       "signal": "Strong Buy",
-      "close": 327.96,
-      "ma60": 228.86,
+      "close": 326.0,
+      "ma60": 228.83,
       "market": "us",
-      "change": 2.21,
+      "change": 1.6,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 233.44,
-        "sl": 228.86,
-        "tp": 291.8
+        "entry": 233.41,
+        "sl": 228.83,
+        "tp": 291.76
       },
       "sector": "其他族群",
       "backtest": {
@@ -1202,22 +1795,23 @@
       "is_regular": true,
       "price": 305.42,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "INTC",
       "name": "英特爾",
       "signal": "Strong Buy",
-      "close": 112.04,
-      "ma60": 79.54,
+      "close": 112.54,
+      "ma60": 79.55,
       "market": "us",
-      "change": 3.81,
+      "change": 4.27,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 81.13,
-        "sl": 79.54,
-        "tp": 101.41
+        "entry": 81.14,
+        "sl": 79.55,
+        "tp": 101.42
       },
       "sector": "其他族群",
       "backtest": {
@@ -1227,22 +1821,23 @@
       "is_regular": true,
       "price": 114.68,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "IWM",
       "name": "羅素2000ETF",
       "signal": "Strong Buy",
-      "close": 287.75,
-      "ma60": 268.55,
+      "close": 288.07,
+      "ma60": 268.56,
       "market": "us",
-      "change": -1.34,
+      "change": -1.23,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 273.92,
-        "sl": 268.55,
-        "tp": 342.4
+        "entry": 273.93,
+        "sl": 268.56,
+        "tp": 342.41
       },
       "sector": "其他族群",
       "backtest": {
@@ -1252,24 +1847,45 @@
       "is_regular": true,
       "price": 290.43,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 286.8,
+          "support": 272.08,
+          "target": 301.52,
+          "breakthrough_pct": 0.44,
+          "bottom1_price": 272.08,
+          "bottom2_price": 273.0,
+          "days_formed": 25,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "JOBY",
       "name": "Joby Aviation",
       "signal": "Strong Buy",
-      "close": 11.38,
-      "ma60": 9.62,
+      "close": 11.49,
+      "ma60": 9.63,
       "market": "us",
-      "change": -4.13,
+      "change": -3.2,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 9.81,
-        "sl": 9.62,
-        "tp": 12.26
+        "entry": 9.82,
+        "sl": 9.63,
+        "tp": 12.28
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1277,22 +1893,23 @@
       },
       "price": 11.9,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "JPM",
       "name": "摩根大通",
       "signal": "Strong Buy",
-      "close": 301.64,
+      "close": 301.67,
       "ma60": 300.28,
       "market": "us",
-      "change": 0.23,
+      "change": 0.24,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 301.64,
+        "entry": 301.67,
         "sl": 300.28,
-        "tp": 377.05
+        "tp": 377.09
       },
       "sector": "其他族群",
       "backtest": {
@@ -1302,22 +1919,43 @@
       "is_regular": true,
       "price": 299.31,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 293.92,
+          "support": 281.4,
+          "target": 306.43,
+          "breakthrough_pct": 2.64,
+          "bottom1_price": 281.45,
+          "bottom2_price": 281.4,
+          "days_formed": 58,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "KO",
       "name": "可口可樂",
       "signal": "Strong Buy",
-      "close": 78.85,
-      "ma60": 77.69,
+      "close": 78.78,
+      "ma60": 77.68,
       "market": "us",
-      "change": 0.56,
+      "change": 0.47,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 78.85,
-        "sl": 77.69,
-        "tp": 98.56
+        "entry": 78.78,
+        "sl": 77.68,
+        "tp": 98.47
       },
       "sector": "其他族群",
       "backtest": {
@@ -1327,22 +1965,43 @@
       "is_regular": true,
       "price": 79.01,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 77.82,
+          "support": 74.67,
+          "target": 80.97,
+          "breakthrough_pct": 1.23,
+          "bottom1_price": 76.5,
+          "bottom2_price": 74.67,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "LIN",
       "name": "林德",
       "signal": "Strong Buy",
-      "close": 506.61,
-      "ma60": 499.47,
+      "close": 507.11,
+      "ma60": 499.48,
       "market": "us",
-      "change": 2.16,
+      "change": 2.26,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 506.61,
-        "sl": 499.47,
-        "tp": 633.26
+        "entry": 507.11,
+        "sl": 499.48,
+        "tp": 633.89
       },
       "sector": "其他族群",
       "backtest": {
@@ -1352,22 +2011,54 @@
       "is_regular": true,
       "price": 497.69,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 508.87,
+          "support": 478.05,
+          "target": 539.69,
+          "breakthrough_pct": -0.34,
+          "bottom1_price": 478.05,
+          "bottom2_price": 492.23,
+          "days_formed": 51,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 510.75,
+          "support": 478.05,
+          "target": 543.45,
+          "avg_bottom": 487.81,
+          "days_formed": 51,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "LLY",
       "name": "禮來",
       "signal": "Strong Buy",
-      "close": 1087.83,
-      "ma60": 961.38,
+      "close": 1088.41,
+      "ma60": 961.39,
       "market": "us",
-      "change": 2.23,
+      "change": 2.28,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 980.61,
-        "sl": 961.38,
-        "tp": 1225.76
+        "entry": 980.62,
+        "sl": 961.39,
+        "tp": 1225.78
       },
       "sector": "其他族群",
       "backtest": {
@@ -1377,22 +2068,23 @@
       "is_regular": true,
       "price": 1105.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "LRCX",
       "name": "科林研發",
       "signal": "Strong Buy",
-      "close": 342.01,
-      "ma60": 261.75,
+      "close": 343.28,
+      "ma60": 261.78,
       "market": "us",
-      "change": 2.27,
+      "change": 2.65,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 266.99,
-        "sl": 261.75,
-        "tp": 333.74
+        "entry": 267.02,
+        "sl": 261.78,
+        "tp": 333.77
       },
       "sector": "其他族群",
       "backtest": {
@@ -1402,16 +2094,37 @@
       "is_regular": true,
       "price": 318.18,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 238.84,
+          "support": 199.33,
+          "target": 278.35,
+          "breakthrough_pct": 43.73,
+          "bottom1_price": 199.33,
+          "bottom2_price": 199.93,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "LUNR",
       "name": "Intuitive Machines",
       "signal": "Strong Buy",
-      "close": 33.59,
+      "close": 33.78,
       "ma60": 26.54,
       "market": "us",
-      "change": -15.11,
+      "change": -14.63,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
@@ -1427,16 +2140,17 @@
       },
       "price": 43.83,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "MA",
       "name": "萬事達",
       "signal": "Hold",
-      "close": 472.48,
+      "close": 472.62,
       "ma60": 500.19,
       "market": "us",
-      "change": -1.09,
+      "change": -1.06,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -1453,16 +2167,17 @@
       },
       "price": 493.98,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "MARA",
       "name": "Marathon Digital",
       "signal": "Strong Buy",
-      "close": 14.0,
+      "close": 14.19,
       "ma60": 11.05,
       "market": "us",
-      "change": -1.96,
+      "change": -0.63,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1478,22 +2193,43 @@
       "is_regular": true,
       "price": 14.38,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 9.32,
+          "support": 7.8,
+          "target": 10.84,
+          "breakthrough_pct": 52.31,
+          "bottom1_price": 8.01,
+          "bottom2_price": 7.8,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "MCHP",
       "name": "微晶片科技",
       "signal": "Strong Buy",
-      "close": 96.86,
-      "ma60": 80.76,
+      "close": 97.11,
+      "ma60": 80.77,
       "market": "us",
-      "change": -0.1,
+      "change": 0.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 82.38,
-        "sl": 80.76,
-        "tp": 102.97
+        "entry": 82.39,
+        "sl": 80.77,
+        "tp": 102.99
       },
       "sector": "其他族群",
       "backtest": {
@@ -1503,16 +2239,17 @@
       "is_regular": true,
       "price": 94.65,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "MDB",
       "name": "MongoDB",
       "signal": "Strong Buy",
-      "close": 371.25,
+      "close": 370.97,
       "ma60": 277.74,
       "market": "us",
-      "change": -6.83,
+      "change": -6.9,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1528,24 +2265,25 @@
       "is_regular": true,
       "price": 335.55,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "META",
       "name": "臉書",
       "signal": "Strong Buy",
-      "close": 621.59,
-      "ma60": 619.51,
+      "close": 622.45,
+      "ma60": 619.53,
       "market": "us",
-      "change": 4.01,
+      "change": 4.15,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 621.59,
-        "sl": 619.51,
-        "tp": 776.99
+        "entry": 622.45,
+        "sl": 619.53,
+        "tp": 778.06
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1553,22 +2291,23 @@
       },
       "price": 632.51,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "MPWR",
       "name": "芯源系統",
       "signal": "Strong Buy",
-      "close": 1671.08,
-      "ma60": 1387.71,
+      "close": 1680.79,
+      "ma60": 1387.87,
       "market": "us",
-      "change": 2.84,
+      "change": 3.43,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1415.46,
-        "sl": 1387.71,
-        "tp": 1769.33
+        "entry": 1415.63,
+        "sl": 1387.87,
+        "tp": 1769.54
       },
       "sector": "其他族群",
       "backtest": {
@@ -1578,22 +2317,43 @@
       "is_regular": true,
       "price": 1566.21,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 1661.1,
+          "support": 1468.11,
+          "target": 1854.09,
+          "breakthrough_pct": 1.19,
+          "bottom1_price": 1504.08,
+          "bottom2_price": 1468.11,
+          "days_formed": 26,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "MRVL",
       "name": "Marvell",
       "signal": "Strong Buy",
-      "close": 305.87,
-      "ma60": 146.3,
+      "close": 300.48,
+      "ma60": 146.21,
       "market": "us",
-      "change": 5.19,
+      "change": 3.33,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 149.23,
-        "sl": 146.3,
-        "tp": 186.54
+        "entry": 149.13,
+        "sl": 146.21,
+        "tp": 186.41
       },
       "sector": "全光化資料中心",
       "backtest": {
@@ -1603,16 +2363,17 @@
       "is_regular": true,
       "price": 205.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "MS",
       "name": "摩根士丹利",
       "signal": "Strong Buy",
-      "close": 211.24,
+      "close": 211.11,
       "ma60": 181.82,
       "market": "us",
-      "change": -1.74,
+      "change": -1.8,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1628,24 +2389,45 @@
       "is_regular": true,
       "price": 208.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 164.98,
+          "support": 153.54,
+          "target": 176.42,
+          "breakthrough_pct": 27.96,
+          "bottom1_price": 153.54,
+          "bottom2_price": 157.52,
+          "days_formed": 58,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "MSFT",
       "name": "微軟",
       "signal": "Strong Buy",
-      "close": 427.28,
-      "ma60": 403.76,
+      "close": 428.63,
+      "ma60": 403.78,
       "market": "us",
-      "change": -3.18,
+      "change": -2.87,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 411.84,
-        "sl": 403.76,
-        "tp": 514.8
+        "entry": 411.86,
+        "sl": 403.78,
+        "tp": 514.83
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1653,7 +2435,26 @@
       },
       "price": 450.24,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 422.62,
+          "support": 404.33,
+          "target": 440.92,
+          "avg_bottom": 407.97,
+          "days_formed": 24,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 4,
+          "signals": [
+            "三重底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "MSTR",
@@ -1678,24 +2479,25 @@
       "is_regular": false,
       "price": 159.09,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "MU",
       "name": "美光",
       "signal": "Strong Buy",
-      "close": 1067.83,
-      "ma60": 567.69,
+      "close": 1069.1,
+      "ma60": 567.71,
       "market": "us",
-      "change": 0.35,
+      "change": 0.47,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 579.04,
-        "sl": 567.69,
-        "tp": 723.8
+        "entry": 579.06,
+        "sl": 567.71,
+        "tp": 723.82
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1703,16 +2505,37 @@
       },
       "price": 971.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 428.82,
+          "support": 370.14,
+          "target": 487.5,
+          "breakthrough_pct": 149.34,
+          "bottom1_price": 373.09,
+          "bottom2_price": 370.14,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "NEE",
       "name": "新紀元能源",
       "signal": "Hold",
-      "close": 85.01,
+      "close": 84.82,
       "ma60": 92.02,
       "market": "us",
-      "change": -0.78,
+      "change": -1.0,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "核能/能源",
@@ -1728,22 +2551,23 @@
       },
       "price": 87.01,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "NSC",
       "name": "諾福克南方",
       "signal": "Strong Buy",
-      "close": 307.1,
-      "ma60": 301.47,
+      "close": 306.67,
+      "ma60": 301.46,
       "market": "us",
-      "change": -0.15,
+      "change": -0.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 307.1,
-        "sl": 301.47,
-        "tp": 383.88
+        "entry": 306.67,
+        "sl": 301.46,
+        "tp": 383.34
       },
       "sector": "其他族群",
       "backtest": {
@@ -1753,22 +2577,23 @@
       "is_regular": true,
       "price": 304.96,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "NTAP",
       "name": "NetApp",
       "signal": "Strong Buy",
-      "close": 181.37,
-      "ma60": 113.77,
+      "close": 181.65,
+      "ma60": 113.78,
       "market": "us",
-      "change": 3.26,
+      "change": 3.42,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 116.05,
-        "sl": 113.77,
-        "tp": 145.06
+        "entry": 116.06,
+        "sl": 113.78,
+        "tp": 145.07
       },
       "sector": "其他族群",
       "backtest": {
@@ -1778,24 +2603,45 @@
       "is_regular": true,
       "price": 174.29,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 101.96,
+          "support": 96.42,
+          "target": 107.5,
+          "breakthrough_pct": 78.16,
+          "bottom1_price": 97.72,
+          "bottom2_price": 96.42,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "NVDA",
       "name": "輝達",
       "signal": "Strong Buy",
-      "close": 215.34,
-      "ma60": 198.49,
+      "close": 215.83,
+      "ma60": 198.5,
       "market": "us",
-      "change": -3.36,
+      "change": -3.14,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "極限算力基建",
       "is_regular": true,
       "plan": {
-        "entry": 202.46,
-        "sl": 198.49,
-        "tp": 253.08
+        "entry": 202.47,
+        "sl": 198.5,
+        "tp": 253.09
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1803,16 +2649,17 @@
       },
       "price": 211.14,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "NVO",
       "name": "諾和諾德",
       "signal": "Strong Buy",
-      "close": 42.18,
+      "close": 42.12,
       "ma60": 40.57,
       "market": "us",
-      "change": -1.72,
+      "change": -1.86,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1828,22 +2675,57 @@
       "is_regular": true,
       "price": 45.58,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 38.37,
+          "support": 34.76,
+          "target": 41.98,
+          "breakthrough_pct": 9.77,
+          "bottom1_price": 35.36,
+          "bottom2_price": 34.76,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 61.72,
+          "a_bottom": 34.76,
+          "b_top": 47.08,
+          "a_drop_pct": 43.7,
+          "b_rebound_pct": 45.7,
+          "estimated_c_bottom": 34.07,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 90,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底突破",
+            "⚠️C波下跌中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "NXPI",
       "name": "恩智浦",
       "signal": "Strong Buy",
-      "close": 321.91,
-      "ma60": 246.51,
+      "close": 322.65,
+      "ma60": 246.52,
       "market": "us",
-      "change": -0.53,
+      "change": -0.3,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 251.44,
-        "sl": 246.51,
-        "tp": 314.3
+        "entry": 251.45,
+        "sl": 246.52,
+        "tp": 314.31
       },
       "sector": "其他族群",
       "backtest": {
@@ -1853,24 +2735,45 @@
       "is_regular": true,
       "price": 321.35,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 197.61,
+          "support": 187.39,
+          "target": 207.83,
+          "breakthrough_pct": 63.28,
+          "bottom1_price": 189.87,
+          "bottom2_price": 187.39,
+          "days_formed": 57,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "OKLO",
       "name": "Oklo Inc.",
       "signal": "Strong Buy",
-      "close": 65.73,
-      "ma60": 62.32,
+      "close": 66.31,
+      "ma60": 62.33,
       "market": "us",
-      "change": -10.53,
+      "change": -9.75,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能/能源",
       "is_regular": true,
       "plan": {
-        "entry": 63.57,
-        "sl": 62.32,
-        "tp": 79.46
+        "entry": 63.58,
+        "sl": 62.33,
+        "tp": 79.47
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1878,16 +2781,17 @@
       },
       "price": 66.88,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "ON",
       "name": "安森美",
       "signal": "Strong Buy",
-      "close": 133.45,
+      "close": 133.47,
       "ma60": 87.47,
       "market": "us",
-      "change": 3.74,
+      "change": 3.75,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1903,24 +2807,45 @@
       "is_regular": true,
       "price": 120.62,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 63.1,
+          "support": 55.66,
+          "target": 70.54,
+          "breakthrough_pct": 111.52,
+          "bottom1_price": 56.87,
+          "bottom2_price": 55.66,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "ORCL",
       "name": "甲骨文",
       "signal": "Strong Buy",
-      "close": 230.68,
-      "ma60": 172.64,
+      "close": 232.52,
+      "ma60": 172.67,
       "market": "us",
-      "change": -5.68,
+      "change": -4.93,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 176.09,
-        "sl": 172.64,
-        "tp": 220.11
+        "entry": 176.12,
+        "sl": 172.67,
+        "tp": 220.15
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1928,22 +2853,43 @@
       },
       "price": 225.78,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 162.55,
+          "support": 138.32,
+          "target": 186.79,
+          "breakthrough_pct": 43.04,
+          "bottom1_price": 140.82,
+          "bottom2_price": 138.32,
+          "days_formed": 71,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "PANW",
       "name": "Palo Alto",
       "signal": "Strong Buy",
-      "close": 279.95,
-      "ma60": 193.66,
+      "close": 280.26,
+      "ma60": 193.67,
       "market": "us",
-      "change": -5.8,
+      "change": -5.69,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 197.53,
-        "sl": 193.66,
-        "tp": 246.91
+        "entry": 197.54,
+        "sl": 193.67,
+        "tp": 246.92
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -1953,17 +2899,18 @@
       "is_regular": true,
       "price": 281.69,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "PATH",
       "name": "UiPath",
       "sector": "代理型 AI 軟體",
       "signal": "Strong Buy",
-      "close": 11.74,
+      "close": 11.73,
       "ma60": 10.93,
       "market": "us",
-      "change": -3.61,
+      "change": -3.69,
       "is_regular": true,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
@@ -1978,16 +2925,17 @@
       },
       "price": 11.72,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "PAYX",
       "name": "沛齊",
       "signal": "Strong Buy",
-      "close": 98.6,
+      "close": 98.39,
       "ma60": 91.9,
       "market": "us",
-      "change": -2.17,
+      "change": -2.38,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -2004,16 +2952,48 @@
       },
       "price": 96.98,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 93.06,
+          "support": 88.68,
+          "target": 97.45,
+          "breakthrough_pct": 5.72,
+          "bottom1_price": 88.68,
+          "bottom2_price": 88.83,
+          "days_formed": 28,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 92.49,
+          "support": 84.48,
+          "target": 100.5,
+          "avg_bottom": 87.54,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "PL",
       "name": "Planet Labs",
       "signal": "Strong Buy",
-      "close": 42.99,
+      "close": 43.07,
       "ma60": 36.63,
       "market": "us",
-      "change": -10.61,
+      "change": -10.44,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
@@ -2029,16 +3009,37 @@
       },
       "price": 51.14,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 39.89,
+          "support": 33.93,
+          "target": 45.85,
+          "breakthrough_pct": 7.97,
+          "bottom1_price": 33.93,
+          "bottom2_price": 34.08,
+          "days_formed": 36,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "PLTR",
       "name": "Palantir",
       "signal": "Hold",
-      "close": 142.84,
+      "close": 142.83,
       "ma60": 143.55,
       "market": "us",
-      "change": -6.13,
+      "change": -6.14,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "代理型 AI 軟體",
@@ -2054,24 +3055,43 @@
       },
       "price": 156.54,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 152.62,
+          "support": 128.06,
+          "target": 177.18,
+          "avg_bottom": 130.21,
+          "days_formed": 38,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "PWR",
       "name": "Quanta Services",
       "signal": "Strong Buy",
-      "close": 718.29,
-      "ma60": 644.96,
+      "close": 718.77,
+      "ma60": 644.97,
       "market": "us",
-      "change": 1.73,
+      "change": 1.8,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 657.86,
-        "sl": 644.96,
-        "tp": 822.33
+        "entry": 657.87,
+        "sl": 644.97,
+        "tp": 822.34
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2079,22 +3099,43 @@
       },
       "price": 711.73,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 578.33,
+          "support": 533.68,
+          "target": 622.98,
+          "breakthrough_pct": 24.28,
+          "bottom1_price": 540.08,
+          "bottom2_price": 533.68,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "QCOM",
       "name": "高通",
       "signal": "Strong Buy",
-      "close": 250.42,
-      "ma60": 165.42,
+      "close": 251.16,
+      "ma60": 165.44,
       "market": "us",
-      "change": 3.98,
+      "change": 4.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 168.73,
-        "sl": 165.42,
-        "tp": 210.91
+        "entry": 168.75,
+        "sl": 165.44,
+        "tp": 210.94
       },
       "sector": "邊緣 AI 與終端",
       "backtest": {
@@ -2104,22 +3145,23 @@
       "is_regular": true,
       "price": 251.02,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "QQQ",
       "name": "納斯達克100",
       "signal": "Strong Buy",
-      "close": 744.03,
-      "ma60": 651.3,
+      "close": 744.84,
+      "ma60": 651.31,
       "market": "us",
-      "change": -0.29,
+      "change": -0.18,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 664.33,
-        "sl": 651.3,
-        "tp": 830.41
+        "entry": 664.34,
+        "sl": 651.31,
+        "tp": 830.43
       },
       "sector": "其他族群",
       "backtest": {
@@ -2129,16 +3171,17 @@
       "is_regular": true,
       "price": 738.31,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "RDDT",
       "name": "Reddit",
       "signal": "Strong Buy",
-      "close": 169.16,
+      "close": 169.32,
       "ma60": 150.21,
       "market": "us",
-      "change": 0.02,
+      "change": 0.11,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
@@ -2154,24 +3197,56 @@
       },
       "price": 176.0,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 151.25,
+          "support": 131.07,
+          "target": 171.43,
+          "breakthrough_pct": 11.94,
+          "bottom1_price": 131.07,
+          "bottom2_price": 132.25,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 171.63,
+          "support": 141.67,
+          "target": 201.59,
+          "avg_bottom": 147.08,
+          "days_formed": 24,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "RKLB",
       "name": "Rocket Lab",
       "signal": "Strong Buy",
-      "close": 114.99,
-      "ma60": 90.34,
+      "close": 115.71,
+      "ma60": 90.35,
       "market": "us",
-      "change": -6.75,
+      "change": -6.17,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 92.15,
-        "sl": 90.34,
-        "tp": 115.19
+        "entry": 92.16,
+        "sl": 90.35,
+        "tp": 115.2
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2179,16 +3254,17 @@
       },
       "price": 143.48,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SBUX",
       "name": "星巴克",
       "signal": "Hold",
-      "close": 96.58,
+      "close": 96.36,
       "ma60": 98.67,
       "market": "us",
-      "change": 1.12,
+      "change": 0.89,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2204,16 +3280,17 @@
       "is_regular": false,
       "price": 99.16,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SMCI",
       "name": "超微電腦",
       "signal": "Strong Buy",
-      "close": 46.85,
+      "close": 47.05,
       "ma60": 29.94,
       "market": "us",
-      "change": -6.62,
+      "change": -6.22,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
@@ -2229,22 +3306,23 @@
       },
       "price": 46.09,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SMH",
       "name": "半導體ETF",
       "signal": "Strong Buy",
-      "close": 638.07,
-      "ma60": 481.22,
+      "close": 639.46,
+      "ma60": 481.24,
       "market": "us",
-      "change": 0.93,
+      "change": 1.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 490.84,
-        "sl": 481.22,
-        "tp": 613.55
+        "entry": 490.86,
+        "sl": 481.24,
+        "tp": 613.58
       },
       "sector": "其他族群",
       "backtest": {
@@ -2254,16 +3332,17 @@
       "is_regular": true,
       "price": 598.93,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SMR",
       "name": "NuScale Power",
       "signal": "Strong Buy",
-      "close": 12.41,
+      "close": 12.51,
       "ma60": 11.62,
       "market": "us",
-      "change": -11.04,
+      "change": -10.32,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能/能源",
@@ -2279,24 +3358,25 @@
       },
       "price": 12.67,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SNPS",
       "name": "新思科技",
       "signal": "Strong Buy",
-      "close": 499.2,
-      "ma60": 458.71,
+      "close": 499.99,
+      "ma60": 458.73,
       "market": "us",
-      "change": -1.8,
+      "change": -1.64,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 467.88,
-        "sl": 458.71,
-        "tp": 584.85
+        "entry": 467.9,
+        "sl": 458.73,
+        "tp": 584.88
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2304,22 +3384,43 @@
       },
       "price": 475.62,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 442.3,
+          "support": 412.63,
+          "target": 471.97,
+          "breakthrough_pct": 13.04,
+          "bottom1_price": 414.0,
+          "bottom2_price": 412.63,
+          "days_formed": 67,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "SOXX",
       "name": "費半ETF",
       "signal": "Strong Buy",
-      "close": 615.22,
-      "ma60": 433.86,
+      "close": 615.97,
+      "ma60": 433.87,
       "market": "us",
-      "change": 1.69,
+      "change": 1.81,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 442.54,
-        "sl": 433.86,
-        "tp": 553.18
+        "entry": 442.55,
+        "sl": 433.87,
+        "tp": 553.19
       },
       "sector": "其他族群",
       "backtest": {
@@ -2329,22 +3430,23 @@
       "is_regular": true,
       "price": 569.08,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "SPY",
       "name": "標普500",
       "signal": "Strong Buy",
-      "close": 755.15,
-      "ma60": 702.07,
+      "close": 755.77,
+      "ma60": 702.08,
       "market": "us",
-      "change": -0.58,
+      "change": -0.5,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 716.11,
-        "sl": 702.07,
-        "tp": 895.14
+        "entry": 716.12,
+        "sl": 702.08,
+        "tp": 895.15
       },
       "sector": "其他族群",
       "backtest": {
@@ -2354,22 +3456,23 @@
       "is_regular": true,
       "price": 756.48,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "STX",
       "name": "希捷",
       "signal": "Strong Buy",
-      "close": 935.48,
-      "ma60": 605.91,
+      "close": 936.58,
+      "ma60": 605.93,
       "market": "us",
-      "change": 0.96,
+      "change": 1.08,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 618.03,
-        "sl": 605.91,
-        "tp": 772.54
+        "entry": 618.05,
+        "sl": 605.93,
+        "tp": 772.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -2379,16 +3482,37 @@
       "is_regular": true,
       "price": 879.8,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 433.84,
+          "support": 352.19,
+          "target": 515.5,
+          "breakthrough_pct": 115.88,
+          "bottom1_price": 352.19,
+          "bottom2_price": 362.43,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "TEL",
       "name": "TE Connectivity",
       "signal": "Strong Buy",
-      "close": 217.29,
+      "close": 217.52,
       "ma60": 210.94,
       "market": "us",
-      "change": 1.19,
+      "change": 1.3,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -2405,22 +3529,41 @@
       },
       "price": 213.41,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 246.71,
+          "support": 195.32,
+          "target": 298.1,
+          "avg_bottom": 198.9,
+          "days_formed": 46,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "TER",
       "name": "泰瑞達",
       "signal": "Strong Buy",
-      "close": 404.13,
-      "ma60": 344.43,
+      "close": 405.31,
+      "ma60": 344.45,
       "market": "us",
-      "change": 2.93,
+      "change": 3.23,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 351.32,
-        "sl": 344.43,
-        "tp": 439.15
+        "entry": 351.34,
+        "sl": 344.45,
+        "tp": 439.17
       },
       "sector": "其他族群",
       "backtest": {
@@ -2430,22 +3573,43 @@
       "is_regular": true,
       "price": 374.31,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 323.24,
+          "support": 272.95,
+          "target": 373.53,
+          "breakthrough_pct": 25.39,
+          "bottom1_price": 272.95,
+          "bottom2_price": 276.25,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "TSLA",
       "name": "特斯拉",
       "signal": "Strong Buy",
-      "close": 423.13,
-      "ma60": 393.89,
+      "close": 423.93,
+      "ma60": 393.9,
       "market": "us",
-      "change": -0.14,
+      "change": 0.04,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 401.77,
-        "sl": 393.89,
-        "tp": 502.21
+        "entry": 401.78,
+        "sl": 393.9,
+        "tp": 502.22
       },
       "sector": "實體 AI 機器人",
       "backtest": {
@@ -2455,24 +3619,25 @@
       "is_regular": true,
       "price": 435.79,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "TSM",
       "name": "台積電 ADR",
       "signal": "Strong Buy",
-      "close": 438.64,
-      "ma60": 378.14,
+      "close": 440.07,
+      "ma60": 378.16,
       "market": "us",
-      "change": -1.8,
+      "change": -1.48,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 385.7,
-        "sl": 378.14,
-        "tp": 482.12
+        "entry": 385.72,
+        "sl": 378.16,
+        "tp": 482.15
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2480,22 +3645,23 @@
       },
       "price": 418.45,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "UBER",
       "name": "優步",
       "signal": "Hold",
-      "close": 70.83,
-      "ma60": 73.82,
+      "close": 71.24,
+      "ma60": 73.83,
       "market": "us",
-      "change": -1.1,
+      "change": -0.53,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 74.56,
-        "sl": 73.82,
-        "tp": 93.2
+        "entry": 74.57,
+        "sl": 73.83,
+        "tp": 93.21
       },
       "sector": "其他族群",
       "backtest": {
@@ -2505,22 +3671,41 @@
       "is_regular": false,
       "price": 70.4,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 77.49,
+          "support": 69.18,
+          "target": 85.8,
+          "avg_bottom": 70.87,
+          "days_formed": 47,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "UNH",
       "name": "聯合健康",
       "signal": "Strong Buy",
-      "close": 381.89,
-      "ma60": 334.0,
+      "close": 381.3,
+      "ma60": 333.99,
       "market": "us",
-      "change": 1.05,
+      "change": 0.89,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 340.68,
-        "sl": 334.0,
-        "tp": 425.85
+        "entry": 340.67,
+        "sl": 333.99,
+        "tp": 425.84
       },
       "sector": "其他族群",
       "backtest": {
@@ -2530,22 +3715,43 @@
       "is_regular": true,
       "price": 380.31,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 292.65,
+          "support": 271.84,
+          "target": 313.47,
+          "breakthrough_pct": 30.29,
+          "bottom1_price": 271.84,
+          "bottom2_price": 277.05,
+          "days_formed": 70,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "UNP",
       "name": "聯合太平洋",
       "signal": "Strong Buy",
-      "close": 264.18,
-      "ma60": 254.54,
+      "close": 263.76,
+      "ma60": 254.53,
       "market": "us",
-      "change": -0.19,
+      "change": -0.35,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 259.63,
-        "sl": 254.54,
-        "tp": 324.54
+        "entry": 259.62,
+        "sl": 254.53,
+        "tp": 324.52
       },
       "sector": "其他族群",
       "backtest": {
@@ -2555,41 +3761,74 @@
       "is_regular": true,
       "price": 262.64,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "V",
       "name": "威士",
-      "signal": "Hold",
-      "close": 314.06,
-      "ma60": 314.06,
+      "signal": "Strong Buy",
+      "close": 314.25,
+      "ma60": 314.07,
       "market": "us",
-      "change": -1.03,
+      "change": -0.97,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 317.2,
-        "sl": 314.06,
-        "tp": 396.5
+        "entry": 314.25,
+        "sl": 314.07,
+        "tp": 392.81
       },
       "sector": "其他族群",
       "backtest": {
         "win_rate": 16.7,
         "total_return": 0.8
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 326.36,
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 320.17,
+          "support": 298.4,
+          "target": 341.93,
+          "breakthrough_pct": -1.85,
+          "bottom1_price": 305.89,
+          "bottom2_price": 298.4,
+          "days_formed": 71,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 334.17,
+          "support": 294.91,
+          "target": 373.43,
+          "avg_bottom": 307.09,
+          "days_formed": 47,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "VGT",
       "name": "資訊科技ETF",
       "signal": "Strong Buy",
-      "close": 124.05,
+      "close": 124.24,
       "ma60": 101.73,
       "market": "us",
-      "change": -1.37,
+      "change": -1.22,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2605,22 +3844,23 @@
       "is_regular": true,
       "price": 121.06,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "VOO",
       "name": "標普500ETF",
       "signal": "Strong Buy",
-      "close": 694.31,
-      "ma60": 645.4,
+      "close": 694.87,
+      "ma60": 645.41,
       "market": "us",
-      "change": -0.57,
+      "change": -0.49,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 658.31,
-        "sl": 645.4,
-        "tp": 822.89
+        "entry": 658.32,
+        "sl": 645.41,
+        "tp": 822.9
       },
       "sector": "其他族群",
       "backtest": {
@@ -2630,24 +3870,25 @@
       "is_regular": true,
       "price": 695.49,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "VRT",
       "name": "Vertiv (散熱)",
       "signal": "Strong Buy",
-      "close": 333.61,
-      "ma60": 303.66,
+      "close": 333.96,
+      "ma60": 303.67,
       "market": "us",
-      "change": -0.26,
+      "change": -0.16,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "極限算力基建",
       "is_regular": true,
       "plan": {
-        "entry": 309.73,
-        "sl": 303.66,
-        "tp": 387.16
+        "entry": 309.74,
+        "sl": 303.67,
+        "tp": 387.18
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2655,22 +3896,23 @@
       },
       "price": 315.71,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "VRTX",
       "name": "Vertex Pharm",
       "signal": "Hold",
-      "close": 427.44,
-      "ma60": 442.39,
+      "close": 427.57,
+      "ma60": 442.4,
       "market": "us",
-      "change": 0.55,
+      "change": 0.58,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 446.81,
-        "sl": 442.39,
-        "tp": 558.51
+        "entry": 446.82,
+        "sl": 442.4,
+        "tp": 558.52
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -2681,24 +3923,25 @@
       },
       "price": 447.54,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "VST",
       "name": "Vistra Corp",
       "signal": "Hold",
-      "close": 153.96,
-      "ma60": 155.37,
+      "close": 154.68,
+      "ma60": 155.38,
       "market": "us",
-      "change": -2.54,
+      "change": -2.08,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 156.92,
-        "sl": 155.37,
-        "tp": 196.15
+        "entry": 156.93,
+        "sl": 155.38,
+        "tp": 196.16
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2706,16 +3949,17 @@
       },
       "price": 160.23,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "VTI",
       "name": "全美股市ETF",
       "signal": "Strong Buy",
-      "close": 372.14,
+      "close": 372.42,
       "ma60": 345.91,
       "market": "us",
-      "change": -0.59,
+      "change": -0.52,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2731,24 +3975,25 @@
       "is_regular": true,
       "price": 372.54,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "WDC",
       "name": "威騰電子",
       "signal": "Strong Buy",
-      "close": 588.85,
-      "ma60": 393.01,
+      "close": 589.72,
+      "ma60": 393.02,
       "market": "us",
-      "change": 4.57,
+      "change": 4.73,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 400.87,
-        "sl": 393.01,
-        "tp": 501.09
+        "entry": 400.88,
+        "sl": 393.02,
+        "tp": 501.1
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2756,16 +4001,37 @@
       },
       "price": 531.21,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 316.93,
+          "support": 245.25,
+          "target": 388.61,
+          "breakthrough_pct": 86.07,
+          "bottom1_price": 245.25,
+          "bottom2_price": 251.67,
+          "days_formed": 62,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "WMT",
       "name": "沃爾瑪",
       "signal": "Hold",
-      "close": 116.57,
+      "close": 116.55,
       "ma60": 125.45,
       "market": "us",
-      "change": 3.1,
+      "change": 3.09,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2781,16 +4047,17 @@
       "is_regular": false,
       "price": 115.75,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "WOLF",
       "name": "Wolfspeed",
       "signal": "Strong Buy",
-      "close": 65.47,
+      "close": 65.76,
       "ma60": 34.67,
       "market": "us",
-      "change": 7.22,
+      "change": 7.7,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2806,22 +4073,23 @@
       "is_regular": true,
       "price": 59.28,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "XLE",
       "name": "能源ETF",
       "signal": "Strong Buy",
-      "close": 58.85,
+      "close": 58.72,
       "ma60": 58.17,
       "market": "us",
-      "change": 1.54,
+      "change": 1.31,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 58.85,
+        "entry": 58.72,
         "sl": 58.17,
-        "tp": 73.56
+        "tp": 73.4
       },
       "sector": "其他族群",
       "backtest": {
@@ -2831,16 +4099,48 @@
       "is_regular": true,
       "price": 56.29,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 59.65,
+          "support": 55.02,
+          "target": 64.28,
+          "breakthrough_pct": -1.56,
+          "bottom1_price": 55.02,
+          "bottom2_price": 55.7,
+          "days_formed": 33,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 62.56,
+          "support": 55.02,
+          "target": 70.1,
+          "avg_bottom": 55.32,
+          "days_formed": 60,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "XLK",
       "name": "科技ETF",
       "signal": "Strong Buy",
-      "close": 196.28,
+      "close": 196.67,
       "ma60": 157.17,
       "market": "us",
-      "change": -0.97,
+      "change": -0.78,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2856,16 +4156,17 @@
       "is_regular": true,
       "price": 191.02,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "ZS",
       "name": "Zscaler",
       "signal": "Hold",
-      "close": 134.57,
+      "close": 135.08,
       "ma60": 144.92,
       "market": "us",
-      "change": -6.65,
+      "change": -6.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2881,7 +4182,8 @@
       "is_regular": false,
       "price": 139.73,
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "1101.TW",
@@ -2918,7 +4220,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "1216.TW",
@@ -2954,7 +4257,26 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 73.5,
+          "support": 68.7,
+          "target": 78.3,
+          "avg_bottom": 70.0,
+          "days_formed": 50,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "1303.TW",
@@ -2990,7 +4312,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 94.9,
+          "support": 72.8,
+          "target": 117.0,
+          "breakthrough_pct": 19.07,
+          "bottom1_price": 72.8,
+          "bottom2_price": 74.1,
+          "days_formed": 71,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "1326.TW",
@@ -3027,7 +4370,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "1402.TW",
@@ -3064,7 +4408,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 27.15,
+          "support": 25.9,
+          "target": 28.4,
+          "breakthrough_pct": 0.55,
+          "bottom1_price": 25.9,
+          "bottom2_price": 25.95,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "1503.TW",
@@ -3100,7 +4465,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 236.0,
+          "support": 198.5,
+          "target": 273.5,
+          "breakthrough_pct": 3.39,
+          "bottom1_price": 201.0,
+          "bottom2_price": 198.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 206.5,
+          "support": 178.5,
+          "target": 234.5,
+          "avg_bottom": 182.67,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "1504.TW",
@@ -3136,7 +4533,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "1513.TW",
@@ -3172,7 +4570,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 158.5,
+          "support": 148.5,
+          "target": 168.5,
+          "breakthrough_pct": 16.4,
+          "bottom1_price": 148.5,
+          "bottom2_price": 148.5,
+          "days_formed": 24,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 162.0,
+          "support": 143.0,
+          "target": 181.0,
+          "avg_bottom": 147.5,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "1514.TW",
@@ -3208,7 +4638,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 126.5,
+          "support": 110.0,
+          "target": 143.0,
+          "breakthrough_pct": 7.51,
+          "bottom1_price": 110.0,
+          "bottom2_price": 113.0,
+          "days_formed": 24,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "1519.TW",
@@ -3244,7 +4695,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "1711.TW",
@@ -3280,7 +4732,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "1717.TW",
@@ -3316,7 +4769,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 65.85,
+          "support": 56.87,
+          "target": 74.84,
+          "breakthrough_pct": 18.6,
+          "bottom1_price": 56.87,
+          "bottom2_price": 56.87,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 82.7,
+          "support": 72.7,
+          "target": 92.7,
+          "avg_bottom": 75.3,
+          "days_formed": 27,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "1815.TWO",
@@ -3352,7 +4837,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2049.TW",
@@ -3388,7 +4874,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 244.0,
+          "support": 220.0,
+          "target": 268.0,
+          "breakthrough_pct": 51.23,
+          "bottom1_price": 220.0,
+          "bottom2_price": 221.0,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2105.TW",
@@ -3424,7 +4931,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 32.45,
+          "support": 30.85,
+          "target": 34.05,
+          "breakthrough_pct": 6.47,
+          "bottom1_price": 30.85,
+          "bottom2_price": 31.55,
+          "days_formed": 23,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2301.TW",
@@ -3460,7 +4988,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "2303.TW",
@@ -3496,7 +5025,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "2308.TW",
@@ -3532,7 +5062,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "2313.TW",
@@ -3568,7 +5099,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2317.TW",
@@ -3604,7 +5136,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 246.5,
+          "support": 209.5,
+          "target": 283.5,
+          "breakthrough_pct": 25.35,
+          "bottom1_price": 214.5,
+          "bottom2_price": 209.5,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2324.TW",
@@ -3641,7 +5194,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2327.TW",
@@ -3677,7 +5231,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 301.0,
+          "support": 248.5,
+          "target": 353.5,
+          "breakthrough_pct": 172.43,
+          "bottom1_price": 248.5,
+          "bottom2_price": 248.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2330.TW",
@@ -3713,7 +5288,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 2008.45,
+          "support": 1759.26,
+          "target": 2257.63,
+          "breakthrough_pct": 20.74,
+          "bottom1_price": 1759.26,
+          "bottom2_price": 1804.11,
+          "days_formed": 74,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2337.TW",
@@ -3749,7 +5345,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2344.TW",
@@ -3785,7 +5382,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2345.TW",
@@ -3821,7 +5419,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2347.TW",
@@ -3857,7 +5456,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 86.4,
+          "support": 80.1,
+          "target": 92.7,
+          "breakthrough_pct": 5.44,
+          "bottom1_price": 80.1,
+          "bottom2_price": 81.8,
+          "days_formed": 27,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2352.TW",
@@ -3893,7 +5513,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 24.6,
+          "support": 22.75,
+          "target": 26.45,
+          "breakthrough_pct": 40.85,
+          "bottom1_price": 23.0,
+          "bottom2_price": 22.75,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 26.0,
+          "support": 22.75,
+          "target": 29.25,
+          "avg_bottom": 23.22,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2353.TW",
@@ -3929,7 +5581,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 27.4,
+          "support": 25.1,
+          "target": 29.7,
+          "breakthrough_pct": 58.39,
+          "bottom1_price": 25.1,
+          "bottom2_price": 25.85,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 28.8,
+          "support": 27.0,
+          "target": 30.6,
+          "avg_bottom": 27.2,
+          "days_formed": 41,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2356.TW",
@@ -3965,7 +5649,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 44.35,
+          "support": 40.05,
+          "target": 48.65,
+          "breakthrough_pct": 92.56,
+          "bottom1_price": 40.05,
+          "bottom2_price": 40.05,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2357.TW",
@@ -4001,7 +5706,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 532.0,
+          "support": 496.0,
+          "target": 568.0,
+          "breakthrough_pct": 75.0,
+          "bottom1_price": 496.0,
+          "bottom2_price": 500.0,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2359.TW",
@@ -4037,7 +5763,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 122.0,
+          "support": 107.5,
+          "target": 136.5,
+          "breakthrough_pct": 15.57,
+          "bottom1_price": 110.5,
+          "bottom2_price": 107.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2360.TW",
@@ -4073,7 +5820,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2368.TW",
@@ -4109,7 +5857,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2376.TW",
@@ -4145,7 +5894,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2379.TW",
@@ -4181,7 +5931,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "2382.TW",
@@ -4217,7 +5968,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 301.0,
+          "support": 273.0,
+          "target": 329.0,
+          "breakthrough_pct": 38.54,
+          "bottom1_price": 273.0,
+          "bottom2_price": 281.0,
+          "days_formed": 74,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2383.TW",
@@ -4253,7 +6025,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {}
     },
     {
       "symbol": "2395.TW",
@@ -4289,7 +6062,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 375.0,
+          "support": 311.5,
+          "target": 438.5,
+          "breakthrough_pct": 36.8,
+          "bottom1_price": 311.5,
+          "bottom2_price": 318.5,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2408.TW",
@@ -4325,7 +6119,26 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 276.0,
+          "support": 198.5,
+          "target": 353.5,
+          "avg_bottom": 204.83,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 4,
+          "signals": [
+            "三重底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2409.TW",
@@ -4361,7 +6174,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2412.TW",
@@ -4397,7 +6211,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 138.0,
+          "support": 132.0,
+          "target": 144.0,
+          "breakthrough_pct": 2.17,
+          "bottom1_price": 132.0,
+          "bottom2_price": 135.0,
+          "days_formed": 72,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2441.TW",
@@ -4433,7 +6268,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 96.5,
+          "support": 84.0,
+          "target": 109.0,
+          "breakthrough_pct": 41.97,
+          "bottom1_price": 84.5,
+          "bottom2_price": 84.0,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2449.TW",
@@ -4469,7 +6325,26 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 354.0,
+          "support": 259.0,
+          "target": 449.0,
+          "avg_bottom": 269.17,
+          "days_formed": 42,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "2451.TW",
@@ -4505,7 +6380,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2454.TW",
@@ -4541,7 +6417,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 1945.0,
+          "support": 1665.0,
+          "target": 2225.0,
+          "breakthrough_pct": 133.68,
+          "bottom1_price": 1705.0,
+          "bottom2_price": 1665.0,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2467.TW",
@@ -4579,7 +6476,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2474.TW",
@@ -4616,7 +6514,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 231.5,
+          "support": 182.5,
+          "target": 280.5,
+          "breakthrough_pct": 11.02,
+          "bottom1_price": 182.5,
+          "bottom2_price": 183.0,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 231.5,
+          "support": 182.0,
+          "target": 281.0,
+          "avg_bottom": 182.5,
+          "days_formed": 58,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2480.TW",
@@ -4652,7 +6582,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 148.0,
+          "support": 137.5,
+          "target": 158.5,
+          "breakthrough_pct": 8.45,
+          "bottom1_price": 137.5,
+          "bottom2_price": 139.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 150.0,
+          "support": 138.0,
+          "target": 162.0,
+          "avg_bottom": 141.0,
+          "days_formed": 37,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2603.TW",
@@ -4689,7 +6651,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 218.5,
+          "support": 199.5,
+          "target": 237.5,
+          "breakthrough_pct": 8.47,
+          "bottom1_price": 205.5,
+          "bottom2_price": 199.5,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 214.0,
+          "support": 197.0,
+          "target": 231.0,
+          "avg_bottom": 197.83,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2615.TW",
@@ -4726,7 +6720,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 79.8,
+          "support": 73.7,
+          "target": 85.9,
+          "breakthrough_pct": 5.14,
+          "bottom1_price": 74.0,
+          "bottom2_price": 73.7,
+          "days_formed": 49,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 79.8,
+          "support": 73.7,
+          "target": 85.9,
+          "avg_bottom": 73.97,
+          "days_formed": 49,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2633.TW",
@@ -4763,7 +6789,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "2634.TW",
@@ -4799,7 +6826,40 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 50.4,
+          "support": 45.5,
+          "target": 55.3,
+          "avg_bottom": 46.23,
+          "days_formed": 41,
+          "strength": "forming"
+        },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 57.4,
+          "a_bottom": 46.25,
+          "b_top": 50.4,
+          "a_drop_pct": 19.4,
+          "b_rebound_pct": 37.2,
+          "estimated_c_bottom": 45.32,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 86,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": 0,
+          "signals": [
+            "三重底形成中",
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      }
     },
     {
       "symbol": "2637.TW",
@@ -4835,7 +6895,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 75.9,
+          "support": 66.8,
+          "target": 85.0,
+          "breakthrough_pct": 1.45,
+          "bottom1_price": 68.2,
+          "bottom2_price": 66.8,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 76.8,
+          "support": 67.0,
+          "target": 86.6,
+          "avg_bottom": 69.77,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2707.TW",
@@ -4872,7 +6964,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 179.33,
+          "support": 171.78,
+          "target": 186.89,
+          "breakthrough_pct": -1.58,
+          "bottom1_price": 176.5,
+          "bottom2_price": 171.78,
+          "days_formed": 77,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 182.64,
+          "support": 168.5,
+          "target": 196.78,
+          "avg_bottom": 170.85,
+          "days_formed": 60,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2727.TW",
@@ -4908,7 +7032,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 221.0,
+          "support": 212.0,
+          "target": 230.0,
+          "breakthrough_pct": 8.6,
+          "bottom1_price": 212.0,
+          "bottom2_price": 215.5,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 237.0,
+          "support": 215.5,
+          "target": 258.5,
+          "avg_bottom": 220.67,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2881.TW",
@@ -4944,7 +7100,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 89.8,
+          "support": 86.0,
+          "target": 93.6,
+          "breakthrough_pct": 25.84,
+          "bottom1_price": 87.2,
+          "bottom2_price": 86.0,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2882.TW",
@@ -4980,7 +7157,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 73.4,
+          "support": 70.0,
+          "target": 76.8,
+          "breakthrough_pct": 25.07,
+          "bottom1_price": 70.0,
+          "bottom2_price": 70.3,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "2891.TW",
@@ -5016,7 +7214,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 53.3,
+          "support": 50.5,
+          "target": 56.1,
+          "breakthrough_pct": 32.27,
+          "bottom1_price": 50.5,
+          "bottom2_price": 51.5,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 56.5,
+          "support": 51.3,
+          "target": 61.7,
+          "avg_bottom": 52.13,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "2912.TW",
@@ -5052,7 +7282,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 238.5,
+          "support": 224.0,
+          "target": 253.0,
+          "breakthrough_pct": 0.21,
+          "bottom1_price": 225.0,
+          "bottom2_price": 224.0,
+          "days_formed": 37,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3006.TW",
@@ -5088,7 +7339,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3008.TW",
@@ -5124,7 +7376,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 2466.3,
+          "support": 2236.3,
+          "target": 2696.29,
+          "breakthrough_pct": 61.58,
+          "bottom1_price": 2241.2,
+          "bottom2_price": 2236.3,
+          "days_formed": 70,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3010.TW",
@@ -5161,7 +7434,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 129.5,
+          "support": 114.5,
+          "target": 144.5,
+          "breakthrough_pct": 9.65,
+          "bottom1_price": 115.0,
+          "bottom2_price": 114.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3014.TW",
@@ -5197,7 +7491,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 123.5,
+          "support": 114.5,
+          "target": 132.5,
+          "breakthrough_pct": 22.27,
+          "bottom1_price": 115.5,
+          "bottom2_price": 114.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3017.TW",
@@ -5233,7 +7548,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3029.TW",
@@ -5269,7 +7585,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 99.0,
+          "support": 93.0,
+          "target": 105.0,
+          "breakthrough_pct": 13.64,
+          "bottom1_price": 93.0,
+          "bottom2_price": 93.7,
+          "days_formed": 41,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 102.0,
+          "support": 93.0,
+          "target": 111.0,
+          "avg_bottom": 93.73,
+          "days_formed": 41,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "3034.TW",
@@ -5305,7 +7653,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 393.0,
+          "support": 361.0,
+          "target": 425.0,
+          "breakthrough_pct": 27.99,
+          "bottom1_price": 361.0,
+          "bottom2_price": 371.0,
+          "days_formed": 74,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3035.TW",
@@ -5341,7 +7710,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3037.TW",
@@ -5377,7 +7747,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3044.TW",
@@ -5413,7 +7784,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3045.TW",
@@ -5449,7 +7821,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 108.5,
+          "support": 104.5,
+          "target": 112.5,
+          "breakthrough_pct": 6.91,
+          "bottom1_price": 104.5,
+          "bottom2_price": 106.0,
+          "days_formed": 75,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 113.5,
+          "support": 109.0,
+          "target": 118.0,
+          "avg_bottom": 109.67,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "3081.TWO",
@@ -5485,7 +7889,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3163.TWO",
@@ -5521,7 +7926,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3167.TW",
@@ -5557,7 +7963,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3189.TW",
@@ -5593,7 +8000,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3231.TW",
@@ -5629,7 +8037,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 138.0,
+          "support": 125.0,
+          "target": 151.0,
+          "breakthrough_pct": 40.58,
+          "bottom1_price": 127.5,
+          "bottom2_price": 125.0,
+          "days_formed": 74,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3260.TWO",
@@ -5665,7 +8094,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3324.TWO",
@@ -5701,7 +8131,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 1155.0,
+          "support": 894.0,
+          "target": 1416.0,
+          "breakthrough_pct": 10.82,
+          "bottom1_price": 910.0,
+          "bottom2_price": 894.0,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 1215.0,
+          "support": 879.0,
+          "target": 1551.0,
+          "avg_bottom": 904.0,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "3363.TWO",
@@ -5737,7 +8199,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3443.TW",
@@ -5773,7 +8236,42 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 2645.0,
+          "support": 2165.0,
+          "target": 3125.0,
+          "breakthrough_pct": 74.1,
+          "bottom1_price": 2190.0,
+          "bottom2_price": 2165.0,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 5730.0,
+          "a_bottom": 4465.0,
+          "b_top": 5310.0,
+          "a_drop_pct": 22.1,
+          "b_rebound_pct": 66.8,
+          "estimated_c_bottom": 4375.7,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 18,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底突破",
+            "⚠️C波下跌中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "3481.TW",
@@ -5809,7 +8307,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 27.6,
+          "support": 23.4,
+          "target": 31.8,
+          "breakthrough_pct": 115.22,
+          "bottom1_price": 23.85,
+          "bottom2_price": 23.4,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3491.TWO",
@@ -5845,7 +8364,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3532.TW",
@@ -5881,7 +8401,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3558.TWO",
@@ -5917,7 +8438,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 117.0,
+          "support": 107.5,
+          "target": 126.5,
+          "breakthrough_pct": 19.66,
+          "bottom1_price": 107.5,
+          "bottom2_price": 107.5,
+          "days_formed": 37,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 117.0,
+          "support": 107.5,
+          "target": 126.5,
+          "avg_bottom": 108.33,
+          "days_formed": 37,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "3583.TW",
@@ -5953,7 +8506,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3592.TW",
@@ -5989,7 +8543,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 220.0,
+          "support": 208.5,
+          "target": 231.5,
+          "breakthrough_pct": 27.27,
+          "bottom1_price": 210.5,
+          "bottom2_price": 208.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "3661.TW",
@@ -6025,7 +8600,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3665.TW",
@@ -6061,7 +8637,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3702.TW",
@@ -6097,7 +8674,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "3711.TW",
@@ -6133,7 +8711,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": true
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 357.5,
+          "support": 320.0,
+          "target": 395.0,
+          "breakthrough_pct": 72.87,
+          "bottom1_price": 320.0,
+          "bottom2_price": 329.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "4904.TW",
@@ -6169,7 +8768,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 95.6,
+          "support": 88.8,
+          "target": 102.4,
+          "breakthrough_pct": 5.13,
+          "bottom1_price": 88.8,
+          "bottom2_price": 90.9,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 98.2,
+          "support": 90.9,
+          "target": 105.5,
+          "avg_bottom": 92.07,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "4919.TW",
@@ -6205,7 +8836,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "4938.TW",
@@ -6242,7 +8874,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 73.5,
+          "support": 68.5,
+          "target": 78.5,
+          "breakthrough_pct": 34.01,
+          "bottom1_price": 69.3,
+          "bottom2_price": 68.5,
+          "days_formed": 76,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "4958.TW",
@@ -6278,7 +8931,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "4961.TW",
@@ -6314,7 +8968,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 152.5,
+          "support": 138.5,
+          "target": 166.5,
+          "breakthrough_pct": 12.46,
+          "bottom1_price": 142.5,
+          "bottom2_price": 138.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "4967.TW",
@@ -6352,7 +9027,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "4977.TW",
@@ -6390,7 +9066,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "4979.TWO",
@@ -6426,7 +9103,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 427.0,
+          "support": 341.5,
+          "target": 512.5,
+          "breakthrough_pct": 49.18,
+          "bottom1_price": 341.5,
+          "bottom2_price": 341.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "4991.TWO",
@@ -6464,7 +9162,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "5203.TW",
@@ -6500,7 +9199,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 65.0,
+          "support": 60.5,
+          "target": 69.5,
+          "breakthrough_pct": 9.85,
+          "bottom1_price": 60.5,
+          "bottom2_price": 61.7,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 67.2,
+          "support": 61.8,
+          "target": 72.6,
+          "avg_bottom": 62.63,
+          "days_formed": 38,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "5234.TW",
@@ -6536,7 +9267,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "5269.TW",
@@ -6572,7 +9304,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "5289.TWO",
@@ -6608,7 +9341,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "5871.TW",
@@ -6645,7 +9379,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 113.0,
+          "support": 104.5,
+          "target": 121.5,
+          "breakthrough_pct": 3.98,
+          "bottom1_price": 104.5,
+          "bottom2_price": 107.0,
+          "days_formed": 49,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 121.5,
+          "support": 104.5,
+          "target": 138.5,
+          "avg_bottom": 105.83,
+          "days_formed": 49,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "6112.TW",
@@ -6681,7 +9447,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 48.55,
+          "support": 43.0,
+          "target": 54.1,
+          "breakthrough_pct": 0.82,
+          "bottom1_price": 43.0,
+          "bottom2_price": 43.2,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 49.25,
+          "support": 42.25,
+          "target": 56.25,
+          "avg_bottom": 43.27,
+          "days_formed": 63,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "6139.TW",
@@ -6717,7 +9515,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6205.TW",
@@ -6753,7 +9552,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 56.1,
+          "support": 48.55,
+          "target": 63.65,
+          "breakthrough_pct": 62.57,
+          "bottom1_price": 48.55,
+          "bottom2_price": 49.95,
+          "days_formed": 72,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "6206.TW",
@@ -6789,7 +9609,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 95.6,
+          "support": 88.7,
+          "target": 102.5,
+          "breakthrough_pct": 48.01,
+          "bottom1_price": 90.1,
+          "bottom2_price": 88.7,
+          "days_formed": 76,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "6213.TW",
@@ -6825,7 +9666,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6231.TWO",
@@ -6861,7 +9703,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6239.TW",
@@ -6897,7 +9740,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6245.TWO",
@@ -6933,7 +9777,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6274.TWO",
@@ -6969,7 +9814,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6285.TW",
@@ -7005,7 +9851,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6414.TW",
@@ -7041,7 +9888,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 279.0,
+          "support": 258.5,
+          "target": 299.5,
+          "breakthrough_pct": 37.99,
+          "bottom1_price": 258.5,
+          "bottom2_price": 264.0,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "6415.TW",
@@ -7077,7 +9945,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6442.TW",
@@ -7113,7 +9982,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6446.TW",
@@ -7149,7 +10019,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 660.0,
+          "support": 600.0,
+          "target": 720.0,
+          "breakthrough_pct": 36.21,
+          "bottom1_price": 600.0,
+          "bottom2_price": 606.0,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "6451.TW",
@@ -7185,7 +10076,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6515.TW",
@@ -7221,7 +10113,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6531.TW",
@@ -7257,7 +10150,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6533.TW",
@@ -7293,7 +10187,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6669.TW",
@@ -7329,7 +10224,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "6719.TW",
@@ -7365,7 +10261,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 176.0,
+          "support": 162.5,
+          "target": 189.5,
+          "breakthrough_pct": 37.78,
+          "bottom1_price": 164.0,
+          "bottom2_price": 162.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "6811.TWO",
@@ -7401,7 +10318,39 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 197.5,
+          "support": 182.5,
+          "target": 212.5,
+          "breakthrough_pct": 25.57,
+          "bottom1_price": 188.0,
+          "bottom2_price": 182.5,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 198.0,
+          "support": 182.5,
+          "target": 213.5,
+          "avg_bottom": 187.67,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     },
     {
       "symbol": "8016.TW",
@@ -7437,7 +10386,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8028.TW",
@@ -7473,7 +10423,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 188.0,
+          "support": 159.5,
+          "target": 216.5,
+          "breakthrough_pct": 83.24,
+          "bottom1_price": 163.0,
+          "bottom2_price": 159.5,
+          "days_formed": 73,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "8033.TW",
@@ -7509,7 +10480,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8046.TW",
@@ -7545,7 +10517,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8069.TWO",
@@ -7581,7 +10554,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 159.0,
+          "support": 136.5,
+          "target": 181.5,
+          "breakthrough_pct": 43.08,
+          "bottom1_price": 136.5,
+          "bottom2_price": 137.5,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "8114.TW",
@@ -7617,7 +10611,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 185.5,
+          "support": 165.5,
+          "target": 205.5,
+          "breakthrough_pct": 32.61,
+          "bottom1_price": 165.5,
+          "bottom2_price": 165.5,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "8150.TW",
@@ -7653,7 +10668,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8210.TW",
@@ -7689,7 +10705,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8299.TWO",
@@ -7725,7 +10742,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "8358.TWO",
@@ -7763,7 +10781,28 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 273.5,
+          "support": 221.5,
+          "target": 325.5,
+          "breakthrough_pct": 124.86,
+          "bottom1_price": 225.0,
+          "bottom2_price": 221.5,
+          "days_formed": 59,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      }
     },
     {
       "symbol": "8454.TW",
@@ -7799,7 +10838,8 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {}
     },
     {
       "symbol": "9921.TW",
@@ -7835,7 +10875,53 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 71.4,
+          "support": 65.3,
+          "target": 77.5,
+          "breakthrough_pct": -1.4,
+          "bottom1_price": 67.3,
+          "bottom2_price": 65.3,
+          "days_formed": 38,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 71.9,
+          "support": 65.3,
+          "target": 78.5,
+          "avg_bottom": 67.57,
+          "days_formed": 52,
+          "strength": "forming"
+        },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 96.4,
+          "a_bottom": 65.3,
+          "b_top": 75.9,
+          "a_drop_pct": 32.3,
+          "b_rebound_pct": 34.1,
+          "estimated_c_bottom": 63.99,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 87,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底形成中",
+            "三重底形成中",
+            "⚠️C波下跌中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      }
     },
     {
       "symbol": "9933.TW",
@@ -7871,25 +10957,57 @@
         "margin_surge": false
       },
       "price_source": "Yahoo",
-      "esg_elite": false
+      "esg_elite": false,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 31.6,
+          "support": 29.75,
+          "target": 33.45,
+          "breakthrough_pct": 35.13,
+          "bottom1_price": 30.65,
+          "bottom2_price": 29.75,
+          "days_formed": 77,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 38.5,
+          "support": 34.65,
+          "target": 42.35,
+          "avg_bottom": 35.83,
+          "days_formed": 36,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      }
     }
   ],
-  "last_updated": "2026-06-03T18:16:53Z",
+  "last_updated": "2026-06-03T18:38:27Z",
   "indices": {
     "US VIX (恐慌)": {
-      "close": 16.09
+      "close": 16.06
     },
     "美金/台幣": {
-      "close": 31.47
+      "close": 31.46
     },
     "TSM_ADR": {
-      "close": 438.67
+      "close": 440.03
     },
     "TSM_TW": {
       "close": 2425.0
     },
     "adr_premium": {
-      "close": 13.86
+      "close": 14.17
     },
     "台指VIX (波動率)": {
       "close": 21.11
