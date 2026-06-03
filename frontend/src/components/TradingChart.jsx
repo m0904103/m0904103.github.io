@@ -76,8 +76,8 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
       });
     }
 
-    // 建議買進價 (只在與現價有明顯差距時才顯示)
-    if (buyPrice && livePrice && Math.abs(buyPrice - livePrice) / livePrice > 0.01) {
+    // 建議買進價
+    if (buyPrice && livePrice && Math.abs(buyPrice - livePrice) > 0.01) {
       candlestickSeries.createPriceLine({
         price: buyPrice,
         color: '#EAB308',
@@ -138,6 +138,7 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
              </span>
            )}
            <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EF4444] mr-1"></div> MA60 生命線</span>
+           {buyPrice && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EAB308] mr-1"></div> 買點 ${buyPrice}</span>}
            {stopLoss && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#10B981] mr-1"></div> 停損 ${stopLoss}</span>}
            {takeProfit && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#F97316] mr-1"></div> 目標 ${takeProfit}</span>}
         </div>

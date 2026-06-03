@@ -206,12 +206,25 @@ def sync_data():
             if "tactic" not in stock_obj:
                 stock_obj["tactic"] = default_tactic
                 
+            # Calculate recommended entry
+            if ma60 > 0:
+                deviation = (latest_close - ma60) / ma60
+                if is_regular:
+                    if deviation <= 0.03:
+                        best_entry = latest_close # In hit zone
+                    else:
+                        best_entry = round(ma60 * 1.02, 2) # Wait for pullback
+                else:
+                    best_entry = round(ma60 * 1.01, 2) # Wait for breakout
+            else:
+                best_entry = latest_close
+
             if "plan" not in stock_obj:
                 stock_obj["plan"] = {}
             # Update dynamic plan based on new prices, but keep the dict structure
-            stock_obj["plan"]["entry"] = latest_close
+            stock_obj["plan"]["entry"] = best_entry
             stock_obj["plan"]["sl"] = ma60
-            stock_obj["plan"]["tp"] = round(latest_close * 1.25, 2)
+            stock_obj["plan"]["tp"] = round(best_entry * 1.25, 2)
             
             if "backtest" not in stock_obj:
                 stock_obj["backtest"] = {
