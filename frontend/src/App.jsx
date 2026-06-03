@@ -289,8 +289,22 @@ function App() {
                             {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
                           </div>
                         )}
-                      </div>
-                      <span className={`px-2 py-1 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
+                        {/* Pattern badges for all markets */}
+                        {(() => {
+                          const p = stock.patterns || {};
+                          const badges = [];
+                          if (p.triple_bottom) badges.push({ label: '🏔️ 三重底', cls: 'bg-orange-500/20 text-orange-300 border-orange-500/30' });
+                          if (p.w_bottom) badges.push({ label: '〰️ W底', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' });
+                          if (p.abc_wave?.pattern_en === 'ABC_BOTTOM') badges.push({ label: '🔄 ABC底完成', cls: 'bg-violet-500/20 text-violet-300 border-violet-500/30' });
+                          if (p.abc_wave?.pattern_en === 'ABC_FALLING') badges.push({ label: '⚠️ C波下跌', cls: 'bg-red-500/20 text-red-400 border-red-500/30' });
+                          return badges.length > 0 ? (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {badges.map(b => <span key={b.label} className={`text-[9px] px-1.5 py-0.5 rounded border ${b.cls}`}>{b.label}</span>)}
+                            </div>
+                          ) : null;
+                        })()}
+                       </div>
+                       <span className={`px-2 py-1 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
                     </div>
                   </div>
                 ))}
@@ -331,6 +345,68 @@ function App() {
                     )}
                  </div>
                  
+                 {/* Pattern Analysis Card */}
+                  {selectedStock?.patterns && Object.keys(selectedStock.patterns || {}).filter(k => k !== 'summary').length > 0 && (
+                    <div className="bg-[#1a1f25] border border-white/5 rounded-2xl p-4">
+                      <div className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">🧠 阿村伯型態診斷</div>
+                      <div className="flex flex-wrap gap-3">
+                        {selectedStock.patterns.triple_bottom && (
+                          <div className="flex-1 min-w-[180px] bg-orange-500/10 border border-orange-500/20 rounded-xl p-3">
+                            <div className="text-orange-300 font-black text-sm mb-1">🏔️ 三重底</div>
+                            <div className="text-xs text-gray-400 space-y-0.5">
+                              <div>頸線壓力：<span className="text-white font-bold">${selectedStock.patterns.triple_bottom.neckline}</span></div>
+                              <div>強力支撐：<span className="text-green-400 font-bold">${selectedStock.patterns.triple_bottom.support}</span></div>
+                              <div>突破目標：<span className="text-orange-300 font-bold">${selectedStock.patterns.triple_bottom.target}</span></div>
+                              <div className={`mt-1 font-black ${selectedStock.patterns.triple_bottom.strength === 'strong' ? 'text-green-400' : 'text-yellow-400'}`}>
+                                {selectedStock.patterns.triple_bottom.strength === 'strong' ? '✅ 已突破頸線' : '🟡 型態形成中'}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {selectedStock.patterns.w_bottom && (
+                          <div className="flex-1 min-w-[180px] bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-3">
+                            <div className="text-cyan-300 font-black text-sm mb-1">〰️ W底（雙底）</div>
+                            <div className="text-xs text-gray-400 space-y-0.5">
+                              <div>頸線壓力：<span className="text-white font-bold">${selectedStock.patterns.w_bottom.neckline}</span></div>
+                              <div>強力支撐：<span className="text-green-400 font-bold">${selectedStock.patterns.w_bottom.support}</span></div>
+                              <div>突破目標：<span className="text-cyan-300 font-bold">${selectedStock.patterns.w_bottom.target}</span></div>
+                              <div className={`mt-1 font-black ${selectedStock.patterns.w_bottom.strength === 'strong' ? 'text-green-400' : 'text-yellow-400'}`}>
+                                {selectedStock.patterns.w_bottom.strength === 'strong' ? '✅ 已突破頸線' : '🟡 型態形成中'}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {selectedStock.patterns.abc_wave && (
+                          <div className={`flex-1 min-w-[180px] border rounded-xl p-3 ${
+                            selectedStock.patterns.abc_wave.pattern_en === 'ABC_FALLING'
+                              ? 'bg-red-500/10 border-red-500/20'
+                              : 'bg-violet-500/10 border-violet-500/20'
+                          }`}>
+                            <div className={`font-black text-sm mb-1 ${selectedStock.patterns.abc_wave.pattern_en === 'ABC_FALLING' ? 'text-red-400' : 'text-violet-300'}`}>
+                              {selectedStock.patterns.abc_wave.pattern_en === 'ABC_FALLING' ? '⚠️ ABC下跌中（C波）' : '🔄 ABC底部完成'}
+                            </div>
+                            <div className="text-xs text-gray-400 space-y-0.5">
+                              <div>A波頂：<span className="text-white font-bold">${selectedStock.patterns.abc_wave.wave_top}</span></div>
+                              <div>A波跌幅：<span className="text-red-400 font-bold">{selectedStock.patterns.abc_wave.a_drop_pct}%</span></div>
+                              <div>B波反彈：<span className="text-yellow-400 font-bold">{selectedStock.patterns.abc_wave.b_rebound_pct}%</span></div>
+                              {selectedStock.patterns.abc_wave.fib_target_618 && <div>費氏目標(0.618)：<span className="text-violet-300 font-bold">${selectedStock.patterns.abc_wave.fib_target_618}</span></div>}
+                              {selectedStock.patterns.abc_wave.warning && <div className="text-red-400 font-black mt-1">{selectedStock.patterns.abc_wave.warning}</div>}
+                            </div>
+                          </div>
+                        )}
+                        {selectedStock.patterns.summary && (
+                          <div className="w-full bg-white/5 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+                            <div>
+                              <div className="text-sm font-black">{selectedStock.patterns.summary.verdict}</div>
+                              <div className="text-xs text-gray-400 mt-0.5">偵測訊號：{selectedStock.patterns.summary.signals.join('、')}</div>
+                            </div>
+                            <div className="text-2xl font-black text-white/30">#{selectedStock.patterns.summary.score}</div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                  {/* Restore Checklist containing the Quotes */}
                  <InvestmentChecklist stock={selectedStock} />
               </div>
