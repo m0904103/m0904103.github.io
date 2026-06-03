@@ -278,7 +278,10 @@ function App() {
                   <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-3 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
                     <div className="flex justify-between items-start">
                       <div className="flex flex-col">
-                        <span className="font-black">{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
+                        <div className="font-black flex items-center gap-2">
+                          <span>{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
+                          {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30 tracking-widest">🌱 ESG護城河</span>}
+                        </div>
                         {activeMarket === 'tw' && (
                           <div className="flex flex-wrap gap-1 mt-1">
                             {stock.fundamentals?.three_rates_rising && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">🟢 三率三升</span>}
@@ -299,7 +302,10 @@ function App() {
               <div className="glass rounded-3xl p-6 border border-white/5 space-y-6">
                  <div className="flex justify-between items-start">
                     <div>
-                      <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol.replace(/\.TWO?$/, '')} {selectedStock.name}</h2>
+                      <div className="flex items-center gap-3">
+                        <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol.replace(/\.TWO?$/, '')} {selectedStock.name}</h2>
+                        {selectedStock.esg_elite && <span className="px-2 py-1 rounded text-xs font-black bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30 tracking-widest">🌱 ESG護城河</span>}
+                      </div>
                       <p className="text-sm text-gray-400 font-bold mt-1">{selectedStock.tactic}</p>
                     </div>
                     <div className="text-right">

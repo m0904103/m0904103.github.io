@@ -3,6 +3,8 @@ import os
 import yfinance as yf
 from datetime import datetime, timezone
 import sys
+from us_stock_list import US_STOCKS
+from esg_list import ESG_ELITE_STOCKS
 sys.stdout.reconfigure(encoding='utf-8')
 
 # ==========================================
@@ -196,6 +198,7 @@ def sync_data():
             stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
             stock_obj["change"] = change
             stock_obj["is_regular"] = is_regular
+            stock_obj["esg_elite"] = sym in ESG_ELITE_STOCKS
             
             if "vol_ratio" not in stock_obj:
                 stock_obj["vol_ratio"] = 1.5
