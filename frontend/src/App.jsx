@@ -191,8 +191,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0B0E11] text-gray-100 font-['Inter', 'Noto Sans TC', sans-serif]">
-      {/* ⚠️ 數據新鮮度警衛 - 超過30分鐘未更新立即亮紅燈 */}
-      {dataAgeMinutes > 30 && (
+      {/* ⚠️ 數據新鮮度警衛 - 超過65分鐘未更新立即亮紅燈 (因為非交易時段每60分鐘更新) */}
+      {dataAgeMinutes > 65 && (
         <div className="w-full bg-red-600 text-white py-2 px-4 flex items-center justify-center gap-3 text-sm font-black z-[100] sticky top-0">
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
           <span>
@@ -201,7 +201,7 @@ function App() {
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
         </div>
       )}
-      {dataAgeMinutes > 0 && dataAgeMinutes <= 30 && (
+      {dataAgeMinutes > 0 && dataAgeMinutes <= 65 && (
         <div className="w-full bg-green-700/80 text-green-100 py-1 px-4 flex items-center justify-center gap-2 text-xs font-bold">
           <span>數據新鮮度正常 — 最後同步：{dataLastUpdatedStr}（{dataAgeMinutes} 分鐘前）</span>
         </div>
