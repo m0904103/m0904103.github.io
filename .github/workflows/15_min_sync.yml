@@ -1,12 +1,7 @@
-name: ⚡ 15-Min Live Sync
+name: DISABLED - 15-Min Live Sync (replaced by master_sync.yml)
 
 on:
-  schedule:
-    # Taiwan Market (09:00 - 13:30 Taipei Time) -> (01:00 - 05:30 UTC)
-    - cron: '*/15 1-5 * * 1-5'
-    # US Market (21:30 - 04:00 Taipei Time) -> (13:30 - 20:00 UTC)
-    - cron: '*/15 13-20 * * 1-5'
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
   sync-and-deploy:
