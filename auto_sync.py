@@ -53,7 +53,7 @@ def is_us_trading_hours():
 def get_update_interval_minutes():
     """Return appropriate update interval based on market status."""
     if is_tw_trading_hours() or is_us_trading_hours():
-        return 15  # Every 15 min during trading hours
+        return 30  # Increased to 30 min to avoid IP bans
     else:
         return 60  # Every 60 min outside trading hours
 
@@ -221,26 +221,23 @@ def sync_once():
 
 
 def deploy_to_github():
-    """Build frontend and push to GitHub."""
+    """Build frontend and push to GitHub using the official script."""
     try:
+        import shutil
+        npm_cmd = shutil.which("npm") or "npm.cmd"
         print("  Building frontend...")
         subprocess.run(
-            ["npm", "run", "build"],
+            [npm_cmd, "run", "build"],
             cwd=os.path.join(SCRIPT_DIR, 'frontend'),
-            check=True, capture_output=True, timeout=120
+            check=True, timeout=120
         )
-        print("  Build OK. Pushing to GitHub...")
-        subprocess.run(["git", "add", "frontend/public/scan_results.json"], cwd=SCRIPT_DIR, check=True)
-        commit_msg = f"auto-sync: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
-        result = subprocess.run(
-            ["git", "commit", "-m", commit_msg],
-            cwd=SCRIPT_DIR, capture_output=True, text=True
+        print("  Running upload_frontend.py...")
+        subprocess.run(
+            [sys.executable, "upload_frontend.py"],
+            cwd=SCRIPT_DIR,
+            check=True, timeout=120
         )
-        if "nothing to commit" not in result.stdout and result.returncode == 0:
-            subprocess.run(["git", "push", "origin", "main"], cwd=SCRIPT_DIR, check=True, timeout=60)
-            print(f"  Pushed: {commit_msg}")
-        else:
-            print("  No changes to commit.")
+        print(f"  Pushed: auto-sync: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         return True
     except subprocess.CalledProcessError as e:
         print(f"  Deploy error: {e}")
