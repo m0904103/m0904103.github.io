@@ -204,17 +204,29 @@ def sync_once():
             print(alert)
         print()
 
-    # Save + timestamp
+    # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
-    data['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M')
-    data['update_sources'] = {
-        "tw": "TWSE (official)" if is_tw_trading_hours() else "Yahoo Finance",
-        "us": "Yahoo Finance"
-    }
-    data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol', '')))
+    data['indices'] = indices_results
+    data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
 
+    # Sort stocks: US first, then Taiwan
+    data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))
+
+    def clean_nans(obj):
+        if isinstance(obj, dict):
+            return {k: clean_nans(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [clean_nans(v) for v in obj]
+        elif isinstance(obj, float):
+            if math.isnan(obj) or math.isinf(obj):
+                return None
+        return obj
+        
+    data = clean_nans(data)
+
+    # Save to file
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2, allow_nan=False)
 
     print(f"  Updated {updated_count}/{len(all_symbols)} stocks.")
     return True
