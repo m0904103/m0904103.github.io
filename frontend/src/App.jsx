@@ -191,19 +191,24 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0B0E11] text-gray-100 font-['Inter', 'Noto Sans TC', sans-serif]">
-      {/* ⚠️ 數據新鮮度警衛 - 超過65分鐘未更新立即亮紅燈 (因為非交易時段每60分鐘更新) */}
-      {dataAgeMinutes > 65 && (
+      {/* ⚠️ 數據新鮮度警衛 - 區分盤中延遲與盤後休市 */}
+      {dataAgeMinutes > 65 && dataAgeMinutes <= 180 && new Date().getDay() !== 0 && new Date().getDay() !== 6 && (
         <div className="w-full bg-red-600 text-white py-2 px-4 flex items-center justify-center gap-3 text-sm font-black z-[100] sticky top-0">
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
           <span>
-            ⚠️ 警告：數據已停滯 {dataAgeMinutes} 分鐘！（最後更新：{dataLastUpdatedStr}）請勿依此數據下單！
+            ⚠️ 警告：即時報價發生延遲 {dataAgeMinutes} 分鐘！（最後更新：{dataLastUpdatedStr}）請勿依此數據下單！
           </span>
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
         </div>
       )}
+      {(dataAgeMinutes > 180 || new Date().getDay() === 0 || new Date().getDay() === 6) && dataAgeMinutes > 65 && (
+        <div className="w-full bg-slate-700 text-slate-200 py-2 px-4 flex items-center justify-center gap-2 text-sm font-bold z-[100] sticky top-0 border-b border-white/10">
+          <span>💤 盤後/假日休市：收盤數據已結算（最後更新：{dataLastUpdatedStr}）</span>
+        </div>
+      )}
       {dataAgeMinutes > 0 && dataAgeMinutes <= 65 && (
         <div className="w-full bg-green-700/80 text-green-100 py-1 px-4 flex items-center justify-center gap-2 text-xs font-bold">
-          <span>數據新鮮度正常 — 最後同步：{dataLastUpdatedStr}（{dataAgeMinutes} 分鐘前）</span>
+          <span>🟢 數據新鮮度正常 — 最後同步：{dataLastUpdatedStr}（{dataAgeMinutes} 分鐘前）</span>
         </div>
       )}
       <header className="px-4 md:px-8 py-4 border-b border-white/5 bg-[#0B0E11]/80 backdrop-blur-xl sticky top-0 z-50 flex flex-wrap items-center justify-between gap-4">
