@@ -836,7 +836,7 @@
           "a_drop_pct": 21.3,
           "b_rebound_pct": 58.1,
           "estimated_c_bottom": 255.46,
-          "warning": "C波跌破季線，尚未見底，請勿抄底！",
+          "warning": "C波進行中，尚未見底，請勿抄底！",
           "days_formed": 64,
           "strength": "warning"
         },
@@ -940,7 +940,7 @@
           "a_drop_pct": 44.9,
           "b_rebound_pct": 65.8,
           "estimated_c_bottom": 138.27,
-          "warning": "C波跌破季線，尚未見底，請勿抄底！",
+          "warning": "C波進行中，尚未見底，請勿抄底！",
           "days_formed": 98,
           "strength": "warning"
         },
@@ -2708,12 +2708,26 @@
           "days_formed": 66,
           "strength": "strong"
         },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 61.72,
+          "a_bottom": 34.76,
+          "b_top": 47.08,
+          "a_drop_pct": 43.7,
+          "b_rebound_pct": 45.7,
+          "estimated_c_bottom": 34.07,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 91,
+          "strength": "warning"
+        },
         "summary": {
-          "score": 3,
+          "score": 1,
           "signals": [
-            "W底突破"
+            "W底突破",
+            "⚠️C波下跌中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🟡 底部形成中"
         }
       }
     },
@@ -3973,7 +3987,28 @@
       "price": 160.23,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {}
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 179.93,
+          "a_bottom": 134.71,
+          "b_top": 164.56,
+          "a_drop_pct": 25.1,
+          "b_rebound_pct": 66.0,
+          "estimated_c_bottom": 132.02,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 97,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      }
     },
     {
       "symbol": "VTI",
@@ -4216,7 +4251,7 @@
           "a_drop_pct": 46.3,
           "b_rebound_pct": 65.5,
           "estimated_c_bottom": 115.69,
-          "warning": "C波跌破季線，尚未見底，請勿抄底！",
+          "warning": "C波進行中，尚未見底，請勿抄底！",
           "days_formed": 90,
           "strength": "warning"
         },
@@ -11150,7 +11185,7 @@
       }
     }
   ],
-  "last_updated": "2026-06-04T23:58:39Z",
+  "last_updated": "2026-06-05T00:17:56Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 15.4
