@@ -107,7 +107,7 @@ function App() {
     }, 100);
 
     try {
-      const historyUrl = IS_PROD ? `${API_BASE}/assets/history_${stock.symbol}.json` : `${API_BASE}/history/${stock.symbol}`;
+      const historyUrl = IS_PROD ? `${API_BASE}/assets/history_${stock.symbol}.json?t=${new Date().getTime()}` : `${API_BASE}/history/${stock.symbol}`;
       const res = await axios.get(historyUrl);
       setHistoryData(res.data || []);
     } catch (e) {
@@ -192,7 +192,7 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0B0E11] text-gray-100 font-['Inter', 'Noto Sans TC', sans-serif]">
       {/* ⚠️ 數據新鮮度警衛 - 區分盤中延遲與盤後休市 */}
-      {dataAgeMinutes > 65 && dataAgeMinutes <= 180 && new Date().getDay() !== 0 && new Date().getDay() !== 6 && (
+      {dataAgeMinutes > 90 && dataAgeMinutes <= 180 && new Date().getDay() !== 0 && new Date().getDay() !== 6 && (
         <div className="w-full bg-red-600 text-white py-2 px-4 flex items-center justify-center gap-3 text-sm font-black z-[100] sticky top-0">
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
           <span>
@@ -201,12 +201,12 @@ function App() {
           <AlertTriangle size={18} className="animate-pulse shrink-0" />
         </div>
       )}
-      {(dataAgeMinutes > 180 || new Date().getDay() === 0 || new Date().getDay() === 6) && dataAgeMinutes > 65 && (
+      {(dataAgeMinutes > 180 || new Date().getDay() === 0 || new Date().getDay() === 6) && dataAgeMinutes > 90 && (
         <div className="w-full bg-slate-700 text-slate-200 py-2 px-4 flex items-center justify-center gap-2 text-sm font-bold z-[100] sticky top-0 border-b border-white/10">
           <span>💤 盤後/假日休市：收盤數據已結算（最後更新：{dataLastUpdatedStr}）</span>
         </div>
       )}
-      {dataAgeMinutes > 0 && dataAgeMinutes <= 65 && (
+      {dataAgeMinutes > 0 && dataAgeMinutes <= 90 && (
         <div className="w-full bg-green-700/80 text-green-100 py-1 px-4 flex items-center justify-center gap-2 text-xs font-bold">
           <span>🟢 數據新鮮度正常 — 最後同步：{dataLastUpdatedStr}（{dataAgeMinutes} 分鐘前）</span>
         </div>
