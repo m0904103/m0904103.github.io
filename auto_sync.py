@@ -206,8 +206,8 @@ def sync_once():
 
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
-    data['indices'] = indices_results
-    data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
+    data['indices'] = data.get('indices', {})
+    data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
 
     # Sort stocks: US first, then Taiwan
     data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))
