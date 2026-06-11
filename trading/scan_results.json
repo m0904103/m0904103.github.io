@@ -11,9 +11,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 291.58,
+        "entry": 283.78,
         "sl": 278.22,
-        "tp": 364.47
+        "tp": 354.72
       },
       "sector": "邊緣 AI 與終端",
       "backtest": {
@@ -40,9 +40,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 129.1,
+        "entry": 135.52,
         "sl": 134.18,
-        "tp": 161.38
+        "tp": 169.4
       },
       "sector": "其他族群",
       "backtest": {
@@ -54,18 +54,6 @@
       "price_source": "Yahoo",
       "esg_elite": false,
       "patterns": {
-        "w_bottom": {
-          "pattern": "W底",
-          "pattern_en": "W_BOTTOM",
-          "neckline": 132.59,
-          "support": 122.87,
-          "target": 142.31,
-          "breakthrough_pct": 1.82,
-          "bottom1_price": 126.3,
-          "bottom2_price": 122.87,
-          "days_formed": 60,
-          "strength": "strong"
-        },
         "triple_bottom": {
           "pattern": "三重底",
           "pattern_en": "TRIPLE_BOTTOM",
@@ -73,16 +61,15 @@
           "support": 122.87,
           "target": 165.49,
           "avg_bottom": 126.78,
-          "days_formed": 60,
+          "days_formed": 62,
           "strength": "forming"
         },
         "summary": {
-          "score": 5,
+          "score": 2,
           "signals": [
-            "W底突破",
             "三重底形成中"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "🟡 底部形成中"
         }
       },
       "gap_up": false,
@@ -102,9 +89,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 233.38,
+        "entry": 248.15,
         "sl": 245.69,
-        "tp": 291.73
+        "tp": 310.19
       },
       "backtest": {
         "win_rate": 45.0,
@@ -114,22 +101,25 @@
       "price_source": "Yahoo",
       "esg_elite": false,
       "patterns": {
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 256.51,
-          "support": 225.35,
-          "target": 287.67,
-          "avg_bottom": 233.47,
-          "days_formed": 41,
-          "strength": "forming"
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 304.72,
+          "a_bottom": 225.35,
+          "b_top": 274.03,
+          "a_drop_pct": 26.0,
+          "b_rebound_pct": 61.3,
+          "estimated_c_bottom": 220.84,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 95,
+          "strength": "warning"
         },
         "summary": {
-          "score": 2,
+          "score": -2,
           "signals": [
-            "三重底形成中"
+            "⚠️C波下跌中"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "⚠️ 下跌未止"
         }
       },
       "gap_up": false,
@@ -147,9 +137,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 497.01,
+        "entry": 415.38,
         "sl": 407.24,
-        "tp": 621.26
+        "tp": 519.23
       },
       "sector": "先進封裝與基板",
       "backtest": {
@@ -167,10 +157,10 @@
           "neckline": 373.53,
           "support": 322.72,
           "target": 424.33,
-          "breakthrough_pct": 31.42,
+          "breakthrough_pct": 33.06,
           "bottom1_price": 324.34,
           "bottom2_price": 322.72,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -180,7 +170,7 @@
           "support": 380.64,
           "target": 505.5,
           "avg_bottom": 392.15,
-          "days_formed": 37,
+          "days_formed": 39,
           "strength": "strong"
         },
         "summary": {
@@ -209,9 +199,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 452.4,
+        "entry": 353.35,
         "sl": 346.42,
-        "tp": 565.5
+        "tp": 441.69
       },
       "backtest": {
         "win_rate": 65.0,
@@ -227,10 +217,10 @@
           "neckline": 220.27,
           "support": 190.95,
           "target": 249.59,
-          "breakthrough_pct": 122.54,
+          "breakthrough_pct": 105.38,
           "bottom1_price": 190.95,
           "bottom2_price": 196.04,
-          "days_formed": 68,
+          "days_formed": 70,
           "strength": "strong"
         },
         "summary": {
@@ -256,9 +246,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 221.78,
+        "entry": 228.37,
         "sl": 226.11,
-        "tp": 277.23
+        "tp": 285.46
       },
       "sector": "其他族群",
       "backtest": {
@@ -269,25 +259,7 @@
       "price": 227.73,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 241.38,
-          "support": 221.28,
-          "target": 261.48,
-          "avg_bottom": 226.42,
-          "days_formed": 38,
-          "strength": "forming"
-        },
-        "summary": {
-          "score": 2,
-          "signals": [
-            "三重底形成中"
-          ],
-          "verdict": "🟡 底部形成中"
-        }
-      },
+      "patterns": {},
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -303,9 +275,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 238.0,
+        "entry": 248.35,
         "sl": 245.89,
-        "tp": 297.5
+        "tp": 310.44
       },
       "sector": "電商/雲端",
       "backtest": {
@@ -316,27 +288,7 @@
       "price": 256.52,
       "price_source": "Yahoo",
       "esg_elite": true,
-      "patterns": {
-        "w_bottom": {
-          "pattern": "W底",
-          "pattern_en": "W_BOTTOM",
-          "neckline": 218.94,
-          "support": 198.79,
-          "target": 239.09,
-          "breakthrough_pct": 11.63,
-          "bottom1_price": 198.79,
-          "bottom2_price": 199.34,
-          "days_formed": 79,
-          "strength": "strong"
-        },
-        "summary": {
-          "score": 3,
-          "signals": [
-            "W底突破"
-          ],
-          "verdict": "✅ 底部型態確認"
-        }
-      },
+      "patterns": {},
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -352,9 +304,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 492.98,
+        "entry": 480.79,
         "sl": 471.36,
-        "tp": 616.23
+        "tp": 600.99
       },
       "sector": "代理型 AI 軟體",
       "backtest": {
@@ -372,18 +324,18 @@
           "neckline": 498.87,
           "support": 443.43,
           "target": 554.31,
-          "breakthrough_pct": 14.17,
+          "breakthrough_pct": -1.18,
           "bottom1_price": 443.43,
           "bottom2_price": 453.53,
-          "days_formed": 28,
-          "strength": "strong"
+          "days_formed": 30,
+          "strength": "forming"
         },
         "summary": {
-          "score": 3,
+          "score": 1,
           "signals": [
-            "W底突破"
+            "W底形成中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🟡 底部形成中"
         }
       },
       "gap_up": false,
@@ -403,9 +355,9 @@
       "sector": "實體 AI 機器人",
       "is_regular": true,
       "plan": {
-        "entry": 307.43,
+        "entry": 222.97,
         "sl": 218.6,
-        "tp": 384.29
+        "tp": 278.71
       },
       "backtest": {
         "win_rate": 65.0,
@@ -432,9 +384,9 @@
       "sector": "先進封裝與基板",
       "is_regular": true,
       "plan": {
-        "entry": 1734.19,
+        "entry": 1515.78,
         "sl": 1486.06,
-        "tp": 2167.74
+        "tp": 1894.72
       },
       "backtest": {
         "win_rate": 65.0,
@@ -451,7 +403,7 @@
           "support": 1384.56,
           "target": 1799.48,
           "avg_bottom": 1417.25,
-          "days_formed": 37,
+          "days_formed": 39,
           "strength": "strong"
         },
         "summary": {
@@ -479,9 +431,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 87.32,
+        "entry": 89.74,
         "sl": 88.85,
-        "tp": 109.15
+        "tp": 112.17
       },
       "backtest": {
         "win_rate": 65.0,
@@ -508,9 +460,9 @@
       "sector": "全光化資料中心",
       "is_regular": false,
       "plan": {
-        "entry": 372.1,
+        "entry": 392.31,
         "sl": 388.43,
-        "tp": 465.12
+        "tp": 490.39
       },
       "backtest": {
         "win_rate": 65.0,
@@ -548,7 +500,38 @@
       "price": 310.97,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 316.47,
+          "support": 300.57,
+          "target": 332.37,
+          "breakthrough_pct": -0.99,
+          "bottom1_price": 309.31,
+          "bottom2_price": 300.57,
+          "days_formed": 16,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 323.05,
+          "support": 300.57,
+          "target": 345.53,
+          "avg_bottom": 307.99,
+          "days_formed": 33,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -564,9 +547,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 209.0,
+        "entry": 220.59,
         "sl": 218.41,
-        "tp": 261.25
+        "tp": 275.74
       },
       "sector": "其他族群",
       "backtest": {
@@ -593,9 +576,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 54.54,
+        "entry": 52.12,
         "sl": 51.1,
-        "tp": 68.17
+        "tp": 65.15
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -615,7 +598,7 @@
           "support": 49.51,
           "target": 57.13,
           "avg_bottom": 50.6,
-          "days_formed": 31,
+          "days_formed": 33,
           "strength": "strong"
         },
         "summary": {
@@ -641,9 +624,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1010.68,
+        "entry": 1030.99,
         "sl": 1020.78,
-        "tp": 1263.35
+        "tp": 1288.74
       },
       "sector": "其他族群",
       "backtest": {
@@ -661,10 +644,10 @@
           "neckline": 975.85,
           "support": 917.73,
           "target": 1033.97,
-          "breakthrough_pct": 1.77,
+          "breakthrough_pct": 3.57,
           "bottom1_price": 917.73,
           "bottom2_price": 928.62,
-          "days_formed": 61,
+          "days_formed": 63,
           "strength": "strong"
         },
         "summary": {
@@ -710,11 +693,11 @@
           "neckline": 485.2,
           "support": 465.4,
           "target": 505.0,
-          "breakthrough_pct": 0.45,
+          "breakthrough_pct": -0.31,
           "bottom1_price": 468.49,
           "bottom2_price": 465.4,
-          "days_formed": 50,
-          "strength": "strong"
+          "days_formed": 52,
+          "strength": "forming"
         },
         "triple_bottom": {
           "pattern": "三重底",
@@ -723,16 +706,16 @@
           "support": 465.4,
           "target": 505.0,
           "avg_bottom": 466.47,
-          "days_formed": 50,
-          "strength": "strong"
+          "days_formed": 52,
+          "strength": "forming"
         },
         "summary": {
-          "score": 7,
+          "score": 3,
           "signals": [
-            "W底突破",
-            "三重底突破"
+            "W底形成中",
+            "三重底形成中"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "gap_up": false,
@@ -764,27 +747,22 @@
       "price_source": "Yahoo",
       "esg_elite": false,
       "patterns": {
-        "abc_wave": {
-          "pattern": "ABC底部",
-          "pattern_en": "ABC_BOTTOM",
-          "wave_top": 160.14,
-          "a_bottom": 101.18,
-          "b_top": 128.99,
-          "c_bottom": 114.26,
-          "a_drop_pct": 36.8,
-          "b_rebound_pct": 47.2,
-          "fib_target_50": 130.66,
-          "fib_target_618": 137.62,
-          "support": 114.26,
-          "days_formed": 98,
-          "strength": "strong"
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 125.19,
+          "support": 110.28,
+          "target": 140.1,
+          "avg_bottom": 114.42,
+          "days_formed": 30,
+          "strength": "forming"
         },
         "summary": {
-          "score": 3,
+          "score": 2,
           "signals": [
-            "ABC底部完成"
+            "三重底形成中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🟡 底部形成中"
         }
       },
       "gap_up": false,
@@ -802,9 +780,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 856.16,
+        "entry": 838.57,
         "sl": 822.13,
-        "tp": 1070.2
+        "tp": 1048.21
       },
       "sector": "其他族群",
       "backtest": {
@@ -831,9 +809,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 385.13,
+        "entry": 337.95,
         "sl": 331.32,
-        "tp": 481.41
+        "tp": 422.44
       },
       "sector": "其他族群",
       "backtest": {
@@ -862,9 +840,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 242.3,
+        "entry": 291.23,
         "sl": 288.35,
-        "tp": 302.88
+        "tp": 364.04
       },
       "backtest": {
         "win_rate": 45.0,
@@ -883,8 +861,8 @@
           "a_drop_pct": 21.3,
           "b_rebound_pct": 58.1,
           "estimated_c_bottom": 255.46,
-          "warning": "C波跌破季線，尚未見底，請勿抄底！",
-          "days_formed": 66,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 68,
           "strength": "warning"
         },
         "summary": {
@@ -910,9 +888,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 295.81,
+        "entry": 282.76,
         "sl": 277.22,
-        "tp": 369.76
+        "tp": 353.45
       },
       "sector": "其他族群",
       "backtest": {
@@ -930,10 +908,10 @@
           "neckline": 270.51,
           "support": 256.59,
           "target": 284.43,
-          "breakthrough_pct": 7.21,
+          "breakthrough_pct": 9.35,
           "bottom1_price": 259.37,
           "bottom2_price": 256.59,
-          "days_formed": 62,
+          "days_formed": 64,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -943,14 +921,14 @@
           "support": 256.59,
           "target": 324.68,
           "avg_bottom": 265.92,
-          "days_formed": 49,
-          "strength": "forming"
+          "days_formed": 51,
+          "strength": "strong"
         },
         "summary": {
-          "score": 5,
+          "score": 7,
           "signals": [
             "W底突破",
-            "三重底形成中"
+            "三重底突破"
           ],
           "verdict": "🔥 強力底部訊號"
         }
@@ -970,9 +948,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 153.97,
+        "entry": 188.33,
         "sl": 186.47,
-        "tp": 192.46
+        "tp": 235.41
       },
       "sector": "其他族群",
       "backtest": {
@@ -999,9 +977,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 983.37,
+        "entry": 1010.59,
         "sl": 1000.58,
-        "tp": 1229.21
+        "tp": 1263.24
       },
       "sector": "其他族群",
       "backtest": {
@@ -1028,9 +1006,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 647.74,
+        "entry": 520.79,
         "sl": 510.58,
-        "tp": 809.67
+        "tp": 650.99
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -1057,9 +1035,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 118.8,
+        "entry": 98.6,
         "sl": 96.67,
-        "tp": 148.5
+        "tp": 123.25
       },
       "sector": "其他族群",
       "backtest": {
@@ -1086,9 +1064,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 46.41,
+        "entry": 44.49,
         "sl": 43.62,
-        "tp": 58.01
+        "tp": 55.61
       },
       "sector": "其他族群",
       "backtest": {
@@ -1106,10 +1084,10 @@
           "neckline": 47.0,
           "support": 44.26,
           "target": 49.73,
-          "breakthrough_pct": -0.0,
+          "breakthrough_pct": -1.25,
           "bottom1_price": 44.26,
           "bottom2_price": 45.26,
-          "days_formed": 18,
+          "days_formed": 20,
           "strength": "forming"
         },
         "summary": {
@@ -1135,9 +1113,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 98.02,
+        "entry": 84.76,
         "sl": 83.1,
-        "tp": 122.52
+        "tp": 105.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -1164,9 +1142,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 227.63,
+        "entry": 167.9,
         "sl": 164.61,
-        "tp": 284.54
+        "tp": 209.88
       },
       "sector": "AI 軟體/雲端",
       "backtest": {
@@ -1195,9 +1173,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 369.83,
+        "entry": 244.35,
         "sl": 239.56,
-        "tp": 462.29
+        "tp": 305.44
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1242,10 +1220,10 @@
           "neckline": 498.77,
           "support": 488.4,
           "target": 509.15,
-          "breakthrough_pct": 2.15,
+          "breakthrough_pct": 0.3,
           "bottom1_price": 488.4,
           "bottom2_price": 493.98,
-          "days_formed": 28,
+          "days_formed": 30,
           "strength": "strong"
         },
         "summary": {
@@ -1271,9 +1249,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 28.79,
+        "entry": 24.44,
         "sl": 23.96,
-        "tp": 35.99
+        "tp": 30.55
       },
       "sector": "其他族群",
       "backtest": {
@@ -1300,9 +1278,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 213.76,
+        "entry": 217.03,
         "sl": 214.88,
-        "tp": 267.2
+        "tp": 271.29
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -1321,11 +1299,11 @@
           "neckline": 215.05,
           "support": 202.31,
           "target": 227.79,
-          "breakthrough_pct": 0.68,
+          "breakthrough_pct": -0.6,
           "bottom1_price": 203.3,
           "bottom2_price": 202.31,
-          "days_formed": 61,
-          "strength": "strong"
+          "days_formed": 63,
+          "strength": "forming"
         },
         "triple_bottom": {
           "pattern": "三重底",
@@ -1334,16 +1312,16 @@
           "support": 202.31,
           "target": 252.87,
           "avg_bottom": 207.67,
-          "days_formed": 49,
+          "days_formed": 51,
           "strength": "forming"
         },
         "summary": {
-          "score": 5,
+          "score": 3,
           "signals": [
-            "W底突破",
+            "W底形成中",
             "三重底形成中"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "gap_up": false,
@@ -1361,9 +1339,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 404.56,
+        "entry": 357.04,
         "sl": 350.04,
-        "tp": 505.7
+        "tp": 446.3
       },
       "sector": "其他族群",
       "backtest": {
@@ -1378,13 +1356,13 @@
         "w_bottom": {
           "pattern": "W底",
           "pattern_en": "W_BOTTOM",
-          "neckline": 295.75,
-          "support": 279.02,
-          "target": 312.48,
-          "breakthrough_pct": 40.89,
-          "bottom1_price": 279.02,
-          "bottom2_price": 284.79,
-          "days_formed": 64,
+          "neckline": 294.55,
+          "support": 277.89,
+          "target": 311.21,
+          "breakthrough_pct": 37.35,
+          "bottom1_price": 277.89,
+          "bottom2_price": 283.64,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -1410,9 +1388,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 137.11,
+        "entry": 138.56,
         "sl": 137.19,
-        "tp": 171.39
+        "tp": 173.2
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -1432,15 +1410,31 @@
           "support": 130.65,
           "target": 164.14,
           "avg_bottom": 135.12,
-          "days_formed": 37,
+          "days_formed": 39,
           "strength": "forming"
         },
+        "abc_wave": {
+          "pattern": "ABC底部",
+          "pattern_en": "ABC_BOTTOM",
+          "wave_top": 160.42,
+          "a_bottom": 122.8,
+          "b_top": 147.39,
+          "c_bottom": 130.65,
+          "a_drop_pct": 23.4,
+          "b_rebound_pct": 65.4,
+          "fib_target_50": 141.61,
+          "fib_target_618": 146.05,
+          "support": 130.65,
+          "days_formed": 84,
+          "strength": "strong"
+        },
         "summary": {
-          "score": 2,
+          "score": 5,
           "signals": [
-            "三重底形成中"
+            "三重底形成中",
+            "ABC底部完成"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "🔥 強力底部訊號"
         }
       },
       "gap_up": false,
@@ -1458,9 +1452,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1038.33,
+        "entry": 1055.74,
         "sl": 1045.29,
-        "tp": 1297.91
+        "tp": 1319.67
       },
       "sector": "其他族群",
       "backtest": {
@@ -1478,29 +1472,18 @@
           "neckline": 979.61,
           "support": 932.59,
           "target": 1026.64,
-          "breakthrough_pct": 8.64,
+          "breakthrough_pct": 5.99,
           "bottom1_price": 932.59,
           "bottom2_price": 954.44,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 1079.79,
-          "support": 1043.27,
-          "target": 1116.31,
-          "avg_bottom": 1051.85,
-          "days_formed": 22,
-          "strength": "forming"
-        },
         "summary": {
-          "score": 5,
+          "score": 3,
           "signals": [
-            "W底突破",
-            "三重底形成中"
+            "W底突破"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "gap_up": false,
@@ -1518,9 +1501,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 375.46,
+        "entry": 397.18,
         "sl": 393.25,
-        "tp": 469.32
+        "tp": 496.48
       },
       "sector": "其他族群",
       "backtest": {
@@ -1538,10 +1521,10 @@
           "neckline": 373.97,
           "support": 342.58,
           "target": 405.35,
-          "breakthrough_pct": 8.52,
+          "breakthrough_pct": 0.4,
           "bottom1_price": 345.71,
           "bottom2_price": 342.58,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -1567,9 +1550,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 319.25,
+        "entry": 312.24,
         "sl": 306.12,
-        "tp": 399.06
+        "tp": 390.3
       },
       "sector": "其他族群",
       "backtest": {
@@ -1587,11 +1570,11 @@
           "neckline": 324.99,
           "support": 288.32,
           "target": 361.66,
-          "breakthrough_pct": 1.99,
+          "breakthrough_pct": -1.77,
           "bottom1_price": 294.05,
           "bottom2_price": 288.32,
-          "days_formed": 38,
-          "strength": "strong"
+          "days_formed": 40,
+          "strength": "forming"
         },
         "triple_bottom": {
           "pattern": "三重底",
@@ -1600,16 +1583,16 @@
           "support": 275.39,
           "target": 374.59,
           "avg_bottom": 285.92,
-          "days_formed": 49,
-          "strength": "strong"
+          "days_formed": 51,
+          "strength": "forming"
         },
         "summary": {
-          "score": 7,
+          "score": 3,
           "signals": [
-            "W底突破",
-            "三重底突破"
+            "W底形成中",
+            "三重底形成中"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "gap_up": false,
@@ -1627,9 +1610,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 138.88,
+        "entry": 104.23,
         "sl": 102.19,
-        "tp": 173.6
+        "tp": 130.29
       },
       "sector": "其他族群",
       "backtest": {
@@ -1688,9 +1671,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 867.09,
+        "entry": 997.35,
         "sl": 987.48,
-        "tp": 1083.86
+        "tp": 1246.69
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1764,10 +1747,10 @@
           "neckline": 76.44,
           "support": 72.23,
           "target": 80.66,
-          "breakthrough_pct": 9.7,
+          "breakthrough_pct": 3.87,
           "bottom1_price": 72.23,
           "bottom2_price": 72.38,
-          "days_formed": 60,
+          "days_formed": 62,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -1777,14 +1760,14 @@
           "support": 72.23,
           "target": 90.05,
           "avg_bottom": 72.36,
-          "days_formed": 60,
-          "strength": "strong"
+          "days_formed": 62,
+          "strength": "forming"
         },
         "summary": {
-          "score": 7,
+          "score": 5,
           "signals": [
             "W底突破",
-            "三重底突破"
+            "三重底形成中"
           ],
           "verdict": "🔥 強力底部訊號"
         }
@@ -1817,27 +1800,7 @@
       "price": 361.85,
       "price_source": "Yahoo",
       "esg_elite": true,
-      "patterns": {
-        "w_bottom": {
-          "pattern": "W底",
-          "pattern_en": "W_BOTTOM",
-          "neckline": 314.76,
-          "support": 298.31,
-          "target": 331.21,
-          "breakthrough_pct": 15.48,
-          "bottom1_price": 301.81,
-          "bottom2_price": 298.31,
-          "days_formed": 78,
-          "strength": "strong"
-        },
-        "summary": {
-          "score": 3,
-          "signals": [
-            "W底突破"
-          ],
-          "verdict": "✅ 底部型態確認"
-        }
-      },
+      "patterns": {},
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -1853,9 +1816,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1001.29,
+        "entry": 941.93,
         "sl": 923.46,
-        "tp": 1251.61
+        "tp": 1177.41
       },
       "sector": "其他族群",
       "backtest": {
@@ -1882,9 +1845,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 86.36,
+        "entry": 79.54,
         "sl": 77.98,
-        "tp": 107.95
+        "tp": 99.43
       },
       "sector": "其他族群",
       "backtest": {
@@ -1911,9 +1874,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 45.49,
+        "entry": 31.94,
         "sl": 31.31,
-        "tp": 56.86
+        "tp": 39.93
       },
       "sector": "其他族群",
       "backtest": {
@@ -1940,9 +1903,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 364.46,
+        "entry": 249.48,
         "sl": 244.59,
-        "tp": 455.57
+        "tp": 311.85
       },
       "sector": "其他族群",
       "backtest": {
@@ -1969,9 +1932,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 107.04,
+        "entry": 86.32,
         "sl": 84.63,
-        "tp": 133.8
+        "tp": 107.9
       },
       "sector": "其他族群",
       "backtest": {
@@ -1998,9 +1961,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 282.05,
+        "entry": 276.95,
         "sl": 271.52,
-        "tp": 352.56
+        "tp": 346.19
       },
       "sector": "其他族群",
       "backtest": {
@@ -2018,10 +1981,10 @@
           "neckline": 286.8,
           "support": 272.08,
           "target": 301.52,
-          "breakthrough_pct": -0.76,
+          "breakthrough_pct": -1.66,
           "bottom1_price": 272.08,
           "bottom2_price": 273.0,
-          "days_formed": 28,
+          "days_formed": 30,
           "strength": "forming"
         },
         "summary": {
@@ -2049,9 +2012,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 8.86,
+        "entry": 9.71,
         "sl": 9.61,
-        "tp": 11.07
+        "tp": 12.14
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2096,10 +2059,10 @@
           "neckline": 293.92,
           "support": 281.4,
           "target": 306.43,
-          "breakthrough_pct": 6.25,
+          "breakthrough_pct": 5.18,
           "bottom1_price": 281.45,
           "bottom2_price": 281.4,
-          "days_formed": 61,
+          "days_formed": 63,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -2109,7 +2072,7 @@
           "support": 295.7,
           "target": 334.1,
           "avg_bottom": 300.19,
-          "days_formed": 31,
+          "days_formed": 33,
           "strength": "forming"
         },
         "summary": {
@@ -2136,9 +2099,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 83.59,
+        "entry": 79.48,
         "sl": 77.92,
-        "tp": 104.49
+        "tp": 99.35
       },
       "sector": "其他族群",
       "backtest": {
@@ -2156,10 +2119,10 @@
           "neckline": 77.82,
           "support": 74.67,
           "target": 80.97,
-          "breakthrough_pct": 2.14,
+          "breakthrough_pct": 7.41,
           "bottom1_price": 76.5,
           "bottom2_price": 74.67,
-          "days_formed": 66,
+          "days_formed": 68,
           "strength": "strong"
         },
         "summary": {
@@ -2205,11 +2168,11 @@
           "neckline": 507.27,
           "support": 476.54,
           "target": 537.99,
-          "breakthrough_pct": -0.68,
+          "breakthrough_pct": 0.37,
           "bottom1_price": 476.54,
           "bottom2_price": 490.68,
-          "days_formed": 54,
-          "strength": "forming"
+          "days_formed": 56,
+          "strength": "strong"
         },
         "triple_bottom": {
           "pattern": "三重底",
@@ -2218,16 +2181,16 @@
           "support": 476.54,
           "target": 541.74,
           "avg_bottom": 486.28,
-          "days_formed": 54,
-          "strength": "forming"
+          "days_formed": 56,
+          "strength": "strong"
         },
         "summary": {
-          "score": 3,
+          "score": 7,
           "signals": [
-            "W底形成中",
-            "三重底形成中"
+            "W底突破",
+            "三重底突破"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🔥 強力底部訊號"
         }
       },
       "gap_up": false,
@@ -2245,9 +2208,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1136.37,
+        "entry": 993.08,
         "sl": 973.61,
-        "tp": 1420.46
+        "tp": 1241.35
       },
       "sector": "其他族群",
       "backtest": {
@@ -2274,9 +2237,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 321.8,
+        "entry": 276.17,
         "sl": 270.75,
-        "tp": 402.25
+        "tp": 345.21
       },
       "sector": "其他族群",
       "backtest": {
@@ -2294,10 +2257,10 @@
           "neckline": 238.84,
           "support": 199.33,
           "target": 278.35,
-          "breakthrough_pct": 36.38,
+          "breakthrough_pct": 34.73,
           "bottom1_price": 199.33,
           "bottom2_price": 199.93,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -2325,9 +2288,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 26.53,
+        "entry": 27.77,
         "sl": 27.5,
-        "tp": 33.16
+        "tp": 34.71
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2352,9 +2315,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 489.08,
+        "entry": 503.91,
         "sl": 498.92,
-        "tp": 611.35
+        "tp": 629.89
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -2366,7 +2329,25 @@
       "price": 477.68,
       "price_source": "Yahoo",
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 525.23,
+          "support": 471.55,
+          "target": 578.91,
+          "avg_bottom": 487.96,
+          "days_formed": 34,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -2382,9 +2363,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 12.62,
+        "entry": 11.64,
         "sl": 11.41,
-        "tp": 15.77
+        "tp": 14.55
       },
       "sector": "其他族群",
       "backtest": {
@@ -2402,10 +2383,10 @@
           "neckline": 9.32,
           "support": 7.8,
           "target": 10.84,
-          "breakthrough_pct": 47.16,
+          "breakthrough_pct": 35.41,
           "bottom1_price": 8.01,
           "bottom2_price": 7.8,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -2431,9 +2412,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 87.91,
+        "entry": 84.71,
         "sl": 83.05,
-        "tp": 109.89
+        "tp": 105.89
       },
       "sector": "其他族群",
       "backtest": {
@@ -2460,9 +2441,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 348.28,
+        "entry": 290.77,
         "sl": 285.07,
-        "tp": 435.35
+        "tp": 363.46
       },
       "sector": "其他族群",
       "backtest": {
@@ -2491,9 +2472,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 570.98,
+        "entry": 621.95,
         "sl": 615.79,
-        "tp": 713.73
+        "tp": 777.44
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2518,9 +2499,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1473.04,
+        "entry": 1456.89,
         "sl": 1428.32,
-        "tp": 1841.3
+        "tp": 1821.11
       },
       "sector": "其他族群",
       "backtest": {
@@ -2547,9 +2528,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 252.59,
+        "entry": 165.1,
         "sl": 161.86,
-        "tp": 315.74
+        "tp": 206.38
       },
       "sector": "全光化資料中心",
       "backtest": {
@@ -2576,9 +2557,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 206.66,
+        "entry": 190.15,
         "sl": 186.42,
-        "tp": 258.32
+        "tp": 237.69
       },
       "sector": "其他族群",
       "backtest": {
@@ -2596,10 +2577,10 @@
           "neckline": 164.98,
           "support": 153.54,
           "target": 176.42,
-          "breakthrough_pct": 29.23,
+          "breakthrough_pct": 25.26,
           "bottom1_price": 153.54,
           "bottom2_price": 157.52,
-          "days_formed": 61,
+          "days_formed": 63,
           "strength": "strong"
         },
         "summary": {
@@ -2627,9 +2608,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 397.36,
+        "entry": 408.7,
         "sl": 404.65,
-        "tp": 496.7
+        "tp": 510.88
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2638,25 +2619,7 @@
       "price": 441.31,
       "price_source": "Yahoo",
       "esg_elite": true,
-      "patterns": {
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 422.62,
-          "support": 404.33,
-          "target": 440.92,
-          "avg_bottom": 407.97,
-          "days_formed": 27,
-          "strength": "forming"
-        },
-        "summary": {
-          "score": 2,
-          "signals": [
-            "三重底形成中"
-          ],
-          "verdict": "🟡 底部形成中"
-        }
-      },
+      "patterns": {},
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -2672,9 +2635,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 115.35,
+        "entry": 153.21,
         "sl": 151.69,
-        "tp": 144.19
+        "tp": 191.51
       },
       "sector": "其他族群",
       "backtest": {
@@ -2703,9 +2666,9 @@
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 891.88,
+        "entry": 622.48,
         "sl": 610.27,
-        "tp": 1114.85
+        "tp": 778.1
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2732,9 +2695,9 @@
       "sector": "核能/能源",
       "is_regular": false,
       "plan": {
-        "entry": 85.12,
+        "entry": 91.71,
         "sl": 90.8,
-        "tp": 106.4
+        "tp": 114.64
       },
       "backtest": {
         "win_rate": 45.0,
@@ -2788,9 +2751,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 160.66,
+        "entry": 122.03,
         "sl": 119.64,
-        "tp": 200.82
+        "tp": 152.54
       },
       "sector": "其他族群",
       "backtest": {
@@ -2808,10 +2771,10 @@
           "neckline": 104.96,
           "support": 95.67,
           "target": 114.25,
-          "breakthrough_pct": 62.34,
+          "breakthrough_pct": 53.06,
           "bottom1_price": 96.42,
           "bottom2_price": 95.67,
-          "days_formed": 63,
+          "days_formed": 65,
           "strength": "strong"
         },
         "summary": {
@@ -2866,9 +2829,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 42.81,
+        "entry": 41.84,
         "sl": 41.02,
-        "tp": 53.51
+        "tp": 52.3
       },
       "sector": "其他族群",
       "backtest": {
@@ -2886,18 +2849,32 @@
           "neckline": 38.37,
           "support": 34.76,
           "target": 41.98,
-          "breakthrough_pct": 7.71,
+          "breakthrough_pct": 11.56,
           "bottom1_price": 35.36,
           "bottom2_price": 34.76,
-          "days_formed": 68,
+          "days_formed": 70,
           "strength": "strong"
         },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 61.72,
+          "a_bottom": 34.76,
+          "b_top": 47.08,
+          "a_drop_pct": 43.7,
+          "b_rebound_pct": 45.7,
+          "estimated_c_bottom": 34.07,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 95,
+          "strength": "warning"
+        },
         "summary": {
-          "score": 3,
+          "score": 1,
           "signals": [
-            "W底突破"
+            "W底突破",
+            "⚠️C波下跌中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🟡 底部形成中"
         }
       },
       "gap_up": false,
@@ -2915,9 +2892,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 285.56,
+        "entry": 260.46,
         "sl": 255.35,
-        "tp": 356.95
+        "tp": 325.57
       },
       "sector": "其他族群",
       "backtest": {
@@ -2935,10 +2912,10 @@
           "neckline": 197.61,
           "support": 187.39,
           "target": 207.83,
-          "breakthrough_pct": 53.7,
+          "breakthrough_pct": 44.51,
           "bottom1_price": 189.87,
           "bottom2_price": 187.39,
-          "days_formed": 60,
+          "days_formed": 62,
           "strength": "strong"
         },
         "summary": {
@@ -2966,9 +2943,9 @@
       "sector": "核能/能源",
       "is_regular": false,
       "plan": {
-        "entry": 54.02,
+        "entry": 62.78,
         "sl": 62.16,
-        "tp": 67.53
+        "tp": 78.47
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2993,9 +2970,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 110.17,
+        "entry": 94.36,
         "sl": 92.51,
-        "tp": 137.71
+        "tp": 117.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -3013,10 +2990,10 @@
           "neckline": 63.1,
           "support": 55.66,
           "target": 70.54,
-          "breakthrough_pct": 94.25,
+          "breakthrough_pct": 74.6,
           "bottom1_price": 56.87,
           "bottom2_price": 55.66,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -3044,9 +3021,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 201.26,
+        "entry": 181.0,
         "sl": 177.45,
-        "tp": 251.57
+        "tp": 226.25
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3062,10 +3039,10 @@
           "neckline": 162.55,
           "support": 138.32,
           "target": 186.79,
-          "breakthrough_pct": 31.1,
+          "breakthrough_pct": 23.81,
           "bottom1_price": 140.82,
           "bottom2_price": 138.32,
-          "days_formed": 74,
+          "days_formed": 76,
           "strength": "strong"
         },
         "summary": {
@@ -3091,9 +3068,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 263.22,
+        "entry": 206.18,
         "sl": 202.14,
-        "tp": 329.03
+        "tp": 257.73
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -3122,9 +3099,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 10.75,
+        "entry": 10.99,
         "sl": 10.88,
-        "tp": 13.44
+        "tp": 13.74
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3149,9 +3126,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 101.1,
+        "entry": 94.41,
         "sl": 92.56,
-        "tp": 126.38
+        "tp": 118.01
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -3170,10 +3147,10 @@
           "neckline": 93.06,
           "support": 88.68,
           "target": 97.45,
-          "breakthrough_pct": 6.96,
+          "breakthrough_pct": 8.64,
           "bottom1_price": 88.68,
           "bottom2_price": 88.83,
-          "days_formed": 31,
+          "days_formed": 33,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -3183,7 +3160,7 @@
           "support": 84.48,
           "target": 101.64,
           "avg_bottom": 87.33,
-          "days_formed": 41,
+          "days_formed": 43,
           "strength": "strong"
         },
         "summary": {
@@ -3212,9 +3189,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 30.72,
+        "entry": 37.75,
         "sl": 37.38,
-        "tp": 38.4
+        "tp": 47.19
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3241,9 +3218,9 @@
       "sector": "代理型 AI 軟體",
       "is_regular": false,
       "plan": {
-        "entry": 130.21,
+        "entry": 143.56,
         "sl": 142.14,
-        "tp": 162.76
+        "tp": 179.45
       },
       "backtest": {
         "win_rate": 45.0,
@@ -3260,7 +3237,7 @@
           "support": 128.06,
           "target": 177.18,
           "avg_bottom": 130.21,
-          "days_formed": 41,
+          "days_formed": 43,
           "strength": "forming"
         },
         "summary": {
@@ -3288,9 +3265,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": false,
       "plan": {
-        "entry": 650.92,
+        "entry": 661.8,
         "sl": 655.25,
-        "tp": 813.65
+        "tp": 827.25
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3306,10 +3283,10 @@
           "neckline": 578.33,
           "support": 533.68,
           "target": 622.98,
-          "breakthrough_pct": 19.55,
+          "breakthrough_pct": 12.55,
           "bottom1_price": 540.08,
           "bottom2_price": 533.68,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -3335,9 +3312,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 191.2,
+        "entry": 175.17,
         "sl": 171.74,
-        "tp": 239.0
+        "tp": 218.96
       },
       "sector": "邊緣 AI 與終端",
       "backtest": {
@@ -3364,9 +3341,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 693.69,
+        "entry": 673.85,
         "sl": 660.64,
-        "tp": 867.11
+        "tp": 842.31
       },
       "sector": "其他族群",
       "backtest": {
@@ -3395,9 +3372,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 172.21,
+        "entry": 156.66,
         "sl": 153.59,
-        "tp": 215.26
+        "tp": 195.82
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3414,7 +3391,7 @@
           "support": 141.67,
           "target": 201.59,
           "avg_bottom": 147.08,
-          "days_formed": 27,
+          "days_formed": 29,
           "strength": "strong"
         },
         "summary": {
@@ -3442,9 +3419,9 @@
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 105.05,
+        "entry": 95.68,
         "sl": 93.8,
-        "tp": 131.31
+        "tp": 119.6
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3500,9 +3477,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": false,
       "plan": {
-        "entry": 29.27,
+        "entry": 31.01,
         "sl": 30.7,
-        "tp": 36.59
+        "tp": 38.76
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3527,9 +3504,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 570.91,
+        "entry": 507.65,
         "sl": 497.7,
-        "tp": 713.64
+        "tp": 634.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -3558,9 +3535,9 @@
       "sector": "核能/能源",
       "is_regular": false,
       "plan": {
-        "entry": 9.29,
+        "entry": 11.6,
         "sl": 11.49,
-        "tp": 11.61
+        "tp": 14.5
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3569,7 +3546,30 @@
       "price": 13.95,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC底部",
+          "pattern_en": "ABC_BOTTOM",
+          "wave_top": 20.64,
+          "a_bottom": 9.16,
+          "b_top": 13.57,
+          "c_bottom": 10.06,
+          "a_drop_pct": 55.6,
+          "b_rebound_pct": 38.4,
+          "fib_target_50": 14.9,
+          "fib_target_618": 16.25,
+          "support": 10.06,
+          "days_formed": 97,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "ABC底部完成"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -3587,9 +3587,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 460.54,
+        "entry": 467.25,
         "sl": 462.62,
-        "tp": 575.68
+        "tp": 584.06
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3605,10 +3605,10 @@
           "neckline": 442.3,
           "support": 412.63,
           "target": 471.97,
-          "breakthrough_pct": 6.97,
+          "breakthrough_pct": 4.12,
           "bottom1_price": 414.0,
           "bottom2_price": 412.63,
-          "days_formed": 70,
+          "days_formed": 72,
           "strength": "strong"
         },
         "summary": {
@@ -3634,9 +3634,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 541.51,
+        "entry": 461.9,
         "sl": 452.84,
-        "tp": 676.89
+        "tp": 577.38
       },
       "sector": "其他族群",
       "backtest": {
@@ -3692,9 +3692,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 815.99,
+        "entry": 658.74,
         "sl": 645.82,
-        "tp": 1019.99
+        "tp": 823.42
       },
       "sector": "其他族群",
       "backtest": {
@@ -3712,10 +3712,10 @@
           "neckline": 433.84,
           "support": 352.19,
           "target": 515.5,
-          "breakthrough_pct": 102.73,
+          "breakthrough_pct": 88.08,
           "bottom1_price": 352.19,
           "bottom2_price": 362.43,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -3741,9 +3741,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 202.0,
+        "entry": 213.86,
         "sl": 211.74,
-        "tp": 252.5
+        "tp": 267.33
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -3763,7 +3763,7 @@
           "support": 195.32,
           "target": 298.1,
           "avg_bottom": 198.9,
-          "days_formed": 49,
+          "days_formed": 51,
           "strength": "forming"
         },
         "summary": {
@@ -3789,9 +3789,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 347.59,
+        "entry": 354.42,
         "sl": 350.91,
-        "tp": 434.49
+        "tp": 443.03
       },
       "sector": "其他族群",
       "backtest": {
@@ -3809,10 +3809,10 @@
           "neckline": 323.24,
           "support": 272.95,
           "target": 373.53,
-          "breakthrough_pct": 16.15,
+          "breakthrough_pct": 7.53,
           "bottom1_price": 272.95,
           "bottom2_price": 276.25,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -3838,9 +3838,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 381.59,
+        "entry": 397.97,
         "sl": 394.03,
-        "tp": 476.99
+        "tp": 497.46
       },
       "sector": "實體 AI 機器人",
       "backtest": {
@@ -3869,9 +3869,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 408.75,
+        "entry": 392.67,
         "sl": 384.97,
-        "tp": 510.94
+        "tp": 490.84
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3896,9 +3896,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 68.61,
+        "entry": 74.31,
         "sl": 73.57,
-        "tp": 85.76
+        "tp": 92.89
       },
       "sector": "其他族群",
       "backtest": {
@@ -3925,9 +3925,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 407.46,
+        "entry": 350.98,
         "sl": 344.1,
-        "tp": 509.32
+        "tp": 438.73
       },
       "sector": "其他族群",
       "backtest": {
@@ -3945,10 +3945,10 @@
           "neckline": 292.65,
           "support": 271.84,
           "target": 313.47,
-          "breakthrough_pct": 38.73,
+          "breakthrough_pct": 39.23,
           "bottom1_price": 271.84,
           "bottom2_price": 277.05,
-          "days_formed": 73,
+          "days_formed": 75,
           "strength": "strong"
         },
         "summary": {
@@ -3974,9 +3974,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 267.03,
+        "entry": 261.63,
         "sl": 256.5,
-        "tp": 333.79
+        "tp": 327.04
       },
       "sector": "其他族群",
       "backtest": {
@@ -3987,7 +3987,25 @@
       "price": 264.68,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 277.95,
+          "support": 246.75,
+          "target": 309.14,
+          "avg_bottom": 256.96,
+          "days_formed": 40,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -4023,10 +4041,10 @@
           "neckline": 320.17,
           "support": 298.4,
           "target": 341.93,
-          "breakthrough_pct": 0.11,
+          "breakthrough_pct": 0.87,
           "bottom1_price": 305.89,
           "bottom2_price": 298.4,
-          "days_formed": 74,
+          "days_formed": 76,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -4036,7 +4054,7 @@
           "support": 294.91,
           "target": 373.43,
           "avg_bottom": 307.09,
-          "days_formed": 50,
+          "days_formed": 52,
           "strength": "forming"
         },
         "summary": {
@@ -4063,9 +4081,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 112.34,
+        "entry": 105.97,
         "sl": 103.89,
-        "tp": 140.43
+        "tp": 132.46
       },
       "sector": "其他族群",
       "backtest": {
@@ -4123,9 +4141,9 @@
       "sector": "極限算力基建",
       "is_regular": false,
       "plan": {
-        "entry": 280.98,
+        "entry": 309.49,
         "sl": 306.43,
-        "tp": 351.23
+        "tp": 386.86
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4150,9 +4168,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 435.71,
+        "entry": 443.6,
         "sl": 439.21,
-        "tp": 544.64
+        "tp": 554.5
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -4165,18 +4183,6 @@
       "price_source": "Yahoo",
       "esg_elite": false,
       "patterns": {
-        "w_bottom": {
-          "pattern": "W底",
-          "pattern_en": "W_BOTTOM",
-          "neckline": 453.06,
-          "support": 423.24,
-          "target": 482.88,
-          "breakthrough_pct": -1.99,
-          "bottom1_price": 423.24,
-          "bottom2_price": 430.44,
-          "days_formed": 28,
-          "strength": "forming"
-        },
         "triple_bottom": {
           "pattern": "三重底",
           "pattern_en": "TRIPLE_BOTTOM",
@@ -4184,16 +4190,15 @@
           "support": 423.24,
           "target": 482.88,
           "avg_bottom": 428.51,
-          "days_formed": 44,
+          "days_formed": 46,
           "strength": "forming"
         },
         "summary": {
-          "score": 3,
+          "score": 2,
           "signals": [
-            "W底形成中",
             "三重底形成中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🟡 底部形成中"
         }
       },
       "gap_up": false,
@@ -4213,9 +4218,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 138.54,
+        "entry": 155.76,
         "sl": 154.22,
-        "tp": 173.17
+        "tp": 194.7
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4224,28 +4229,7 @@
       "price": 157.97,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {
-        "abc_wave": {
-          "pattern": "ABC下跌中",
-          "pattern_en": "ABC_FALLING",
-          "wave_top": 179.93,
-          "a_bottom": 134.71,
-          "b_top": 164.56,
-          "a_drop_pct": 25.1,
-          "b_rebound_pct": 66.0,
-          "estimated_c_bottom": 132.02,
-          "warning": "C波跌破季線，尚未見底，請勿抄底！",
-          "days_formed": 99,
-          "strength": "warning"
-        },
-        "summary": {
-          "score": -2,
-          "signals": [
-            "⚠️C波下跌中"
-          ],
-          "verdict": "⚠️ 下跌未止"
-        }
-      },
+      "patterns": {},
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -4292,9 +4276,9 @@
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 490.09,
+        "entry": 422.4,
         "sl": 414.12,
-        "tp": 612.61
+        "tp": 528.0
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4310,10 +4294,10 @@
           "neckline": 316.85,
           "support": 245.19,
           "target": 388.51,
-          "breakthrough_pct": 66.34,
+          "breakthrough_pct": 54.68,
           "bottom1_price": 245.19,
           "bottom2_price": 251.6,
-          "days_formed": 65,
+          "days_formed": 67,
           "strength": "strong"
         },
         "summary": {
@@ -4339,9 +4323,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 120.59,
+        "entry": 126.24,
         "sl": 124.99,
-        "tp": 150.74
+        "tp": 157.8
       },
       "sector": "其他族群",
       "backtest": {
@@ -4368,9 +4352,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 43.42,
+        "entry": 38.4,
         "sl": 37.65,
-        "tp": 54.28
+        "tp": 48.0
       },
       "sector": "其他族群",
       "backtest": {
@@ -4397,9 +4381,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 58.25,
+        "entry": 58.86,
         "sl": 58.28,
-        "tp": 72.81
+        "tp": 73.58
       },
       "sector": "其他族群",
       "backtest": {
@@ -4418,7 +4402,7 @@
           "support": 55.02,
           "target": 70.1,
           "avg_bottom": 55.32,
-          "days_formed": 63,
+          "days_formed": 65,
           "strength": "forming"
         },
         "summary": {
@@ -4444,9 +4428,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 176.63,
+        "entry": 164.09,
         "sl": 160.87,
-        "tp": 220.79
+        "tp": 205.11
       },
       "sector": "其他族群",
       "backtest": {
@@ -4473,9 +4457,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 124.73,
+        "entry": 144.28,
         "sl": 142.85,
-        "tp": 155.91
+        "tp": 180.35
       },
       "sector": "其他族群",
       "backtest": {
@@ -4499,7 +4483,7 @@
           "fib_target_50": 168.86,
           "fib_target_618": 180.85,
           "support": 126.41,
-          "days_formed": 92,
+          "days_formed": 94,
           "strength": "strong"
         },
         "summary": {
@@ -4525,9 +4509,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 24.25,
+        "entry": 24.52,
         "sl": 24.28,
-        "tp": 30.31
+        "tp": 30.65
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -4539,12 +4523,30 @@
       "price": 24.65,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 25.5,
+          "support": 23.65,
+          "target": 27.35,
+          "avg_bottom": 23.93,
+          "days_formed": 28,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -4566,9 +4568,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 75.6,
+        "entry": 73.56,
         "sl": 72.12,
-        "tp": 94.5
+        "tp": 91.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -4580,6 +4582,18 @@
       "price_source": "Yahoo",
       "esg_elite": true,
       "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 75.7,
+          "support": 68.7,
+          "target": 82.7,
+          "breakthrough_pct": -0.13,
+          "bottom1_price": 68.7,
+          "bottom2_price": 70.2,
+          "days_formed": 27,
+          "strength": "forming"
+        },
         "triple_bottom": {
           "pattern": "三重底",
           "pattern_en": "TRIPLE_BOTTOM",
@@ -4587,15 +4601,16 @@
           "support": 68.7,
           "target": 78.3,
           "avg_bottom": 70.0,
-          "days_formed": 53,
-          "strength": "forming"
+          "days_formed": 56,
+          "strength": "strong"
         },
         "summary": {
-          "score": 2,
+          "score": 5,
           "signals": [
-            "三重底形成中"
+            "W底形成中",
+            "三重底突破"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "🔥 強力底部訊號"
         }
       },
       "fundamentals": {
@@ -4606,7 +4621,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "gap_up": false,
@@ -4624,9 +4639,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 96.9,
+        "entry": 90.03,
         "sl": 88.26,
-        "tp": 121.12
+        "tp": 112.54
       },
       "sector": "其他族群",
       "backtest": {
@@ -4643,10 +4658,10 @@
           "neckline": 94.9,
           "support": 72.8,
           "target": 117.0,
-          "breakthrough_pct": 2.74,
+          "breakthrough_pct": 2.11,
           "bottom1_price": 72.8,
           "bottom2_price": 74.1,
-          "days_formed": 74,
+          "days_formed": 77,
           "strength": "strong"
         },
         "summary": {
@@ -4684,9 +4699,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 46.25,
+        "entry": 48.48,
         "sl": 48.0,
-        "tp": 57.81
+        "tp": 60.6
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -4725,9 +4740,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 27.4,
+        "entry": 26.91,
         "sl": 26.38,
-        "tp": 34.25
+        "tp": 33.64
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -4745,18 +4760,18 @@
           "neckline": 27.15,
           "support": 25.9,
           "target": 28.4,
-          "breakthrough_pct": -1.47,
+          "breakthrough_pct": 0.92,
           "bottom1_price": 25.9,
           "bottom2_price": 25.95,
-          "days_formed": 53,
-          "strength": "forming"
+          "days_formed": 56,
+          "strength": "strong"
         },
         "summary": {
-          "score": 1,
+          "score": 3,
           "signals": [
-            "W底形成中"
+            "W底突破"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "fundamentals": {
@@ -4788,9 +4803,9 @@
       "sector": "核能與智慧電網",
       "is_regular": true,
       "plan": {
-        "entry": 215.0,
+        "entry": 204.48,
         "sl": 200.47,
-        "tp": 268.75
+        "tp": 255.6
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4806,7 +4821,7 @@
           "support": 178.5,
           "target": 234.5,
           "avg_bottom": 182.67,
-          "days_formed": 47,
+          "days_formed": 50,
           "strength": "strong"
         },
         "summary": {
@@ -4886,9 +4901,9 @@
       "sector": "核能與智慧電網",
       "is_regular": true,
       "plan": {
-        "entry": 164.0,
+        "entry": 159.73,
         "sl": 156.6,
-        "tp": 205.0
+        "tp": 199.66
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4903,29 +4918,18 @@
           "neckline": 158.5,
           "support": 148.5,
           "target": 168.5,
-          "breakthrough_pct": 6.94,
+          "breakthrough_pct": 3.47,
           "bottom1_price": 148.5,
           "bottom2_price": 148.5,
-          "days_formed": 27,
-          "strength": "strong"
-        },
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 162.0,
-          "support": 143.0,
-          "target": 181.0,
-          "avg_bottom": 147.5,
-          "days_formed": 62,
+          "days_formed": 30,
           "strength": "strong"
         },
         "summary": {
-          "score": 7,
+          "score": 3,
           "signals": [
-            "W底突破",
-            "三重底突破"
+            "W底突破"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "fundamentals": {
@@ -4968,24 +4972,27 @@
       "price": 124.0,
       "esg_elite": false,
       "patterns": {
-        "w_bottom": {
-          "pattern": "W底",
-          "pattern_en": "W_BOTTOM",
-          "neckline": 126.5,
-          "support": 110.0,
-          "target": 143.0,
-          "breakthrough_pct": -1.19,
-          "bottom1_price": 110.0,
-          "bottom2_price": 113.0,
-          "days_formed": 27,
-          "strength": "forming"
+        "abc_wave": {
+          "pattern": "ABC底部",
+          "pattern_en": "ABC_BOTTOM",
+          "wave_top": 142.5,
+          "a_bottom": 100.0,
+          "b_top": 126.5,
+          "c_bottom": 113.0,
+          "a_drop_pct": 29.8,
+          "b_rebound_pct": 62.4,
+          "fib_target_50": 121.25,
+          "fib_target_618": 126.27,
+          "support": 113.0,
+          "days_formed": 89,
+          "strength": "strong"
         },
         "summary": {
-          "score": 1,
+          "score": 3,
           "signals": [
-            "W底形成中"
+            "ABC底部完成"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "fundamentals": {
@@ -5017,9 +5024,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 773.0,
+        "entry": 870.22,
         "sl": 861.6,
-        "tp": 966.25
+        "tp": 1087.78
       },
       "backtest": {
         "win_rate": 45.0,
@@ -5032,7 +5039,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5055,9 +5062,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 42.2,
+        "entry": 47.75,
         "sl": 47.28,
-        "tp": 52.75
+        "tp": 59.69
       },
       "sector": "其他族群",
       "backtest": {
@@ -5072,7 +5079,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5095,9 +5102,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 67.8,
+        "entry": 74.73,
         "sl": 73.99,
-        "tp": 84.75
+        "tp": 93.41
       },
       "sector": "其他族群",
       "backtest": {
@@ -5114,10 +5121,10 @@
           "neckline": 65.85,
           "support": 56.87,
           "target": 74.84,
-          "breakthrough_pct": 8.27,
+          "breakthrough_pct": 2.96,
           "bottom1_price": 56.87,
           "bottom2_price": 56.87,
-          "days_formed": 63,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -5132,7 +5139,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5157,9 +5164,9 @@
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "plan": {
-        "entry": 90.1,
+        "entry": 108.17,
         "sl": 107.1,
-        "tp": 112.62
+        "tp": 135.21
       },
       "backtest": {
         "win_rate": 45.0,
@@ -5167,12 +5174,33 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 127.0,
+          "a_bottom": 99.5,
+          "b_top": 109.5,
+          "a_drop_pct": 21.7,
+          "b_rebound_pct": 36.4,
+          "estimated_c_bottom": 97.51,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 39,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5197,9 +5225,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 318.5,
+        "entry": 314.65,
         "sl": 308.48,
-        "tp": 398.12
+        "tp": 393.31
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5214,10 +5242,10 @@
           "neckline": 244.0,
           "support": 220.0,
           "target": 268.0,
-          "breakthrough_pct": 35.04,
+          "breakthrough_pct": 30.53,
           "bottom1_price": 220.0,
           "bottom2_price": 221.0,
-          "days_formed": 63,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -5232,7 +5260,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5255,9 +5283,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 35.0,
+        "entry": 32.61,
         "sl": 31.97,
-        "tp": 43.75
+        "tp": 40.76
       },
       "sector": "其他族群",
       "backtest": {
@@ -5274,10 +5302,10 @@
           "neckline": 32.45,
           "support": 30.85,
           "target": 34.05,
-          "breakthrough_pct": 3.24,
+          "breakthrough_pct": 7.86,
           "bottom1_price": 30.85,
           "bottom2_price": 31.55,
-          "days_formed": 26,
+          "days_formed": 29,
           "strength": "strong"
         },
         "summary": {
@@ -5317,9 +5345,9 @@
       "sector": "AI 基建",
       "is_regular": true,
       "plan": {
-        "entry": 208.5,
+        "entry": 190.77,
         "sl": 187.03,
-        "tp": 260.62
+        "tp": 238.46
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5355,9 +5383,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 125.0,
+        "entry": 91.25,
         "sl": 89.46,
-        "tp": 156.25
+        "tp": 114.06
       },
       "sector": "其他族群",
       "backtest": {
@@ -5376,7 +5404,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5397,9 +5425,9 @@
       "sector": "極限算力基建",
       "is_regular": true,
       "plan": {
-        "entry": 2160.0,
+        "entry": 2003.54,
         "sl": 1964.25,
-        "tp": 2700.0
+        "tp": 2504.43
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5437,9 +5465,9 @@
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 275.0,
+        "entry": 258.42,
         "sl": 253.35,
-        "tp": 343.75
+        "tp": 323.03
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5456,7 +5484,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5477,9 +5505,9 @@
       "sector": "邊緣 AI 與終端",
       "is_regular": true,
       "plan": {
-        "entry": 258.5,
+        "entry": 237.73,
         "sl": 233.07,
-        "tp": 323.12
+        "tp": 297.16
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5515,9 +5543,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 36.15,
+        "entry": 32.34,
         "sl": 31.71,
-        "tp": 45.19
+        "tp": 40.43
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -5556,9 +5584,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 842.0,
+        "entry": 446.87,
         "sl": 438.11,
-        "tp": 1052.5
+        "tp": 558.59
       },
       "sector": "其他族群",
       "backtest": {
@@ -5575,10 +5603,10 @@
           "neckline": 301.0,
           "support": 248.5,
           "target": 353.5,
-          "breakthrough_pct": 149.5,
+          "breakthrough_pct": 179.73,
           "bottom1_price": 248.5,
           "bottom2_price": 248.5,
-          "days_formed": 76,
+          "days_formed": 79,
           "strength": "strong"
         },
         "summary": {
@@ -5597,7 +5625,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5618,9 +5646,9 @@
       "sector": "全光化資料中心",
       "is_regular": true,
       "plan": {
-        "entry": 2250.0,
+        "entry": 2157.85,
         "sl": 2115.54,
-        "tp": 2812.5
+        "tp": 2697.31
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5632,13 +5660,13 @@
         "w_bottom": {
           "pattern": "W底",
           "pattern_en": "W_BOTTOM",
-          "neckline": 2008.45,
-          "support": 1759.26,
-          "target": 2257.63,
-          "breakthrough_pct": 14.27,
-          "bottom1_price": 1759.26,
-          "bottom2_price": 1804.11,
-          "days_formed": 77,
+          "neckline": 1928.55,
+          "support": 1755.32,
+          "target": 2101.77,
+          "breakthrough_pct": 16.67,
+          "bottom1_price": 1799.31,
+          "bottom2_price": 1755.32,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -5676,9 +5704,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 140.0,
+        "entry": 149.04,
         "sl": 147.56,
-        "tp": 175.0
+        "tp": 186.3
       },
       "sector": "其他族群",
       "backtest": {
@@ -5693,7 +5721,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5718,9 +5746,9 @@
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 156.5,
+        "entry": 118.08,
         "sl": 115.76,
-        "tp": 195.62
+        "tp": 147.6
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5737,7 +5765,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5758,9 +5786,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 2275.0,
+        "entry": 2193.26,
         "sl": 2150.25,
-        "tp": 2843.75
+        "tp": 2741.58
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5773,7 +5801,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -5796,9 +5824,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 90.8,
+        "entry": 84.69,
         "sl": 83.03,
-        "tp": 113.5
+        "tp": 105.86
       },
       "sector": "其他族群",
       "backtest": {
@@ -5815,18 +5843,18 @@
           "neckline": 86.4,
           "support": 80.1,
           "target": 92.7,
-          "breakthrough_pct": -1.27,
+          "breakthrough_pct": 5.09,
           "bottom1_price": 80.1,
           "bottom2_price": 81.8,
-          "days_formed": 30,
-          "strength": "forming"
+          "days_formed": 33,
+          "strength": "strong"
         },
         "summary": {
-          "score": 1,
+          "score": 3,
           "signals": [
-            "W底形成中"
+            "W底突破"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "fundamentals": {
@@ -5856,9 +5884,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 30.05,
+        "entry": 26.55,
         "sl": 26.03,
-        "tp": 37.56
+        "tp": 33.19
       },
       "sector": "其他族群",
       "backtest": {
@@ -5875,29 +5903,18 @@
           "neckline": 24.6,
           "support": 22.75,
           "target": 26.45,
-          "breakthrough_pct": 22.36,
+          "breakthrough_pct": 22.15,
           "bottom1_price": 23.0,
           "bottom2_price": 22.75,
-          "days_formed": 62,
-          "strength": "strong"
-        },
-        "triple_bottom": {
-          "pattern": "三重底",
-          "pattern_en": "TRIPLE_BOTTOM",
-          "neckline": 26.0,
-          "support": 22.75,
-          "target": 29.25,
-          "avg_bottom": 23.22,
-          "days_formed": 62,
+          "days_formed": 65,
           "strength": "strong"
         },
         "summary": {
-          "score": 7,
+          "score": 3,
           "signals": [
-            "W底突破",
-            "三重底突破"
+            "W底突破"
           ],
-          "verdict": "🔥 強力底部訊號"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "fundamentals": {
@@ -5927,9 +5944,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 36.9,
+        "entry": 30.38,
         "sl": 29.78,
-        "tp": 46.12
+        "tp": 37.98
       },
       "sector": "其他族群",
       "backtest": {
@@ -5946,10 +5963,10 @@
           "neckline": 28.7,
           "support": 27.0,
           "target": 30.4,
-          "breakthrough_pct": 23.0,
+          "breakthrough_pct": 28.57,
           "bottom1_price": 27.0,
           "bottom2_price": 27.2,
-          "days_formed": 44,
+          "days_formed": 47,
           "strength": "strong"
         },
         "triple_bottom": {
@@ -5959,7 +5976,7 @@
           "support": 27.0,
           "target": 30.6,
           "avg_bottom": 27.2,
-          "days_formed": 44,
+          "days_formed": 47,
           "strength": "strong"
         },
         "summary": {
@@ -5998,9 +6015,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 65.4,
+        "entry": 53.2,
         "sl": 52.16,
-        "tp": 81.75
+        "tp": 66.5
       },
       "sector": "其他族群",
       "backtest": {
@@ -6017,10 +6034,10 @@
           "neckline": 44.35,
           "support": 40.05,
           "target": 48.65,
-          "breakthrough_pct": 56.03,
+          "breakthrough_pct": 47.46,
           "bottom1_price": 40.05,
           "bottom2_price": 40.05,
-          "days_formed": 63,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -6060,9 +6077,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 784.0,
+        "entry": 662.41,
         "sl": 649.42,
-        "tp": 980.0
+        "tp": 828.01
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6098,9 +6115,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 133.5,
+        "entry": 125.98,
         "sl": 123.51,
-        "tp": 166.88
+        "tp": 157.47
       },
       "sector": "實體 AI 機器人",
       "backtest": {
@@ -6117,10 +6134,10 @@
           "neckline": 122.0,
           "support": 107.5,
           "target": 136.5,
-          "breakthrough_pct": 7.79,
+          "breakthrough_pct": 9.43,
           "bottom1_price": 110.5,
           "bottom2_price": 107.5,
-          "days_formed": 63,
+          "days_formed": 66,
           "strength": "strong"
         },
         "summary": {
@@ -6135,7 +6152,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -6158,9 +6175,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 2190.0,
+        "entry": 2109.11,
         "sl": 2067.75,
-        "tp": 2737.5
+        "tp": 2636.39
       },
       "sector": "其他族群",
       "backtest": {
@@ -6200,9 +6217,9 @@
       "sector": "高階 PCB",
       "is_regular": true,
       "plan": {
-        "entry": 1345.0,
+        "entry": 1246.1,
         "sl": 1221.67,
-        "tp": 1681.25
+        "tp": 1557.62
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6240,9 +6257,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 340.0,
+        "entry": 299.81,
         "sl": 293.93,
-        "tp": 425.0
+        "tp": 374.76
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6278,9 +6295,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 655.0,
+        "entry": 559.9,
         "sl": 548.92,
-        "tp": 818.75
+        "tp": 699.88
       },
       "sector": "其他族群",
       "backtest": {
@@ -6320,9 +6337,9 @@
       "sector": "邊緣 AI 與終端",
       "is_regular": true,
       "plan": {
-        "entry": 370.0,
+        "entry": 329.45,
         "sl": 322.99,
-        "tp": 462.5
+        "tp": 411.81
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6330,7 +6347,27 @@
       },
       "price": 400.5,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 293.0,
+          "support": 280.0,
+          "target": 306.0,
+          "breakthrough_pct": 26.28,
+          "bottom1_price": 281.0,
+          "bottom2_price": 280.0,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6360,9 +6397,9 @@
       "sector": "高階 PCB",
       "is_regular": true,
       "plan": {
-        "entry": 5095.0,
+        "entry": 4217.02,
         "sl": 4134.33,
-        "tp": 6368.75
+        "tp": 5271.28
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6379,7 +6416,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -6398,9 +6435,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 464.0,
+        "entry": 416.06,
         "sl": 407.9,
-        "tp": 580.0
+        "tp": 520.08
       },
       "sector": "其他族群",
       "backtest": {
@@ -6410,7 +6447,27 @@
       "is_regular": true,
       "price": 515.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 375.0,
+          "support": 311.5,
+          "target": 438.5,
+          "breakthrough_pct": 23.73,
+          "bottom1_price": 311.5,
+          "bottom2_price": 318.5,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6440,9 +6497,9 @@
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 340.0,
+        "entry": 275.28,
         "sl": 269.88,
-        "tp": 425.0
+        "tp": 344.1
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6478,9 +6535,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 23.15,
+        "entry": 19.67,
         "sl": 19.28,
-        "tp": 28.94
+        "tp": 24.59
       },
       "sector": "其他族群",
       "backtest": {
@@ -6518,9 +6575,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 145.0,
+        "entry": 139.6,
         "sl": 136.86,
-        "tp": 181.25
+        "tp": 174.5
       },
       "sector": "其他族群",
       "backtest": {
@@ -6530,7 +6587,27 @@
       "is_regular": true,
       "price": 142.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 138.0,
+          "support": 132.0,
+          "target": 144.0,
+          "breakthrough_pct": 5.07,
+          "bottom1_price": 132.0,
+          "bottom2_price": 135.0,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6539,7 +6616,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -6558,9 +6635,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 121.5,
+        "entry": 104.54,
         "sl": 102.49,
-        "tp": 151.88
+        "tp": 130.68
       },
       "sector": "其他族群",
       "backtest": {
@@ -6570,7 +6647,27 @@
       "is_regular": true,
       "price": 134.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 96.5,
+          "support": 84.0,
+          "target": 109.0,
+          "breakthrough_pct": 25.91,
+          "bottom1_price": 84.5,
+          "bottom2_price": 84.0,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6598,9 +6695,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 272.0,
+        "entry": 299.06,
         "sl": 296.1,
-        "tp": 340.0
+        "tp": 373.82
       },
       "sector": "其他族群",
       "backtest": {
@@ -6610,12 +6707,30 @@
       "is_regular": false,
       "price": 306.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 354.0,
+          "support": 259.0,
+          "target": 449.0,
+          "avg_bottom": 269.17,
+          "days_formed": 48,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -6655,7 +6770,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -6680,9 +6795,9 @@
       "sector": "邊緣 AI 與終端",
       "is_regular": true,
       "plan": {
-        "entry": 4085.0,
+        "entry": 2882.86,
         "sl": 2826.33,
-        "tp": 5106.25
+        "tp": 3603.58
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6737,7 +6852,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -6773,7 +6888,25 @@
       },
       "price": 245.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 231.5,
+          "support": 182.0,
+          "target": 281.0,
+          "avg_bottom": 182.5,
+          "days_formed": 64,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6803,9 +6936,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 156.5,
+        "entry": 148.69,
         "sl": 145.77,
-        "tp": 195.62
+        "tp": 185.86
       },
       "backtest": {
         "win_rate": 65.0,
@@ -6813,7 +6946,38 @@
       },
       "price": 159.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 148.0,
+          "support": 137.5,
+          "target": 158.5,
+          "breakthrough_pct": 5.74,
+          "bottom1_price": 137.5,
+          "bottom2_price": 139.5,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 150.0,
+          "support": 138.0,
+          "target": 162.0,
+          "avg_bottom": 141.0,
+          "days_formed": 43,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6841,9 +7005,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 226.0,
+        "entry": 213.68,
         "sl": 209.49,
-        "tp": 282.5
+        "tp": 267.1
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -6854,7 +7018,38 @@
       },
       "price": 231.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 218.5,
+          "support": 199.5,
+          "target": 237.5,
+          "breakthrough_pct": 3.43,
+          "bottom1_price": 205.5,
+          "bottom2_price": 199.5,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 214.0,
+          "support": 197.0,
+          "target": 231.0,
+          "avg_bottom": 197.83,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6863,7 +7058,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -6882,9 +7077,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 83.8,
+        "entry": 79.99,
         "sl": 78.42,
-        "tp": 104.75
+        "tp": 99.99
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -6895,7 +7090,38 @@
       },
       "price": 84.2,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 79.8,
+          "support": 73.7,
+          "target": 85.9,
+          "breakthrough_pct": 5.01,
+          "bottom1_price": 74.0,
+          "bottom2_price": 73.7,
+          "days_formed": 55,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 79.8,
+          "support": 73.7,
+          "target": 85.9,
+          "avg_bottom": 73.97,
+          "days_formed": 55,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -6923,9 +7149,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 25.35,
+        "entry": 26.41,
         "sl": 26.15,
-        "tp": 31.69
+        "tp": 33.01
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -6966,9 +7192,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 46.2,
+        "entry": 48.26,
         "sl": 47.78,
-        "tp": 57.75
+        "tp": 60.32
       },
       "backtest": {
         "win_rate": 45.0,
@@ -7004,9 +7230,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 78.3,
+        "entry": 71.44,
         "sl": 70.04,
-        "tp": 97.88
+        "tp": 89.3
       },
       "sector": "其他族群",
       "backtest": {
@@ -7016,7 +7242,38 @@
       "is_regular": true,
       "price": 77.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 72.62,
+          "support": 63.91,
+          "target": 81.32,
+          "breakthrough_pct": 7.83,
+          "bottom1_price": 65.25,
+          "bottom2_price": 63.91,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 73.48,
+          "support": 64.1,
+          "target": 82.85,
+          "avg_bottom": 66.75,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -7057,7 +7314,38 @@
       },
       "price": 174.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 175.09,
+          "support": 171.78,
+          "target": 178.39,
+          "breakthrough_pct": 2.52,
+          "bottom1_price": 171.78,
+          "bottom2_price": 172.26,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 182.64,
+          "support": 168.5,
+          "target": 196.78,
+          "avg_bottom": 170.75,
+          "days_formed": 56,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -7085,9 +7373,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 244.0,
+        "entry": 236.09,
         "sl": 231.46,
-        "tp": 305.0
+        "tp": 295.11
       },
       "sector": "其他族群",
       "backtest": {
@@ -7097,7 +7385,38 @@
       "is_regular": true,
       "price": 237.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 237.0,
+          "support": 223.0,
+          "target": 251.0,
+          "breakthrough_pct": 2.95,
+          "bottom1_price": 223.0,
+          "bottom2_price": 223.5,
+          "days_formed": 56,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 237.0,
+          "support": 223.0,
+          "target": 251.0,
+          "avg_bottom": 225.33,
+          "days_formed": 56,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7125,9 +7444,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 125.5,
+        "entry": 97.6,
         "sl": 95.69,
-        "tp": 156.88
+        "tp": 122.0
       },
       "sector": "其他族群",
       "backtest": {
@@ -7137,7 +7456,27 @@
       "is_regular": true,
       "price": 113.5,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 89.8,
+          "support": 86.0,
+          "target": 93.6,
+          "breakthrough_pct": 39.76,
+          "bottom1_price": 87.2,
+          "bottom2_price": 86.0,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7165,9 +7504,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 100.5,
+        "entry": 80.27,
         "sl": 78.7,
-        "tp": 125.62
+        "tp": 100.34
       },
       "sector": "其他族群",
       "backtest": {
@@ -7177,7 +7516,27 @@
       "is_regular": true,
       "price": 89.2,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 73.4,
+          "support": 70.0,
+          "target": 76.8,
+          "breakthrough_pct": 36.92,
+          "bottom1_price": 70.0,
+          "bottom2_price": 70.3,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7205,9 +7564,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 67.5,
+        "entry": 57.33,
         "sl": 56.21,
-        "tp": 84.38
+        "tp": 71.66
       },
       "sector": "其他族群",
       "backtest": {
@@ -7217,7 +7576,27 @@
       "is_regular": true,
       "price": 64.1,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 53.3,
+          "support": 50.5,
+          "target": 56.1,
+          "breakthrough_pct": 26.64,
+          "bottom1_price": 50.5,
+          "bottom2_price": 51.5,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7226,7 +7605,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7285,9 +7664,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 204.5,
+        "entry": 199.55,
         "sl": 195.64,
-        "tp": 255.62
+        "tp": 249.44
       },
       "sector": "其他族群",
       "backtest": {
@@ -7302,7 +7681,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -7325,9 +7704,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 4165.0,
+        "entry": 2925.56,
         "sl": 2868.2,
-        "tp": 5206.25
+        "tp": 3656.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -7337,7 +7716,27 @@
       "is_regular": true,
       "price": 3850.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 2466.3,
+          "support": 2236.3,
+          "target": 2696.29,
+          "breakthrough_pct": 68.88,
+          "bottom1_price": 2241.2,
+          "bottom2_price": 2236.3,
+          "days_formed": 76,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7346,7 +7745,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7365,9 +7764,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 129.5,
+        "entry": 133.74,
         "sl": 132.42,
-        "tp": 161.88
+        "tp": 167.18
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -7378,7 +7777,27 @@
       },
       "price": 141.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 129.5,
+          "support": 114.5,
+          "target": 144.5,
+          "breakthrough_pct": 0.0,
+          "bottom1_price": 115.0,
+          "bottom2_price": 114.5,
+          "days_formed": 79,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -7406,9 +7825,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 139.5,
+        "entry": 133.22,
         "sl": 130.61,
-        "tp": 174.38
+        "tp": 166.53
       },
       "sector": "其他族群",
       "backtest": {
@@ -7418,7 +7837,27 @@
       "is_regular": true,
       "price": 151.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 123.5,
+          "support": 114.5,
+          "target": 132.5,
+          "breakthrough_pct": 12.96,
+          "bottom1_price": 115.5,
+          "bottom2_price": 114.5,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7448,9 +7887,9 @@
       "sector": "極限算力基建",
       "is_regular": false,
       "plan": {
-        "entry": 2335.0,
+        "entry": 2460.53,
         "sl": 2436.17,
-        "tp": 2918.75
+        "tp": 3075.66
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7463,7 +7902,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -7488,9 +7927,9 @@
       "sector": "代理型 AI 軟體",
       "is_regular": true,
       "plan": {
-        "entry": 105.0,
+        "entry": 101.59,
         "sl": 99.6,
-        "tp": 131.25
+        "tp": 126.99
       },
       "backtest": {
         "win_rate": 45.0,
@@ -7498,7 +7937,38 @@
       },
       "price": 114.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 99.0,
+          "support": 93.0,
+          "target": 105.0,
+          "breakthrough_pct": 6.06,
+          "bottom1_price": 93.0,
+          "bottom2_price": 93.7,
+          "days_formed": 47,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 102.0,
+          "support": 93.0,
+          "target": 111.0,
+          "avg_bottom": 93.73,
+          "days_formed": 47,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -7526,9 +7996,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 488.0,
+        "entry": 444.96,
         "sl": 436.24,
-        "tp": 610.0
+        "tp": 556.2
       },
       "sector": "其他族群",
       "backtest": {
@@ -7538,7 +8008,27 @@
       "is_regular": true,
       "price": 507.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 389.5,
+          "support": 370.0,
+          "target": 409.0,
+          "breakthrough_pct": 25.29,
+          "bottom1_price": 371.0,
+          "bottom2_price": 370.0,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7583,7 +8073,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -7608,9 +8098,9 @@
       "sector": "高階 PCB",
       "is_regular": true,
       "plan": {
-        "entry": 854.0,
+        "entry": 782.91,
         "sl": 767.56,
-        "tp": 1067.5
+        "tp": 978.64
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7646,9 +8136,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 484.0,
+        "entry": 450.39,
         "sl": 441.56,
-        "tp": 605.0
+        "tp": 562.99
       },
       "sector": "其他族群",
       "backtest": {
@@ -7686,9 +8176,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 119.0,
+        "entry": 114.05,
         "sl": 111.81,
-        "tp": 148.75
+        "tp": 142.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -7698,7 +8188,38 @@
       "is_regular": true,
       "price": 115.5,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 110.0,
+          "support": 109.0,
+          "target": 111.0,
+          "breakthrough_pct": 8.18,
+          "bottom1_price": 109.0,
+          "bottom2_price": 110.0,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 113.5,
+          "support": 109.0,
+          "target": 118.0,
+          "avg_bottom": 109.67,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -7707,7 +8228,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7728,9 +8249,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 2165.0,
+        "entry": 2414.15,
         "sl": 2390.25,
-        "tp": 2706.25
+        "tp": 3017.69
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7743,7 +8264,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -7768,9 +8289,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 843.0,
+        "entry": 1051.49,
         "sl": 1041.08,
-        "tp": 1053.75
+        "tp": 1314.36
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7783,7 +8304,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -7808,9 +8329,9 @@
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 847.0,
+        "entry": 683.6,
         "sl": 670.2,
-        "tp": 1058.75
+        "tp": 854.5
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7848,9 +8369,9 @@
       "sector": "高階 PCB",
       "is_regular": true,
       "plan": {
-        "entry": 619.0,
+        "entry": 508.5,
         "sl": 498.53,
-        "tp": 773.75
+        "tp": 635.62
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7868,7 +8389,7 @@
       },
       "chips": {
         "foreign_buy": false,
-        "margin_surge": false
+        "margin_surge": true
       },
       "price_source": "Yahoo",
       "gap_up": false,
@@ -7886,9 +8407,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 152.5,
+        "entry": 144.76,
         "sl": 141.92,
-        "tp": 190.62
+        "tp": 180.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -7898,7 +8419,27 @@
       "is_regular": true,
       "price": 191.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 135.0,
+          "support": 125.0,
+          "target": 145.0,
+          "breakthrough_pct": 12.96,
+          "bottom1_price": 125.0,
+          "bottom2_price": 125.5,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -7928,9 +8469,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 394.5,
+        "entry": 416.99,
         "sl": 412.86,
-        "tp": 493.12
+        "tp": 521.24
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7968,9 +8509,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 998.0,
+        "entry": 1058.93,
         "sl": 1048.45,
-        "tp": 1247.5
+        "tp": 1323.66
       },
       "backtest": {
         "win_rate": 65.0,
@@ -7978,7 +8519,25 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 1215.0,
+          "support": 879.0,
+          "target": 1551.0,
+          "avg_bottom": 904.0,
+          "days_formed": 66,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -8008,9 +8567,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 728.0,
+        "entry": 792.11,
         "sl": 784.27,
-        "tp": 910.0
+        "tp": 990.14
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8023,7 +8582,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8048,9 +8607,9 @@
       "sector": "矽光子 (CPO)",
       "is_regular": true,
       "plan": {
-        "entry": 4105.0,
+        "entry": 3942.38,
         "sl": 3865.08,
-        "tp": 5131.25
+        "tp": 4927.98
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8058,12 +8617,46 @@
       },
       "price": 4535.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 2633.0,
+          "support": 2155.18,
+          "target": 3110.83,
+          "breakthrough_pct": 55.91,
+          "bottom1_price": 2180.07,
+          "bottom2_price": 2155.18,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 5704.01,
+          "a_bottom": 4444.75,
+          "b_top": 5285.92,
+          "a_drop_pct": 22.1,
+          "b_rebound_pct": 66.8,
+          "estimated_c_bottom": 4355.86,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 24,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底突破",
+            "⚠️C波下跌中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8086,9 +8679,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 46.95,
+        "entry": 33.56,
         "sl": 32.9,
-        "tp": 58.69
+        "tp": 41.95
       },
       "sector": "先進封裝與基板",
       "backtest": {
@@ -8098,7 +8691,27 @@
       "is_regular": true,
       "price": 56.2,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 26.98,
+          "support": 22.87,
+          "target": 31.08,
+          "breakthrough_pct": 74.04,
+          "bottom1_price": 23.31,
+          "bottom2_price": 22.87,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -8128,9 +8741,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 1680.0,
+        "entry": 1731.14,
         "sl": 1714.0,
-        "tp": 2100.0
+        "tp": 2163.93
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8143,7 +8756,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8166,9 +8779,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 297.0,
+        "entry": 215.31,
         "sl": 211.09,
-        "tp": 371.25
+        "tp": 269.14
       },
       "sector": "其他族群",
       "backtest": {
@@ -8187,7 +8800,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8208,9 +8821,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 137.0,
+        "entry": 122.06,
         "sl": 119.67,
-        "tp": 171.25
+        "tp": 152.57
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8218,7 +8831,38 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 117.0,
+          "support": 107.5,
+          "target": 126.5,
+          "breakthrough_pct": 17.09,
+          "bottom1_price": 107.5,
+          "bottom2_price": 107.5,
+          "days_formed": 43,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 117.0,
+          "support": 107.5,
+          "target": 126.5,
+          "avg_bottom": 108.33,
+          "days_formed": 43,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -8246,9 +8890,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 791.0,
+        "entry": 745.52,
         "sl": 730.9,
-        "tp": 988.75
+        "tp": 931.9
       },
       "sector": "其他族群",
       "backtest": {
@@ -8263,7 +8907,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8286,9 +8930,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 268.0,
+        "entry": 249.57,
         "sl": 244.68,
-        "tp": 335.0
+        "tp": 311.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -8298,7 +8942,27 @@
       "is_regular": true,
       "price": 281.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 220.0,
+          "support": 208.5,
+          "target": 231.5,
+          "breakthrough_pct": 21.82,
+          "bottom1_price": 210.5,
+          "bottom2_price": 208.5,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -8307,7 +8971,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8326,9 +8990,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 4060.0,
+        "entry": 4017.95,
         "sl": 3939.17,
-        "tp": 5075.0
+        "tp": 5022.44
       },
       "sector": "其他族群",
       "backtest": {
@@ -8343,7 +9007,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8366,9 +9030,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 2160.0,
+        "entry": 2266.02,
         "sl": 2243.58,
-        "tp": 2700.0
+        "tp": 2832.53
       },
       "sector": "其他族群",
       "backtest": {
@@ -8378,7 +9042,28 @@
       "is_regular": false,
       "price": 2195.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 2940.0,
+          "a_bottom": 1965.0,
+          "b_top": 2385.0,
+          "a_drop_pct": 33.2,
+          "b_rebound_pct": 43.1,
+          "estimated_c_bottom": 1925.7,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 29,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -8387,7 +9072,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8406,9 +9091,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 108.5,
+        "entry": 105.9,
         "sl": 103.82,
-        "tp": 135.62
+        "tp": 132.38
       },
       "sector": "其他族群",
       "backtest": {
@@ -8423,7 +9108,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8446,9 +9131,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 544.0,
+        "entry": 488.0,
         "sl": 478.43,
-        "tp": 680.0
+        "tp": 610.0
       },
       "sector": "其他族群",
       "backtest": {
@@ -8458,7 +9143,27 @@
       "is_regular": true,
       "price": 590.0,
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 357.5,
+          "support": 320.0,
+          "target": 395.0,
+          "breakthrough_pct": 52.17,
+          "bottom1_price": 320.0,
+          "bottom2_price": 329.5,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -8486,9 +9191,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 109.0,
+        "entry": 97.94,
         "sl": 96.02,
-        "tp": 136.25
+        "tp": 122.42
       },
       "sector": "其他族群",
       "backtest": {
@@ -8498,7 +9203,38 @@
       "is_regular": true,
       "price": 99.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 94.1,
+          "support": 90.9,
+          "target": 97.3,
+          "breakthrough_pct": 15.83,
+          "bottom1_price": 90.9,
+          "bottom2_price": 91.0,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 98.2,
+          "support": 90.9,
+          "target": 105.5,
+          "avg_bottom": 92.07,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -8507,7 +9243,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8526,9 +9262,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 172.5,
+        "entry": 147.62,
         "sl": 144.73,
-        "tp": 215.62
+        "tp": 184.53
       },
       "sector": "其他族群",
       "backtest": {
@@ -8547,7 +9283,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8566,9 +9302,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 95.4,
+        "entry": 84.31,
         "sl": 82.66,
-        "tp": 119.25
+        "tp": 105.39
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -8607,9 +9343,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 529.0,
+        "entry": 369.96,
         "sl": 362.71,
-        "tp": 661.25
+        "tp": 462.45
       },
       "sector": "其他族群",
       "backtest": {
@@ -8628,7 +9364,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8659,12 +9395,32 @@
       "is_regular": true,
       "price": 173.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 152.5,
+          "support": 138.5,
+          "target": 166.5,
+          "breakthrough_pct": 6.89,
+          "bottom1_price": 142.5,
+          "bottom2_price": 138.5,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8689,9 +9445,9 @@
       "is_regular": true,
       "sect": "武當正規軍",
       "plan": {
-        "entry": 277.5,
+        "entry": 264.62,
         "sl": 259.43,
-        "tp": 346.88
+        "tp": 330.77
       },
       "sector": "其他族群",
       "backtest": {
@@ -8731,9 +9487,9 @@
       "is_regular": false,
       "sect": "武當正規軍",
       "plan": {
-        "entry": 173.5,
+        "entry": 211.15,
         "sl": 209.06,
-        "tp": 216.88
+        "tp": 263.94
       },
       "sector": "其他族群",
       "backtest": {
@@ -8743,12 +9499,33 @@
       },
       "price": 212.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 270.5,
+          "a_bottom": 201.0,
+          "b_top": 235.5,
+          "a_drop_pct": 25.7,
+          "b_rebound_pct": 49.6,
+          "estimated_c_bottom": 196.98,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 23,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8773,9 +9550,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 473.0,
+        "entry": 549.42,
         "sl": 543.98,
-        "tp": 591.25
+        "tp": 686.77
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8783,12 +9560,32 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 427.0,
+          "support": 341.5,
+          "target": 512.5,
+          "breakthrough_pct": 10.77,
+          "bottom1_price": 341.5,
+          "bottom2_price": 341.5,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8813,9 +9610,9 @@
       "is_regular": false,
       "sect": "武當正規軍",
       "plan": {
-        "entry": 530.0,
+        "entry": 615.2,
         "sl": 609.11,
-        "tp": 662.5
+        "tp": 769.0
       },
       "sector": "其他族群",
       "backtest": {
@@ -8830,7 +9627,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8855,9 +9652,9 @@
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 68.0,
+        "entry": 66.18,
         "sl": 64.88,
-        "tp": 85.0
+        "tp": 82.73
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8865,7 +9662,38 @@
       },
       "price": 70.6,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 65.0,
+          "support": 60.5,
+          "target": 69.5,
+          "breakthrough_pct": 4.62,
+          "bottom1_price": 60.5,
+          "bottom2_price": 61.7,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 67.2,
+          "support": 61.8,
+          "target": 72.6,
+          "avg_bottom": 62.63,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -8895,9 +9723,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 381.0,
+        "entry": 408.77,
         "sl": 404.72,
-        "tp": 476.25
+        "tp": 510.96
       },
       "backtest": {
         "win_rate": 65.0,
@@ -8910,7 +9738,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8950,7 +9778,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -8975,9 +9803,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 1710.0,
+        "entry": 1432.39,
         "sl": 1404.3,
-        "tp": 2137.5
+        "tp": 1790.49
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9013,9 +9841,9 @@
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 123.0,
+        "entry": 114.58,
         "sl": 112.33,
-        "tp": 153.75
+        "tp": 143.22
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -9026,7 +9854,38 @@
       },
       "price": 114.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 113.0,
+          "support": 104.5,
+          "target": 121.5,
+          "breakthrough_pct": 8.85,
+          "bottom1_price": 104.5,
+          "bottom2_price": 107.0,
+          "days_formed": 55,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 121.5,
+          "support": 104.5,
+          "target": 138.5,
+          "avg_bottom": 105.83,
+          "days_formed": 55,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9035,7 +9894,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9066,7 +9925,25 @@
       },
       "price": 48.15,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 48.3,
+          "support": 41.75,
+          "target": 54.85,
+          "avg_bottom": 42.78,
+          "days_formed": 50,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -9094,9 +9971,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 732.0,
+        "entry": 697.25,
         "sl": 683.58,
-        "tp": 915.0
+        "tp": 871.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -9134,9 +10011,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 78.7,
+        "entry": 75.83,
         "sl": 74.34,
-        "tp": 98.38
+        "tp": 94.79
       },
       "sector": "其他族群",
       "backtest": {
@@ -9146,7 +10023,27 @@
       "is_regular": true,
       "price": 89.3,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 56.1,
+          "support": 48.55,
+          "target": 63.65,
+          "breakthrough_pct": 40.29,
+          "bottom1_price": 48.55,
+          "bottom2_price": 49.95,
+          "days_formed": 78,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9174,9 +10071,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 132.0,
+        "entry": 119.97,
         "sl": 117.62,
-        "tp": 165.0
+        "tp": 149.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -9191,7 +10088,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -9216,9 +10113,9 @@
       "sector": "太空/低空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 248.0,
+        "entry": 240.72,
         "sl": 236.0,
-        "tp": 310.0
+        "tp": 300.9
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9256,9 +10153,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 266.5,
+        "entry": 291.73,
         "sl": 288.84,
-        "tp": 333.12
+        "tp": 364.66
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9266,12 +10163,33 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 348.5,
+          "a_bottom": 278.0,
+          "b_top": 319.5,
+          "a_drop_pct": 20.2,
+          "b_rebound_pct": 58.9,
+          "estimated_c_bottom": 272.44,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 36,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -9294,9 +10212,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 333.0,
+        "entry": 249.36,
         "sl": 244.47,
-        "tp": 416.25
+        "tp": 311.7
       },
       "sector": "其他族群",
       "backtest": {
@@ -9315,7 +10233,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9336,9 +10254,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 82.4,
+        "entry": 81.03,
         "sl": 79.44,
-        "tp": 103.0
+        "tp": 101.29
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9376,9 +10294,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 1475.0,
+        "entry": 1125.8,
         "sl": 1103.73,
-        "tp": 1843.75
+        "tp": 1407.25
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9416,9 +10334,9 @@
       "sector": "太空經濟",
       "is_regular": true,
       "plan": {
-        "entry": 272.5,
+        "entry": 247.02,
         "sl": 242.18,
-        "tp": 340.62
+        "tp": 308.78
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9454,9 +10372,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 395.0,
+        "entry": 329.28,
         "sl": 322.82,
-        "tp": 493.75
+        "tp": 411.6
       },
       "sector": "其他族群",
       "backtest": {
@@ -9466,7 +10384,27 @@
       "is_regular": true,
       "price": 383.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 279.0,
+          "support": 258.5,
+          "target": 299.5,
+          "breakthrough_pct": 41.58,
+          "bottom1_price": 258.5,
+          "bottom2_price": 264.0,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9494,9 +10432,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 481.0,
+        "entry": 428.14,
         "sl": 419.75,
-        "tp": 601.25
+        "tp": 535.17
       },
       "sector": "其他族群",
       "backtest": {
@@ -9536,9 +10474,9 @@
       "sector": "矽光子 (CPO)",
       "is_regular": false,
       "plan": {
-        "entry": 1820.0,
+        "entry": 2020.76,
         "sl": 2000.75,
-        "tp": 2275.0
+        "tp": 2525.95
       },
       "backtest": {
         "win_rate": 45.0,
@@ -9574,9 +10512,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 934.0,
+        "entry": 744.73,
         "sl": 730.13,
-        "tp": 1167.5
+        "tp": 930.91
       },
       "sector": "其他族群",
       "backtest": {
@@ -9586,7 +10524,27 @@
       "is_regular": true,
       "price": 902.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 660.0,
+          "support": 600.0,
+          "target": 720.0,
+          "breakthrough_pct": 41.52,
+          "bottom1_price": 600.0,
+          "bottom2_price": 606.0,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -9616,9 +10574,9 @@
       "sector": "全光化資料中心",
       "is_regular": true,
       "plan": {
-        "entry": 499.5,
+        "entry": 471.46,
         "sl": 462.22,
-        "tp": 624.38
+        "tp": 589.32
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9654,9 +10612,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 8720.0,
+        "entry": 9048.51,
         "sl": 8958.92,
-        "tp": 10900.0
+        "tp": 11310.64
       },
       "sector": "其他族群",
       "backtest": {
@@ -9672,10 +10630,10 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9694,9 +10652,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 890.0,
+        "entry": 813.58,
         "sl": 797.63,
-        "tp": 1112.5
+        "tp": 1016.98
       },
       "sector": "其他族群",
       "backtest": {
@@ -9711,7 +10669,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -9734,9 +10692,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 196.5,
+        "entry": 216.73,
         "sl": 214.58,
-        "tp": 245.62
+        "tp": 270.91
       },
       "sector": "其他族群",
       "backtest": {
@@ -9751,7 +10709,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -9776,9 +10734,9 @@
       "sector": "全光化資料中心",
       "is_regular": true,
       "plan": {
-        "entry": 4900.0,
+        "entry": 4635.9,
         "sl": 4545.0,
-        "tp": 6125.0
+        "tp": 5794.88
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9791,7 +10749,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -9814,9 +10772,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 214.0,
+        "entry": 197.14,
         "sl": 193.27,
-        "tp": 267.5
+        "tp": 246.42
       },
       "sector": "其他族群",
       "backtest": {
@@ -9826,7 +10784,27 @@
       "is_regular": true,
       "price": 240.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 176.0,
+          "support": 162.5,
+          "target": 189.5,
+          "breakthrough_pct": 21.59,
+          "bottom1_price": 164.0,
+          "bottom2_price": 162.5,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -9856,9 +10834,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 227.5,
+        "entry": 208.06,
         "sl": 203.98,
-        "tp": 284.38
+        "tp": 260.07
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9866,7 +10844,27 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 197.5,
+          "support": 182.5,
+          "target": 212.5,
+          "breakthrough_pct": 15.19,
+          "bottom1_price": 188.0,
+          "bottom2_price": 182.5,
+          "days_formed": 66,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9894,9 +10892,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 286.5,
+        "entry": 249.25,
         "sl": 244.36,
-        "tp": 358.12
+        "tp": 311.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -9936,9 +10934,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 304.0,
+        "entry": 247.04,
         "sl": 242.2,
-        "tp": 380.0
+        "tp": 308.8
       },
       "backtest": {
         "win_rate": 65.0,
@@ -9946,7 +10944,27 @@
       },
       "price": 335.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 188.0,
+          "support": 159.5,
+          "target": 216.5,
+          "breakthrough_pct": 61.7,
+          "bottom1_price": 163.0,
+          "bottom2_price": 159.5,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9976,9 +10994,9 @@
       "sector": "太空/低空經濟",
       "is_regular": false,
       "plan": {
-        "entry": 126.5,
+        "entry": 142.7,
         "sl": 141.29,
-        "tp": 158.12
+        "tp": 178.38
       },
       "backtest": {
         "win_rate": 45.0,
@@ -9991,7 +11009,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -10014,9 +11032,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 807.0,
+        "entry": 789.56,
         "sl": 774.08,
-        "tp": 1008.75
+        "tp": 986.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -10026,12 +11044,33 @@
       "is_regular": true,
       "price": 862.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 1005.0,
+          "a_bottom": 786.0,
+          "b_top": 934.0,
+          "a_drop_pct": 21.8,
+          "b_rebound_pct": 67.6,
+          "estimated_c_bottom": 770.28,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 30,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -10056,9 +11095,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 190.5,
+        "entry": 178.21,
         "sl": 174.72,
-        "tp": 238.12
+        "tp": 222.76
       },
       "backtest": {
         "win_rate": 65.0,
@@ -10066,12 +11105,32 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 159.0,
+          "support": 136.5,
+          "target": 181.5,
+          "breakthrough_pct": 19.81,
+          "bottom1_price": 136.5,
+          "bottom2_price": 137.5,
+          "days_formed": 50,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -10096,9 +11155,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 208.0,
+        "entry": 204.55,
         "sl": 200.54,
-        "tp": 260.0
+        "tp": 255.69
       },
       "backtest": {
         "win_rate": 65.0,
@@ -10106,7 +11165,27 @@
       },
       "price": 254.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 185.5,
+          "support": 165.5,
+          "target": 205.5,
+          "breakthrough_pct": 12.13,
+          "bottom1_price": 165.5,
+          "bottom2_price": 165.5,
+          "days_formed": 69,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -10134,9 +11213,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 97.1,
+        "entry": 77.89,
         "sl": 76.36,
-        "tp": 121.38
+        "tp": 97.36
       },
       "sector": "其他族群",
       "backtest": {
@@ -10155,7 +11234,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10174,9 +11253,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1440.0,
+        "entry": 1194.85,
         "sl": 1171.42,
-        "tp": 1800.0
+        "tp": 1493.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -10216,9 +11295,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 2200.0,
+        "entry": 2133.59,
         "sl": 2091.75,
-        "tp": 2750.0
+        "tp": 2666.99
       },
       "backtest": {
         "win_rate": 65.0,
@@ -10231,7 +11310,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -10256,9 +11335,9 @@
       "is_regular": true,
       "sect": "武當正規軍",
       "plan": {
-        "entry": 540.0,
+        "entry": 410.53,
         "sl": 402.48,
-        "tp": 675.0
+        "tp": 513.16
       },
       "sector": "其他族群",
       "backtest": {
@@ -10268,7 +11347,27 @@
       },
       "price": 26.48,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 273.5,
+          "support": 221.5,
+          "target": 325.5,
+          "breakthrough_pct": 97.44,
+          "bottom1_price": 225.0,
+          "bottom2_price": 221.5,
+          "days_formed": 65,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -10298,9 +11397,9 @@
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 396.0,
+        "entry": 207.73,
         "sl": 203.66,
-        "tp": 495.0
+        "tp": 259.66
       },
       "backtest": {
         "win_rate": 65.0,
@@ -10336,9 +11435,9 @@
       "vol_ratio": 1.2,
       "tactic": "空頭禁區：建議觀望",
       "plan": {
-        "entry": 75.7,
+        "entry": 71.55,
         "sl": 70.15,
-        "tp": 94.62
+        "tp": 89.44
       },
       "sector": "其他族群",
       "backtest": {
@@ -10348,7 +11447,27 @@
       "is_regular": true,
       "price": 69.8,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 71.4,
+          "support": 65.3,
+          "target": 77.5,
+          "breakthrough_pct": 6.02,
+          "bottom1_price": 67.3,
+          "bottom2_price": 65.3,
+          "days_formed": 44,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -10357,7 +11476,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10376,9 +11495,9 @@
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 41.25,
+        "entry": 38.32,
         "sl": 37.57,
-        "tp": 51.56
+        "tp": 47.9
       },
       "sector": "其他族群",
       "backtest": {
@@ -10388,7 +11507,25 @@
       "is_regular": true,
       "price": 39.35,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 38.5,
+          "support": 34.65,
+          "target": 42.35,
+          "avg_bottom": 35.83,
+          "days_formed": 42,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 4,
+          "signals": [
+            "三重底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -10406,19 +11543,25 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-06-11T10:47:19Z",
+  "last_updated": "2026-06-11T10:53:58Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 20.76
     },
     "美金/台幣": {
-      "close": 31.52
+      "close": 31.63
     },
     "TSM_ADR": {
-      "close": 429.23
+      "close": 408.75
     },
     "TSM_TW": {
-      "close": null
+      "close": 2250.0
+    },
+    "adr_premium": {
+      "close": 14.92
+    },
+    "台指VIX (波動率)": {
+      "close": 21.11
     }
   },
   "update_sources": {
