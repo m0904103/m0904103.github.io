@@ -96,9 +96,6 @@ def get_twse_prices(symbols):
             print(f"  [TWSE batch error: {e}]")
     return prices
 
-def get_taifex_oi():
-    """Fetch TAIFEX Foreign Institutional Open Interest (TX+MTX). Simulated robustly for demo."""
-    return -63168
 
 # ==========================================
 # 主同步邏輯（雙源 + 交叉驗證）
@@ -180,47 +177,6 @@ def sync_once():
             is_regular = final_price > ma60
             signal = "Strong Buy" if is_regular else "Hold"
 
-            # --- LEVEL 3 VOLUME SURGE ---
-            vol_surge = False
-            if len(df) >= 6:
-                try:
-                    vol_today = df['Volume'].iloc[-1]
-                    vol_5d_avg = df['Volume'].iloc[-6:-1].mean()
-                    # Today's volume > 2x the 5-day average, and closed green or relatively flat
-                    if vol_today > (vol_5d_avg * 2) and final_price >= prev_close:
-                        vol_surge = True
-                except Exception:
-                    pass
-
-            # --- LEVEL 2 K-LINE & GAP DETECTION ---
-            gap_up = False
-            k_pattern = None
-            if len(df) >= 2:
-                try:
-                    today = df.iloc[-1]
-                    yest = df.iloc[-2]
-                    
-                    # 1. Gap Up: Today's Low > Yesterday's High
-                    if today['Low'] > yest['High']:
-                        gap_up = True
-                    
-                    # 2. Engulfing (吞噬線)
-                    yest_is_red = yest['Close'] < yest['Open']
-                    today_is_green = today['Close'] > today['Open']
-                    engulfs = today['Open'] <= yest['Close'] and today['Close'] >= yest['Open']
-                    if yest_is_red and today_is_green and engulfs:
-                        k_pattern = "Engulfing"
-                    
-                    # 3. Harami (母子線)
-                    yest_body = abs(yest['Open'] - yest['Close'])
-                    today_body = abs(today['Open'] - today['Close'])
-                    yest_is_long_red = yest_is_red and (yest_body / yest['Open'] > 0.015) # At least 1.5% body
-                    inside_body = max(today['Open'], today['Close']) < yest['Open'] and min(today['Open'], today['Close']) > yest['Close']
-                    if yest_is_long_red and inside_body and today_body < (yest_body * 0.5):
-                        k_pattern = "Harami"
-                except Exception:
-                    pass
-
             stock_obj["close"] = final_price
             stock_obj["price_source"] = price_source
             stock_obj["ma60"] = ma60
@@ -228,9 +184,6 @@ def sync_once():
             stock_obj["signal"] = signal
             stock_obj["is_regular"] = is_regular
             stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
-            stock_obj["gap_up"] = gap_up
-            stock_obj["k_pattern"] = k_pattern
-            stock_obj["vol_surge"] = vol_surge
 
             if "plan" not in stock_obj:
                 stock_obj["plan"] = {}
@@ -251,40 +204,17 @@ def sync_once():
             print(alert)
         print()
 
-    # Re-assemble data
+    # Save + timestamp
     data['stocks'] = list(existing_stocks.values())
-    
-    # Update Indices dynamically
-    indices = data.get('indices', {})
-    try:
-        vix_df = yf.Ticker('^VIX').history(period='1d')
-        if not vix_df.empty:
-            indices['US VIX (恐慌)'] = {'close': round(float(vix_df['Close'].iloc[-1]), 2)}
-    except Exception as e:
-        print(f"  [Indices] Failed to update US VIX: {e}")
-    data['indices'] = indices
-    
-    data['taifex_oi'] = get_taifex_oi()
-    data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
+    data['last_updated'] = datetime.now().strftime('%Y-%m-%d %H:%M')
+    data['update_sources'] = {
+        "tw": "TWSE (official)" if is_tw_trading_hours() else "Yahoo Finance",
+        "us": "Yahoo Finance"
+    }
+    data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol', '')))
 
-    # Sort stocks: US first, then Taiwan
-    data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))
-
-    def clean_nans(obj):
-        if isinstance(obj, dict):
-            return {k: clean_nans(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
-            return [clean_nans(v) for v in obj]
-        elif isinstance(obj, float):
-            if math.isnan(obj) or math.isinf(obj):
-                return None
-        return obj
-        
-    data = clean_nans(data)
-
-    # Save to file
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, allow_nan=False)
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
     print(f"  Updated {updated_count}/{len(all_symbols)} stocks.")
     return True

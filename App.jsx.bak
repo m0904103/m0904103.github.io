@@ -24,7 +24,6 @@ const RENDER_API_URL = "https://m0904103-github-io.onrender.com";
 function App() {
   const [stocks, setStocks] = useState({ tw: [], us: [] });
   const [indices, setIndices] = useState({});
-  const [taifexOi, setTaifexOi] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedStock, setSelectedStock] = useState(null);
   const [historyData, setHistoryData] = useState([]);
@@ -87,9 +86,9 @@ function App() {
         const us = stockData.stocks.filter(s => s.market === 'us');
         stockData = { tw, us, indices: stockData.indices };
       }
+
       setStocks(stockData || { tw: [], us: [] });
       setIndices(stockData?.indices || {});
-      setTaifexOi(scanRes.data.taifex_oi || 0);
       setLastUpdated(new Date());
       setSystemStatus("online");
     } catch (error) {
@@ -143,27 +142,8 @@ function App() {
     let wisdom = "大格局看大勢，耐心等待屬於您的擊球區。";
     if (twVix > 35) wisdom = "【極端預警】台指 VIX 突破 38，這是一場生存遊戲。嚴格執行 70% 現金水位，保護救命錢。";
 
-    // TAIFEX Alert Logic
-    let taifexAlertText = "🟢 大盤籌碼穩定";
-    let taifexAlertClass = "bg-green-600/20 text-green-400 border-green-500/30";
-    if (taifexOi < -30000) {
-      taifexAlertText = "🔴 【極度警戒】外資空單突破 3 萬口！切勿追高！";
-      taifexAlertClass = "bg-red-600/30 text-red-400 border-red-500/50 animate-pulse";
-    } else if (taifexOi < -15000) {
-      taifexAlertText = "🟡 【注意】外資持續佈局空單";
-      taifexAlertClass = "bg-yellow-600/20 text-yellow-400 border-yellow-500/30";
-    }
-
     return (
       <div className="space-y-4 mb-6">
-        {/* Level 3: TAIFEX Weather Radar Banner */}
-        <div className={`w-full py-2 px-4 rounded-xl border flex items-center justify-between font-black text-sm transition-all shadow-lg ${taifexAlertClass}`}>
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={18} />
-            <span>阿村伯期貨防護罩：外資台指期未平倉空單</span>
-          </div>
-          <div className="text-xl">{taifexOi.toLocaleString()} 口</div>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="glass rounded-2xl p-4 border-l-4 border-l-blue-400">
             <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">美國 VIX (恐慌)</span>
@@ -314,13 +294,6 @@ function App() {
                             {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
                           </div>
                         )}
-                        {/* Level 2 & 3: Gap, K-Line, and Volume Surge Badges */}
-                        <div className="flex flex-wrap gap-1 mt-1">
-                          {stock.vol_surge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30 tracking-widest font-bold">🌊 爆量突破</span>}
-                          {stock.gap_up && <span className="text-[9px] px-1.5 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 tracking-widest font-bold">🚀 向上缺口</span>}
-                          {stock.k_pattern === 'Engulfing' && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30 tracking-widest font-bold">🔄 吞噬反轉</span>}
-                          {stock.k_pattern === 'Harami' && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 tracking-widest font-bold">🤰 母子醞釀</span>}
-                        </div>
                         {/* Pattern badges for all markets */}
                         {(() => {
                           const p = stock.patterns || {};
