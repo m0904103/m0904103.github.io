@@ -1,0 +1,43 @@
+name: Daily AI Strategy Briefing
+
+on:
+  schedule:
+    # 台灣時間 08:00 (UTC 00:00) 盤前
+    - cron: '0 0 * * 1-5'
+    # 台灣時間 20:00 (UTC 12:00) 美股盤前
+    - cron: '0 12 * * 1-5'
+  workflow_dispatch: # 允許手動觸發
+
+jobs:
+  generate-brief:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 允許 push 回 repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install google-genai requests beautifulsoup4
+
+      - name: Generate Daily Brief
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/generate_daily_brief.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add daily-brief/index.html
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-generated daily strategy brief [skip ci]" && git push)
