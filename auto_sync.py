@@ -98,7 +98,7 @@ def get_twse_prices(symbols):
 
 def get_taifex_oi():
     """Fetch TAIFEX Foreign Institutional Open Interest (TX+MTX). Simulated robustly for demo."""
-    return -63168
+    return -66734
 
 # ==========================================
 # 主同步邏輯（雙源 + 交叉驗證）
@@ -262,6 +262,13 @@ def sync_once():
             indices['US VIX (恐慌)'] = {'close': round(float(vix_df['Close'].iloc[-1]), 2)}
     except Exception as e:
         print(f"  [Indices] Failed to update US VIX: {e}")
+        
+    # Hardcode latest 0615 market data from image
+    indices['台指VIX (波動率)'] = {'close': 39.97}
+    indices['小台散戶多空比'] = {'close': 35.68}
+    indices['微台散戶多空比'] = {'close': 25.18}
+    indices['全市場Put/Call Ratio'] = {'close': 172.00}
+    
     data['indices'] = indices
     
     data['taifex_oi'] = get_taifex_oi()

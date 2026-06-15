@@ -131,8 +131,12 @@ function App() {
 
   const renderWeatherStation = () => {
     const usVix = indices["US VIX (恐慌)"]?.close || 15;
-    const twVix = indices["台指VIX (波動率)"]?.close || 35.87;
+    const twVix = indices["台指VIX (波動率)"]?.close || 39.97;
     const adr = indices.adr_premium?.close || 0;
+    const retailSmall = indices["小台散戶多空比"]?.close || 0;
+    const retailMicro = indices["微台散戶多空比"]?.close || 0;
+    const putCall = indices["全市場Put/Call Ratio"]?.close || 0;
+    
     let suggestedCash = indices.suggested_cash || 30;
     
     // Dynamic Cash Suggestion based on max VIX
@@ -164,7 +168,7 @@ function App() {
           </div>
           <div className="text-xl">{taifexOi.toLocaleString()} 口</div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="glass rounded-2xl p-4 border-l-4 border-l-blue-400">
             <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">美國 VIX (恐慌)</span>
             <div className="text-2xl font-black mt-1 flex items-center text-blue-400">
@@ -174,16 +178,16 @@ function App() {
           <div className={`glass rounded-2xl p-4 border-l-4 ${twVix > 35 ? 'border-l-purple-600 bg-purple-600/5' : 'border-l-red-500'}`}>
             <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">台指 VIX (波動率)</span>
             <div className="text-2xl font-black mt-1 flex items-center text-purple-500">
-               {twVix} <span className="ml-2 text-[10px] font-bold text-red-500">極端恐慌</span>
+               {twVix} {twVix > 35 && <span className="ml-2 text-[10px] font-bold text-red-500">極端恐慌</span>}
             </div>
           </div>
-          <div className="glass rounded-2xl p-4 border-l-4 border-l-green-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">建議現金水位</span>
-            <div className="text-2xl font-black mt-1 text-green-400">{suggestedCash}%</div>
+          <div className="glass rounded-2xl p-4 border-l-4 border-l-cyan-500">
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">散戶小台多空比</span>
+            <div className="text-2xl font-black mt-1 text-cyan-400">+{retailSmall}%</div>
           </div>
-          <div className="glass rounded-2xl p-4 border-l-4 border-l-red-500">
-            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">TSM ADR 溢價</span>
-            <div className="text-2xl font-black mt-1 text-red-400">{adr}%</div>
+          <div className="glass rounded-2xl p-4 border-l-4 border-l-orange-500">
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">全市場 P/C Ratio</span>
+            <div className="text-2xl font-black mt-1 text-orange-400">{putCall}%</div>
           </div>
         </div>
         <div className="bg-white/5 p-4 rounded-2xl border border-white/10 italic text-sm text-gray-300">
