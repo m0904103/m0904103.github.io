@@ -311,7 +311,7 @@ function App() {
                       <div className="flex flex-col">
                         <div className="font-black flex items-center gap-2">
                           <span>{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
-                          {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30 tracking-widest">🌱 ESG護城河</span>}
+                          {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-esg-gold/20 text-esg-gold border border-esg-gold/30 tracking-widest">🌱 ESG護城河</span>}
                         </div>
                         {activeMarket === 'tw' && (
                           <div className="flex flex-wrap gap-1 mt-1">
@@ -356,7 +356,7 @@ function App() {
                     <div>
                       <div className="flex items-center gap-3">
                         <h2 className="text-3xl font-black tracking-tighter">{selectedStock.symbol.replace(/\.TWO?$/, '')} {selectedStock.name}</h2>
-                        {selectedStock.esg_elite && <span className="px-2 py-1 rounded text-xs font-black bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30 tracking-widest">🌱 ESG護城河</span>}
+                        {selectedStock.esg_elite && <span className="px-2 py-1 rounded text-xs font-black bg-esg-gold/20 text-esg-gold border border-esg-gold/30 tracking-widest">🌱 ESG護城河</span>}
                       </div>
                       <p className="text-sm text-gray-400 font-bold mt-1">{selectedStock.tactic}</p>
                     </div>

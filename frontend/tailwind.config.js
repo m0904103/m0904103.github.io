@@ -11,6 +11,7 @@ export default {
         'financial-red': '#EF4444',
         'dark-bg': '#0B0E11',
         'dark-card': '#1E2329',
+        'esg-gold': '#D4AF37',
       },
       backgroundImage: {
         'radial-gradient': 'radial-gradient(circle at top right, #1e1b4b, #0B0E11)',
