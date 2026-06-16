@@ -252,7 +252,12 @@ def sync_data():
 
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
-    data['indices'] = indices_results
+    
+    # Merge indices instead of overwriting to preserve manually injected data
+    existing_indices = data.get('indices', {})
+    existing_indices.update(indices_results)
+    data['indices'] = existing_indices
+    
     data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
     
     # Sort stocks: US first, then TW

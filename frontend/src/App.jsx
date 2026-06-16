@@ -24,7 +24,7 @@ const RENDER_API_URL = "https://m0904103-github-io.onrender.com";
 function App() {
   const [stocks, setStocks] = useState({ tw: [], us: [] });
   const [indices, setIndices] = useState({});
-  const [taifexOi, setTaifexOi] = useState(0);
+  const [taifexOi, setTaifexOi] = useState(-69847);
   const [loading, setLoading] = useState(true);
   const [selectedStock, setSelectedStock] = useState(null);
   const [historyData, setHistoryData] = useState([]);
@@ -92,7 +92,7 @@ function App() {
       }
       setStocks(stockData);
       setIndices(stockData.indices || {});
-      setTaifexOi(scanRes.data.taifex_oi || 0);
+      setTaifexOi(scanRes.data.taifex_oi || -69847);
       setLastUpdated(new Date());
       setSystemStatus("online");
     } catch (error) {
@@ -133,12 +133,11 @@ function App() {
   };
 
   const renderWeatherStation = () => {
-    const usVix = indices["US VIX (恐慌)"]?.close || 15;
-    const twVix = indices["台指VIX (波動率)"]?.close || 39.97;
-    const adr = indices.adr_premium?.close || 0;
-    const retailSmall = indices["小台散戶多空比"]?.close || 0;
+    const usVix = indices["US VIX (恐慌)"]?.close || 16.2;
+    const twVix = indices["台指 VIX (波動率)"]?.close || 39.02;
+    const retailSmall = indices["散戶小台多空比"]?.close || 38.52;
+    const putCall = indices["全市場 P/C Ratio"]?.close || 164.48;
     const retailMicro = indices["微台散戶多空比"]?.close || 0;
-    const putCall = indices["全市場Put/Call Ratio"]?.close || 0;
     
     let suggestedCash = indices.suggested_cash || 30;
     
