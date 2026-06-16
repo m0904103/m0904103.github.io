@@ -82,13 +82,16 @@ function App() {
         const displayStr = dataTime.toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
         setDataLastUpdatedStr(displayStr);
       }
-      if (stockData.stocks) {
+      if (stockData && stockData.stocks) {
         const tw = stockData.stocks.filter(s => s.market === 'tw');
         const us = stockData.stocks.filter(s => s.market === 'us');
         stockData = { tw, us, indices: stockData.indices };
+      } else if (!stockData || !stockData.tw) {
+        // Fallback to prevent TypeError in render if data is corrupted
+        stockData = { tw: [], us: [], indices: {} };
       }
-      setStocks(stockData || { tw: [], us: [] });
-      setIndices(stockData?.indices || {});
+      setStocks(stockData);
+      setIndices(stockData.indices || {});
       setTaifexOi(scanRes.data.taifex_oi || 0);
       setLastUpdated(new Date());
       setSystemStatus("online");

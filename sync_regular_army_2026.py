@@ -2,6 +2,8 @@ import json
 import os
 import yfinance as yf
 from datetime import datetime, timezone
+import math
+import pandas as pd
 import sys
 from esg_list import ESG_ELITE_STOCKS
 from pattern_detector import analyze_patterns
@@ -255,6 +257,17 @@ def sync_data():
     
     # Sort stocks: US first, then TW
     data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))
+
+    def clean_nans(obj):
+        if isinstance(obj, dict):
+            return {k: clean_nans(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [clean_nans(i) for i in obj]
+        elif isinstance(obj, float) and math.isnan(obj):
+            return None
+        return obj
+
+    data = clean_nans(data)
 
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)

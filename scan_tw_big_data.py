@@ -2,6 +2,7 @@ import json
 import os
 import yfinance as yf
 import pandas as pd
+import math
 from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
@@ -131,6 +132,17 @@ def run_scan():
         
         updated_count += 1
         print(" [OK]")
+
+    def clean_nans(obj):
+        if isinstance(obj, dict):
+            return {k: clean_nans(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [clean_nans(i) for i in obj]
+        elif isinstance(obj, float) and math.isnan(obj):
+            return None
+        return obj
+
+    data = clean_nans(data)
 
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
