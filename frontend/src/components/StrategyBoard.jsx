@@ -1,16 +1,19 @@
 import React from 'react';
-import { Thermometer, Zap, PlugZap, BrainCircuit, Bot, Layers, ShieldCheck, Cpu } from 'lucide-react';
+import { Thermometer, Zap, PlugZap, BrainCircuit, Bot, Layers, ShieldCheck, Cpu, Satellite, Lock, FlaskConical } from 'lucide-react';
 
 const StrategyBoard = ({ onSelectStock, stocks }) => {
-  const sectors = [
-    { name: "極限算力基建", change: "+12.4%", count: 5, icon: <Thermometer size={16} />, color: "text-red-500", bg: "bg-red-500/10", border: "border-red-500/20", symbols: ["NVDA", "VRT", "3017", "2308", "3324"] },
-    { name: "矽光子／CPO", change: "+8.7%", count: 6, icon: <Zap size={16} />, color: "text-yellow-500", bg: "bg-yellow-500/10", border: "border-yellow-500/20", symbols: ["AVGO", "MRVL", "2330", "6451", "3081", "6669"] },
-    { name: "核能與智慧電網", change: "+5.2%", count: 6, icon: <PlugZap size={16} />, color: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/20", symbols: ["CEG", "VST", "GEV", "1519", "1513", "1503"] },
-    { name: "代理型 AI 軟體", change: "+15.1%", count: 6, icon: <BrainCircuit size={16} />, color: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/20", symbols: ["PLTR", "PATH", "APP", "6811", "3029", "6112"] },
-    { name: "實體 AI 機器人", change: "+18.3%", count: 5, icon: <Bot size={16} />, color: "text-orange-500", bg: "bg-orange-500/10", border: "border-orange-500/20", symbols: ["TSLA", "ARM", "2359", "2049", "8069"] },
-    { name: "先進封裝與基板", change: "+9.5%", count: 5, icon: <Layers size={16} />, color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20", symbols: ["ASML", "AMAT", "3481", "5234", "8028"] },
-    { name: "主權 AI 與網安", change: "+6.8%", count: 5, icon: <ShieldCheck size={16} />, color: "text-teal-400", bg: "bg-teal-400/10", border: "border-teal-400/20", symbols: ["CRWD", "PANW", "3558", "6245", "8114"] },
-    { name: "邊緣 AI 與終端", change: "+4.1%", count: 5, icon: <Cpu size={16} />, color: "text-indigo-400", bg: "bg-indigo-400/10", border: "border-indigo-400/20", symbols: ["QCOM", "AAPL", "2454", "2317", "2382"] }
+  const baseSectors = [
+    { name: "極限算力基建", rating: "🔥 超熱", count: 5, icon: <Thermometer size={16} />, color: "text-orange-500", bg: "bg-orange-500/10", border: "border-orange-500/20", symbols: ["NVDA", "VRT", "3017", "2308", "3324"] },
+    { name: "矽光子/CPO", rating: "🔥 超熱", count: 6, icon: <Zap size={16} />, color: "text-orange-400", bg: "bg-orange-400/10", border: "border-orange-400/20", symbols: ["AVGO", "MRVL", "2330", "6451", "3081", "6669"] },
+    { name: "核能與智慧電網", rating: "🔥 超熱", count: 6, icon: <PlugZap size={16} />, color: "text-orange-600", bg: "bg-orange-600/10", border: "border-orange-600/20", symbols: ["CEG", "VST", "GEV", "1519", "1513", "1503"] },
+    { name: "先進封裝與基板", rating: "🟢 升溫", count: 5, icon: <Layers size={16} />, color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20", symbols: ["ASML", "AMAT", "3481", "5234", "8028"] },
+    { name: "邊緣 AI 與終端", rating: "🟢 升溫", count: 5, icon: <Cpu size={16} />, color: "text-emerald-400", bg: "bg-emerald-400/10", border: "border-emerald-400/20", symbols: ["QCOM", "AAPL", "2454", "2317", "2382"] },
+    { name: "空間計算與低軌衛星", rating: "🟢 升溫", count: 5, icon: <Satellite size={16} />, color: "text-emerald-600", bg: "bg-emerald-600/10", border: "border-emerald-600/20", symbols: ["ASTS", "RKLB", "6285", "3491", "2313"] },
+    { name: "代理型 AI 軟體", rating: "🟡 持平", count: 6, icon: <BrainCircuit size={16} />, color: "text-yellow-500", bg: "bg-yellow-500/10", border: "border-yellow-500/20", symbols: ["PLTR", "PATH", "NOW", "6811", "3029", "6112"] },
+    { name: "量子計算與密碼學", rating: "🟡 持平", count: 5, icon: <Lock size={16} />, color: "text-yellow-400", bg: "bg-yellow-400/10", border: "border-yellow-400/20", symbols: ["IONQ", "IBM", "GOOGL", "3045", "2412"] },
+    { name: "生物AI與精準醫療", rating: "🟡 持平", count: 5, icon: <FlaskConical size={16} />, color: "text-yellow-600", bg: "bg-yellow-600/10", border: "border-yellow-600/20", symbols: ["VEEV", "LLY", "NVO", "2382", "2409"] },
+    { name: "主權 AI 與網安", rating: "🔴 降溫", count: 5, icon: <ShieldCheck size={16} />, color: "text-gray-400", bg: "bg-gray-400/10", border: "border-gray-400/20", symbols: ["CRWD", "PANW", "3558", "6245", "8114"] },
+    { name: "實體 AI 機器人", rating: "🔴 降溫", count: 5, icon: <Bot size={16} />, color: "text-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/20", symbols: ["TSLA", "ARM", "2359", "2049", "2357"] }
   ];
 
   const findStockBySymbol = (symbol) => {
@@ -23,6 +26,21 @@ const StrategyBoard = ({ onSelectStock, stocks }) => {
     );
   };
 
+  // Calculate dynamic changes
+  const sectors = baseSectors.map(sector => {
+    let totalChange = 0;
+    let foundCount = 0;
+    sector.symbols.forEach(sym => {
+      const stock = findStockBySymbol(sym);
+      if (stock && stock.change !== undefined) {
+        totalChange += stock.change;
+        foundCount++;
+      }
+    });
+    const avgChange = foundCount > 0 ? (totalChange / foundCount) : 0;
+    return { ...sector, avgChange };
+  });
+
   return (
     <div className="mb-8">
       <div className="flex items-center space-x-3 mb-4">
@@ -31,7 +49,7 @@ const StrategyBoard = ({ onSelectStock, stocks }) => {
         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded-md">Real-time Analysis</span>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {sectors.map((sector, idx) => (
           <div key={idx} className={`glass rounded-2xl p-4 border ${sector.border} flex flex-col justify-between hover:scale-[1.02] transition-all group`}>
             <div className="flex justify-between items-start mb-3">
@@ -39,8 +57,11 @@ const StrategyBoard = ({ onSelectStock, stocks }) => {
                 {sector.icon}
               </div>
               <div className="flex flex-col items-end">
-                <span className={`text-sm font-black ${sector.color}`}>{sector.change}</span>
-                <span className="text-[8px] text-gray-500 font-bold uppercase">{sector.count} 檔成份股</span>
+                <span className={`text-sm font-black ${sector.color}`}>{sector.rating}</span>
+                <span className={`text-xs font-bold ${sector.avgChange > 0 ? 'text-red-400' : 'text-emerald-400'}`}>
+                  {sector.avgChange > 0 ? '+' : ''}{sector.avgChange.toFixed(1)}%
+                </span>
+                <span className="text-[8px] text-gray-500 font-bold uppercase mt-1">{sector.count} 檔成份股</span>
               </div>
             </div>
             
@@ -56,7 +77,7 @@ const StrategyBoard = ({ onSelectStock, stocks }) => {
                       className={`px-2 py-1 rounded-lg text-[9px] font-black transition-all ${
                         stock 
                           ? 'bg-white/5 text-gray-300 hover:bg-red-500 hover:text-white cursor-pointer' 
-                          : 'bg-gray-900/50 text-gray-700 cursor-not-allowed'
+                          : 'bg-gray-900/50 text-gray-700 cursor-not-allowed border border-red-500/30'
                       }`}
                     >
                       {sym} {stock?.name || "???"}
