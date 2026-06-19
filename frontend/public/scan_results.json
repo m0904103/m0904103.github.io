@@ -431,7 +431,7 @@
       "change": -5.58,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "太空/低空經濟",
+      "sector": "空間計算與低軌衛星",
       "is_regular": false,
       "plan": {
         "entry": 89.23,
@@ -460,7 +460,7 @@
       "change": 4.7,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "is_regular": true,
       "plan": {
         "entry": 403.62,
@@ -1834,7 +1834,7 @@
     },
     {
       "symbol": "GOOGL",
-      "name": "谷歌",
+      "name": "Alphabet",
       "signal": "Strong Buy",
       "close": 368.03,
       "ma60": 354.69,
@@ -1842,7 +1842,7 @@
       "change": 1.17,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "AI 軟體/雲端",
+      "sector": "量子計算與密碼學",
       "is_regular": true,
       "plan": {
         "entry": 361.78,
@@ -1978,6 +1978,30 @@
       "vol_surge": false
     },
     {
+      "symbol": "IBM",
+      "name": "IBM",
+      "sector": "量子計算與密碼學",
+      "signal": "Strong Buy",
+      "close": 249.1,
+      "ma60": 248.28,
+      "market": "us",
+      "change": -5.05,
+      "is_regular": true,
+      "esg_elite": true,
+      "patterns": {},
+      "vol_ratio": 1.5,
+      "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
+      "plan": {
+        "entry": 249.1,
+        "sl": 248.28,
+        "tp": 311.38
+      },
+      "backtest": {
+        "win_rate": 65.0,
+        "total_return": 25.4
+      }
+    },
+    {
       "symbol": "INTC",
       "name": "英特爾",
       "signal": "Strong Buy",
@@ -2005,6 +2029,30 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ",
+      "sector": "量子計算與密碼學",
+      "signal": "Strong Buy",
+      "close": 56.55,
+      "ma60": 48.5,
+      "market": "us",
+      "change": 3.4,
+      "is_regular": true,
+      "esg_elite": false,
+      "patterns": {},
+      "vol_ratio": 1.5,
+      "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
+      "plan": {
+        "entry": 49.47,
+        "sl": 48.5,
+        "tp": 61.84
+      },
+      "backtest": {
+        "win_rate": 65.0,
+        "total_return": 25.4
+      }
     },
     {
       "symbol": "IWM",
@@ -2290,7 +2338,7 @@
         "sl": 994.94,
         "tp": 1268.55
       },
-      "sector": "其他族群",
+      "sector": "生物AI與精準醫療",
       "backtest": {
         "win_rate": 18.2,
         "total_return": -14.8
@@ -2610,7 +2658,7 @@
         "sl": 182.03,
         "tp": 232.09
       },
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "backtest": {
         "win_rate": 35.7,
         "total_return": 134.2
@@ -2790,6 +2838,61 @@
       "vol_surge": false
     },
     {
+      "symbol": "NOW",
+      "name": "ServiceNow",
+      "sector": "代理型 AI 軟體",
+      "signal": "Hold",
+      "close": 95.04,
+      "ma60": 99.74,
+      "market": "us",
+      "change": -0.46,
+      "is_regular": false,
+      "esg_elite": true,
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 93.59,
+          "support": 84.78,
+          "target": 102.4,
+          "breakthrough_pct": 1.55,
+          "bottom1_price": 84.78,
+          "bottom2_price": 87.05,
+          "days_formed": 40,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 103.07,
+          "support": 83.0,
+          "target": 123.14,
+          "avg_bottom": 84.94,
+          "days_formed": 49,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
+      "vol_ratio": 1.5,
+      "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
+      "plan": {
+        "entry": 100.74,
+        "sl": 99.74,
+        "tp": 125.92
+      },
+      "backtest": {
+        "win_rate": 45.0,
+        "total_return": -5.2
+      }
+    },
+    {
       "symbol": "NSC",
       "name": "諾福克南方",
       "signal": "Hold",
@@ -2911,7 +3014,7 @@
         "sl": 41.8,
         "tp": 53.3
       },
-      "sector": "其他族群",
+      "sector": "生物AI與精準醫療",
       "backtest": {
         "win_rate": 6.2,
         "total_return": -33.5
@@ -3462,7 +3565,7 @@
       "change": -0.69,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "太空/低空經濟",
+      "sector": "空間計算與低軌衛星",
       "is_regular": true,
       "plan": {
         "entry": 99.5,
@@ -4123,6 +4226,30 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
+    },
+    {
+      "symbol": "VEEV",
+      "name": "Veeva Systems",
+      "sector": "生物AI與精準醫療",
+      "signal": "Hold",
+      "close": 153.3,
+      "ma60": 165.78,
+      "market": "us",
+      "change": -1.0,
+      "is_regular": false,
+      "esg_elite": false,
+      "patterns": {},
+      "vol_ratio": 1.5,
+      "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
+      "plan": {
+        "entry": 167.44,
+        "sl": 165.78,
+        "tp": 209.3
+      },
+      "backtest": {
+        "win_rate": 45.0,
+        "total_return": -5.2
+      }
     },
     {
       "symbol": "VGT",
@@ -5526,7 +5653,7 @@
       "change": -1.7,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "太空/低空經濟",
+      "sector": "空間計算與低軌衛星",
       "is_regular": true,
       "plan": {
         "entry": 259.5,
@@ -5707,7 +5834,7 @@
       "change": 1.05,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "is_regular": true,
       "plan": {
         "entry": 2202.56,
@@ -6149,7 +6276,7 @@
       "change": -1.74,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "AI 軟體/雲端",
+      "sector": "實體 AI 機器人",
       "is_regular": true,
       "plan": {
         "entry": 680.26,
@@ -6409,7 +6536,7 @@
       "change": 0.53,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "邊緣 AI 與終端",
+      "sector": "生物AI與精準醫療",
       "is_regular": true,
       "plan": {
         "entry": 336.63,
@@ -6614,7 +6741,7 @@
         "sl": 20.08,
         "tp": 25.6
       },
-      "sector": "其他族群",
+      "sector": "生物AI與精準醫療",
       "backtest": {
         "win_rate": 30.0,
         "total_return": 27.1
@@ -6654,7 +6781,7 @@
         "sl": 137.67,
         "tp": 175.52
       },
-      "sector": "其他族群",
+      "sector": "量子計算與密碼學",
       "backtest": {
         "win_rate": 26.3,
         "total_return": 1.1
@@ -8298,7 +8425,7 @@
         "sl": 112.65,
         "tp": 143.62
       },
-      "sector": "其他族群",
+      "sector": "量子計算與密碼學",
       "backtest": {
         "win_rate": 14.3,
         "total_return": -11.3
@@ -8346,7 +8473,7 @@
     {
       "symbol": "3081.TWO",
       "name": "聯亞",
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "signal": "Hold",
       "close": 2440.0,
       "ma60": 2457.67,
@@ -8851,7 +8978,7 @@
     {
       "symbol": "3491.TWO",
       "name": "昇達科",
-      "sector": "太空/低空經濟",
+      "sector": "空間計算與低軌衛星",
       "signal": "Hold",
       "close": 1560.0,
       "ma60": 1728.58,
@@ -10505,7 +10632,7 @@
       "change": 1.29,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "太空經濟",
+      "sector": "空間計算與低軌衛星",
       "is_regular": true,
       "plan": {
         "entry": 255.39,
@@ -10763,7 +10890,7 @@
       "change": 3.31,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "is_regular": true,
       "plan": {
         "entry": 493.77,
@@ -10923,7 +11050,7 @@
       "change": 0.98,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "全光化資料中心",
+      "sector": "矽光子/CPO",
       "is_regular": false,
       "plan": {
         "entry": 4298.09,
@@ -11715,10 +11842,10 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-06-19T10:54:19Z",
+  "last_updated": "2026-06-19T12:30:36Z",
   "indices": {
     "US VIX (恐慌)": {
-      "close": 17.24
+      "close": 17.14
     },
     "美金/台幣": {
       "close": 31.6

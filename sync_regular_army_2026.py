@@ -20,7 +20,7 @@ STRATEGIC_SECTORS = {
         "2308.TW": "台達電",
         "3324.TWO": "雙鴻"
     },
-    "全光化資料中心": {
+    "矽光子/CPO": {
         "AVGO": "博通",
         "MRVL": "Marvell",
         "2330.TW": "台積電",
@@ -39,7 +39,7 @@ STRATEGIC_SECTORS = {
     "代理型 AI 軟體": {
         "PLTR": "Palantir",
         "PATH": "UiPath",
-        "APP": "AppLovin",
+        "NOW": "ServiceNow",
         "6811.TWO": "宏碁資訊",
         "3029.TW": "零壹",
         "6112.TW": "邁達特"
@@ -49,7 +49,7 @@ STRATEGIC_SECTORS = {
         "ARM": "安謀",
         "2359.TW": "所羅門",
         "2049.TW": "上銀",
-        "8069.TWO": "元太"
+        "2357.TW": "華碩"
     },
     "先進封裝與基板": {
         "ASML": "艾司摩爾",
@@ -71,6 +71,27 @@ STRATEGIC_SECTORS = {
         "2454.TW": "聯發科",
         "2317.TW": "鴻海",
         "2382.TW": "廣達"
+    },
+    "空間計算與低軌衛星": {
+        "ASTS": "AST SpaceMobile",
+        "RKLB": "Rocket Lab",
+        "6285.TW": "啟碁",
+        "3491.TWO": "昇達科",
+        "2313.TW": "華通"
+    },
+    "量子計算與密碼學": {
+        "IONQ": "IonQ",
+        "IBM": "IBM",
+        "GOOGL": "Alphabet",
+        "3045.TW": "台灣大",
+        "2412.TW": "中華電"
+    },
+    "生物AI與精準醫療": {
+        "VEEV": "Veeva Systems",
+        "LLY": "禮來",
+        "NVO": "諾和諾德",
+        "2382.TW": "廣達",
+        "2409.TW": "友達"
     }
 }
 
