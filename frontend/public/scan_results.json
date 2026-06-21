@@ -833,24 +833,24 @@
     {
       "symbol": "CDNS",
       "name": "Cadence",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 387.39,
-      "ma60": null,
+      "ma60": 341.26,
       "market": "us",
       "change": -0.57,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 387.39,
-        "sl": null,
-        "tp": 484.24
+        "entry": 348.09,
+        "sl": 341.26,
+        "tp": 435.11
       },
       "sector": "其他族群",
       "backtest": {
         "win_rate": 23.1,
         "total_return": 15.7
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 416.39,
       "price_source": "Yahoo",
       "esg_elite": false,
@@ -3265,19 +3265,19 @@
     {
       "symbol": "PAYX",
       "name": "沛齊",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 98.24,
-      "ma60": null,
+      "ma60": 93.44,
       "market": "us",
       "change": 0.68,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 98.24,
-        "sl": null,
-        "tp": 122.8
+        "entry": 95.31,
+        "sl": 93.44,
+        "tp": 119.14
       },
-      "is_regular": false,
+      "is_regular": true,
       "sect": "江湖散兵",
       "sector": "其他族群",
       "backtest": {
@@ -3287,7 +3287,38 @@
       "price": 100.79,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 93.06,
+          "support": 88.68,
+          "target": 97.45,
+          "breakthrough_pct": 5.56,
+          "bottom1_price": 88.68,
+          "bottom2_price": 88.83,
+          "days_formed": 39,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 93.06,
+          "support": 84.48,
+          "target": 101.64,
+          "avg_bottom": 87.33,
+          "days_formed": 49,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -4330,19 +4361,19 @@
     {
       "symbol": "VRTX",
       "name": "Vertex Pharm",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 451.63,
-      "ma60": null,
+      "ma60": 438.84,
       "market": "us",
       "change": -1.6,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
         "entry": 451.63,
-        "sl": null,
+        "sl": 438.84,
         "tp": 564.54
       },
-      "is_regular": false,
+      "is_regular": true,
       "sect": "江湖散兵",
       "sector": "其他族群",
       "backtest": {
@@ -4352,7 +4383,38 @@
       "price": 425.09,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 453.06,
+          "support": 423.24,
+          "target": 482.88,
+          "breakthrough_pct": -0.32,
+          "bottom1_price": 423.24,
+          "bottom2_price": 430.44,
+          "days_formed": 36,
+          "strength": "forming"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 453.06,
+          "support": 423.24,
+          "target": 482.88,
+          "avg_bottom": 428.51,
+          "days_formed": 52,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底形成中",
+            "三重底形成中"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -11780,7 +11842,7 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-06-21T09:51:39Z",
+  "last_updated": "2026-06-21T14:11:55Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 16.4
