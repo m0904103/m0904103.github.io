@@ -21,6 +21,7 @@ Write-Host "Committing and pushing to GitHub..."
 git add .
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
 git commit -m "Automated hourly update: $timestamp"
+git pull --rebase origin main
 git push origin main
 
 Write-Host "Hourly update completed successfully!"
