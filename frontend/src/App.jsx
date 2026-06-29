@@ -262,6 +262,18 @@ function App() {
         </div>
 
         <div className="flex items-center space-x-4">
+          {/* Quick Links */}
+          <div className="hidden md:flex space-x-2">
+            <a href="https://m0904103.github.io/youtube-stock-tracker/" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 px-3 py-1.5 bg-[#161A1E] hover:bg-gray-800 border border-white/10 rounded-lg text-xs font-bold text-gray-300 transition-colors">
+              <ExternalLink size={14} className="text-blue-400" />
+              <span>YT 追蹤器</span>
+            </a>
+            <a href="https://m0904103.github.io/trump-advisory/" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 px-3 py-1.5 bg-[#161A1E] hover:bg-gray-800 border border-white/10 rounded-lg text-xs font-bold text-gray-300 transition-colors">
+              <ExternalLink size={14} className="text-red-400" />
+              <span>川普顧問</span>
+            </a>
+          </div>
+
           {/* Cloud Signal Indicator */}
           <div className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border transition-all ${
             cloudStatus === 'online' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
