@@ -7,7 +7,7 @@ import time
 def generate_history():
     # Read stocks from scan_results.json
     try:
-        with open('scan_results.json', 'r', encoding='utf-8') as f:
+        with open('frontend/public/scan_results.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             stocks = data.get('stocks', [])
     except Exception as e:
@@ -19,6 +19,12 @@ def generate_history():
 
     for stock in stocks:
         symbol = stock['symbol']
+        filename = f"frontend/public/assets/history_{symbol}.json"
+        
+        # Skip if file already exists
+        if os.path.exists(filename):
+            continue
+            
         print(f"Generating history for {symbol}...")
         
         try:
