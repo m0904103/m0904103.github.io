@@ -4704,15 +4704,15 @@
       "name": "台泥",
       "signal": "Hold",
       "close": 23.65,
-      "ma60": 24.44,
+      "ma60": 23.67,
       "market": "tw",
       "change": 2.38,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 24.68,
-        "sl": 24.44,
-        "tp": 30.85
+        "entry": 23.91,
+        "sl": 23.67,
+        "tp": 29.89
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -4724,7 +4724,25 @@
       "price": 24.65,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 24.65,
+          "support": 22.86,
+          "target": 26.44,
+          "avg_bottom": 23.14,
+          "days_formed": 43,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -11565,7 +11583,7 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-07-04T06:21:40Z",
+  "last_updated": "2026-07-04T10:55:24Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 16.15
