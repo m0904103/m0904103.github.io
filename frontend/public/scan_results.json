@@ -139,19 +139,19 @@
     {
       "symbol": "AMD",
       "name": "超微",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 521.95,
-      "ma60": null,
+      "ma60": 489.42,
       "market": "us",
       "change": -3.29,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
-      "is_regular": false,
+      "is_regular": true,
       "plan": {
-        "entry": 521.95,
-        "sl": null,
-        "tp": 652.44
+        "entry": 499.21,
+        "sl": 489.42,
+        "tp": 624.01
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1210,15 +1210,15 @@
       "name": "DraftKings",
       "signal": "Hold",
       "close": 23.01,
-      "ma60": null,
+      "ma60": 25.36,
       "market": "us",
       "change": 0.88,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 23.01,
-        "sl": null,
-        "tp": 28.76
+        "entry": 25.61,
+        "sl": 25.36,
+        "tp": 32.01
       },
       "sector": "其他族群",
       "backtest": {
@@ -1229,7 +1229,28 @@
       "price": 25.3,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 30.02,
+          "a_bottom": 23.1,
+          "b_top": 27.17,
+          "a_drop_pct": 23.1,
+          "b_rebound_pct": 58.8,
+          "estimated_c_bottom": 22.64,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 30,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -1239,15 +1260,15 @@
       "name": "Dover Corp",
       "signal": "Hold",
       "close": 202.2,
-      "ma60": null,
+      "ma60": 216.26,
       "market": "us",
       "change": 2.22,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 202.2,
-        "sl": null,
-        "tp": 252.75
+        "entry": 218.42,
+        "sl": 216.26,
+        "tp": 273.02
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -1590,7 +1611,7 @@
       "name": "GE Vernova",
       "signal": "Hold",
       "close": 1014.75,
-      "ma60": null,
+      "ma60": 1039.44,
       "market": "us",
       "change": -1.59,
       "vol_ratio": 1.5,
@@ -1598,9 +1619,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 1014.75,
-        "sl": null,
-        "tp": 1268.44
+        "entry": 1049.83,
+        "sl": 1039.44,
+        "tp": 1312.29
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1938,16 +1959,16 @@
     {
       "symbol": "IWM",
       "name": "羅素2000ETF",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 291.17,
-      "ma60": null,
+      "ma60": 289.15,
       "market": "us",
       "change": -0.31,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 291.17,
-        "sl": null,
+        "sl": 289.15,
         "tp": 363.96
       },
       "sector": "其他族群",
@@ -1955,11 +1976,42 @@
         "win_rate": 50.0,
         "total_return": 30.1
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 291.66,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 286.12,
+          "support": 271.43,
+          "target": 300.8,
+          "breakthrough_pct": 1.77,
+          "bottom1_price": 271.43,
+          "bottom2_price": 272.35,
+          "days_formed": 60,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 300.45,
+          "support": 272.35,
+          "target": 328.55,
+          "avg_bottom": 282.27,
+          "days_formed": 46,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 5,
+          "signals": [
+            "W底突破",
+            "三重底形成中"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -11551,7 +11603,7 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-07-26T16:02:54Z",
+  "last_updated": "2026-07-26T19:10:29Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 18.58
