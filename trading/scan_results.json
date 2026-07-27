@@ -32,16 +32,16 @@
     {
       "symbol": "ABNB",
       "name": "Airbnb",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 141.1,
-      "ma60": null,
+      "ma60": 139.39,
       "market": "us",
       "change": 2.57,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 141.1,
-        "sl": null,
+        "sl": 139.39,
         "tp": 176.38
       },
       "sector": "其他族群",
@@ -49,11 +49,31 @@
         "win_rate": 12.5,
         "total_return": -22.3
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 134.35,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 137.87,
+          "support": 129.1,
+          "target": 146.64,
+          "breakthrough_pct": 2.34,
+          "bottom1_price": 131.16,
+          "bottom2_price": 129.1,
+          "days_formed": 46,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "gap_up": true,
       "k_pattern": null,
       "vol_surge": false
@@ -278,7 +298,7 @@
       "name": "安謀",
       "signal": "Hold",
       "close": 260.01,
-      "ma60": null,
+      "ma60": 303.87,
       "market": "us",
       "change": -8.14,
       "vol_ratio": 1.5,
@@ -286,9 +306,9 @@
       "sector": "實體 AI 機器人",
       "is_regular": false,
       "plan": {
-        "entry": 260.01,
-        "sl": null,
-        "tp": 325.01
+        "entry": 306.91,
+        "sl": 303.87,
+        "tp": 383.64
       },
       "backtest": {
         "win_rate": 65.0,
@@ -433,15 +453,15 @@
       "name": "美國運通",
       "signal": "Hold",
       "close": 326.17,
-      "ma60": null,
+      "ma60": 328.26,
       "market": "us",
       "change": -4.3,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 326.17,
-        "sl": null,
-        "tp": 407.71
+        "entry": 331.54,
+        "sl": 328.26,
+        "tp": 414.43
       },
       "sector": "其他族群",
       "backtest": {
@@ -452,7 +472,27 @@
       "price": 310.97,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 322.17,
+          "support": 308.47,
+          "target": 335.87,
+          "breakthrough_pct": 1.24,
+          "bottom1_price": 313.22,
+          "bottom2_price": 308.47,
+          "days_formed": 63,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "gap_up": true,
       "k_pattern": null,
       "vol_surge": false
@@ -489,19 +529,19 @@
     {
       "symbol": "BAC",
       "name": "美國銀行",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 62.05,
-      "ma60": null,
+      "ma60": 55.34,
       "market": "us",
       "change": 1.26,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 62.05,
-        "sl": null,
-        "tp": 77.56
+        "entry": 56.45,
+        "sl": 55.34,
+        "tp": 70.56
       },
-      "is_regular": false,
+      "is_regular": true,
       "sect": "江湖散兵",
       "sector": "其他族群",
       "backtest": {
@@ -608,28 +648,59 @@
     {
       "symbol": "BX",
       "name": "黑石",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 130.0,
-      "ma60": null,
+      "ma60": 120.68,
       "market": "us",
       "change": 4.42,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 130.0,
-        "sl": null,
-        "tp": 162.5
+        "entry": 123.09,
+        "sl": 120.68,
+        "tp": 153.86
       },
       "sector": "其他族群",
       "backtest": {
         "win_rate": 18.2,
         "total_return": 28.4
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 114.91,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 127.87,
+          "support": 110.28,
+          "target": 145.46,
+          "breakthrough_pct": 1.67,
+          "bottom1_price": 110.28,
+          "bottom2_price": 112.99,
+          "days_formed": 36,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 127.87,
+          "support": 110.28,
+          "target": 145.46,
+          "avg_bottom": 112.51,
+          "days_formed": 46,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "gap_up": true,
       "k_pattern": null,
       "vol_surge": false
@@ -1219,15 +1290,15 @@
       "name": "Elevance Health",
       "signal": "Hold",
       "close": 377.68,
-      "ma60": null,
+      "ma60": 394.09,
       "market": "us",
       "change": -0.43,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 377.68,
-        "sl": null,
-        "tp": 472.1
+        "entry": 398.03,
+        "sl": 394.09,
+        "tp": 497.54
       },
       "sector": "其他族群",
       "backtest": {
@@ -1307,16 +1378,16 @@
     {
       "symbol": "EQIX",
       "name": "艾奎尼克斯",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 1084.24,
-      "ma60": null,
+      "ma60": 1060.29,
       "market": "us",
       "change": 4.9,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 1084.24,
-        "sl": null,
+        "sl": 1060.29,
         "tp": 1355.3
       },
       "sector": "其他族群",
@@ -1324,11 +1395,29 @@
         "win_rate": 18.2,
         "total_return": 28.8
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 1071.8,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 1115.94,
+          "support": 998.84,
+          "target": 1233.04,
+          "avg_bottom": 1015.44,
+          "days_formed": 31,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false
@@ -1338,15 +1427,15 @@
       "name": "伊頓",
       "signal": "Hold",
       "close": 404.07,
-      "ma60": null,
+      "ma60": 405.47,
       "market": "us",
       "change": -2.66,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 404.07,
-        "sl": null,
-        "tp": 505.09
+        "entry": 409.52,
+        "sl": 405.47,
+        "tp": 511.9
       },
       "sector": "其他族群",
       "backtest": {
@@ -1357,7 +1446,25 @@
       "price": 417.62,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 435.78,
+          "support": 371.88,
+          "target": 499.68,
+          "avg_bottom": 381.01,
+          "days_formed": 46,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "gap_up": true,
       "k_pattern": null,
       "vol_surge": false
@@ -4970,11 +5077,11 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": true,
+        "bb_lower_touch": false,
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5114,7 +5221,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5781,7 +5888,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -5878,7 +5985,7 @@
         "three_rates_rising": false
       },
       "technicals": {
-        "bb_lower_touch": true,
+        "bb_lower_touch": false,
         "kd_cross_up": false
       },
       "chips": {
@@ -6624,7 +6731,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8062,7 +8169,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8160,7 +8267,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
         "foreign_buy": false,
@@ -8314,7 +8421,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8523,7 +8630,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8884,7 +8991,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9243,7 +9350,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": true,
+        "bb_lower_touch": false,
         "kd_cross_up": false
       },
       "chips": {
@@ -9982,7 +10089,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
         "foreign_buy": false,
@@ -10143,7 +10250,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -10183,7 +10290,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -10557,7 +10664,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
+        "foreign_buy": false,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -11405,7 +11512,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -11447,7 +11554,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -11487,7 +11594,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": true
+        "kd_cross_up": false
       },
       "chips": {
         "foreign_buy": false,
@@ -11617,22 +11724,22 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-07-27T08:32:15Z",
+  "last_updated": "2026-07-27T08:47:11Z",
   "indices": {
     "US VIX (恐慌)": {
-      "close": 17.73
+      "close": 17.7
     },
     "美金/台幣": {
-      "close": 32.31
+      "close": 32.29
     },
     "TSM_ADR": {
-      "close": null
+      "close": 403.41
     },
     "TSM_TW": {
       "close": 2350.0
     },
     "adr_premium": {
-      "close": null
+      "close": 10.86
     },
     "台指VIX (波動率)": {
       "close": 35.87
@@ -11687,11 +11794,31 @@
     },
     "小台散戶多空比": {
       "close": 23.07
+    },
+    "taifex_oi": {
+      "value": -78699,
+      "change": -2439
+    },
+    "retail_long_short_ratio": {
+      "value": 30.18,
+      "change": -6.74
+    },
+    "micro_retail_ratio": {
+      "value": 53.67,
+      "change": 1.83
+    },
+    "put_call_ratio": {
+      "value": 109.84,
+      "change": -2.86
+    },
+    "vix": {
+      "value": 37.25,
+      "change": -0.84
     }
   },
   "update_sources": {
     "tw": "Yahoo Finance",
     "us": "Yahoo Finance"
   },
-  "taifex_oi": -75198
+  "taifex_oi": -78699
 }
