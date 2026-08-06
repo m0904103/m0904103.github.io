@@ -396,12 +396,12 @@ function App() {
                         </div>
                         {/* Pattern badges for all markets */}
                         {(() => {
-                          const p = stock.patterns || {};
+                          const pat = stock.patterns || {};
                           const badges = [];
-                          if (p.triple_bottom) badges.push({ label: '🏔️ 三重底', cls: 'bg-orange-500/20 text-orange-300 border-orange-500/30' });
-                          if (p.w_bottom) badges.push({ label: '〰️ W底', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' });
-                          if (p.abc_wave?.pattern_en === 'ABC_BOTTOM') badges.push({ label: '🔄 ABC底完成', cls: 'bg-violet-500/20 text-violet-300 border-violet-500/30' });
-                          if (p.abc_wave?.pattern_en === 'ABC_FALLING') badges.push({ label: '⚠️ C波下跌', cls: 'bg-red-500/20 text-red-400 border-red-500/30' });
+                          if (pat.triple_bottom) badges.push({ label: '🏔️ 三重底', cls: 'bg-orange-500/20 text-orange-300 border-orange-500/30' });
+                          if (pat.w_bottom) badges.push({ label: '〰️ W底', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' });
+                          if (pat.abc_wave?.pattern_en === 'ABC_BOTTOM') badges.push({ label: '🔄 ABC底完成', cls: 'bg-violet-500/20 text-violet-300 border-violet-500/30' });
+                          if (pat.abc_wave?.pattern_en === 'ABC_FALLING') badges.push({ label: '⚠️ C波下跌', cls: 'bg-red-500/20 text-red-400 border-red-500/30' });
                           return badges.length > 0 ? (
                             <div className="flex flex-wrap gap-1 mt-1">
                               {badges.map(b => <span key={b.label} className={`text-[9px] px-1.5 py-0.5 rounded border ${b.cls}`}>{b.label}</span>)}
