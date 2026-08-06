@@ -17,9 +17,12 @@ import SectorHeatmap from './components/SectorHeatmap';
 import StrategyBoard from './components/StrategyBoard';
 import TradingChart from './components/TradingChart';
 import SectorStrategyMap from './components/SectorStrategyMap';
-import WinRateScorecard from './components/WinRateScorecard';
+import WinRateScorecard, { calculateWinRateScore } from './components/WinRateScorecard';
 import PatternWarningCard from './components/PatternWarningCard';
 import KellyCalculator from './components/KellyCalculator';
+import FibonacciLevels from './components/FibonacciLevels';
+import QuickFilterBar from './components/QuickFilterBar';
+import ComparativeChart from './components/ComparativeChart';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -44,6 +47,7 @@ function App() {
   });
   const [activeTab, setActiveTab] = useState("regular"); 
   const [selectedSector, setSelectedSector] = useState(null);
+  const [activeQuickFilter, setActiveQuickFilter] = useState("all");
 
   useEffect(() => {
     fetchData();
@@ -205,10 +209,42 @@ function App() {
 
   const signalRank = { 'Strong Buy': 0, 'Buy': 1, 'Hold': 2, 'Sell': 3, 'Strong Sell': 4 };
 
-  const displayStocks = (activeMarket === 'tw' ? stocks.tw : stocks.us).filter(s => {
+  const currentMarketStocks = (activeMarket === 'tw' ? stocks.tw : stocks.us) || [];
+
+  const quickFilterCounts = useMemo(() => {
+    const counts = { all: currentMarketStocks.length, star5: 0, sweet: 0, foreign: 0, three_rates: 0, below_ma60: 0 };
+    currentMarketStocks.forEach(s => {
+      const close = Number(s.close || 0);
+      const ma60 = Number(s.ma60 || 0);
+      const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
+      const winRateScore = calculateWinRateScore(s, indices).score;
+
+      if (winRateScore >= 85) counts.star5++;
+      if (close >= ma60 && biasPct >= 4.0 && biasPct <= 14.0) counts.sweet++;
+      if (s.chips?.foreign_buy) counts.foreign++;
+      if (s.fundamentals?.three_rates_rising) counts.three_rates++;
+      if (close < ma60) counts.below_ma60++;
+    });
+    return counts;
+  }, [currentMarketStocks, indices]);
+
+  const displayStocks = currentMarketStocks.filter(s => {
     const matchSearch = s.symbol.toLowerCase().includes(searchTerm.toLowerCase()) || s.name.includes(searchTerm);
     const matchSector = selectedSector ? s.sector === selectedSector : true;
-    return matchSearch && matchSector;
+    
+    let matchFilter = true;
+    const close = Number(s.close || 0);
+    const ma60 = Number(s.ma60 || 0);
+    const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
+    const winRateScore = calculateWinRateScore(s, indices).score;
+
+    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85;
+    else if (activeQuickFilter === 'sweet') matchFilter = close >= ma60 && biasPct >= 4.0 && biasPct <= 14.0;
+    else if (activeQuickFilter === 'foreign') matchFilter = Boolean(s.chips?.foreign_buy);
+    else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
+    else if (activeQuickFilter === 'below_ma60') matchFilter = close < ma60;
+
+    return matchSearch && matchSector && matchFilter;
   }).sort((a, b) => {
     // 1. Sort by signal strength (Strong Buy first)
     const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
@@ -323,9 +359,17 @@ function App() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <aside className="lg:col-span-4 glass rounded-3xl overflow-hidden border border-white/5 h-[600px] flex flex-col">
-             <div className="p-4 bg-[#161A1E] border-b border-white/5 flex justify-between">
-                <span className="text-xs font-black text-gray-400 uppercase tracking-widest">市場診斷名單</span>
-                <span className="text-[10px] text-gray-500">最後更新: {lastUpdated.toLocaleTimeString()}</span>
+             <div className="p-4 bg-[#161A1E] border-b border-white/5 space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-black text-gray-400 uppercase tracking-widest">市場診斷名單</span>
+                  <span className="text-[10px] text-gray-500">最後更新: {lastUpdated.toLocaleTimeString()}</span>
+                </div>
+                {/* ⚡ Quick Filter Chips */}
+                <QuickFilterBar 
+                  activeFilter={activeQuickFilter} 
+                  onSelectFilter={setActiveQuickFilter} 
+                  counts={quickFilterCounts} 
+                />
              </div>
              <div className="flex-1 overflow-y-auto p-2 space-y-2">
                 {displayStocks.map(stock => (
@@ -414,6 +458,12 @@ function App() {
 
                  {/* 🧮 Kelly Criterion Position Sizing Calculator */}
                  <KellyCalculator stock={selectedStock} globalIndices={indices} />
+
+                 {/* 📐 Fibonacci Retracement Levels Calculator */}
+                 <FibonacciLevels stock={selectedStock} historyData={historyData} />
+
+                 {/* ⚖️ Relative Strength Comparison vs Market */}
+                 <ComparativeChart stock={selectedStock} globalIndices={indices} />
                  
                  {/* Pattern Analysis Card */}
                   {selectedStock?.patterns && Object.keys(selectedStock.patterns || {}).filter(k => k !== 'summary').length > 0 && (
