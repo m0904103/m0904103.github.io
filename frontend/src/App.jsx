@@ -19,6 +19,7 @@ import TradingChart from './components/TradingChart';
 import SectorStrategyMap from './components/SectorStrategyMap';
 import WinRateScorecard from './components/WinRateScorecard';
 import PatternWarningCard from './components/PatternWarningCard';
+import KellyCalculator from './components/KellyCalculator';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -410,6 +411,9 @@ function App() {
 
                  {/* 📊 TINs Win-Rate & Risk Scorecard */}
                  <WinRateScorecard stock={selectedStock} globalIndices={indices} />
+
+                 {/* 🧮 Kelly Criterion Position Sizing Calculator */}
+                 <KellyCalculator stock={selectedStock} globalIndices={indices} />
                  
                  {/* Pattern Analysis Card */}
                   {selectedStock?.patterns && Object.keys(selectedStock.patterns || {}).filter(k => k !== 'summary').length > 0 && (
