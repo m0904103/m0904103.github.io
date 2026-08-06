@@ -16,6 +16,9 @@ import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
 import StrategyBoard from './components/StrategyBoard';
 import TradingChart from './components/TradingChart';
+import SectorStrategyMap from './components/SectorStrategyMap';
+import WinRateScorecard from './components/WinRateScorecard';
+import PatternWarningCard from './components/PatternWarningCard';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -297,10 +300,15 @@ function App() {
       <main className="p-4 md:p-8 max-w-[1600px] mx-auto w-full space-y-8">
         <section id="weather-station">{renderWeatherStation()}</section>
         
+        {/* 🗺️ 2026 產業戰略地圖 (美股領頭羊 ⇄ 台股供應鏈) */}
+        <section>
+          <SectorStrategyMap stocks={stocks} onSelectStock={handleSelectStock} />
+        </section>
+
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
-              <LayoutDashboard size={16} className="mr-2" /> 2026 產業戰略地圖
+              <LayoutDashboard size={16} className="mr-2" /> 戰略特攻板
               <span className="ml-3 px-2 py-0.5 bg-red-600/20 text-red-400 rounded-md text-[10px]">
                 鎖定至 2026 年 8 月底
               </span>
@@ -396,6 +404,12 @@ function App() {
                       </div>
                     )}
                  </div>
+
+                 {/* 🚨 Pattern Warning Card (e.g. C-Wave Fall Alert) */}
+                 <PatternWarningCard stock={selectedStock} />
+
+                 {/* 📊 TINs Win-Rate & Risk Scorecard */}
+                 <WinRateScorecard stock={selectedStock} globalIndices={indices} />
                  
                  {/* Pattern Analysis Card */}
                   {selectedStock?.patterns && Object.keys(selectedStock.patterns || {}).filter(k => k !== 'summary').length > 0 && (
