@@ -120,7 +120,7 @@ export default function KellyCalculator({ stock, globalIndices = {} }) {
       )}
 
       <div className="text-[10px] text-slate-500 italic pt-1 flex items-center justify-between">
-        <span>* 計算依據：Kelly Criterion Formula ($f^* = \frac{p(b+1)-1}{b}$) 與顏老師紀律</span>
+        <span>* 計算依據：Kelly Criterion Formula (f* = [p(b+1)-1]/b) 與顏老師紀律</span>
         <span>單筆最大冒險金額: ${maxRiskAmount.toLocaleString()}</span>
       </div>
     </div>
