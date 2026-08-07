@@ -14,9 +14,16 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
   const close = Number(stock.close);
   const ma60 = Number(stock.ma60);
   const biasPct = ((close - ma60) / ma60) * 100;
+  const ma200 = stock.ma200 ? Number(stock.ma200) : null;
   const isAboveMa60 = close >= ma60;
+  const isBelowMa200 = ma200 && close < ma200;
 
-  // 1. MA60 Life Line Rule (+30 / -25)
+  // 1. MA200 (年線) & MA60 (季線) Life Line Rules
+  if (isBelowMa200) {
+    score -= 40;
+    reasons.push('⛔ 阿村伯鐵則：股價低於年線(MA200)，長線趨勢走空 (-40分)');
+  }
+
   if (isAboveMa60) {
     score += 30;
     reasons.push('✅ 股價穩守 60 日季線生命線 (+30分)');
