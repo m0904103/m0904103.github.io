@@ -265,7 +265,7 @@ export default function SectorStrategyMap({ stocks, onSelectStock }) {
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">{item.symbol.replace('.TW', '').replace('.TWO', '')}</span>
+                        <span className="font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">{item.symbol.replace(/\.TWO?$/, '')}</span>
                         <span className="text-xs text-slate-400">({item.name})</span>
                         {isAboveMa60 ? (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-medium flex items-center gap-1">
