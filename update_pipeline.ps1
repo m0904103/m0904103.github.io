@@ -17,7 +17,10 @@ cd ..
 Write-Host "Copying dist to q_quant_888 folder..."
 Copy-Item -Path "frontend\dist\*" -Destination "q_quant_888\" -Recurse -Force
 
-Write-Host "Committing and pushing to GitHub..."
+Write-Host "📸 Running Teacher Yen 2.0 Auto Journaling..." -ForegroundColor Cyan
+python auto_journal.py
+
+Write-Host "Committing and pushing to GitHub..." -ForegroundColor Cyan
 git add .
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
 git commit -m "Automated hourly update: $timestamp"

@@ -32,14 +32,14 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push('⚠️ 股價位於季線下方，屬空方控盤 (-25分)');
   }
 
-  // 2. 5% ~ 12% Golden Sweet Zone (+20)
-  const isSweetZone = isAboveMa60 && biasPct >= 4.0 && biasPct <= 14.0;
+  // 2. 0% ~ 4% Left-Side Defense Zone (左側埋伏防守區)
+  const isSweetZone = isAboveMa60 && biasPct >= 0.0 && biasPct <= 4.0;
   if (isSweetZone) {
     score += 20;
-    reasons.push('🎯 處於 5%~12% 季線高勝率甜蜜區 (+20分)');
-  } else if (isAboveMa60 && biasPct > 15.0) {
-    score -= 10;
-    reasons.push('⚠️ 乖離率過高 (>15%)，過度過熱注意短線修正 (-10分)');
+    reasons.push('🛡️ 處於 0%~4% 左側季線防守甜蜜區 (+20分)');
+  } else if (isAboveMa60 && biasPct > 4.0) {
+    score -= 15;
+    reasons.push('⚠️ 正乖離過高 (>4%)，嚴禁追高，耐心等回檔 (-15分)');
   }
 
   // 3. Chip & Fundamental Alignment (+15)
@@ -127,7 +127,7 @@ export default function WinRateScorecard({ stock, globalIndices = {} }) {
           </div>
           {result.sweetZone && (
             <div className="flex items-center gap-1 text-amber-300 font-medium">
-              <Zap className="w-3 h-3 text-amber-400" /> 符合 5%~12% 季線黃金甜蜜區！
+              <Zap className="w-3 h-3 text-amber-400" /> 符合 0%~4% 季線左側防守區！
             </div>
           )}
         </div>
