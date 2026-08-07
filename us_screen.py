@@ -2,7 +2,7 @@ import json
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
-data = json.load(open('trading/scan_results.json', encoding='utf-8'))
+data = json.load(open('frontend/public/scan_results.json', encoding='utf-8'))
 stocks = data.get('stocks', [])
 # Filter for US stocks (no .TW or .TWO)
 us_stocks = [s for s in stocks if not s['symbol'].endswith('.TW') and not s['symbol'].endswith('.TWO')]
