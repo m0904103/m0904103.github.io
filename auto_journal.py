@@ -91,13 +91,13 @@ def main():
         if not close or not ma60:
             continue
             
-        # Teacher Yen's Strict Pullback Rule (0% to +5% bias) and must be above MA200
+        # Teacher Yen's Strict Pullback Rule (0% to +4% bias) and must be above MA200
         bias = (close - ma60) / ma60 * 100
         is_above_ma200 = True
         if ma200:
             is_above_ma200 = close >= ma200
             
-        if is_above_ma200 and 0 <= bias <= 5:
+        if is_above_ma200 and 0 <= bias <= 4:
             # Check if it's already being tracked
             if sym not in recent_entry_symbols:
                 entries.append({
