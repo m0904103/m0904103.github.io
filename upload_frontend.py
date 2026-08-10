@@ -5,7 +5,7 @@ import subprocess
 # Use relative paths so it works both locally and on GitHub Actions (Linux)
 repo_root = os.path.dirname(os.path.abspath(__file__))
 dist_dir = os.path.join(repo_root, "frontend", "dist")
-trading_dir = os.path.join(repo_root, "trading")
+trading_dir = os.path.join(repo_root, "q_quant_888")
 
 def deploy():
     print("[START] Starting deployment process...")
@@ -55,9 +55,9 @@ def deploy():
         if os.path.exists(scan_src):
             shutil.copy2(scan_src, scan_dest)
 
-        subprocess.run(["git", "add", "trading/"], check=True)
+        subprocess.run(["git", "add", "q_quant_888/"], check=True)
         # Commit might fail if there are no changes, so we don't check=True for commit
-        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to trading/"])
+        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to q_quant_888/"])
         if commit_res.returncode == 0:
             subprocess.run(["git", "push"], check=True)
             print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")
