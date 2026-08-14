@@ -4,16 +4,16 @@
       "symbol": "AAPL",
       "name": "蘋果",
       "signal": "Hold",
-      "close": 305.47,
-      "ma60": 308.93,
+      "close": 305.71,
+      "ma60": 308.94,
       "market": "us",
-      "change": 0.07,
+      "change": 0.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 312.02,
-        "sl": 308.93,
-        "tp": 390.02
+        "entry": 312.03,
+        "sl": 308.94,
+        "tp": 390.04
       },
       "sector": "邊緣 AI 與終端",
       "backtest": {
@@ -33,10 +33,10 @@
       "symbol": "ABNB",
       "name": "Airbnb",
       "signal": "Strong Buy",
-      "close": 184.72,
+      "close": 184.6,
       "ma60": 146.03,
       "market": "us",
-      "change": -0.22,
+      "change": -0.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -60,7 +60,7 @@
           "neckline": 137.87,
           "support": 129.1,
           "target": 146.64,
-          "breakthrough_pct": 33.98,
+          "breakthrough_pct": 33.89,
           "bottom1_price": 131.16,
           "bottom2_price": 129.1,
           "days_formed": 61,
@@ -93,18 +93,18 @@
       "symbol": "ADBE",
       "name": "奧多比",
       "signal": "Strong Buy",
-      "close": 265.0,
-      "ma60": 234.02,
+      "close": 263.9,
+      "ma60": 234.0,
       "market": "us",
-      "change": -2.03,
+      "change": -2.44,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 238.7,
-        "sl": 234.02,
-        "tp": 298.38
+        "entry": 238.68,
+        "sl": 234.0,
+        "tp": 298.35
       },
       "backtest": {
         "win_rate": 45.0,
@@ -120,7 +120,7 @@
           "neckline": 256.51,
           "support": 236.07,
           "target": 276.95,
-          "breakthrough_pct": 3.31,
+          "breakthrough_pct": 2.88,
           "bottom1_price": 238.98,
           "bottom2_price": 236.07,
           "days_formed": 79,
@@ -142,16 +142,16 @@
       "symbol": "AMAT",
       "name": "應用材料",
       "signal": "Hold",
-      "close": 505.49,
-      "ma60": 541.34,
+      "close": 506.26,
+      "ma60": 541.35,
       "market": "us",
-      "change": -5.43,
+      "change": -5.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 546.75,
-        "sl": 541.34,
-        "tp": 683.44
+        "entry": 546.76,
+        "sl": 541.35,
+        "tp": 683.45
       },
       "sector": "先進封裝與基板",
       "backtest": {
@@ -170,19 +170,19 @@
     {
       "symbol": "AMD",
       "name": "超微",
-      "signal": "Hold",
-      "close": 507.98,
-      "ma60": 508.1,
+      "signal": "Strong Buy",
+      "close": 508.67,
+      "ma60": 508.11,
       "market": "us",
-      "change": 5.17,
+      "change": 5.31,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
-      "is_regular": false,
+      "is_regular": true,
       "plan": {
-        "entry": 513.18,
-        "sl": 508.1,
-        "tp": 641.47
+        "entry": 508.67,
+        "sl": 508.11,
+        "tp": 635.84
       },
       "backtest": {
         "win_rate": 65.0,
@@ -200,16 +200,16 @@
       "symbol": "AME",
       "name": "阿美特克",
       "signal": "Strong Buy",
-      "close": 255.57,
-      "ma60": 235.69,
+      "close": 255.77,
+      "ma60": 236.4,
       "market": "us",
-      "change": -0.25,
+      "change": -0.18,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 240.4,
-        "sl": 235.69,
-        "tp": 300.5
+        "entry": 241.13,
+        "sl": 236.4,
+        "tp": 301.41
       },
       "sector": "其他族群",
       "backtest": {
@@ -227,18 +227,29 @@
           "neckline": 241.02,
           "support": 220.95,
           "target": 261.09,
-          "breakthrough_pct": 6.04,
+          "breakthrough_pct": 6.12,
           "bottom1_price": 227.53,
           "bottom2_price": 220.95,
-          "days_formed": 72,
+          "days_formed": 75,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 241.94,
+          "support": 221.45,
+          "target": 262.43,
+          "avg_bottom": 229.35,
+          "days_formed": 46,
           "strength": "strong"
         },
         "summary": {
-          "score": 3,
+          "score": 7,
           "signals": [
-            "W底突破"
+            "W底突破",
+            "三重底突破"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🔥 強力底部訊號"
         }
       },
       "gap_up": false,
@@ -249,10 +260,10 @@
       "symbol": "AMZN",
       "name": "亞馬遜",
       "signal": "Strong Buy",
-      "close": 262.88,
+      "close": 263.3,
       "ma60": 250.97,
       "market": "us",
-      "change": -0.85,
+      "change": -0.69,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -276,7 +287,7 @@
           "neckline": 254.96,
           "support": 226.65,
           "target": 283.27,
-          "breakthrough_pct": 3.11,
+          "breakthrough_pct": 3.28,
           "bottom1_price": 227.01,
           "bottom2_price": 226.65,
           "days_formed": 36,
@@ -298,16 +309,16 @@
       "symbol": "APP",
       "name": "AppLovin",
       "signal": "Hold",
-      "close": 316.73,
-      "ma60": 467.47,
+      "close": 317.78,
+      "ma60": 467.48,
       "market": "us",
-      "change": 1.3,
+      "change": 1.63,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 472.14,
-        "sl": 467.47,
-        "tp": 590.17
+        "entry": 472.15,
+        "sl": 467.48,
+        "tp": 590.19
       },
       "sector": "代理型 AI 軟體",
       "backtest": {
@@ -327,18 +338,18 @@
       "symbol": "ARM",
       "name": "安謀",
       "signal": "Hold",
-      "close": 276.58,
-      "ma60": 315.99,
+      "close": 278.42,
+      "ma60": 316.02,
       "market": "us",
-      "change": -0.74,
+      "change": -0.08,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "實體 AI 機器人",
       "is_regular": false,
       "plan": {
-        "entry": 319.15,
-        "sl": 315.99,
-        "tp": 398.94
+        "entry": 319.18,
+        "sl": 316.02,
+        "tp": 398.98
       },
       "backtest": {
         "win_rate": 65.0,
@@ -356,18 +367,18 @@
       "symbol": "ASML",
       "name": "艾司摩爾",
       "signal": "Strong Buy",
-      "close": 1825.45,
-      "ma60": 1749.09,
+      "close": 1828.2,
+      "ma60": 1749.14,
       "market": "us",
-      "change": -1.21,
+      "change": -1.07,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "先進封裝與基板",
       "is_regular": true,
       "plan": {
-        "entry": 1784.07,
-        "sl": 1749.09,
-        "tp": 2230.09
+        "entry": 1784.12,
+        "sl": 1749.14,
+        "tp": 2230.15
       },
       "backtest": {
         "win_rate": 65.0,
@@ -385,18 +396,18 @@
       "symbol": "ASTS",
       "name": "AST SpaceMobile",
       "signal": "Hold",
-      "close": 70.38,
-      "ma60": 79.6,
+      "close": 70.89,
+      "ma60": 79.61,
       "market": "us",
-      "change": -1.59,
+      "change": -0.88,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "空間計算與低軌衛星",
       "is_regular": false,
       "plan": {
-        "entry": 80.4,
-        "sl": 79.6,
-        "tp": 100.5
+        "entry": 80.41,
+        "sl": 79.61,
+        "tp": 100.51
       },
       "backtest": {
         "win_rate": 65.0,
@@ -414,18 +425,18 @@
       "symbol": "AVGO",
       "name": "博通",
       "signal": "Hold",
-      "close": 390.92,
-      "ma60": 398.2,
+      "close": 393.76,
+      "ma60": 398.25,
       "market": "us",
-      "change": -6.44,
+      "change": -5.76,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "矽光子/CPO",
       "is_regular": false,
       "plan": {
-        "entry": 402.18,
-        "sl": 398.2,
-        "tp": 502.73
+        "entry": 402.23,
+        "sl": 398.25,
+        "tp": 502.79
       },
       "backtest": {
         "win_rate": 65.0,
@@ -435,6 +446,18 @@
       "price_source": "Yahoo",
       "esg_elite": false,
       "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 401.11,
+          "support": 360.45,
+          "target": 441.77,
+          "breakthrough_pct": -1.83,
+          "bottom1_price": 360.45,
+          "bottom2_price": 370.83,
+          "days_formed": 31,
+          "strength": "forming"
+        },
         "triple_bottom": {
           "pattern": "三重底",
           "pattern_en": "TRIPLE_BOTTOM",
@@ -446,11 +469,12 @@
           "strength": "forming"
         },
         "summary": {
-          "score": 2,
+          "score": 3,
           "signals": [
+            "W底形成中",
             "三重底形成中"
           ],
-          "verdict": "🟡 底部形成中"
+          "verdict": "✅ 底部型態確認"
         }
       },
       "gap_up": true,
@@ -461,16 +485,16 @@
       "symbol": "AXP",
       "name": "美國運通",
       "signal": "Strong Buy",
-      "close": 342.52,
+      "close": 342.85,
       "ma60": 334.76,
       "market": "us",
-      "change": -0.33,
+      "change": -0.23,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 342.52,
+        "entry": 342.85,
         "sl": 334.76,
-        "tp": 428.15
+        "tp": 428.56
       },
       "sector": "其他族群",
       "backtest": {
@@ -488,7 +512,7 @@
           "neckline": 322.17,
           "support": 308.47,
           "target": 335.87,
-          "breakthrough_pct": 6.32,
+          "breakthrough_pct": 6.42,
           "bottom1_price": 313.22,
           "bottom2_price": 308.47,
           "days_formed": 78,
@@ -510,16 +534,16 @@
       "symbol": "BA",
       "name": "波音",
       "signal": "Strong Buy",
-      "close": 231.09,
-      "ma60": 221.35,
+      "close": 231.59,
+      "ma60": 221.36,
       "market": "us",
-      "change": 0.33,
+      "change": 0.55,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 225.78,
-        "sl": 221.35,
-        "tp": 282.23
+        "entry": 225.79,
+        "sl": 221.36,
+        "tp": 282.24
       },
       "sector": "其他族群",
       "backtest": {
@@ -537,11 +561,11 @@
           "neckline": 231.15,
           "support": 209.0,
           "target": 253.3,
-          "breakthrough_pct": -0.03,
+          "breakthrough_pct": 0.19,
           "bottom1_price": 215.01,
           "bottom2_price": 209.0,
           "days_formed": 61,
-          "strength": "forming"
+          "strength": "strong"
         },
         "triple_bottom": {
           "pattern": "三重底",
@@ -554,12 +578,12 @@
           "strength": "forming"
         },
         "summary": {
-          "score": 3,
+          "score": 5,
           "signals": [
-            "W底形成中",
+            "W底突破",
             "三重底形成中"
           ],
-          "verdict": "✅ 底部型態確認"
+          "verdict": "🔥 強力底部訊號"
         }
       },
       "gap_up": true,
@@ -570,10 +594,10 @@
       "symbol": "BAC",
       "name": "美國銀行",
       "signal": "Strong Buy",
-      "close": 64.5,
+      "close": 64.44,
       "ma60": 58.26,
       "market": "us",
-      "change": 0.64,
+      "change": 0.55,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -600,16 +624,16 @@
       "symbol": "BLK",
       "name": "貝萊德",
       "signal": "Strong Buy",
-      "close": 1173.22,
-      "ma60": 1050.94,
+      "close": 1172.13,
+      "ma60": 1050.93,
       "market": "us",
-      "change": -0.81,
+      "change": -0.91,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1071.96,
-        "sl": 1050.94,
-        "tp": 1339.95
+        "entry": 1071.95,
+        "sl": 1050.93,
+        "tp": 1339.94
       },
       "sector": "其他族群",
       "backtest": {
@@ -627,7 +651,7 @@
           "neckline": 1097.84,
           "support": 1030.49,
           "target": 1165.19,
-          "breakthrough_pct": 6.87,
+          "breakthrough_pct": 6.77,
           "bottom1_price": 1033.56,
           "bottom2_price": 1030.49,
           "days_formed": 75,
@@ -649,16 +673,16 @@
       "symbol": "BRK-B",
       "name": "波克夏",
       "signal": "Strong Buy",
-      "close": 506.36,
-      "ma60": 495.56,
+      "close": 505.99,
+      "ma60": 495.55,
       "market": "us",
-      "change": -0.11,
+      "change": -0.19,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 506.36,
-        "sl": 495.56,
-        "tp": 632.95
+        "entry": 505.99,
+        "sl": 495.55,
+        "tp": 632.49
       },
       "sector": "其他族群",
       "backtest": {
@@ -676,7 +700,7 @@
           "neckline": 488.38,
           "support": 465.52,
           "target": 511.24,
-          "breakthrough_pct": 3.68,
+          "breakthrough_pct": 3.61,
           "bottom1_price": 465.52,
           "bottom2_price": 470.29,
           "days_formed": 71,
@@ -709,10 +733,10 @@
       "symbol": "BX",
       "name": "黑石",
       "signal": "Strong Buy",
-      "close": 144.88,
+      "close": 144.86,
       "ma60": 123.65,
       "market": "us",
-      "change": -2.97,
+      "change": -2.99,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -736,7 +760,7 @@
           "neckline": 126.58,
           "support": 109.17,
           "target": 143.99,
-          "breakthrough_pct": 14.46,
+          "breakthrough_pct": 14.44,
           "bottom1_price": 109.17,
           "bottom2_price": 111.85,
           "days_formed": 51,
@@ -758,16 +782,16 @@
       "symbol": "CAT",
       "name": "卡特彼勒",
       "signal": "Hold",
-      "close": 857.63,
-      "ma60": 907.67,
+      "close": 858.01,
+      "ma60": 907.68,
       "market": "us",
-      "change": 0.35,
+      "change": 0.4,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 916.75,
-        "sl": 907.67,
-        "tp": 1145.94
+        "entry": 916.76,
+        "sl": 907.68,
+        "tp": 1145.95
       },
       "sector": "其他族群",
       "backtest": {
@@ -787,16 +811,16 @@
       "symbol": "CDNS",
       "name": "Cadence",
       "signal": "Hold",
-      "close": 325.77,
-      "ma60": 364.83,
+      "close": 326.0,
+      "ma60": 364.84,
       "market": "us",
-      "change": 0.62,
+      "change": 0.69,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 368.48,
-        "sl": 364.83,
-        "tp": 460.6
+        "entry": 368.49,
+        "sl": 364.84,
+        "tp": 460.61
       },
       "sector": "其他族群",
       "backtest": {
@@ -816,18 +840,18 @@
       "symbol": "CEG",
       "name": "Constellation",
       "signal": "Strong Buy",
-      "close": 283.58,
-      "ma60": 264.78,
+      "close": 283.8,
+      "ma60": 264.79,
       "market": "us",
-      "change": 1.77,
+      "change": 1.85,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "核能與智慧電網",
       "is_regular": true,
       "plan": {
-        "entry": 270.08,
-        "sl": 264.78,
-        "tp": 337.6
+        "entry": 270.09,
+        "sl": 264.79,
+        "tp": 337.61
       },
       "backtest": {
         "win_rate": 45.0,
@@ -843,7 +867,7 @@
           "neckline": 275.53,
           "support": 236.5,
           "target": 314.56,
-          "breakthrough_pct": 2.92,
+          "breakthrough_pct": 3.0,
           "bottom1_price": 242.3,
           "bottom2_price": 236.5,
           "days_formed": 46,
@@ -865,16 +889,16 @@
       "symbol": "CI",
       "name": "信諾",
       "signal": "Hold",
-      "close": 282.08,
-      "ma60": 284.7,
+      "close": 282.39,
+      "ma60": 284.71,
       "market": "us",
-      "change": 1.47,
+      "change": 1.58,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 287.55,
-        "sl": 284.7,
-        "tp": 359.44
+        "entry": 287.56,
+        "sl": 284.71,
+        "tp": 359.45
       },
       "sector": "其他族群",
       "backtest": {
@@ -912,16 +936,16 @@
       "symbol": "COIN",
       "name": "Coinbase",
       "signal": "Hold",
-      "close": 148.16,
-      "ma60": 161.87,
+      "close": 149.3,
+      "ma60": 161.89,
       "market": "us",
-      "change": -3.73,
+      "change": -2.99,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 163.49,
-        "sl": 161.87,
-        "tp": 204.36
+        "entry": 163.51,
+        "sl": 161.89,
+        "tp": 204.39
       },
       "sector": "其他族群",
       "backtest": {
@@ -962,16 +986,16 @@
       "symbol": "COST",
       "name": "好市多",
       "signal": "Strong Buy",
-      "close": 961.73,
-      "ma60": 957.26,
+      "close": 961.36,
+      "ma60": 957.25,
       "market": "us",
-      "change": -0.01,
+      "change": -0.05,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 961.73,
-        "sl": 957.26,
-        "tp": 1202.16
+        "entry": 961.36,
+        "sl": 957.25,
+        "tp": 1201.7
       },
       "sector": "其他族群",
       "backtest": {
@@ -989,7 +1013,7 @@
           "neckline": 944.07,
           "support": 911.52,
           "target": 976.62,
-          "breakthrough_pct": 1.87,
+          "breakthrough_pct": 1.83,
           "bottom1_price": 911.52,
           "bottom2_price": 924.59,
           "days_formed": 27,
@@ -1022,16 +1046,16 @@
       "symbol": "CRWD",
       "name": "庫德史萊克",
       "signal": "Strong Buy",
-      "close": 218.45,
-      "ma60": 187.14,
+      "close": 217.6,
+      "ma60": 187.12,
       "market": "us",
-      "change": -3.14,
+      "change": -3.52,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 190.88,
-        "sl": 187.14,
-        "tp": 238.6
+        "entry": 190.86,
+        "sl": 187.12,
+        "tp": 238.58
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -1051,16 +1075,16 @@
       "symbol": "CSCO",
       "name": "思科",
       "signal": "Hold",
-      "close": 111.8,
-      "ma60": 117.73,
+      "close": 111.65,
+      "ma60": 117.72,
       "market": "us",
-      "change": -1.47,
+      "change": -1.6,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 118.91,
-        "sl": 117.73,
-        "tp": 148.64
+        "entry": 118.9,
+        "sl": 117.72,
+        "tp": 148.62
       },
       "sector": "其他族群",
       "backtest": {
@@ -1080,10 +1104,10 @@
       "symbol": "CSX",
       "name": "CSX運輸",
       "signal": "Strong Buy",
-      "close": 50.29,
+      "close": 50.18,
       "ma60": 48.49,
       "market": "us",
-      "change": 0.3,
+      "change": 0.08,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1107,7 +1131,7 @@
           "neckline": 47.0,
           "support": 44.26,
           "target": 49.73,
-          "breakthrough_pct": 7.02,
+          "breakthrough_pct": 6.78,
           "bottom1_price": 44.26,
           "bottom2_price": 45.26,
           "days_formed": 65,
@@ -1129,10 +1153,10 @@
       "symbol": "CVS",
       "name": "CVS健康",
       "signal": "Hold",
-      "close": 97.14,
+      "close": 97.01,
       "ma60": 100.09,
       "market": "us",
-      "change": 2.26,
+      "change": 2.13,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1158,16 +1182,16 @@
       "symbol": "DDOG",
       "name": "Datadog",
       "signal": "Strong Buy",
-      "close": 255.6,
-      "ma60": 246.8,
+      "close": 254.34,
+      "ma60": 246.78,
       "market": "us",
-      "change": 1.33,
+      "change": 0.83,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 251.74,
-        "sl": 246.8,
-        "tp": 314.68
+        "entry": 251.72,
+        "sl": 246.78,
+        "tp": 314.65
       },
       "sector": "AI 軟體/雲端",
       "backtest": {
@@ -1187,18 +1211,18 @@
       "symbol": "DELL",
       "name": "戴爾",
       "signal": "Strong Buy",
-      "close": 491.09,
-      "ma60": 409.03,
+      "close": 489.98,
+      "ma60": 409.01,
       "market": "us",
-      "change": -0.69,
+      "change": -0.92,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 417.21,
-        "sl": 409.03,
-        "tp": 521.51
+        "entry": 417.19,
+        "sl": 409.01,
+        "tp": 521.49
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1234,10 +1258,10 @@
       "symbol": "DIA",
       "name": "道瓊工業指數ETF",
       "signal": "Strong Buy",
-      "close": 537.21,
+      "close": 537.11,
       "ma60": 520.01,
       "market": "us",
-      "change": -0.13,
+      "change": -0.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1261,7 +1285,7 @@
           "neckline": 497.28,
           "support": 486.93,
           "target": 507.62,
-          "breakthrough_pct": 8.03,
+          "breakthrough_pct": 8.01,
           "bottom1_price": 486.93,
           "bottom2_price": 492.5,
           "days_formed": 75,
@@ -1294,10 +1318,10 @@
       "symbol": "DKNG",
       "name": "DraftKings",
       "signal": "Strong Buy",
-      "close": 26.03,
+      "close": 26.04,
       "ma60": 25.27,
       "market": "us",
-      "change": 2.4,
+      "change": 2.44,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1341,16 +1365,16 @@
       "symbol": "DOV",
       "name": "Dover Corp",
       "signal": "Hold",
-      "close": 208.05,
-      "ma60": 213.45,
+      "close": 207.57,
+      "ma60": 213.44,
       "market": "us",
-      "change": 0.67,
+      "change": 0.44,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 215.58,
-        "sl": 213.45,
-        "tp": 269.48
+        "entry": 215.57,
+        "sl": 213.44,
+        "tp": 269.46
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -1389,16 +1413,16 @@
       "symbol": "ELV",
       "name": "Elevance Health",
       "signal": "Strong Buy",
-      "close": 402.07,
-      "ma60": 395.56,
+      "close": 401.88,
+      "ma60": 395.55,
       "market": "us",
-      "change": 0.97,
+      "change": 0.92,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 402.07,
-        "sl": 395.56,
-        "tp": 502.59
+        "entry": 401.88,
+        "sl": 395.55,
+        "tp": 502.35
       },
       "sector": "其他族群",
       "backtest": {
@@ -1436,10 +1460,10 @@
       "symbol": "EMR",
       "name": "艾默生電氣",
       "signal": "Strong Buy",
-      "close": 163.22,
+      "close": 163.31,
       "ma60": 145.01,
       "market": "us",
-      "change": -0.6,
+      "change": -0.55,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -1464,7 +1488,7 @@
           "neckline": 150.66,
           "support": 135.38,
           "target": 165.94,
-          "breakthrough_pct": 8.34,
+          "breakthrough_pct": 8.4,
           "bottom1_price": 137.11,
           "bottom2_price": 135.38,
           "days_formed": 46,
@@ -1497,16 +1521,16 @@
       "symbol": "EQIX",
       "name": "艾奎尼克斯",
       "signal": "Strong Buy",
-      "close": 1102.89,
-      "ma60": 1054.5,
+      "close": 1102.25,
+      "ma60": 1054.49,
       "market": "us",
-      "change": 2.71,
+      "change": 2.65,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1075.59,
-        "sl": 1054.5,
-        "tp": 1344.49
+        "entry": 1075.58,
+        "sl": 1054.49,
+        "tp": 1344.47
       },
       "sector": "其他族群",
       "backtest": {
@@ -1544,16 +1568,16 @@
       "symbol": "ETN",
       "name": "伊頓",
       "signal": "Strong Buy",
-      "close": 453.58,
-      "ma60": 410.27,
+      "close": 453.24,
+      "ma60": 410.26,
       "market": "us",
-      "change": 0.06,
+      "change": -0.02,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 418.48,
-        "sl": 410.27,
-        "tp": 523.1
+        "entry": 418.47,
+        "sl": 410.26,
+        "tp": 523.09
       },
       "sector": "其他族群",
       "backtest": {
@@ -1571,7 +1595,7 @@
           "neckline": 420.18,
           "support": 370.97,
           "target": 469.39,
-          "breakthrough_pct": 7.95,
+          "breakthrough_pct": 7.87,
           "bottom1_price": 370.97,
           "bottom2_price": 374.54,
           "days_formed": 61,
@@ -1604,16 +1628,16 @@
       "symbol": "FDX",
       "name": "聯邦快遞",
       "signal": "Strong Buy",
-      "close": 333.96,
-      "ma60": 319.87,
+      "close": 335.44,
+      "ma60": 320.23,
       "market": "us",
-      "change": -1.59,
+      "change": -1.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 326.27,
-        "sl": 319.87,
-        "tp": 407.84
+        "entry": 326.63,
+        "sl": 320.23,
+        "tp": 408.29
       },
       "sector": "其他族群",
       "backtest": {
@@ -1631,10 +1655,10 @@
           "neckline": 337.48,
           "support": 309.76,
           "target": 365.21,
-          "breakthrough_pct": -1.04,
+          "breakthrough_pct": -0.61,
           "bottom1_price": 318.06,
           "bottom2_price": 309.76,
-          "days_formed": 45,
+          "days_formed": 46,
           "strength": "forming"
         },
         "triple_bottom": {
@@ -1644,7 +1668,7 @@
           "support": 296.79,
           "target": 378.18,
           "avg_bottom": 308.2,
-          "days_formed": 64,
+          "days_formed": 65,
           "strength": "forming"
         },
         "summary": {
@@ -1664,16 +1688,16 @@
       "symbol": "FTNT",
       "name": "飛塔",
       "signal": "Strong Buy",
-      "close": 161.15,
-      "ma60": 151.87,
+      "close": 159.77,
+      "ma60": 151.85,
       "market": "us",
-      "change": -2.59,
+      "change": -3.43,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 154.91,
-        "sl": 151.87,
-        "tp": 193.64
+        "entry": 154.89,
+        "sl": 151.85,
+        "tp": 193.61
       },
       "sector": "其他族群",
       "backtest": {
@@ -1693,16 +1717,16 @@
       "symbol": "GD",
       "name": "通用動力",
       "signal": "Strong Buy",
-      "close": 395.71,
-      "ma60": 363.07,
+      "close": 395.47,
+      "ma60": 364.08,
       "market": "us",
-      "change": 0.7,
+      "change": 0.64,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 370.33,
-        "sl": 363.07,
-        "tp": 462.91
+        "entry": 371.36,
+        "sl": 364.08,
+        "tp": 464.2
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -1721,10 +1745,10 @@
           "neckline": 347.43,
           "support": 333.03,
           "target": 361.83,
-          "breakthrough_pct": 13.9,
+          "breakthrough_pct": 13.83,
           "bottom1_price": 333.03,
           "bottom2_price": 335.56,
-          "days_formed": 61,
+          "days_formed": 63,
           "strength": "strong"
         },
         "summary": {
@@ -1743,18 +1767,18 @@
       "symbol": "GEV",
       "name": "GE Vernova",
       "signal": "Strong Buy",
-      "close": 1054.14,
-      "ma60": 1023.53,
+      "close": 1059.48,
+      "ma60": 1023.62,
       "market": "us",
-      "change": 0.45,
+      "change": 0.96,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能與智慧電網",
       "is_regular": true,
       "plan": {
-        "entry": 1054.14,
-        "sl": 1023.53,
-        "tp": 1317.68
+        "entry": 1044.09,
+        "sl": 1023.62,
+        "tp": 1305.11
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1772,16 +1796,16 @@
       "symbol": "GLW",
       "name": "康寧",
       "signal": "Hold",
-      "close": 164.22,
-      "ma60": 178.59,
+      "close": 165.69,
+      "ma60": 178.62,
       "market": "us",
-      "change": 3.58,
+      "change": 4.51,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 180.38,
-        "sl": 178.59,
-        "tp": 225.47
+        "entry": 180.41,
+        "sl": 178.62,
+        "tp": 225.51
       },
       "sector": "其他族群",
       "backtest": {
@@ -1801,10 +1825,10 @@
       "symbol": "GM",
       "name": "通用汽車",
       "signal": "Strong Buy",
-      "close": 87.14,
+      "close": 86.9,
       "ma60": 81.67,
       "market": "us",
-      "change": 0.87,
+      "change": 0.59,
       "vol_ratio": 1.2,
       "tactic": "空頭禁區：建議觀望",
       "plan": {
@@ -1828,7 +1852,7 @@
           "neckline": 77.85,
           "support": 75.52,
           "target": 80.18,
-          "breakthrough_pct": 11.93,
+          "breakthrough_pct": 11.62,
           "bottom1_price": 75.52,
           "bottom2_price": 75.8,
           "days_formed": 32,
@@ -1861,18 +1885,18 @@
       "symbol": "GOOGL",
       "name": "Alphabet",
       "signal": "Hold",
-      "close": 345.61,
-      "ma60": 358.28,
+      "close": 345.14,
+      "ma60": 358.27,
       "market": "us",
-      "change": -0.22,
+      "change": -0.35,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "量子計算與密碼學",
       "is_regular": false,
       "plan": {
-        "entry": 361.86,
-        "sl": 358.28,
-        "tp": 452.33
+        "entry": 361.85,
+        "sl": 358.27,
+        "tp": 452.31
       },
       "backtest": {
         "win_rate": 65.0,
@@ -1890,16 +1914,16 @@
       "symbol": "GS",
       "name": "高盛",
       "signal": "Hold",
-      "close": 1039.46,
-      "ma60": 1047.32,
+      "close": 1040.65,
+      "ma60": 1047.34,
       "market": "us",
-      "change": -0.3,
+      "change": -0.19,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1057.79,
-        "sl": 1047.32,
-        "tp": 1322.24
+        "entry": 1057.81,
+        "sl": 1047.34,
+        "tp": 1322.26
       },
       "sector": "其他族群",
       "backtest": {
@@ -1937,10 +1961,10 @@
       "symbol": "HOOD",
       "name": "Robinhood",
       "signal": "Hold",
-      "close": 95.61,
+      "close": 95.93,
       "ma60": 96.19,
       "market": "us",
-      "change": -3.78,
+      "change": -3.46,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1966,10 +1990,10 @@
       "symbol": "HPE",
       "name": "慧與科技",
       "signal": "Strong Buy",
-      "close": 58.94,
+      "close": 58.86,
       "ma60": 47.39,
       "market": "us",
-      "change": -1.47,
+      "change": -1.6,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -1995,16 +2019,16 @@
       "symbol": "HUM",
       "name": "Humana",
       "signal": "Strong Buy",
-      "close": 388.71,
-      "ma60": 364.83,
+      "close": 388.49,
+      "ma60": 368.93,
       "market": "us",
-      "change": 0.97,
+      "change": 0.91,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 372.13,
-        "sl": 364.83,
-        "tp": 465.16
+        "entry": 376.31,
+        "sl": 368.93,
+        "tp": 470.39
       },
       "sector": "其他族群",
       "backtest": {
@@ -2025,19 +2049,19 @@
       "name": "IBM",
       "sector": "量子計算與密碼學",
       "signal": "Hold",
-      "close": 234.77,
-      "ma60": 254.53,
+      "close": 234.07,
+      "ma60": 254.51,
       "market": "us",
-      "change": -1.0,
+      "change": -1.29,
       "is_regular": false,
       "esg_elite": true,
       "patterns": {},
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 257.08,
-        "sl": 254.53,
-        "tp": 321.35
+        "entry": 257.06,
+        "sl": 254.51,
+        "tp": 321.32
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2048,10 +2072,10 @@
       "symbol": "INTC",
       "name": "英特爾",
       "signal": "Hold",
-      "close": 102.83,
+      "close": 102.85,
       "ma60": 110.64,
       "market": "us",
-      "change": -1.65,
+      "change": -1.64,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2078,19 +2102,19 @@
       "name": "IonQ",
       "sector": "量子計算與密碼學",
       "signal": "Hold",
-      "close": 46.17,
-      "ma60": 49.34,
+      "close": 46.89,
+      "ma60": 49.35,
       "market": "us",
-      "change": 2.65,
+      "change": 4.25,
       "is_regular": false,
       "esg_elite": false,
       "patterns": {},
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
-        "entry": 49.83,
-        "sl": 49.34,
-        "tp": 62.29
+        "entry": 49.84,
+        "sl": 49.35,
+        "tp": 62.3
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2101,16 +2125,16 @@
       "symbol": "IWM",
       "name": "羅素2000ETF",
       "signal": "Strong Buy",
-      "close": 304.58,
-      "ma60": 293.7,
+      "close": 304.97,
+      "ma60": 293.71,
       "market": "us",
-      "change": 0.36,
+      "change": 0.48,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 299.57,
-        "sl": 293.7,
-        "tp": 374.46
+        "entry": 299.58,
+        "sl": 293.71,
+        "tp": 374.47
       },
       "sector": "其他族群",
       "backtest": {
@@ -2128,7 +2152,7 @@
           "neckline": 286.12,
           "support": 271.43,
           "target": 300.8,
-          "breakthrough_pct": 6.45,
+          "breakthrough_pct": 6.59,
           "bottom1_price": 271.43,
           "bottom2_price": 272.35,
           "days_formed": 75,
@@ -2161,10 +2185,10 @@
       "symbol": "JOBY",
       "name": "Joby Aviation",
       "signal": "Hold",
-      "close": 7.87,
+      "close": 7.89,
       "ma60": 8.89,
       "market": "us",
-      "change": -4.72,
+      "change": -4.48,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
@@ -2190,10 +2214,10 @@
       "symbol": "JPM",
       "name": "摩根大通",
       "signal": "Strong Buy",
-      "close": 363.14,
+      "close": 362.85,
       "ma60": 332.3,
       "market": "us",
-      "change": 0.01,
+      "change": -0.07,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2219,10 +2243,10 @@
       "symbol": "KO",
       "name": "可口可樂",
       "signal": "Strong Buy",
-      "close": 87.64,
+      "close": 87.51,
       "ma60": 82.69,
       "market": "us",
-      "change": 0.25,
+      "change": 0.1,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2246,7 +2270,7 @@
           "neckline": 84.92,
           "support": 79.39,
           "target": 90.45,
-          "breakthrough_pct": 3.2,
+          "breakthrough_pct": 3.05,
           "bottom1_price": 79.39,
           "bottom2_price": 81.17,
           "days_formed": 40,
@@ -2279,16 +2303,16 @@
       "symbol": "LIN",
       "name": "林德",
       "signal": "Hold",
-      "close": 483.45,
-      "ma60": 509.49,
+      "close": 483.36,
+      "ma60": 509.48,
       "market": "us",
-      "change": 1.1,
+      "change": 1.08,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 514.58,
-        "sl": 509.49,
-        "tp": 643.23
+        "entry": 514.57,
+        "sl": 509.48,
+        "tp": 643.21
       },
       "sector": "其他族群",
       "backtest": {
@@ -2308,16 +2332,16 @@
       "symbol": "LLY",
       "name": "禮來",
       "signal": "Strong Buy",
-      "close": 1181.31,
-      "ma60": 1153.47,
+      "close": 1177.47,
+      "ma60": 1153.41,
       "market": "us",
-      "change": -2.29,
+      "change": -2.61,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1181.31,
-        "sl": 1153.47,
-        "tp": 1476.64
+        "entry": 1177.47,
+        "sl": 1153.41,
+        "tp": 1471.84
       },
       "sector": "生物AI與精準醫療",
       "backtest": {
@@ -2355,16 +2379,16 @@
       "symbol": "LRCX",
       "name": "科林研發",
       "signal": "Hold",
-      "close": 330.33,
-      "ma60": 334.0,
+      "close": 332.23,
+      "ma60": 334.03,
       "market": "us",
-      "change": -1.98,
+      "change": -1.42,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 337.34,
-        "sl": 334.0,
-        "tp": 421.67
+        "entry": 337.37,
+        "sl": 334.03,
+        "tp": 421.71
       },
       "sector": "其他族群",
       "backtest": {
@@ -2384,10 +2408,10 @@
       "symbol": "LUNR",
       "name": "Intuitive Machines",
       "signal": "Hold",
-      "close": 18.91,
+      "close": 18.93,
       "ma60": 21.86,
       "market": "us",
-      "change": 7.69,
+      "change": 7.8,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
@@ -2413,16 +2437,16 @@
       "symbol": "MA",
       "name": "萬事達",
       "signal": "Strong Buy",
-      "close": 569.75,
-      "ma60": 522.53,
+      "close": 569.6,
+      "ma60": 522.52,
       "market": "us",
-      "change": 0.48,
+      "change": 0.45,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 532.98,
-        "sl": 522.53,
-        "tp": 666.23
+        "entry": 532.97,
+        "sl": 522.52,
+        "tp": 666.21
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -2441,7 +2465,7 @@
           "neckline": 524.35,
           "support": 489.12,
           "target": 559.58,
-          "breakthrough_pct": 8.66,
+          "breakthrough_pct": 8.61,
           "bottom1_price": 501.54,
           "bottom2_price": 489.12,
           "days_formed": 79,
@@ -2463,10 +2487,10 @@
       "symbol": "MARA",
       "name": "Marathon Digital",
       "signal": "Hold",
-      "close": 9.12,
+      "close": 9.19,
       "ma60": 12.65,
       "market": "us",
-      "change": -0.98,
+      "change": -0.22,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2492,16 +2516,16 @@
       "symbol": "MCHP",
       "name": "微晶片科技",
       "signal": "Hold",
-      "close": 78.46,
-      "ma60": 87.24,
+      "close": 79.15,
+      "ma60": 87.25,
       "market": "us",
-      "change": 0.99,
+      "change": 1.88,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 88.11,
-        "sl": 87.24,
-        "tp": 110.14
+        "entry": 88.12,
+        "sl": 87.25,
+        "tp": 110.15
       },
       "sector": "其他族群",
       "backtest": {
@@ -2521,10 +2545,10 @@
       "symbol": "MDB",
       "name": "MongoDB",
       "signal": "Strong Buy",
-      "close": 457.84,
+      "close": 457.6,
       "ma60": 347.84,
       "market": "us",
-      "change": -3.06,
+      "change": -3.11,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -2548,7 +2572,7 @@
           "neckline": 362.87,
           "support": 294.1,
           "target": 431.64,
-          "breakthrough_pct": 26.17,
+          "breakthrough_pct": 26.11,
           "bottom1_price": 294.1,
           "bottom2_price": 298.22,
           "days_formed": 36,
@@ -2570,18 +2594,18 @@
       "symbol": "META",
       "name": "臉書",
       "signal": "Hold",
-      "close": 591.26,
-      "ma60": 600.13,
+      "close": 590.66,
+      "ma60": 600.12,
       "market": "us",
-      "change": -0.62,
+      "change": -0.72,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 606.13,
-        "sl": 600.13,
-        "tp": 757.66
+        "entry": 606.12,
+        "sl": 600.12,
+        "tp": 757.65
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2599,16 +2623,16 @@
       "symbol": "MPWR",
       "name": "芯源系統",
       "signal": "Hold",
-      "close": 1390.07,
-      "ma60": 1432.85,
+      "close": 1397.94,
+      "ma60": 1432.98,
       "market": "us",
-      "change": 2.02,
+      "change": 2.6,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 1447.18,
-        "sl": 1432.85,
-        "tp": 1808.98
+        "entry": 1447.31,
+        "sl": 1432.98,
+        "tp": 1809.14
       },
       "sector": "其他族群",
       "backtest": {
@@ -2626,7 +2650,7 @@
           "neckline": 1398.45,
           "support": 1248.76,
           "target": 1548.14,
-          "breakthrough_pct": -0.6,
+          "breakthrough_pct": -0.04,
           "bottom1_price": 1272.81,
           "bottom2_price": 1248.76,
           "days_formed": 29,
@@ -2648,16 +2672,16 @@
       "symbol": "MRVL",
       "name": "Marvell",
       "signal": "Hold",
-      "close": 219.4,
-      "ma60": 235.05,
+      "close": 220.79,
+      "ma60": 235.07,
       "market": "us",
-      "change": -1.25,
+      "change": -0.63,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 237.4,
-        "sl": 235.05,
-        "tp": 296.75
+        "entry": 237.42,
+        "sl": 235.07,
+        "tp": 296.77
       },
       "sector": "矽光子/CPO",
       "backtest": {
@@ -2677,16 +2701,16 @@
       "symbol": "MS",
       "name": "摩根士丹利",
       "signal": "Strong Buy",
-      "close": 217.4,
-      "ma60": 213.7,
+      "close": 217.6,
+      "ma60": 213.71,
       "market": "us",
-      "change": -0.45,
+      "change": -0.36,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 217.4,
-        "sl": 213.7,
-        "tp": 271.75
+        "entry": 217.6,
+        "sl": 213.71,
+        "tp": 272.0
       },
       "sector": "其他族群",
       "backtest": {
@@ -2724,18 +2748,18 @@
       "symbol": "MSFT",
       "name": "微軟",
       "signal": "Strong Buy",
-      "close": 495.22,
-      "ma60": 415.53,
+      "close": 494.72,
+      "ma60": 415.52,
       "market": "us",
-      "change": -0.33,
+      "change": -0.43,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 423.84,
-        "sl": 415.53,
-        "tp": 529.8
+        "entry": 423.83,
+        "sl": 415.52,
+        "tp": 529.79
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2753,16 +2777,16 @@
       "symbol": "MSTR",
       "name": "微策略",
       "signal": "Hold",
-      "close": 92.14,
-      "ma60": 109.99,
+      "close": 93.13,
+      "ma60": 110.0,
       "market": "us",
-      "change": -5.11,
+      "change": -4.09,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 111.09,
-        "sl": 109.99,
-        "tp": 138.86
+        "entry": 111.1,
+        "sl": 110.0,
+        "tp": 138.88
       },
       "sector": "其他族群",
       "backtest": {
@@ -2782,18 +2806,18 @@
       "symbol": "MU",
       "name": "美光",
       "signal": "Strong Buy",
-      "close": 965.21,
-      "ma60": 952.8,
+      "close": 968.01,
+      "ma60": 952.85,
       "market": "us",
-      "change": 1.62,
+      "change": 1.91,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "記憶體 (HBM)",
       "is_regular": true,
       "plan": {
-        "entry": 965.21,
-        "sl": 952.8,
-        "tp": 1206.51
+        "entry": 968.01,
+        "sl": 952.85,
+        "tp": 1210.01
       },
       "backtest": {
         "win_rate": 65.0,
@@ -2811,18 +2835,18 @@
       "symbol": "NEE",
       "name": "新紀元能源",
       "signal": "Hold",
-      "close": 86.39,
-      "ma60": 86.99,
+      "close": 86.18,
+      "ma60": 86.98,
       "market": "us",
-      "change": 0.44,
+      "change": 0.2,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "核能/能源",
       "is_regular": false,
       "plan": {
-        "entry": 87.86,
-        "sl": 86.99,
-        "tp": 109.83
+        "entry": 87.85,
+        "sl": 86.98,
+        "tp": 109.81
       },
       "backtest": {
         "win_rate": 45.0,
@@ -2859,10 +2883,10 @@
       "name": "ServiceNow",
       "sector": "代理型 AI 軟體",
       "signal": "Strong Buy",
-      "close": 124.89,
-      "ma60": 108.42,
+      "close": 124.32,
+      "ma60": 108.41,
       "market": "us",
-      "change": -1.85,
+      "change": -2.3,
       "is_regular": true,
       "esg_elite": true,
       "patterns": {
@@ -2872,7 +2896,7 @@
           "neckline": 93.59,
           "support": 84.78,
           "target": 102.4,
-          "breakthrough_pct": 33.45,
+          "breakthrough_pct": 32.83,
           "bottom1_price": 84.78,
           "bottom2_price": 87.05,
           "days_formed": 79,
@@ -2900,9 +2924,9 @@
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "plan": {
-        "entry": 110.59,
-        "sl": 108.42,
-        "tp": 138.24
+        "entry": 110.58,
+        "sl": 108.41,
+        "tp": 138.22
       },
       "backtest": {
         "win_rate": 45.0,
@@ -2913,16 +2937,16 @@
       "symbol": "NSC",
       "name": "諾福克南方",
       "signal": "Strong Buy",
-      "close": 335.94,
-      "ma60": 321.46,
+      "close": 335.34,
+      "ma60": 321.45,
       "market": "us",
-      "change": -0.57,
+      "change": -0.74,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 327.89,
-        "sl": 321.46,
-        "tp": 409.86
+        "entry": 327.88,
+        "sl": 321.45,
+        "tp": 409.85
       },
       "sector": "其他族群",
       "backtest": {
@@ -2940,7 +2964,7 @@
           "neckline": 324.4,
           "support": 303.76,
           "target": 345.03,
-          "breakthrough_pct": 3.56,
+          "breakthrough_pct": 3.37,
           "bottom1_price": 309.36,
           "bottom2_price": 303.76,
           "days_formed": 65,
@@ -2962,16 +2986,16 @@
       "symbol": "NTAP",
       "name": "NetApp",
       "signal": "Strong Buy",
-      "close": 205.93,
-      "ma60": 166.8,
+      "close": 205.67,
+      "ma60": 166.79,
       "market": "us",
-      "change": 0.46,
+      "change": 0.33,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 170.14,
-        "sl": 166.8,
-        "tp": 212.67
+        "entry": 170.13,
+        "sl": 166.79,
+        "tp": 212.66
       },
       "sector": "其他族群",
       "backtest": {
@@ -2991,18 +3015,18 @@
       "symbol": "NVDA",
       "name": "輝達",
       "signal": "Strong Buy",
-      "close": 224.91,
-      "ma60": 208.27,
+      "close": 225.12,
+      "ma60": 208.28,
       "market": "us",
-      "change": -0.17,
+      "change": -0.08,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "極限算力基建",
       "is_regular": true,
       "plan": {
-        "entry": 212.44,
-        "sl": 208.27,
-        "tp": 265.55
+        "entry": 212.45,
+        "sl": 208.28,
+        "tp": 265.56
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3038,16 +3062,16 @@
       "symbol": "NVO",
       "name": "諾和諾德",
       "signal": "Hold",
-      "close": 46.01,
-      "ma60": 46.75,
+      "close": 45.76,
+      "ma60": 46.74,
       "market": "us",
-      "change": -1.52,
+      "change": -2.05,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 47.22,
-        "sl": 46.75,
-        "tp": 59.02
+        "entry": 47.21,
+        "sl": 46.74,
+        "tp": 59.01
       },
       "sector": "生物AI與精準醫療",
       "backtest": {
@@ -3067,16 +3091,16 @@
       "symbol": "NXPI",
       "name": "恩智浦",
       "signal": "Hold",
-      "close": 232.82,
-      "ma60": 280.93,
+      "close": 233.88,
+      "ma60": 280.95,
       "market": "us",
-      "change": 0.39,
+      "change": 0.85,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 283.74,
-        "sl": 280.93,
-        "tp": 354.68
+        "entry": 283.76,
+        "sl": 280.95,
+        "tp": 354.7
       },
       "sector": "其他族群",
       "backtest": {
@@ -3096,10 +3120,10 @@
       "symbol": "OKLO",
       "name": "Oklo Inc.",
       "signal": "Hold",
-      "close": 44.53,
+      "close": 44.96,
       "ma60": 52.03,
       "market": "us",
-      "change": -4.13,
+      "change": -3.21,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能/能源",
@@ -3125,16 +3149,16 @@
       "symbol": "ON",
       "name": "安森美",
       "signal": "Hold",
-      "close": 81.97,
-      "ma60": 101.04,
+      "close": 82.16,
+      "ma60": 101.05,
       "market": "us",
-      "change": 0.5,
+      "change": 0.74,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 102.05,
-        "sl": 101.04,
-        "tp": 127.56
+        "entry": 102.06,
+        "sl": 101.05,
+        "tp": 127.58
       },
       "sector": "其他族群",
       "backtest": {
@@ -3154,18 +3178,18 @@
       "symbol": "ORCL",
       "name": "甲骨文",
       "signal": "Hold",
-      "close": 148.96,
-      "ma60": 161.7,
+      "close": 150.68,
+      "ma60": 161.73,
       "market": "us",
-      "change": -4.65,
+      "change": -3.55,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 163.32,
-        "sl": 161.7,
-        "tp": 204.15
+        "entry": 163.35,
+        "sl": 161.73,
+        "tp": 204.19
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3183,16 +3207,16 @@
       "symbol": "PANW",
       "name": "Palo Alto",
       "signal": "Strong Buy",
-      "close": 383.73,
-      "ma60": 316.64,
+      "close": 381.41,
+      "ma60": 316.6,
       "market": "us",
-      "change": -3.1,
+      "change": -3.68,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 322.97,
-        "sl": 316.64,
-        "tp": 403.71
+        "entry": 322.93,
+        "sl": 316.6,
+        "tp": 403.66
       },
       "sector": "主權 AI 與網安",
       "backtest": {
@@ -3210,7 +3234,7 @@
           "neckline": 358.68,
           "support": 314.15,
           "target": 403.21,
-          "breakthrough_pct": 6.98,
+          "breakthrough_pct": 6.34,
           "bottom1_price": 320.59,
           "bottom2_price": 314.15,
           "days_formed": 28,
@@ -3233,10 +3257,10 @@
       "name": "UiPath",
       "sector": "代理型 AI 軟體",
       "signal": "Strong Buy",
-      "close": 16.11,
+      "close": 16.03,
       "ma60": 11.91,
       "market": "us",
-      "change": -3.42,
+      "change": -3.9,
       "is_regular": true,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
@@ -3259,7 +3283,7 @@
           "neckline": 12.16,
           "support": 9.93,
           "target": 14.39,
-          "breakthrough_pct": 32.52,
+          "breakthrough_pct": 31.87,
           "bottom1_price": 9.93,
           "bottom2_price": 10.2,
           "days_formed": 36,
@@ -3281,10 +3305,10 @@
       "symbol": "PAYX",
       "name": "沛齊",
       "signal": "Strong Buy",
-      "close": 122.28,
+      "close": 122.05,
       "ma60": 106.04,
       "market": "us",
-      "change": -2.49,
+      "change": -2.67,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
@@ -3309,7 +3333,7 @@
           "neckline": 92.1,
           "support": 87.77,
           "target": 96.44,
-          "breakthrough_pct": 32.76,
+          "breakthrough_pct": 32.51,
           "bottom1_price": 87.77,
           "bottom2_price": 87.91,
           "days_formed": 78,
@@ -3331,10 +3355,10 @@
       "symbol": "PL",
       "name": "Planet Labs",
       "signal": "Hold",
-      "close": 24.51,
+      "close": 24.58,
       "ma60": 29.86,
       "market": "us",
-      "change": -0.97,
+      "change": -0.69,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "太空/低空經濟",
@@ -3360,18 +3384,18 @@
       "symbol": "PLTR",
       "name": "Palantir",
       "signal": "Strong Buy",
-      "close": 174.81,
-      "ma60": 136.43,
+      "close": 174.69,
+      "ma60": 136.42,
       "market": "us",
-      "change": -2.35,
+      "change": -2.41,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "代理型 AI 軟體",
       "is_regular": true,
       "plan": {
-        "entry": 139.16,
-        "sl": 136.43,
-        "tp": 173.95
+        "entry": 139.15,
+        "sl": 136.42,
+        "tp": 173.94
       },
       "backtest": {
         "win_rate": 45.0,
@@ -3389,18 +3413,18 @@
       "symbol": "PWR",
       "name": "Quanta Services",
       "signal": "Strong Buy",
-      "close": 686.71,
-      "ma60": 680.27,
+      "close": 687.35,
+      "ma60": 680.28,
       "market": "us",
-      "change": 2.07,
+      "change": 2.17,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 686.71,
-        "sl": 680.27,
-        "tp": 858.39
+        "entry": 687.35,
+        "sl": 680.28,
+        "tp": 859.19
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3418,16 +3442,16 @@
       "symbol": "QCOM",
       "name": "高通",
       "signal": "Hold",
-      "close": 164.91,
-      "ma60": 192.24,
+      "close": 165.63,
+      "ma60": 192.25,
       "market": "us",
-      "change": 0.07,
+      "change": 0.51,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 194.16,
-        "sl": 192.24,
-        "tp": 242.7
+        "entry": 194.17,
+        "sl": 192.25,
+        "tp": 242.71
       },
       "sector": "邊緣 AI 與終端",
       "backtest": {
@@ -3447,16 +3471,16 @@
       "symbol": "QQQ",
       "name": "納斯達克100",
       "signal": "Strong Buy",
-      "close": 729.64,
-      "ma60": 715.69,
+      "close": 730.18,
+      "ma60": 715.7,
       "market": "us",
-      "change": -0.33,
+      "change": -0.26,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 729.64,
-        "sl": 715.69,
-        "tp": 912.05
+        "entry": 730.18,
+        "sl": 715.7,
+        "tp": 912.72
       },
       "sector": "其他族群",
       "backtest": {
@@ -3474,7 +3498,7 @@
           "neckline": 743.18,
           "support": 692.93,
           "target": 793.44,
-          "breakthrough_pct": -1.82,
+          "breakthrough_pct": -1.75,
           "bottom1_price": 692.93,
           "bottom2_price": 706.52,
           "days_formed": 46,
@@ -3496,18 +3520,18 @@
       "symbol": "RDDT",
       "name": "Reddit",
       "signal": "Strong Buy",
-      "close": 176.71,
-      "ma60": 172.45,
+      "close": 177.65,
+      "ma60": 172.47,
       "market": "us",
-      "change": 11.76,
+      "change": 12.35,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": true,
       "plan": {
-        "entry": 176.71,
-        "sl": 172.45,
-        "tp": 220.89
+        "entry": 175.92,
+        "sl": 172.47,
+        "tp": 219.9
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3525,18 +3549,18 @@
       "symbol": "RKLB",
       "name": "Rocket Lab",
       "signal": "Hold",
-      "close": 79.73,
-      "ma60": 93.62,
+      "close": 80.3,
+      "ma60": 93.63,
       "market": "us",
-      "change": -0.46,
+      "change": 0.25,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "空間計算與低軌衛星",
       "is_regular": false,
       "plan": {
-        "entry": 94.56,
-        "sl": 93.62,
-        "tp": 118.2
+        "entry": 94.57,
+        "sl": 93.63,
+        "tp": 118.21
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3554,16 +3578,16 @@
       "symbol": "SBUX",
       "name": "星巴克",
       "signal": "Strong Buy",
-      "close": 107.98,
-      "ma60": 102.98,
+      "close": 107.82,
+      "ma60": 102.97,
       "market": "us",
-      "change": -0.53,
+      "change": -0.67,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 105.04,
-        "sl": 102.98,
-        "tp": 131.3
+        "entry": 105.03,
+        "sl": 102.97,
+        "tp": 131.29
       },
       "sector": "其他族群",
       "backtest": {
@@ -3581,7 +3605,7 @@
           "neckline": 108.37,
           "support": 102.11,
           "target": 114.63,
-          "breakthrough_pct": -0.36,
+          "breakthrough_pct": -0.51,
           "bottom1_price": 102.11,
           "bottom2_price": 103.1,
           "days_formed": 30,
@@ -3603,10 +3627,10 @@
       "symbol": "SMCI",
       "name": "超微電腦",
       "signal": "Strong Buy",
-      "close": 39.76,
+      "close": 39.69,
       "ma60": 32.5,
       "market": "us",
-      "change": 1.53,
+      "change": 1.35,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
@@ -3632,16 +3656,16 @@
       "symbol": "SMH",
       "name": "半導體ETF",
       "signal": "Hold",
-      "close": 584.82,
-      "ma60": 592.58,
+      "close": 586.81,
+      "ma60": 592.61,
       "market": "us",
-      "change": -0.73,
+      "change": -0.39,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 598.51,
-        "sl": 592.58,
-        "tp": 748.14
+        "entry": 598.54,
+        "sl": 592.61,
+        "tp": 748.17
       },
       "sector": "其他族群",
       "backtest": {
@@ -3679,10 +3703,10 @@
       "symbol": "SMR",
       "name": "NuScale Power",
       "signal": "Hold",
-      "close": 9.23,
+      "close": 9.4,
       "ma60": 9.89,
       "market": "us",
-      "change": -6.29,
+      "change": -4.57,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能/能源",
@@ -3708,18 +3732,18 @@
       "symbol": "SNPS",
       "name": "新思科技",
       "signal": "Hold",
-      "close": 421.58,
-      "ma60": 439.86,
+      "close": 422.1,
+      "ma60": 439.87,
       "market": "us",
-      "change": 2.39,
+      "change": 2.51,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 軟體/雲端",
       "is_regular": false,
       "plan": {
-        "entry": 444.26,
-        "sl": 439.86,
-        "tp": 555.33
+        "entry": 444.27,
+        "sl": 439.87,
+        "tp": 555.34
       },
       "backtest": {
         "win_rate": 65.0,
@@ -3737,16 +3761,16 @@
       "symbol": "SOXX",
       "name": "費半ETF",
       "signal": "Hold",
-      "close": 546.9,
-      "ma60": 562.39,
+      "close": 549.33,
+      "ma60": 562.43,
       "market": "us",
-      "change": -0.7,
+      "change": -0.26,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 568.01,
-        "sl": 562.39,
-        "tp": 710.01
+        "entry": 568.05,
+        "sl": 562.43,
+        "tp": 710.06
       },
       "sector": "其他族群",
       "backtest": {
@@ -3785,8 +3809,8 @@
       "name": "The SPAC and New Issue ETF",
       "market": "us",
       "sector": "ETF",
-      "close": 139.27,
-      "ma60": 139.27,
+      "close": 139.58,
+      "ma60": 139.58,
       "vol_surge": false,
       "gap_up": false,
       "technicals": {},
@@ -3794,14 +3818,14 @@
       "patterns": {},
       "chips": {},
       "price_source": "Yahoo",
-      "change": -1.43,
+      "change": -1.21,
       "signal": "Hold",
       "is_regular": false,
       "k_pattern": null,
       "plan": {
-        "entry": 140.66,
-        "sl": 139.27,
-        "tp": 175.82
+        "entry": 140.98,
+        "sl": 139.58,
+        "tp": 176.22
       },
       "esg_elite": false,
       "vol_ratio": 1.5,
@@ -3815,10 +3839,10 @@
       "symbol": "SPY",
       "name": "標普500",
       "signal": "Strong Buy",
-      "close": 776.15,
+      "close": 776.22,
       "ma60": 748.7,
       "market": "us",
-      "change": -0.22,
+      "change": -0.21,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -3842,7 +3866,7 @@
           "neckline": 757.62,
           "support": 723.57,
           "target": 791.67,
-          "breakthrough_pct": 2.45,
+          "breakthrough_pct": 2.46,
           "bottom1_price": 731.84,
           "bottom2_price": 723.57,
           "days_formed": 61,
@@ -3875,16 +3899,16 @@
       "symbol": "STX",
       "name": "希捷",
       "signal": "Strong Buy",
-      "close": 967.0,
-      "ma60": 884.52,
+      "close": 967.88,
+      "ma60": 884.53,
       "market": "us",
-      "change": 4.95,
+      "change": 5.05,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 902.21,
-        "sl": 884.52,
-        "tp": 1127.76
+        "entry": 902.22,
+        "sl": 884.53,
+        "tp": 1127.78
       },
       "sector": "其他族群",
       "backtest": {
@@ -3904,16 +3928,16 @@
       "symbol": "TEL",
       "name": "TE Connectivity",
       "signal": "Strong Buy",
-      "close": 217.53,
-      "ma60": 207.34,
+      "close": 216.84,
+      "ma60": 207.32,
       "market": "us",
-      "change": 1.3,
+      "change": 0.98,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 211.49,
-        "sl": 207.34,
-        "tp": 264.36
+        "entry": 211.47,
+        "sl": 207.32,
+        "tp": 264.34
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -3932,7 +3956,7 @@
           "neckline": 217.64,
           "support": 196.24,
           "target": 239.04,
-          "breakthrough_pct": -0.05,
+          "breakthrough_pct": -0.37,
           "bottom1_price": 202.0,
           "bottom2_price": 196.24,
           "days_formed": 46,
@@ -3965,16 +3989,16 @@
       "symbol": "TER",
       "name": "泰瑞達",
       "signal": "Strong Buy",
-      "close": 408.7,
-      "ma60": 381.86,
+      "close": 411.7,
+      "ma60": 381.91,
       "market": "us",
-      "change": -0.44,
+      "change": 0.29,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 389.5,
-        "sl": 381.86,
-        "tp": 486.88
+        "entry": 389.55,
+        "sl": 381.91,
+        "tp": 486.94
       },
       "sector": "其他族群",
       "backtest": {
@@ -3994,10 +4018,10 @@
       "symbol": "TSLA",
       "name": "特斯拉",
       "signal": "Hold",
-      "close": 341.26,
+      "close": 341.42,
       "ma60": 380.49,
       "market": "us",
-      "change": 0.38,
+      "change": 0.43,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4023,18 +4047,18 @@
       "symbol": "TSM",
       "name": "台積電 ADR",
       "signal": "Strong Buy",
-      "close": 426.18,
-      "ma60": 424.23,
+      "close": 427.08,
+      "ma60": 424.24,
       "market": "us",
-      "change": -1.0,
+      "change": -0.79,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "AI 基建/散熱",
       "is_regular": true,
       "plan": {
-        "entry": 426.18,
-        "sl": 424.23,
-        "tp": 532.73
+        "entry": 427.08,
+        "sl": 424.24,
+        "tp": 533.85
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4052,10 +4076,10 @@
       "symbol": "UBER",
       "name": "優步",
       "signal": "Strong Buy",
-      "close": 75.97,
+      "close": 75.92,
       "ma60": 72.2,
       "market": "us",
-      "change": 0.12,
+      "change": 0.05,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4079,7 +4103,7 @@
           "neckline": 73.77,
           "support": 68.61,
           "target": 78.93,
-          "breakthrough_pct": 2.98,
+          "breakthrough_pct": 2.91,
           "bottom1_price": 70.12,
           "bottom2_price": 68.61,
           "days_formed": 57,
@@ -4112,10 +4136,10 @@
       "symbol": "UNH",
       "name": "聯合健康",
       "signal": "Hold",
-      "close": 402.09,
+      "close": 402.12,
       "ma60": 408.91,
       "market": "us",
-      "change": 0.76,
+      "change": 0.77,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4141,16 +4165,16 @@
       "symbol": "UNP",
       "name": "聯合太平洋",
       "signal": "Strong Buy",
-      "close": 295.21,
-      "ma60": 280.04,
+      "close": 294.48,
+      "ma60": 280.03,
       "market": "us",
-      "change": -0.87,
+      "change": -1.11,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 285.64,
-        "sl": 280.04,
-        "tp": 357.05
+        "entry": 285.63,
+        "sl": 280.03,
+        "tp": 357.04
       },
       "sector": "其他族群",
       "backtest": {
@@ -4168,7 +4192,7 @@
           "neckline": 277.95,
           "support": 261.99,
           "target": 293.9,
-          "breakthrough_pct": 6.21,
+          "breakthrough_pct": 5.95,
           "bottom1_price": 261.99,
           "bottom2_price": 262.13,
           "days_formed": 67,
@@ -4190,16 +4214,16 @@
       "symbol": "V",
       "name": "威士",
       "signal": "Strong Buy",
-      "close": 365.64,
-      "ma60": 343.97,
+      "close": 365.08,
+      "ma60": 343.96,
       "market": "us",
-      "change": 0.05,
+      "change": -0.1,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 350.85,
-        "sl": 343.97,
-        "tp": 438.56
+        "entry": 350.84,
+        "sl": 343.96,
+        "tp": 438.55
       },
       "sector": "其他族群",
       "backtest": {
@@ -4217,7 +4241,7 @@
           "neckline": 332.02,
           "support": 311.82,
           "target": 352.23,
-          "breakthrough_pct": 10.12,
+          "breakthrough_pct": 9.96,
           "bottom1_price": 317.54,
           "bottom2_price": 311.82,
           "days_formed": 68,
@@ -4240,10 +4264,10 @@
       "name": "Veeva Systems",
       "sector": "生物AI與精準醫療",
       "signal": "Strong Buy",
-      "close": 245.48,
-      "ma60": 186.56,
+      "close": 245.64,
+      "ma60": 186.57,
       "market": "us",
-      "change": -2.83,
+      "change": -2.77,
       "is_regular": true,
       "esg_elite": false,
       "patterns": {
@@ -4253,7 +4277,7 @@
           "neckline": 188.66,
           "support": 153.16,
           "target": 224.16,
-          "breakthrough_pct": 30.12,
+          "breakthrough_pct": 30.2,
           "bottom1_price": 155.73,
           "bottom2_price": 153.16,
           "days_formed": 65,
@@ -4270,9 +4294,9 @@
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "plan": {
-        "entry": 190.29,
-        "sl": 186.56,
-        "tp": 237.86
+        "entry": 190.3,
+        "sl": 186.57,
+        "tp": 237.88
       },
       "backtest": {
         "win_rate": 45.0,
@@ -4283,10 +4307,10 @@
       "symbol": "VGT",
       "name": "資訊科技ETF",
       "signal": "Strong Buy",
-      "close": 122.3,
+      "close": 122.44,
       "ma60": 117.04,
       "market": "us",
-      "change": -0.56,
+      "change": -0.45,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4310,7 +4334,7 @@
           "neckline": 120.59,
           "support": 112.21,
           "target": 128.97,
-          "breakthrough_pct": 1.42,
+          "breakthrough_pct": 1.54,
           "bottom1_price": 112.21,
           "bottom2_price": 113.86,
           "days_formed": 46,
@@ -4343,10 +4367,10 @@
       "symbol": "VOO",
       "name": "標普500ETF",
       "signal": "Strong Buy",
-      "close": 713.45,
+      "close": 713.5,
       "ma60": 688.14,
       "market": "us",
-      "change": -0.21,
+      "change": -0.2,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4370,7 +4394,7 @@
           "neckline": 696.23,
           "support": 665.11,
           "target": 727.35,
-          "breakthrough_pct": 2.47,
+          "breakthrough_pct": 2.48,
           "bottom1_price": 672.63,
           "bottom2_price": 665.11,
           "days_formed": 61,
@@ -4403,18 +4427,18 @@
       "symbol": "VRT",
       "name": "Vertiv (散熱)",
       "signal": "Hold",
-      "close": 292.95,
-      "ma60": 301.08,
+      "close": 293.82,
+      "ma60": 301.09,
       "market": "us",
-      "change": 2.05,
+      "change": 2.35,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "極限算力基建",
       "is_regular": false,
       "plan": {
-        "entry": 304.09,
-        "sl": 301.08,
-        "tp": 380.11
+        "entry": 304.1,
+        "sl": 301.09,
+        "tp": 380.12
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4450,16 +4474,16 @@
       "symbol": "VRTX",
       "name": "Vertex Pharm",
       "signal": "Strong Buy",
-      "close": 506.64,
-      "ma60": 473.86,
+      "close": 505.27,
+      "ma60": 473.84,
       "market": "us",
-      "change": -1.9,
+      "change": -2.16,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 483.34,
-        "sl": 473.86,
-        "tp": 604.17
+        "entry": 483.32,
+        "sl": 473.84,
+        "tp": 604.15
       },
       "is_regular": true,
       "sect": "江湖散兵",
@@ -4478,7 +4502,7 @@
           "neckline": 453.06,
           "support": 423.24,
           "target": 482.88,
-          "breakthrough_pct": 11.83,
+          "breakthrough_pct": 11.52,
           "bottom1_price": 423.24,
           "bottom2_price": 430.44,
           "days_formed": 75,
@@ -4500,7 +4524,7 @@
       "symbol": "VST",
       "name": "Vistra Corp",
       "signal": "Hold",
-      "close": 148.9,
+      "close": 148.91,
       "ma60": 154.24,
       "market": "us",
       "change": 1.71,
@@ -4529,10 +4553,10 @@
       "symbol": "VTI",
       "name": "全美股市ETF",
       "signal": "Strong Buy",
-      "close": 383.65,
+      "close": 383.72,
       "ma60": 369.57,
       "market": "us",
-      "change": -0.17,
+      "change": -0.15,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4556,7 +4580,7 @@
           "neckline": 373.29,
           "support": 357.01,
           "target": 389.56,
-          "breakthrough_pct": 2.78,
+          "breakthrough_pct": 2.8,
           "bottom1_price": 359.03,
           "bottom2_price": 357.01,
           "days_formed": 61,
@@ -4578,18 +4602,18 @@
       "symbol": "WDC",
       "name": "威騰電子",
       "signal": "Hold",
-      "close": 495.91,
-      "ma60": 547.63,
+      "close": 497.19,
+      "ma60": 547.65,
       "market": "us",
-      "change": 1.77,
+      "change": 2.03,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "記憶體 (HBM)",
       "is_regular": false,
       "plan": {
-        "entry": 553.11,
-        "sl": 547.63,
-        "tp": 691.39
+        "entry": 553.13,
+        "sl": 547.65,
+        "tp": 691.41
       },
       "backtest": {
         "win_rate": 65.0,
@@ -4607,16 +4631,16 @@
       "symbol": "WMT",
       "name": "沃爾瑪",
       "signal": "Strong Buy",
-      "close": 115.54,
+      "close": 115.49,
       "ma60": 115.22,
       "market": "us",
-      "change": -0.16,
+      "change": -0.2,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 115.54,
+        "entry": 115.49,
         "sl": 115.22,
-        "tp": 144.43
+        "tp": 144.36
       },
       "sector": "其他族群",
       "backtest": {
@@ -4634,7 +4658,7 @@
           "neckline": 114.95,
           "support": 108.4,
           "target": 121.5,
-          "breakthrough_pct": 0.51,
+          "breakthrough_pct": 0.47,
           "bottom1_price": 108.82,
           "bottom2_price": 108.4,
           "days_formed": 32,
@@ -4667,10 +4691,10 @@
       "symbol": "WOLF",
       "name": "Wolfspeed",
       "signal": "Hold",
-      "close": 31.3,
+      "close": 31.58,
       "ma60": 41.73,
       "market": "us",
-      "change": -0.67,
+      "change": 0.22,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4696,10 +4720,10 @@
       "symbol": "XLE",
       "name": "能源ETF",
       "signal": "Strong Buy",
-      "close": 61.93,
+      "close": 61.9,
       "ma60": 57.0,
       "market": "us",
-      "change": 1.42,
+      "change": 1.38,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
@@ -4723,7 +4747,7 @@
           "neckline": 60.85,
           "support": 55.3,
           "target": 66.4,
-          "breakthrough_pct": 1.77,
+          "breakthrough_pct": 1.73,
           "bottom1_price": 55.3,
           "bottom2_price": 55.89,
           "days_formed": 68,
@@ -4745,16 +4769,16 @@
       "symbol": "XLK",
       "name": "科技ETF",
       "signal": "Strong Buy",
-      "close": 189.56,
-      "ma60": 183.49,
+      "close": 189.78,
+      "ma60": 183.5,
       "market": "us",
-      "change": -0.63,
+      "change": -0.52,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 187.16,
-        "sl": 183.49,
-        "tp": 233.95
+        "entry": 187.17,
+        "sl": 183.5,
+        "tp": 233.96
       },
       "sector": "其他族群",
       "backtest": {
@@ -4772,7 +4796,7 @@
           "neckline": 192.15,
           "support": 176.42,
           "target": 207.88,
-          "breakthrough_pct": -1.35,
+          "breakthrough_pct": -1.23,
           "bottom1_price": 176.42,
           "bottom2_price": 179.18,
           "days_formed": 46,
@@ -4805,16 +4829,16 @@
       "symbol": "ZS",
       "name": "Zscaler",
       "signal": "Strong Buy",
-      "close": 184.12,
-      "ma60": 146.94,
+      "close": 183.74,
+      "ma60": 146.93,
       "market": "us",
-      "change": -2.16,
+      "change": -2.36,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 149.88,
-        "sl": 146.94,
-        "tp": 187.35
+        "entry": 149.87,
+        "sl": 146.93,
+        "tp": 187.34
       },
       "sector": "其他族群",
       "backtest": {
@@ -4832,7 +4856,7 @@
           "neckline": 130.42,
           "support": 123.8,
           "target": 137.04,
-          "breakthrough_pct": 41.17,
+          "breakthrough_pct": 40.88,
           "bottom1_price": 126.41,
           "bottom2_price": 123.8,
           "days_formed": 56,
@@ -10393,7 +10417,7 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-08-14T19:14:31Z",
+  "last_updated": "2026-08-14T19:43:40Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 14.35
@@ -10402,25 +10426,25 @@
       "close": 31.99
     },
     "TSM_ADR": {
-      "close": 426.3
+      "close": 427.19
     },
     "TSM_TW": {
       "close": null
     },
     "adr_premium": {
-      "close": 13.58
+      "close": 14.16
     },
     "台指VIX (波動率)": {
       "close": 35.87
     },
     "台指 VIX (波動率)": {
-      "close": 36.07
+      "close": 38.12
     },
     "散戶小台多空比": {
-      "close": 32.3
+      "close": 7.7
     },
     "全市場 P/C Ratio": {
-      "close": 109.77
+      "close": 119.11
     },
     "加權指數": {
       "close": 47018.99
@@ -10432,7 +10456,7 @@
       "close": 323.76
     },
     "外資台指淨未平倉": {
-      "close": -89383
+      "close": -68337
     },
     "外資台指淨未平倉增減": {
       "close": -943
@@ -10447,7 +10471,7 @@
       "close": 30252
     },
     "微台散戶多空比": {
-      "close": 37.16
+      "close": 27.68
     },
     "外存台指淨未平倉": {
       "close": -68337
@@ -10459,35 +10483,15 @@
       "close": 59.38
     },
     "台股 VIX (恐慌率)": {
-      "close": 36.07
+      "close": 35.74
     },
     "小台散戶多空比": {
-      "close": 32.3
-    },
-    "taifex_oi": {
-      "value": -89383,
-      "change": -2184
-    },
-    "retail_long_short_ratio": {
-      "value": 32.3,
-      "change": 13.03
-    },
-    "micro_retail_ratio": {
-      "value": 37.16,
-      "change": 16.39
-    },
-    "put_call_ratio": {
-      "value": 109.77,
-      "change": -2.1
-    },
-    "vix": {
-      "value": 36.07,
-      "change": 0.71
+      "close": 23.07
     }
   },
   "update_sources": {
     "tw": "Yahoo Finance",
     "us": "Yahoo Finance"
   },
-  "taifex_oi": -89383
+  "taifex_oi": -75198
 }
