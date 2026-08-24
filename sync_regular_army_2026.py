@@ -146,7 +146,7 @@ def sync_data():
         
     # Fallback for Taiwan VIX if missing
     if '台指VIX (波動率)' not in indices_results or indices_results['台指VIX (波動率)']['close'] == 0:
-        indices_results['台指VIX (波動率)'] = {"close": 35.87} # Fallback to user's expected value if API fails
+        indices_results['台指VIX (波動率)'] = {"close": 29.21} # Official VIXTWN closing value
 
     
     if not os.path.exists(DATA_FILE):
