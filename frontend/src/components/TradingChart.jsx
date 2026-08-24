@@ -34,13 +34,33 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
       wickDownColor: '#10B981',
     });
 
-    candlestickSeries.setData(data);
+    // Calculate dynamic MA60 if missing
+    const enrichedData = data.map((d, index) => {
+      if (d.ma60) return d;
+      if (index >= 59) {
+        let sum = 0;
+        for (let j = index - 59; j <= index; j++) {
+          sum += data[j].close;
+        }
+        return { ...d, ma60: Number((sum / 60).toFixed(2)) };
+      } else if (index >= 9 && data.length < 60) {
+        // Progressive average for shorter history
+        let sum = 0;
+        for (let j = 0; j <= index; j++) {
+          sum += data[j].close;
+        }
+        return { ...d, ma60: Number((sum / (index + 1)).toFixed(2)) };
+      }
+      return d;
+    });
+
+    candlestickSeries.setData(enrichedData);
 
     // Buy/Sell markers at MA60 crossover
     const markers = [];
-    for (let i = 1; i < data.length; i++) {
-      const prev = data[i-1];
-      const curr = data[i];
+    for (let i = 1; i < enrichedData.length; i++) {
+      const prev = enrichedData[i-1];
+      const curr = enrichedData[i];
       if (prev.ma60 && curr.ma60) {
         if (prev.close <= prev.ma60 && curr.close > curr.ma60) {
           markers.push({ time: curr.time, position: 'belowBar', color: '#EF4444', shape: 'arrowUp', text: 'BUY' });
@@ -51,20 +71,23 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
     }
     candlestickSeries.setMarkers(markers);
 
-    // MA60 生命線
-    const ma60Points = data.filter(d => d.ma60).map(d => ({ time: d.time, value: d.ma60 }));
+    // 🔴 MA60 季線生命線 (Bright Amber Gold #F59E0B)
+    const ma60Points = enrichedData.filter(d => d.ma60).map(d => ({ time: d.time, value: d.ma60 }));
     if (ma60Points.length > 0) {
       const maSeries = chart.addLineSeries({
-        color: '#EF4444',
-        lineWidth: 2,
-        priceLineVisible: false,
-        title: 'MA60',
+        color: '#F59E0B',
+        lineWidth: 3,
+        priceLineVisible: true,
+        priceLineColor: '#F59E0B',
+        priceLineWidth: 1,
+        priceLineStyle: 2,
+        title: 'MA60 季線',
       });
       maSeries.setData(ma60Points);
     }
 
-    // ✅ 現價線（最重要！）
-    const livePrice = currentPrice || (data.length > 0 ? data[data.length - 1].close : null);
+    // ✅ 現價線（NOW）
+    const livePrice = currentPrice || (enrichedData.length > 0 ? enrichedData[enrichedData.length - 1].close : null);
     if (livePrice) {
       candlestickSeries.createPriceLine({
         price: livePrice,
@@ -137,7 +160,7 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
                現價 ${typeof livePrice === 'number' ? livePrice.toFixed(2) : livePrice}
              </span>
            )}
-           <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EF4444] mr-1"></div> MA60 生命線</span>
+           <span className="flex items-center text-amber-400 font-bold"><div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B] mr-1.5 shadow-[0_0_8px_#F59E0B]"></div> MA60 季線生命線</span>
            {buyPrice && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#EAB308] mr-1"></div> 買點 ${buyPrice}</span>}
            {stopLoss && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#10B981] mr-1"></div> 停損 ${stopLoss}</span>}
            {takeProfit && <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-[#F97316] mr-1"></div> 目標 ${takeProfit}</span>}

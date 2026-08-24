@@ -246,10 +246,20 @@ function App() {
 
     return matchSearch && matchSector && matchFilter;
   }).sort((a, b) => {
+    const scoreA = calculateWinRateScore(a, indices).score;
+    const scoreB = calculateWinRateScore(b, indices).score;
+
+    // When '5星高勝率' quick filter is selected, sort directly by TINs winRateScore descending
+    if (activeQuickFilter === 'star5') {
+      if (scoreB !== scoreA) return scoreB - scoreA;
+    }
+
     // 1. Sort by signal strength (Strong Buy first)
     const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
     if (rankDiff !== 0) return rankDiff;
-    // 2. Within same signal: sort by MA60 deviation ascending (closest to MA60 = lowest risk)
+
+    // 2. Within same signal: sort by TINs score descending, then by MA60 deviation ascending
+    if (scoreB !== scoreA) return scoreB - scoreA;
     const deviationA = a.ma60 > 0 ? Math.abs((a.close - a.ma60) / a.ma60) : 999;
     const deviationB = b.ma60 > 0 ? Math.abs((b.close - b.ma60) / b.ma60) : 999;
     return deviationA - deviationB;
