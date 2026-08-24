@@ -2,8 +2,8 @@ name: 24/7 Automated Market Sync on GitHub Actions
 
 on:
   schedule:
-    # Run every 30 minutes 24/7 around the clock
-    - cron: '*/30 * * * *'
+    # Run every 15 minutes 24/7 around the clock (Hits exact 09:00 TW open & 21:30 US open automatically)
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 permissions:
