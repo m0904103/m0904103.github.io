@@ -3790,7 +3790,7 @@
       "market": "us",
       "sector": "ETF",
       "close": 137.95,
-      "ma60": 137.95,
+      "ma60": 141.43,
       "vol_surge": false,
       "gap_up": false,
       "technicals": {},
@@ -3803,9 +3803,9 @@
       "is_regular": false,
       "k_pattern": null,
       "plan": {
-        "entry": 139.33,
-        "sl": 137.95,
-        "tp": 174.16
+        "entry": 142.84,
+        "sl": 141.43,
+        "tp": 178.55
       },
       "esg_elite": false,
       "vol_ratio": 1.5,
@@ -4770,19 +4770,19 @@
     {
       "symbol": "1101.TW",
       "name": "台泥",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 24.6,
-      "ma60": null,
+      "ma60": 23.79,
       "market": "tw",
       "change": -0.4,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 24.6,
-        "sl": null,
-        "tp": 30.75
+        "entry": 24.27,
+        "sl": 23.79,
+        "tp": 30.34
       },
-      "is_regular": false,
+      "is_regular": true,
       "sect": "江湖散兵",
       "sector": "其他族群",
       "backtest": {
@@ -4792,7 +4792,27 @@
       "price": 24.65,
       "price_source": "Yahoo",
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 24.02,
+          "support": 23.0,
+          "target": 25.05,
+          "breakthrough_pct": 2.4,
+          "bottom1_price": 23.06,
+          "bottom2_price": 23.0,
+          "days_formed": 56,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -4811,28 +4831,59 @@
     {
       "symbol": "1216.TW",
       "name": "統一",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 77.9,
-      "ma60": null,
+      "ma60": 74.15,
       "market": "tw",
       "change": 0.65,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 77.9,
-        "sl": null,
-        "tp": 97.38
+        "entry": 75.63,
+        "sl": 74.15,
+        "tp": 94.54
       },
       "sector": "其他族群",
       "backtest": {
         "win_rate": 13.0,
         "total_return": -24.4
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 74.2,
       "price_source": "Yahoo",
       "esg_elite": true,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 72.8,
+          "support": 66.06,
+          "target": 79.53,
+          "breakthrough_pct": 7.01,
+          "bottom1_price": 66.06,
+          "bottom2_price": 67.51,
+          "days_formed": 79,
+          "strength": "strong"
+        },
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 77.22,
+          "support": 71.64,
+          "target": 82.8,
+          "avg_bottom": 72.83,
+          "days_formed": 40,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 7,
+          "signals": [
+            "W底突破",
+            "三重底突破"
+          ],
+          "verdict": "🔥 強力底部訊號"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -4851,24 +4902,24 @@
     {
       "symbol": "1303.TW",
       "name": "南亞",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 188.5,
-      "ma60": null,
+      "ma60": 165.78,
       "market": "tw",
       "change": 4.72,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 188.5,
-        "sl": null,
-        "tp": 235.62
+        "entry": 169.1,
+        "sl": 165.78,
+        "tp": 211.38
       },
       "sector": "其他族群",
       "backtest": {
         "win_rate": 28.6,
         "total_return": 103.3
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 112.5,
       "esg_elite": true,
       "patterns": {},
@@ -4893,15 +4944,15 @@
       "name": "台化",
       "signal": "Hold",
       "close": 58.0,
-      "ma60": null,
+      "ma60": 58.77,
       "market": "tw",
       "change": 1.58,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 58.0,
-        "sl": null,
-        "tp": 72.5
+        "entry": 59.36,
+        "sl": 58.77,
+        "tp": 74.2
       },
       "is_regular": false,
       "sect": "江湖散兵",
@@ -4917,7 +4968,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -4932,19 +4983,19 @@
     {
       "symbol": "1402.TW",
       "name": "遠東新",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 29.0,
-      "ma60": null,
+      "ma60": 27.16,
       "market": "tw",
       "change": -1.53,
       "vol_ratio": 1.2,
       "tactic": "「破位出局」：結構破壞！生命線之下不買弱勢股。觀望不動是高階決策。",
       "plan": {
-        "entry": 29.0,
-        "sl": null,
-        "tp": 36.25
+        "entry": 27.7,
+        "sl": 27.16,
+        "tp": 34.62
       },
-      "is_regular": false,
+      "is_regular": true,
       "sect": "江湖散兵",
       "sector": "其他族群",
       "backtest": {
@@ -4953,7 +5004,27 @@
       },
       "price": 26.25,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 27.45,
+          "support": 26.7,
+          "target": 28.2,
+          "breakthrough_pct": 5.65,
+          "bottom1_price": 27.2,
+          "bottom2_price": 26.7,
+          "days_formed": 25,
+          "strength": "strong"
+        },
+        "summary": {
+          "score": 3,
+          "signals": [
+            "W底突破"
+          ],
+          "verdict": "✅ 底部型態確認"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -4975,7 +5046,7 @@
       "name": "士電",
       "signal": "Hold",
       "close": 199.5,
-      "ma60": null,
+      "ma60": 212.69,
       "market": "tw",
       "change": 0.0,
       "vol_ratio": 1.5,
@@ -4983,9 +5054,9 @@
       "sector": "核能與智慧電網",
       "is_regular": false,
       "plan": {
-        "entry": 199.5,
-        "sl": null,
-        "tp": 249.38
+        "entry": 214.82,
+        "sl": 212.69,
+        "tp": 268.52
       },
       "backtest": {
         "win_rate": 65.0,
@@ -5013,16 +5084,16 @@
     {
       "symbol": "1504.TW",
       "name": "東元",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 70.8,
-      "ma60": null,
+      "ma60": 69.2,
       "market": "tw",
       "change": -0.98,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 70.8,
-        "sl": null,
+        "sl": 69.2,
         "tp": 88.5
       },
       "sector": "其他族群",
@@ -5030,10 +5101,30 @@
         "win_rate": 37.5,
         "total_return": 69.2
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 75.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "w_bottom": {
+          "pattern": "W底",
+          "pattern_en": "W_BOTTOM",
+          "neckline": 72.2,
+          "support": 66.49,
+          "target": 77.91,
+          "breakthrough_pct": -1.94,
+          "bottom1_price": 66.49,
+          "bottom2_price": 67.9,
+          "days_formed": 53,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 1,
+          "signals": [
+            "W底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -5053,18 +5144,18 @@
     {
       "symbol": "1513.TW",
       "name": "中興電",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 165.5,
-      "ma60": null,
+      "ma60": 164.98,
       "market": "tw",
       "change": 0.91,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "sector": "核能與智慧電網",
-      "is_regular": false,
+      "is_regular": true,
       "plan": {
         "entry": 165.5,
-        "sl": null,
+        "sl": 164.98,
         "tp": 206.88
       },
       "backtest": {
@@ -5095,15 +5186,15 @@
       "name": "亞力",
       "signal": "Hold",
       "close": 100.5,
-      "ma60": null,
+      "ma60": 109.76,
       "market": "tw",
       "change": -0.99,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 100.5,
-        "sl": null,
-        "tp": 125.62
+        "entry": 110.86,
+        "sl": 109.76,
+        "tp": 138.57
       },
       "sector": "其他族群",
       "backtest": {
@@ -5133,19 +5224,19 @@
     {
       "symbol": "1519.TW",
       "name": "華城",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 717.0,
-      "ma60": null,
+      "ma60": 684.43,
       "market": "tw",
       "change": 0.7,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "sector": "核能與智慧電網",
-      "is_regular": false,
+      "is_regular": true,
       "plan": {
-        "entry": 717.0,
-        "sl": null,
-        "tp": 896.25
+        "entry": 698.12,
+        "sl": 684.43,
+        "tp": 872.65
       },
       "backtest": {
         "win_rate": 45.0,
@@ -5173,16 +5264,16 @@
     {
       "symbol": "1711.TW",
       "name": "永光",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 41.25,
-      "ma60": null,
+      "ma60": 41.03,
       "market": "tw",
       "change": -0.36,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 41.25,
-        "sl": null,
+        "sl": 41.03,
         "tp": 51.56
       },
       "sector": "其他族群",
@@ -5190,7 +5281,7 @@
         "win_rate": 23.1,
         "total_return": 189.6
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 47.95,
       "esg_elite": false,
       "patterns": {},
@@ -5213,16 +5304,16 @@
     {
       "symbol": "1717.TW",
       "name": "長興",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 71.7,
-      "ma60": null,
+      "ma60": 70.19,
       "market": "tw",
       "change": 0.56,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
         "entry": 71.7,
-        "sl": null,
+        "sl": 70.19,
         "tp": 89.62
       },
       "sector": "其他族群",
@@ -5230,7 +5321,7 @@
         "win_rate": 33.3,
         "total_return": 150.8
       },
-      "is_regular": false,
+      "is_regular": true,
       "price": 78.7,
       "esg_elite": false,
       "patterns": {},
@@ -5254,18 +5345,18 @@
       "symbol": "1815.TWO",
       "name": "富喬",
       "sector": "高階 PCB",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 109.0,
-      "ma60": null,
+      "ma60": 92.48,
       "market": "tw",
       "change": 1.4,
-      "is_regular": false,
+      "is_regular": true,
       "vol_ratio": 1.5,
       "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "plan": {
-        "entry": 109.0,
-        "sl": null,
-        "tp": 136.25
+        "entry": 94.33,
+        "sl": 92.48,
+        "tp": 117.91
       },
       "backtest": {
         "win_rate": 45.0,
@@ -5294,17 +5385,17 @@
       "symbol": "2049.TW",
       "name": "上銀",
       "sector": "實體 AI 機器人",
-      "signal": "Hold",
+      "signal": "Strong Buy",
       "close": 345.5,
-      "ma60": null,
+      "ma60": 337.48,
       "market": "tw",
       "change": 0.58,
-      "is_regular": false,
+      "is_regular": true,
       "vol_ratio": 1.5,
       "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
       "plan": {
         "entry": 345.5,
-        "sl": null,
+        "sl": 337.48,
         "tp": 431.88
       },
       "backtest": {
@@ -5313,7 +5404,25 @@
       },
       "price": 364.0,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "triple_bottom": {
+          "pattern": "三重底",
+          "pattern_en": "TRIPLE_BOTTOM",
+          "neckline": 361.89,
+          "support": 300.0,
+          "target": 423.77,
+          "avg_bottom": 307.29,
+          "days_formed": 53,
+          "strength": "forming"
+        },
+        "summary": {
+          "score": 2,
+          "signals": [
+            "三重底形成中"
+          ],
+          "verdict": "🟡 底部形成中"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": true
       },
@@ -5451,7 +5560,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5491,7 +5600,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -5725,7 +5834,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -6807,7 +6916,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7062,7 +7171,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7202,7 +7311,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7274,7 +7383,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7557,7 +7666,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7617,7 +7726,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7737,7 +7846,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -7856,7 +7965,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8087,7 +8196,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8307,7 +8416,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8347,7 +8456,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8498,7 +8607,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8538,7 +8647,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8598,7 +8707,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8638,7 +8747,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8739,7 +8848,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -8840,7 +8949,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9010,7 +9119,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
         "foreign_buy": false,
@@ -9190,7 +9299,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
         "foreign_buy": false,
@@ -9294,7 +9403,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9610,7 +9719,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -9710,10 +9819,10 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10016,7 +10125,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10056,7 +10165,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10185,7 +10294,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10599,7 +10708,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10639,7 +10748,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10861,7 +10970,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10921,7 +11030,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -10957,7 +11066,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -11116,7 +11225,7 @@
         "three_rates_rising": true
       },
       "technicals": {
-        "bb_lower_touch": false,
+        "bb_lower_touch": true,
         "kd_cross_up": false
       },
       "chips": {
@@ -11182,7 +11291,7 @@
       },
       "chips": {
         "foreign_buy": false,
-        "margin_surge": false
+        "margin_surge": true
       },
       "price_source": "Yahoo",
       "gap_up": false,
@@ -11421,7 +11530,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -11479,7 +11588,7 @@
       },
       "technicals": {
         "bb_lower_touch": false,
-        "kd_cross_up": false
+        "kd_cross_up": true
       },
       "chips": {
         "foreign_buy": false,
@@ -11743,7 +11852,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -11752,7 +11861,7 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-08-25T23:28:15Z",
+  "last_updated": "2026-08-25T23:54:16Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 15.45
