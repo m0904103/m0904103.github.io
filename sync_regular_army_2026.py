@@ -284,13 +284,15 @@ def sync_data():
                 
             change = round(((latest_close - prev_close) / prev_close) * 100, 2) if prev_close else 0.0
             
-            ma60 = 0
-            if len(df) >= 60:
-                ma60 = round(float(df['Close'].rolling(60).mean().iloc[-1]), 2)
+            valid_closes = df['Close'].dropna()
+            if len(valid_closes) >= 60:
+                ma60 = round(float(valid_closes.iloc[-60:].mean()), 2)
+            elif len(valid_closes) > 0:
+                ma60 = round(float(valid_closes.mean()), 2)
             else:
                 ma60 = latest_close
 
-            is_regular = latest_close > ma60
+            is_regular = latest_close >= ma60
             signal = "Strong Buy" if is_regular else "Hold"
             default_tactic = "「正規軍」：趨勢確認，沿生命線操作。" if is_regular else "「觀望區」：跌破生命線，暫避鋒芒。"
             

@@ -30,11 +30,9 @@ export default function QuickFilterBar({ activeFilter, onSelectFilter, counts = 
           >
             <Icon className={`w-3.5 h-3.5 ${f.color}`} />
             <span>{f.label}</span>
-            {count > 0 && (
-              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${isSelected ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}`}>
-                {count}
-              </span>
-            )}
+            <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${isSelected ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'}`}>
+              {count}
+            </span>
           </button>
         );
       })}

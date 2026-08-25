@@ -112,12 +112,15 @@ def run_scan():
         # 3. Mock Chips (Since TWSE API blocked, mock based on volume momentum)
         try:
             df['Vol_MA5'] = df['Volume'].rolling(5).mean()
-            is_foreign_buying = bool(df['Close'].iloc[-1] > df['Close'].rolling(5).mean().iloc[-1] and df['Volume'].iloc[-1] > df['Vol_MA5'].iloc[-1])
-            margin_surge = bool(df['Volume'].iloc[-1] > df['Vol_MA5'].iloc[-1] * 2 and df['Close'].iloc[-1] < df['Close'].iloc[-2])
-        except Exception:
-            is_foreign_buying = False
-            margin_surge = False
-            
+        # Ensure robust ma60 is calculated if missing or None
+        valid_closes = df['Close'].dropna()
+        if len(valid_closes) >= 60:
+            stock['ma60'] = round(float(valid_closes.iloc[-60:].mean()), 2)
+        elif len(valid_closes) > 0:
+            stock['ma60'] = round(float(valid_closes.mean()), 2)
+        elif not stock.get('ma60'):
+            stock['ma60'] = round(float(stock.get('close', 0)), 2)
+
         stock['fundamentals'] = {
             "three_rates_rising": three_rates
         }
