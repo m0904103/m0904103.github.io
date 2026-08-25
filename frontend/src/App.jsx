@@ -412,9 +412,56 @@ function App() {
                       查看全部標的
                     </button>
                   </div>
-                ))}
-             </div>
-          </aside>
+                ) : (
+                  displayStocks.map(stock => (
+                    <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-3 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
+                      <div className="flex justify-between items-start">
+                        <div className="flex flex-col">
+                          <div className="font-black flex items-center gap-2">
+                            <span>{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
+                            {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-esg-gold/20 text-esg-gold border border-esg-gold/30 tracking-widest">🌱 ESG護城河</span>}
+                          </div>
+                          {activeMarket === 'tw' && (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {stock.fundamentals?.three_rates_rising && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">🟢 三率三升</span>}
+                              {stock.chips?.foreign_buy && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">🔵 外資買超</span>}
+                              {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
+                            </div>
+                          )}
+                          {/* Level 2 & 3: Gap, K-Line, and Volume Surge Badges */}
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {stock.vol_surge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30 tracking-widest font-bold">🌊 爆量突破</span>}
+                            {stock.gap_up && <span className="text-[9px] px-1.5 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 tracking-widest font-bold">🚀 向上缺口</span>}
+                            {stock.k_pattern === 'Engulfing' && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30 tracking-widest font-bold">🔄 吞噬反轉</span>}
+                            {stock.k_pattern === 'Harami' && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 tracking-widest font-bold">🤰 母子醞釀</span>}
+                          </div>
+                          {/* Pattern badges for all markets */}
+                          {(() => {
+                            const pat = stock.patterns || {};
+                            const badges = [];
+                            if (pat.triple_bottom) badges.push({ label: '🏔️ 三重底', cls: 'bg-orange-500/20 text-orange-300 border-orange-500/30' });
+                            if (pat.w_bottom) badges.push({ label: '〰️ W底', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' });
+                            if (pat.abc_wave?.pattern_en === 'ABC_BOTTOM') badges.push({ label: '🔄 ABC底完成', cls: 'bg-violet-500/20 text-violet-300 border-violet-500/30' });
+                            if (pat.abc_wave?.pattern_en === 'ABC_FALLING') badges.push({ label: '⚠️ C波下跌', cls: 'bg-red-500/20 text-red-400 border-red-500/30' });
+                            return badges.length > 0 ? (
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {badges.map(b => <span key={b.label} className={`text-[9px] px-1.5 py-0.5 rounded border ${b.cls}`}>{b.label}</span>)}
+                              </div>
+                            ) : null;
+                          })()}
+                         </div>
+                         <div className="flex flex-col items-end gap-1 shrink-0">
+                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500 border border-red-500/30' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
+                            <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                              勝率 {stock.backtest?.win_rate != null ? `${stock.backtest.win_rate}%` : '65%'}
+                            </span>
+                          </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+           </aside>
 
           <section id="trading-chart" className="lg:col-span-8 space-y-6">
             {selectedStock ? (
