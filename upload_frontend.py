@@ -69,8 +69,8 @@ def deploy():
         subprocess.run(["git", "config", "user.name", "AI Bot"], check=False)
         subprocess.run(["git", "config", "user.email", "bot@ai.com"], check=False)
         
-        subprocess.run(["git", "add", "trading/", "q_quant_888/", "assets/", "index.html", "scan_results.json"], check=True)
-        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to root, trading/ and q_quant_888/"])
+        subprocess.run(["git", "add", "-A"], check=True)
+        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to root, trading/ and q_quant_888/ with full source sync"])
         if commit_res.returncode == 0:
             subprocess.run(["git", "push"], check=True)
             print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")

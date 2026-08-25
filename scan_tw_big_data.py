@@ -142,6 +142,8 @@ def run_scan():
             return None
         return obj
 
+    from datetime import timezone
+    data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     data = clean_nans(data)
 
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
