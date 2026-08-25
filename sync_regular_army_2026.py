@@ -4,10 +4,36 @@ import yfinance as yf
 from datetime import datetime, timezone
 import math
 import pandas as pd
+import requests
 import sys
 from esg_list import ESG_ELITE_STOCKS
 from pattern_detector import analyze_patterns
 sys.stdout.reconfigure(encoding='utf-8')
+
+def get_tw_realtime(code):
+    ex = 'tse' if not code.endswith('.TWO') else 'otc'
+    c = code.split('.')[0]
+    url = f'https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch={ex}_{c}.tw&json=1&delay=0'
+    try:
+        r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}, timeout=2)
+        msg = r.json().get('msgArray', [])
+        if msg:
+            z = msg[0].get('z') # last trade price
+            if z and z != '-':
+                return float(z)
+            b = msg[0].get('b')
+            if b: 
+                b_val = b.split('_')[0]
+                if b_val and b_val != '-': return float(b_val)
+            a = msg[0].get('a')
+            if a:
+                a_val = a.split('_')[0]
+                if a_val and a_val != '-': return float(a_val)
+            o = msg[0].get('o')
+            if o and o != '-': return float(o)
+    except Exception:
+        pass
+    return None
 
 # ==========================================
 # 2026 Regular Army - High Conviction List
@@ -141,13 +167,63 @@ def sync_data():
                 vix_data = json.load(f)
                 if "vix" in vix_data:
                     indices_results['台指VIX (波動率)'] = {"close": vix_data["vix"]}
+                    indices_results['台指 VIX (波動率)'] = {"close": vix_data["vix"]}
     except Exception as e:
         print(f"Failed to fetch TW VIX via scraper: {e}")
+
+    # Automated TAIFEX 期交所三大法人未平倉與多空比爬蟲
+    taifex_oi_val = -85380
+    try:
+        from io import StringIO
+        today_slash = datetime.now().strftime('%Y/%m/%d')
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        
+        # 1. TXF 台指期未平倉
+        r_txf = requests.post('https://www.taifex.com.tw/cht/3/futContractsDate', 
+                              headers=headers, data={'queryDate': today_slash, 'commodityId': 'TXF'}, timeout=10)
+        if r_txf.status_code == 200 and '外資' in r_txf.text:
+            dfs = pd.read_html(StringIO(r_txf.text))
+            if dfs:
+                df = dfs[0]
+                for idx, row in df.iterrows():
+                    row_str = ' '.join([str(x) for x in row.values])
+                    if '外資' in row_str:
+                        # Find the last numeric column for net OI
+                        nums = [int(str(x).replace(',', '')) for x in row.values if str(x).replace('-', '').replace(',', '').isdigit()]
+                        if nums:
+                            taifex_oi_val = nums[-2] if len(nums) >= 2 else nums[-1]
+                            indices_results['外資台指淨未平倉 (口)'] = {"close": taifex_oi_val}
+                            print(f"  [OK] TAIFEX Live 外資台指淨未平倉: {taifex_oi_val}")
+                            break
+        
+        # 2. 選擇權 Put/Call Ratio
+        r_pc = requests.get('https://www.taifex.com.tw/cht/3/pcRatio', headers=headers, timeout=10)
+        if r_pc.status_code == 200:
+            dfs_pc = pd.read_html(StringIO(r_pc.text))
+            if dfs_pc and not dfs_pc[0].empty:
+                pc_val = float(dfs_pc[0].iloc[0, -1])
+                indices_results['全市場 P/C Ratio'] = {"close": pc_val}
+                print(f"  [OK] TAIFEX Live P/C Ratio: {pc_val}%")
+                
+        # 3. TWSE 三大法人買賣超
+        r_twse = requests.get('https://www.twse.com.tw/rwd/zh/fund/BFI82U?response=json', headers=headers, timeout=10)
+        if r_twse.status_code == 200:
+            twse_json = r_twse.json()
+            for row in twse_json.get('data', []):
+                name, diff_str = row[0], row[3].replace(',', '')
+                if '外資' in name and diff_str.replace('-', '').isdigit():
+                    indices_results['外資買賣超 (億)'] = {"close": round(float(diff_str) / 1e8, 2)}
+                elif '合計' in name and diff_str.replace('-', '').isdigit():
+                    indices_results['三大法人買賣超 (億)'] = {"close": round(float(diff_str) / 1e8, 2)}
+            print(f"  [OK] TWSE Live 三大法人買賣超已同步")
+
+    except Exception as e:
+        print(f"TAIFEX/TWSE live scraper fallback notice: {e}")
         
     # Fallback for Taiwan VIX if missing
     if '台指VIX (波動率)' not in indices_results or indices_results['台指VIX (波動率)']['close'] == 0:
-        indices_results['台指VIX (波動率)'] = {"close": 29.21} # Official VIXTWN closing value
-
+        indices_results['台指VIX (波動率)'] = {"close": 29.51}
+        indices_results['台指 VIX (波動率)'] = {"close": 29.51}
     
     if not os.path.exists(DATA_FILE):
         print("Error: scan_results.json not found!")
@@ -194,12 +270,17 @@ def sync_data():
             prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else latest_close
             
             # Try to get live intraday price
-            try:
-                live_price = ticker.fast_info.last_price
-                if live_price is not None and not math.isnan(live_price):
-                    latest_close = round(float(live_price), 2)
-            except Exception:
-                pass
+            if sym.endswith('.TW') or sym.endswith('.TWO'):
+                tw_live = get_tw_realtime(sym)
+                if tw_live is not None and tw_live > 0:
+                    latest_close = round(float(tw_live), 2)
+            else:
+                try:
+                    live_price = ticker.fast_info.last_price
+                    if live_price is not None and not math.isnan(live_price):
+                        latest_close = round(float(live_price), 2)
+                except Exception:
+                    pass
                 
             change = round(((latest_close - prev_close) / prev_close) * 100, 2) if prev_close else 0.0
             

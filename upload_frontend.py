@@ -44,6 +44,23 @@ def deploy():
 
     deploy_to_target(trading_dir)
     deploy_to_target(q_quant_dir)
+    
+    # Also deploy to root directory
+    print("[COPY] Copying new files to root directory for root domain access...")
+    for item in os.listdir(dist_dir):
+        s = os.path.join(dist_dir, item)
+        d = os.path.join(repo_root, item)
+        if os.path.isdir(s):
+            if os.path.exists(d):
+                shutil.rmtree(d)
+            shutil.copytree(s, d)
+        else:
+            shutil.copy2(s, d)
+
+    scan_src = os.path.join(repo_root, "frontend", "public", "scan_results.json")
+    scan_dest = os.path.join(repo_root, "scan_results.json")
+    if os.path.exists(scan_src):
+        shutil.copy2(scan_src, scan_dest)
 
     print("[GIT] Committing and pushing to GitHub...")
     try:
@@ -52,8 +69,8 @@ def deploy():
         subprocess.run(["git", "config", "user.name", "AI Bot"], check=False)
         subprocess.run(["git", "config", "user.email", "bot@ai.com"], check=False)
         
-        subprocess.run(["git", "add", "trading/", "q_quant_888/"], check=True)
-        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to trading/ and q_quant_888/"])
+        subprocess.run(["git", "add", "trading/", "q_quant_888/", "assets/", "index.html", "scan_results.json"], check=True)
+        commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to root, trading/ and q_quant_888/"])
         if commit_res.returncode == 0:
             subprocess.run(["git", "push"], check=True)
             print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")
