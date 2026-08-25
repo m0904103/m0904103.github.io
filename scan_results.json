@@ -1493,15 +1493,15 @@
       "name": "聯邦快遞",
       "signal": "Strong Buy",
       "close": 334.05,
-      "ma60": 321.65,
+      "ma60": 321.08,
       "market": "us",
       "change": 2.76,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 328.08,
-        "sl": 321.65,
-        "tp": 410.1
+        "entry": 327.5,
+        "sl": 321.08,
+        "tp": 409.38
       },
       "sector": "其他族群",
       "backtest": {
@@ -1522,7 +1522,7 @@
           "breakthrough_pct": -1.02,
           "bottom1_price": 318.06,
           "bottom2_price": 309.76,
-          "days_formed": 50,
+          "days_formed": 52,
           "strength": "forming"
         },
         "triple_bottom": {
@@ -1532,7 +1532,7 @@
           "support": 306.22,
           "target": 368.75,
           "avg_bottom": 311.35,
-          "days_formed": 50,
+          "days_formed": 52,
           "strength": "forming"
         },
         "summary": {
@@ -5514,15 +5514,15 @@
       "name": "聯電",
       "signal": "Hold",
       "close": 123.5,
-      "ma60": null,
+      "ma60": 137.04,
       "market": "tw",
       "change": 6.01,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 123.5,
-        "sl": null,
-        "tp": 154.38
+        "entry": 138.41,
+        "sl": 137.04,
+        "tp": 173.01
       },
       "sector": "其他族群",
       "backtest": {
@@ -9005,15 +9005,15 @@
       "name": "瑞鼎",
       "signal": "Hold",
       "close": 224.5,
-      "ma60": null,
+      "ma60": 248.61,
       "market": "tw",
       "change": 0.45,
       "vol_ratio": 1.2,
       "tactic": "正規軍穩健架構",
       "plan": {
-        "entry": 224.5,
-        "sl": null,
-        "tp": 280.62
+        "entry": 251.1,
+        "sl": 248.61,
+        "tp": 313.88
       },
       "sector": "其他族群",
       "backtest": {
@@ -9023,7 +9023,28 @@
       "is_regular": false,
       "price": 281.5,
       "esg_elite": false,
-      "patterns": {},
+      "patterns": {
+        "abc_wave": {
+          "pattern": "ABC下跌中",
+          "pattern_en": "ABC_FALLING",
+          "wave_top": 275.5,
+          "a_bottom": 219.5,
+          "b_top": 245.5,
+          "a_drop_pct": 20.3,
+          "b_rebound_pct": 46.4,
+          "estimated_c_bottom": 215.11,
+          "warning": "C波進行中，尚未見底，請勿抄底！",
+          "days_formed": 36,
+          "strength": "warning"
+        },
+        "summary": {
+          "score": -2,
+          "signals": [
+            "⚠️C波下跌中"
+          ],
+          "verdict": "⚠️ 下跌未止"
+        }
+      },
       "fundamentals": {
         "three_rates_rising": false
       },
@@ -9905,7 +9926,7 @@
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": false,
+        "foreign_buy": true,
         "margin_surge": false
       },
       "price_source": "Yahoo",
@@ -11710,13 +11731,13 @@
       "vol_surge": false
     }
   ],
-  "last_updated": "2026-08-24T22:04:53Z",
+  "last_updated": "2026-08-24T23:51:02Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 15.85
     },
     "美金/台幣": {
-      "close": 31.82
+      "close": 31.81
     },
     "TSM_ADR": {
       "close": 410.12
@@ -11725,7 +11746,7 @@
       "close": 2375.0
     },
     "adr_premium": {
-      "close": 9.89
+      "close": 9.86
     },
     "台指VIX (波動率)": {
       "close": 29.21
