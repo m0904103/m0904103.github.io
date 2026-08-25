@@ -401,16 +401,24 @@ function App() {
              </div>
              <div className="flex-1 overflow-y-auto p-2 space-y-2">
                 {displayStocks.length === 0 ? (
-                  <div className="text-center py-12 px-4 space-y-3">
-                    <div className="text-3xl">🛡️</div>
-                    <div className="text-sm font-bold text-gray-300">目前無符合此篩選條件之標的</div>
-                    <p className="text-xs text-gray-500 leading-relaxed">當前市場位階嚴格風控中，建議切換「全部標的」或查看「🎯 甜蜜區」尋找安全擊球點。</p>
-                    <button 
-                      onClick={() => setActiveQuickFilter('all')} 
-                      className="px-3.5 py-1.5 rounded-xl bg-red-600/20 hover:bg-red-600/30 text-red-400 text-xs font-bold border border-red-500/30 transition-all cursor-pointer"
-                    >
-                      查看全部標的
-                    </button>
+                  <div className="my-6 mx-2 p-6 rounded-2xl bg-[#161A1E]/90 border border-white/10 text-center space-y-3 shadow-lg">
+                    <div className="text-3xl animate-bounce">🛡️</div>
+                    <div className="text-base font-black text-amber-400">
+                      {activeQuickFilter === 'star5' ? '【 🏆 目前無符合 5 星高勝率之標的 】' : '【 目前無符合此篩選條件之標的 】'}
+                    </div>
+                    <p className="text-xs text-gray-400 leading-relaxed max-w-xs mx-auto">
+                      {activeQuickFilter === 'star5' 
+                        ? '這代表當前市場處於多空震盪整理期，系統嚴格風控中（無個股達 85 分頂級追擊標準），網頁運作一切正常！' 
+                        : '當前市場無符合此特定技術面之股票，建議點選下方按鈕查看全部 138 檔標的。'}
+                    </p>
+                    <div className="pt-2">
+                      <button 
+                        onClick={() => setActiveQuickFilter('all')} 
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600/30 to-amber-600/30 hover:from-red-600/50 hover:to-amber-600/50 text-amber-300 text-xs font-black border border-amber-500/40 transition-all cursor-pointer shadow-md"
+                      >
+                        ⚡ 一鍵切換回「全部標的」
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   displayStocks.map(stock => (
