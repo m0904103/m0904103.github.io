@@ -1,9 +1,10 @@
-﻿name: 24/7 Unified Master Auto Sync & Deploy
+name: 24/7 Unified Master Auto Sync & Deploy
 
 on:
   schedule:
-    # Run every 10 minutes 24/7 around the clock
-    - cron: '*/10 * * * *'
+    # Run every 15 minutes 24/7 around the clock
+    - cron: '*/15 * * * *'
+    - cron: '0,15,30,45 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -52,6 +53,9 @@ jobs:
         working-directory: frontend
 
       - name: Deploy and Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

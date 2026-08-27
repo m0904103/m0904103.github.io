@@ -66,6 +66,11 @@ def deploy():
     try:
         os.chdir(repo_root)
         
+        token = os.environ.get("GITHUB_TOKEN")
+        repo = os.environ.get("GITHUB_REPOSITORY")
+        if token and repo:
+            subprocess.run(["git", "remote", "set-url", "origin", f"https://x-access-token:{token}@github.com/{repo}.git"], check=False)
+
         subprocess.run(["git", "config", "user.name", "AI Bot"], check=False)
         subprocess.run(["git", "config", "user.email", "bot@ai.com"], check=False)
         
