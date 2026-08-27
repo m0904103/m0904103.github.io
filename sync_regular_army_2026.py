@@ -192,8 +192,11 @@ def sync_data():
                         nums = [int(str(x).replace(',', '')) for x in row.values if str(x).replace('-', '').replace(',', '').isdigit()]
                         if nums:
                             taifex_oi_val = nums[-2] if len(nums) >= 2 else nums[-1]
+                            daily_change_val = nums[7] if len(nums) > 7 else 0
                             indices_results['外資台指淨未平倉 (口)'] = {"close": taifex_oi_val}
-                            print(f"  [OK] TAIFEX Live 外資台指淨未平倉: {taifex_oi_val}")
+                            indices_results['外資台指期未平倉'] = {"close": taifex_oi_val}
+                            indices_results['外資台指淨未平倉增減 (口)'] = {"close": daily_change_val}
+                            print(f"  [OK] TAIFEX Live 外資台指淨未平倉: {taifex_oi_val} 口 (今日增減: {daily_change_val} 口)")
                             break
         
         # 2. 選擇權 Put/Call Ratio
@@ -361,6 +364,7 @@ def sync_data():
     existing_indices = data.get('indices', {})
     existing_indices.update(indices_results)
     data['indices'] = existing_indices
+    data['taifex_oi'] = taifex_oi_val
     
     data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
     
