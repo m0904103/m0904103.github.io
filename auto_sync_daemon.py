@@ -4,15 +4,35 @@ import os
 import sys
 from datetime import datetime
 
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
 repo_root = os.path.dirname(os.path.abspath(__file__))
 os.chdir(repo_root)
 
-print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Market Sync Daemon started...")
+print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] High-Frequency Market Sync Daemon started...")
+
+def is_market_open():
+    now = datetime.now()
+    weekday = now.weekday() # 0 = Monday, 6 = Sunday
+    hour = now.hour
+    minute = now.minute
+    current_time_val = hour * 60 + minute
+
+    if weekday < 5: # Mon - Fri
+        # TW Session: 08:40 - 13:45
+        if 8 * 60 + 40 <= current_time_val <= 13 * 60 + 45:
+            return True
+        # US Session: 21:00 - 04:30
+        if current_time_val >= 21 * 60 or current_time_val <= 4 * 60 + 30:
+            return True
+    return False
 
 while True:
     try:
         now = datetime.now()
-        print(f"\n[{now.strftime('%Y-%m-%d %H:%M:%S')}] Starting scheduled sync iteration...")
+        market_status = "ACTIVE TRADING" if is_market_open() else "OFF-HOURS"
+        print(f"\n[{now.strftime('%Y-%m-%d %H:%M:%S')}] [{market_status}] Starting sync iteration...")
         
         # 1. Sync Regular Army
         subprocess.run([sys.executable, "sync_regular_army_2026.py"], check=False)
@@ -27,8 +47,10 @@ while True:
         # 4. Upload & Deploy
         subprocess.run([sys.executable, "upload_frontend.py"], check=False)
         
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Sync cycle complete! Sleeping 10 minutes...")
+        sleep_sec = 30 if is_market_open() else 180
+        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Sync cycle complete! Sleeping {sleep_sec}s...")
+        time.sleep(sleep_sec)
+        
     except Exception as e:
         print(f"[ERROR] Sync cycle exception: {e}")
-        
-    time.sleep(600)
+        time.sleep(30)
