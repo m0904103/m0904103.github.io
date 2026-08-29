@@ -1,16 +1,30 @@
-﻿import time
+import time
 import subprocess
 import os
 import sys
+import socket
 from datetime import datetime
 
 sys.stdout.reconfigure(encoding='utf-8')
 sys.stderr.reconfigure(encoding='utf-8')
 
+# ============================================================
+# 單例鎖定 (Singleton Lock) - 確保只有一個複本在執行
+# 使用 socket 佔用一個固定的本機 port 作為互斥鎖
+# ============================================================
+_SINGLETON_PORT = 47892  # 任意選一個不常用的 port
+_singleton_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+    _singleton_socket.bind(('127.0.0.1', _SINGLETON_PORT))
+except OSError:
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ⚠️  auto_sync_daemon 已經在執行中，本次啟動自動退出。")
+    sys.exit(0)
+# ============================================================
+
 repo_root = os.path.dirname(os.path.abspath(__file__))
 os.chdir(repo_root)
 
-print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] High-Frequency Market Sync Daemon started...")
+print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] High-Frequency Market Sync Daemon started (singleton lock acquired on port {_SINGLETON_PORT})...")
 
 def is_market_open():
     now = datetime.now()
