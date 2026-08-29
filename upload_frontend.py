@@ -75,14 +75,14 @@ def deploy():
         subprocess.run(["git", "config", "user.email", "bot@ai.com"], check=False)
         
         subprocess.run(["git", "fetch", "origin", "main"], check=False)
-        subprocess.run(["git", "rebase", "origin/main"], check=False)
+        subprocess.run(["git", "reset", "--mixed", "origin/main"], check=False)
         subprocess.run(["git", "add", "-A"], check=True)
         commit_res = subprocess.run(["git", "commit", "-m", "Auto-deploy frontend to root, trading/ and q_quant_888/ with full source sync"])
         if commit_res.returncode == 0:
             push_res = subprocess.run(["git", "push", "origin", "main"], check=False)
             if push_res.returncode != 0:
                 print("[RETRY] Re-syncing with remote and retrying push...")
-                subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=False)
+                subprocess.run(["git", "fetch", "origin", "main"], check=False)
                 subprocess.run(["git", "push", "origin", "main"], check=True)
             print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")
         else:
