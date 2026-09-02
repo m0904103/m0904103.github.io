@@ -10,7 +10,7 @@ import {
   ShieldCheck, Zap, AlertTriangle, ShieldAlert, Navigation2, Target, Sword, Crosshair, HelpCircle,
   Menu, X, ExternalLink, Globe, LayoutDashboard, History, Settings, Info, Bell, MessageSquare,
   Lock, ArrowRight, MousePointer2, Thermometer, Droplets, Sun, Moon, Clock, Quote,
-  Building2, LineChart as LineChartIcon, FileText, Coins, BookOpen
+  Building2, LineChart as LineChartIcon, FileText, Coins, BookOpen, Calendar, Heart, Calculator
 } from 'lucide-react';
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
@@ -23,6 +23,11 @@ import KellyCalculator from './components/KellyCalculator';
 import FibonacciLevels from './components/FibonacciLevels';
 import QuickFilterBar from './components/QuickFilterBar';
 import ComparativeChart from './components/ComparativeChart';
+import KeyPriceCalculator from './components/KeyPriceCalculator';
+import DualStopLossGuard from './components/DualStopLossGuard';
+import InstitutionalRadar from './components/InstitutionalRadar';
+import SeasonalityCalendar from './components/SeasonalityCalendar';
+import RetirementCorePortfolio from './components/RetirementCorePortfolio';
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -48,6 +53,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("regular"); 
   const [selectedSector, setSelectedSector] = useState(null);
   const [activeQuickFilter, setActiveQuickFilter] = useState("all");
+  const [activeMainTab, setActiveMainTab] = useState("map");
 
   useEffect(() => {
     fetchData();
@@ -363,26 +369,99 @@ function App() {
       </header>
 
       <main className="p-4 md:p-8 max-w-[1600px] mx-auto w-full space-y-8">
-        <section id="weather-station">{renderWeatherStation()}</section>
-        
-        {/* 🗺️ 2026 產業戰略地圖 (美股領頭羊 ⇄ 台股供應鏈) */}
-        <section>
-          <SectorStrategyMap stocks={stocks} onSelectStock={handleSelectStock} />
+        {/* 🌤️ 全息大盤與期現貨籌碼雷達 */}
+        <section id="weather-station" className="space-y-4">
+          {renderWeatherStation()}
+          <InstitutionalRadar indices={indices} taifexOi={taifexOi} />
         </section>
-
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
-              <LayoutDashboard size={16} className="mr-2" /> 戰略特攻板
-              <span className="ml-3 px-2 py-0.5 bg-red-600/20 text-red-400 rounded-md text-[10px]">
-                鎖定至 2026 年 8 月底
-              </span>
-            </h2>
+        
+        {/* 🧭 雙師戰略指揮中心導覽列 */}
+        <section className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="text-red-500" size={18} />
+              <h2 className="text-sm font-black text-gray-300 uppercase tracking-widest">
+                雙師戰略指揮中心 <span className="text-[10px] text-gray-500 font-normal ml-2">Yen & Tsun Master Control</span>
+              </h2>
+            </div>
           </div>
-          <StrategyBoard 
-            onSelectStock={handleSelectStock} 
-            stocks={activeMarket === 'tw' ? stocks.tw : stocks.us} 
-          />
+
+          <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#161A1E] rounded-2xl border border-white/10">
+            <button
+              onClick={() => setActiveMainTab("map")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'map' ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Globe size={14} /> 🗺️ 美台產業地圖
+            </button>
+            <button
+              onClick={() => setActiveMainTab("board")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'board' ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <LayoutDashboard size={14} /> 🎯 戰略特攻板
+            </button>
+            <button
+              onClick={() => setActiveMainTab("retirement")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'retirement' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Heart size={14} /> 🌾 退休核心防禦池
+            </button>
+            <button
+              onClick={() => setActiveMainTab("calendar")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'calendar' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Calendar size={14} /> 📅 20年季節大數據
+            </button>
+            <button
+              onClick={() => setActiveMainTab("key_price")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'key_price' ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/30' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Target size={14} /> 🧮 開盤關鍵價試算
+            </button>
+          </div>
+
+          {/* Tab Views */}
+          {activeMainTab === 'map' && (
+            <SectorStrategyMap stocks={stocks} onSelectStock={handleSelectStock} />
+          )}
+
+          {activeMainTab === 'board' && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
+                  <LayoutDashboard size={16} className="mr-2" /> 戰略特攻板
+                  <span className="ml-3 px-2 py-0.5 bg-red-600/20 text-red-400 rounded-md text-[10px]">
+                    鎖定至 2026 年 8 月底
+                  </span>
+                </h2>
+              </div>
+              <StrategyBoard 
+                onSelectStock={handleSelectStock} 
+                stocks={activeMarket === 'tw' ? stocks.tw : stocks.us} 
+              />
+            </div>
+          )}
+
+          {activeMainTab === 'retirement' && (
+            <RetirementCorePortfolio onSelectStock={handleSelectStock} />
+          )}
+
+          {activeMainTab === 'calendar' && (
+            <SeasonalityCalendar />
+          )}
+
+          {activeMainTab === 'key_price' && (
+            <KeyPriceCalculator selectedStock={selectedStock} />
+          )}
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -511,6 +590,12 @@ function App() {
 
                  {/* 🚨 Pattern Warning Card (e.g. C-Wave Fall Alert) */}
                  <PatternWarningCard stock={selectedStock} />
+
+                 {/* 🛡️ 雙師雙層停損風控守衛 (阿村伯 5/10MA + 顏老師 60MA) */}
+                 <DualStopLossGuard selectedStock={selectedStock} stocks={currentMarketStocks} />
+
+                 {/* 🧮 阿村伯開盤關鍵價即時試算 */}
+                 <KeyPriceCalculator selectedStock={selectedStock} />
 
                  {/* 📊 TINs Win-Rate & Risk Scorecard */}
                  <WinRateScorecard stock={selectedStock} globalIndices={indices} />
