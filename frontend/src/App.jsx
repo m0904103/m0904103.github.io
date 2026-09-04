@@ -204,7 +204,9 @@ function App() {
           </div>
           <div className="glass rounded-2xl p-4 border-l-4 border-l-cyan-500">
             <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">散戶小台多空比</span>
-            <div className="text-2xl font-black mt-1 text-cyan-400">+{retailSmall}%</div>
+            <div className={`text-2xl font-black mt-1 ${Number(retailSmall) < 0 ? 'text-green-400' : 'text-cyan-400'}`}>
+              {Number(retailSmall) > 0 ? `+${retailSmall}` : retailSmall}%
+            </div>
           </div>
           <div className="glass rounded-2xl p-4 border-l-4 border-l-orange-500">
             <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">全市場 P/C Ratio</span>
