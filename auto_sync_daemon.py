@@ -72,26 +72,26 @@ while True:
         
         # 1. Sync Regular Army
         try:
-            subprocess.run([sys.executable, "sync_regular_army_2026.py"], timeout=300, check=False)
+            subprocess.run([sys.executable, "sync_regular_army_2026.py"], timeout=600, check=False)
         except subprocess.TimeoutExpired:
             print("[WARN] sync_regular_army_2026 timed out, proceeding...")
         
         # 2. Scan TW Big Data
         try:
-            subprocess.run([sys.executable, "scan_tw_big_data.py"], timeout=300, check=False)
+            subprocess.run([sys.executable, "scan_tw_big_data.py"], timeout=600, check=False)
         except subprocess.TimeoutExpired:
             print("[WARN] scan_tw_big_data timed out, proceeding...")
         
         # 3. Build Frontend
         frontend_dir = os.path.join(repo_root, "frontend")
         try:
-            subprocess.run("npm run build", cwd=frontend_dir, shell=True, timeout=120, check=False)
+            subprocess.run("npm run build", cwd=frontend_dir, shell=True, timeout=180, check=False)
         except subprocess.TimeoutExpired:
             print("[WARN] npm run build timed out, proceeding...")
         
         # 4. Upload & Deploy
         try:
-            subprocess.run([sys.executable, "upload_frontend.py"], timeout=120, check=False)
+            subprocess.run([sys.executable, "upload_frontend.py"], timeout=180, check=False)
         except subprocess.TimeoutExpired:
             print("[WARN] upload_frontend timed out, proceeding...")
         
@@ -100,5 +100,7 @@ while True:
         time.sleep(sleep_sec)
         
     except Exception as e:
+        import traceback
         print(f"[ERROR] Sync cycle exception: {e}")
+        traceback.print_exc()
         time.sleep(30)
