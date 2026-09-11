@@ -4,6 +4,7 @@ import yfinance as yf
 from datetime import datetime, timezone
 import math
 import pandas as pd
+import numpy as np
 import requests
 import sys
 from esg_list import ESG_ELITE_STOCKS
@@ -296,19 +297,8 @@ def sync_data():
                 ma60 = latest_close
 
             is_regular = latest_close >= ma60
-            signal = "Strong Buy" if is_regular else "Hold"
-            default_tactic = "「正規軍」：趨勢確認，沿生命線操作。" if is_regular else "「觀望區」：跌破生命線，暫避鋒芒。"
-            
-            # Update the fields but preserve custom tactics and backtest
-            stock_obj["symbol"] = sym
-            stock_obj["signal"] = signal
-            stock_obj["close"] = latest_close
-            stock_obj["ma60"] = ma60
-            stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
-            stock_obj["change"] = change
-            stock_obj["is_regular"] = is_regular
-            stock_obj["esg_elite"] = sym in ESG_ELITE_STOCKS
-            
+            esg_elite = sym in ESG_ELITE_STOCKS
+
             # Pattern Detection
             try:
                 patterns = analyze_patterns(df)
@@ -316,6 +306,123 @@ def sync_data():
             except Exception as e:
                 print(f" Pattern Error: {e}")
                 stock_obj["patterns"] = {}
+
+            # Calculate Quantitative TINs Score, Multi-tier Signal, and Real Backtest
+            valid_closes = df['Close'].dropna()
+            ma200 = float(valid_closes.iloc[-200:].mean()) if len(valid_closes) >= 200 else None
+            bias_pct = ((latest_close - ma60) / ma60) * 100 if ma60 > 0 else 0.0
+            
+            score_val = 50
+            if ma200 is not None and latest_close < ma200:
+                score_val -= 40
+            
+            is_fuzzy_sweet = -0.8 <= bias_pct <= 4.0
+            is_slight_buffer = -0.8 <= bias_pct < 0.0
+            
+            if is_regular:
+                score_val += 25
+            elif is_slight_buffer:
+                score_val += 15
+            else:
+                score_val -= 20
+                
+            if is_fuzzy_sweet:
+                score_val += 25
+            elif is_regular and bias_pct > 4.0:
+                excess = bias_pct - 4.0
+                penalty_exp = math.exp(0.35 * excess) - 1.0
+                omega = max(0.05, min(1.0, math.exp(-penalty_exp)))
+                penalty_points = min(45, int(round((1.0 - omega) * 50)))
+                score_val -= penalty_points
+            elif bias_pct < -0.8:
+                deficit = abs(bias_pct)
+                penalty_exp = math.exp(0.25 * deficit) - 1.0
+                omega = max(0.05, min(1.0, math.exp(-penalty_exp)))
+                penalty_points = min(35, int(round((1.0 - omega) * 40)))
+                score_val -= penalty_points
+
+            chips = stock_obj.get('chips', {})
+            fundamentals = stock_obj.get('fundamentals', {})
+            if chips.get('foreign_buy'):
+                score_val += 10
+            if fundamentals.get('three_rates_rising'):
+                score_val += 10
+            if esg_elite:
+                score_val += 10
+
+            sec_lower = (stock_obj.get('sector') or '').lower()
+            name_str = name or ''
+            is_thematic = ('ai' in sec_lower or '半導體' in sec_lower or 'cpo' in sec_lower or '軟體' in sec_lower or 'pcb' in sec_lower or '台積' in name_str or '廣達' in name_str or '鴻海' in name_str or '聯發科' in name_str)
+            if is_thematic and is_fuzzy_sweet:
+                score_val += 10
+
+            if stock_obj.get('patterns', {}).get('abc_wave', {}).get('pattern_en') == 'ABC_FALLING':
+                score_val -= 30
+
+            final_score = int(max(10, min(99, score_val)))
+
+            if final_score >= 85 and is_fuzzy_sweet:
+                signal = "Strong Buy"
+            elif final_score >= 70 and is_regular:
+                signal = "Buy"
+            elif is_regular or final_score >= 55:
+                signal = "Hold"
+            else:
+                signal = "Avoid"
+
+            # Dynamic Backtest calculation
+            bt_res = None
+            if len(df) >= 60:
+                b_df = df.copy()
+                b_df['ma60'] = b_df['Close'].rolling(60).mean()
+                b_df = b_df.dropna().reset_index(drop=True)
+                pos = 0
+                trades = []
+                entry = 0.0
+                for i in range(len(b_df)):
+                    c_val = float(b_df['Close'].iloc[i])
+                    m_val = float(b_df['ma60'].iloc[i])
+                    if c_val > m_val and pos == 0:
+                        pos = 1
+                        entry = c_val
+                    elif c_val < m_val and pos == 1:
+                        pos = 0
+                        exit_p = c_val
+                        trades.append((exit_p - entry) / entry)
+                if pos == 1 and len(b_df) > 0:
+                    trades.append((float(b_df['Close'].iloc[-1]) - entry) / entry)
+
+                if trades:
+                    wins = [t for t in trades if t > 0]
+                    win_rate = round(len(wins) / len(trades) * 100, 1)
+                    total_return = round((float(np.prod([1 + t for t in trades])) - 1) * 100, 1)
+                    bt_res = {
+                        "win_rate": win_rate,
+                        "total_return": total_return,
+                        "trade_count": len(trades)
+                    }
+
+            if not bt_res:
+                bt_res = stock_obj.get("backtest", {
+                    "win_rate": 65.0 if is_regular else 45.0,
+                    "total_return": 25.4 if is_regular else -5.2,
+                    "trade_count": 0
+                })
+
+            default_tactic = "「正規軍」：趨勢確認，沿生命線操作。" if is_regular else "「觀望區」：跌破生命線，暫避鋒芒。"
+            
+            # Update all fields including score, signal, and backtest
+            stock_obj["symbol"] = sym
+            stock_obj["score"] = final_score
+            stock_obj["signal"] = signal
+            stock_obj["close"] = latest_close
+            stock_obj["ma60"] = ma60
+            stock_obj["ma200"] = ma200
+            stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
+            stock_obj["change"] = change
+            stock_obj["is_regular"] = is_regular
+            stock_obj["esg_elite"] = esg_elite
+            stock_obj["backtest"] = bt_res
             
             if "vol_ratio" not in stock_obj:
                 stock_obj["vol_ratio"] = 1.5
@@ -339,16 +446,9 @@ def sync_data():
 
             if "plan" not in stock_obj:
                 stock_obj["plan"] = {}
-            # Update dynamic plan based on new prices, but keep the dict structure
             stock_obj["plan"]["entry"] = best_entry
             stock_obj["plan"]["sl"] = ma60
             stock_obj["plan"]["tp"] = round(best_entry * 1.25, 2)
-            
-            if "backtest" not in stock_obj:
-                stock_obj["backtest"] = {
-                    "win_rate": 65.0 if is_regular else 45.0,
-                    "total_return": 25.4 if is_regular else -5.2
-                }
 
             existing_stocks[sym] = stock_obj
             updated_count += 1

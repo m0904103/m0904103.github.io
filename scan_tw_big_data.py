@@ -138,6 +138,53 @@ def run_scan():
             "foreign_buy": is_foreign_buying,
             "margin_surge": margin_surge
         }
+
+        # Recalculate TINs score and signal dynamically
+        close_p = float(stock.get('close', 0))
+        ma60_p = float(stock.get('ma60', 0))
+        if close_p > 0 and ma60_p > 0:
+            bias_pct = ((close_p - ma60_p) / ma60_p) * 100
+            score_val = 50
+            is_above_ma60 = close_p >= ma60_p
+            is_fuzzy_sweet = -0.8 <= bias_pct <= 4.0
+            is_slight_buffer = -0.8 <= bias_pct < 0.0
+
+            valid_closes = df['Close'].dropna() if not df.empty else []
+            ma200_p = float(valid_closes.iloc[-200:].mean()) if len(valid_closes) >= 200 else None
+            if ma200_p and close_p < ma200_p:
+                score_val -= 40
+
+            if is_above_ma60: score_val += 25
+            elif is_slight_buffer: score_val += 15
+            else: score_val -= 20
+
+            if is_fuzzy_sweet: score_val += 25
+            elif is_above_ma60 and bias_pct > 4.0:
+                excess = bias_pct - 4.0
+                penalty_exp = math.exp(0.35 * excess) - 1.0
+                omega = max(0.05, min(1.0, math.exp(-penalty_exp)))
+                score_val -= min(45, int(round((1.0 - omega) * 50)))
+            elif bias_pct < -0.8:
+                deficit = abs(bias_pct)
+                penalty_exp = math.exp(0.25 * deficit) - 1.0
+                omega = max(0.05, min(1.0, math.exp(-penalty_exp)))
+                score_val -= min(35, int(round((1.0 - omega) * 40)))
+
+            if is_foreign_buying: score_val += 10
+            if three_rates: score_val += 10
+            if stock.get('esg_elite'): score_val += 10
+
+            sec_lower = (stock.get('sector') or '').lower()
+            name_str = stock.get('name') or ''
+            if ('ai' in sec_lower or '半導體' in sec_lower or 'cpo' in sec_lower or '軟體' in sec_lower or 'pcb' in sec_lower or '台積' in name_str or '廣達' in name_str) and is_fuzzy_sweet:
+                score_val += 10
+
+            final_score = int(max(10, min(99, score_val)))
+            stock['score'] = final_score
+            if final_score >= 85 and is_fuzzy_sweet: stock['signal'] = "Strong Buy"
+            elif final_score >= 70 and is_above_ma60: stock['signal'] = "Buy"
+            elif is_above_ma60 or final_score >= 55: stock['signal'] = "Hold"
+            else: stock['signal'] = "Avoid"
         
         updated_count += 1
         print(" [OK]")
