@@ -477,15 +477,19 @@
     <div class="summary-bar">
       <div class="sum-pill">
         <span class="sum-pill-label">全校總課程</span>
-        <span class="sum-pill-val" style="color: #60A5FA;" id="sumTotal">338 門</span>
+        <span class="sum-pill-val" style="color: #60A5FA;" id="sumTotal">343 門</span>
+      </div>
+      <div class="sum-pill" style="border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.05);">
+        <span class="sum-pill-label">🎙️ 實質真逐字稿講次</span>
+        <span class="sum-pill-val" style="color: #38BDF8;" id="sumLectures">45,553 講 (92.1%)</span>
       </div>
       <div class="sum-pill">
-        <span class="sum-pill-label">🟢 高度完工</span>
-        <span class="sum-pill-val" style="color: #34D399;" id="sumFull">268 門</span>
+        <span class="sum-pill-label">🟢 100% 滿分合規</span>
+        <span class="sum-pill-val" style="color: #34D399;" id="sumFull">255 門 (74.3%)</span>
       </div>
       <div class="sum-pill">
         <span class="sum-pill-label">🟡 待補收割</span>
-        <span class="sum-pill-val" style="color: #FBBF24;" id="sumPartial">70 門</span>
+        <span class="sum-pill-val" style="color: #FBBF24;" id="sumPartial">82 門</span>
       </div>
       <div class="sum-pill">
         <span class="sum-pill-label">官方 PDF / 題庫</span>
@@ -579,8 +583,16 @@
 
         // Update Summary Pills
         document.getElementById('sumTotal').textContent = data.total_courses + ' 門';
+        if (data.total_real_lectures !== undefined && data.total_lectures !== undefined) {
+          const lecRate = ((data.total_real_lectures / data.total_lectures) * 100).toFixed(1);
+          const lecElem = document.getElementById('sumLectures');
+          if (lecElem) lecElem.textContent = `${data.total_real_lectures.toLocaleString()} 講 (${lecRate}%)`;
+        }
         document.getElementById('sumFull').textContent = `${data.full_cnt} 門 (${data.overall_rate}%)`;
         document.getElementById('sumPartial').textContent = data.partial_cnt + ' 門';
+        
+        const allTab = document.querySelector('.tab-btn');
+        if (allTab && data.total_courses) allTab.textContent = `全部 (${data.total_courses})`;
         
         renderCourses();
         if (isManual && btn) btn.textContent = '🔄 重整';
