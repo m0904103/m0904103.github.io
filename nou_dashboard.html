@@ -1,1275 +1,692 @@
 <!DOCTYPE html>
-<html lang="zh-TW" class="dark">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>國立空中大學 115-1 卓越學務戰情室 ｜ 全維度學術監控中樞</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              bg: '#05070e',
-              surface: 'rgba(15, 23, 42, 0.75)',
-              card: 'rgba(30, 41, 59, 0.55)',
-              border: 'rgba(255, 255, 255, 0.08)',
-              primary: '#6366f1',
-              accent: '#38bdf8',
-              emerald: '#10b981',
-              amber: '#f59e0b',
-              rose: '#f43f5e'
-            }
-          },
-          fontFamily: {
-            mono: ['JetBrains Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', 'monospace'],
-            sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif']
-          }
-        }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>國立空中大學（NOU）全校課程進度戰情室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0B0F19;
+      --bg-card: rgba(22, 30, 49, 0.88);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --text-main: #F1F5F9;
+      --text-sub: #94A3B8;
+      --accent-green: #10B981;
+      --accent-yellow: #F59E0B;
+      --accent-blue: #3B82F6;
+      --accent-purple: #8B5CF6;
+      --accent-cyan: #06B6D4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 10% 15%, #161e38 0%, #0b0f19 85%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 16px 12px 60px;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .header h1 {
+      font-size: 1.7rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #60A5FA, #34D399, #F472B6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .header p {
+      color: var(--text-sub);
+      font-size: 0.82rem;
+    }
+
+    /* Live Heartbeat Radar Banner */
+    .heartbeat-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(59, 130, 246, 0.12));
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+      animation: borderGlow 3s infinite alternate;
+    }
+    @keyframes borderGlow {
+      from { border-color: rgba(52, 211, 153, 0.3); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1); }
+      to { border-color: rgba(96, 165, 250, 0.6); box-shadow: 0 4px 25px rgba(59, 130, 246, 0.25); }
+    }
+    .heartbeat-beacon {
+      width: 12px;
+      height: 12px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #34D399;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .heartbeat-beacon::after {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 50%;
+      border: 2px solid #34D399;
+      animation: ripple 1.5s infinite;
+    }
+    @keyframes ripple {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .heartbeat-content {
+      flex: 1;
+    }
+    .heartbeat-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #34D399;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .heartbeat-desc {
+      font-size: 0.78rem;
+      color: #E2E8F0;
+      margin-top: 2px;
+    }
+    .btn-refresh {
+      background: rgba(59, 130, 246, 0.25);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #93C5FD;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Dual Track Colab Cards */
+    .tracks-section {
+      margin-bottom: 20px;
+    }
+    .tracks-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px) {
+      .tracks-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.4rem; }
+    }
+    .track-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 14px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .track-card.alpha-card {
+      border-top: 3px solid #3B82F6;
+    }
+    .track-card.beta-card {
+      border-top: 3px solid #10B981;
+    }
+    .track-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .track-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .track-badge {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .badge-alpha { background: rgba(59, 130, 246, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-beta { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    
+    .track-scope {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+    .track-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .track-pct {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .track-count {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+    .track-bar-bg {
+      width: 100%;
+      height: 9px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .track-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.8s ease;
+    }
+    .bar-alpha { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+    .bar-beta { background: linear-gradient(90deg, #059669, #34D399); }
+    
+    .btn-colab {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-colab-alpha {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #93C5FD;
+    }
+    .btn-colab-alpha:hover {
+      background: #3B82F6;
+      color: #fff;
+    }
+    .btn-colab-beta {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #6EE7B7;
+    }
+    .btn-colab-beta:hover {
+      background: #10B981;
+      color: #fff;
+    }
+
+    /* Summary Bar */
+    .summary-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }}
+    .sum-pill {
+      flex: 1;
+      min-width: 135px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sum-pill-label { font-size: 0.72rem; color: var(--text-sub); }
+    .sum-pill-val { font-size: 1.05rem; font-weight: 800; }
+
+    /* Search & Filter Controls */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .search-box input:focus {
+      border-color: var(--accent-blue);
+      background: rgba(255,255,255,0.08);
+    }
+    .filter-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 5px 12px;
+      border-radius: 7px;
+      border: 1px solid var(--border-card);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-sub);
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #fff;
+    }
+
+    /* Course Cards (Zero Clipping on iPhone 15 Pro) */
+    .courses-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .course-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      backdrop-filter: blur(10px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      line-height: 1.35;
+      flex: 1;
+      word-break: break-word;
+    }
+    .card-badge {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-full { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-partial { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    
+    .card-progress-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+    .card-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .card-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 6px;
+    }
+    .meta-tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .meta-tag {
+      background: rgba(255,255,255,0.04);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    /* Desktop Enhancement */
+    @media (min-width: 768px) {
+      body { padding: 28px 24px 60px; }
+      .header h1 { font-size: 2rem; }
+      .controls { flex-direction: row; justify-content: space-between; }
+      .search-box { max-width: 360px; }
+      .courses-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 12px;
       }
     }
-  </script>
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- ApexCharts CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-  <style>
-    body {
-      background-color: #05070e;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
-      background-attachment: fixed;
-      color: #f1f5f9;
-    }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    }
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 8px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: var(--text-sub);
+      font-size: 0.75rem;
+      line-height: 1.6;
     }
   </style>
 </head>
-<body class="min-h-screen font-sans antialiased text-gray-100 selection:bg-indigo-500 selection:text-white">
-
-  <!-- 主容器 -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-
-    <!-- ========================================================================= -->
-    <!-- L0 頂層即時遙測與學員身分 (Identity & Live Telemetry Context) -->
-    <!-- ========================================================================= -->
-    <header class="glass-card rounded-2xl p-5 border border-brand-border flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <div class="relative">
-          <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-500 p-0.5 shadow-lg shadow-indigo-500/20">
-            <div class="w-12 h-12 rounded-2xl bg-gray-950 flex items-center justify-center font-bold text-white text-lg">
-              嬑
-            </div>
-          </div>
-          <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-gray-950 rounded-full flex items-center justify-center" title="官方連通正常">
-            <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
-          </span>
-        </div>
-        <div>
-          <div class="flex items-center gap-2.5 flex-wrap">
-            <h1 class="text-xl font-black text-white tracking-wide" id="studentName">陳嬑萱</h1>
-            <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-gray-800 text-indigo-300 font-semibold border border-indigo-500/30" id="studentId">112122209</span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 font-medium border border-cyan-800/40">臺北學習指導中心</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800/50">官方學術戰情中樞</span>
-          </div>
-          <div class="flex items-center gap-4 text-xs text-gray-400 mt-1 flex-wrap">
-            <span class="flex items-center gap-1.5">
-              <i class="fa-solid fa-calendar-week text-indigo-400"></i>
-              <span>115學年度上學期 (115-1)</span>
-            </span>
-            <span>•</span>
-            <span class="flex items-center gap-1.5 text-gray-300">
-              <i class="fa-solid fa-layer-group text-cyan-400"></i>
-              <span>修習 <strong>7 門核心大課 (15 學分)</strong></span>
-            </span>
-            <span>•</span>
-            <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
-              <i class="fa-solid fa-trophy"></i>
-              <span>學期目標：全科 90+ 榮譽生書香獎</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 遙測狀態膠囊 (Live Telemetry Status Pills) -->
-      <div class="flex items-center gap-2.5 flex-wrap">
-        <div class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-medium">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>LMS 狀態: <strong class="font-mono">100% 官方連通</strong></span>
-        </div>
-        <div class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-medium">
-          <i class="fa-brands fa-github text-indigo-400"></i>
-          <span>Actions: <strong>排程守護中</strong></span>
-        </div>
-        <div class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs font-medium">
-          <i class="fa-solid fa-shield-halved text-purple-400"></i>
-          <span>替身雙開在線</span>
-        </div>
-        <button onclick="location.reload()" class="p-2 rounded-xl bg-gray-800/80 hover:bg-gray-700 text-gray-300 hover:text-white border border-white/10 transition text-xs flex items-center gap-1" title="點擊重新整理最新官方遙測數據">
-          <i class="fa-solid fa-rotate-right"></i>
-          <span>即時同步</span>
-        </button>
-        <a href="https://uu.nou.edu.tw/learn/index.php" target="_blank" class="p-2 rounded-xl bg-indigo-600/80 hover:bg-indigo-500 text-white border border-indigo-400/30 transition text-xs flex items-center gap-1" title="直接前往空大數位學習平台">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          <span>校內教學網</span>
-        </a>
-      </div>
-    </header>
-
-    
-    <!-- ========================================================================= -->
-    <!-- ⚡ 實時全時監控雷達中樞 (Real-time Live Telemetry Radar HUD) -->
-    <!-- ========================================================================= -->
-    <div id="liveTelemetryRadar" class="glass-card rounded-2xl p-4 border border-emerald-500/40 bg-gradient-to-r from-emerald-950/50 via-gray-950/90 to-indigo-950/50 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div class="flex items-center gap-3.5">
-        <div class="relative flex items-center justify-center flex-shrink-0">
-          <span class="w-3.5 h-3.5 rounded-full bg-emerald-400"></span>
-          <span class="absolute w-6 h-6 rounded-full bg-emerald-400/40 animate-ping"></span>
-        </div>
-        <div>
-          <div class="flex items-center gap-2.5 flex-wrap">
-            <span class="text-xs font-black text-emerald-400 tracking-wider uppercase font-mono flex items-center gap-1.5">
-              <i class="fa-solid fa-tower-broadcast animate-pulse"></i> LIVE MONITORING
-            </span>
-            <span class="text-sm font-bold text-white">24H 自律在線時數守護引擎：全速運轉中</span>
-            <span id="livePulseTag" class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-mono font-bold transition-all">心跳正常</span>
-          </div>
-          <div class="text-xs text-gray-300 mt-1 flex items-center gap-3 flex-wrap">
-            <span id="liveCurrentStudying" class="text-cyan-200 flex items-center gap-1.5">
-              <i class="fa-solid fa-book-open-reader text-cyan-400"></i>
-              <span>當前守護研讀：<strong class="text-white">【生成式AI在行政實務的應用】</strong> 單元心跳回傳正常</span>
-            </span>
-            <span class="text-gray-600 hidden sm:inline">•</span>
-            <span class="text-gray-400 flex items-center gap-1.5">
-              <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i>
-              <span>伺服器最新連通：<strong id="lastSyncTime" class="text-cyan-300 font-mono">剛剛</strong></span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-2.5 flex-wrap self-end md:self-center">
-        <!-- 輪詢秒數動態膠囊倒數 -->
-        <div class="bg-gray-950/90 border border-white/15 px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs font-mono shadow-inner">
-          <i class="fa-solid fa-arrows-rotate text-cyan-400" id="refreshSpinner"></i>
-          <span class="text-gray-400">次輪同步:</span>
-          <span id="pollCountdown" class="text-cyan-300 font-bold w-6 text-center">15s</span>
-        </div>
-        <!-- 輪詢開關與手動強制更新按鈕 -->
-        <button id="btnTogglePoll" onclick="toggleAutoPolling()" class="px-3 py-1.5 rounded-xl bg-gray-800/90 hover:bg-gray-700 text-gray-200 text-xs font-bold border border-white/10 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-play text-emerald-400" id="pollStatusIcon"></i>
-          <span id="pollStatusText">自動輪詢中</span>
-        </button>
-        <button onclick="triggerManualSync()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black shadow-lg shadow-emerald-600/30 transition flex items-center gap-1.5 active:scale-95">
-          <i class="fa-solid fa-bolt"></i>
-          <span>即刻同步</span>
-        </button>
-      </div>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>國立空中大學（NOU）課程進度戰情室</h1>
+      <p>338 門課程全要素真逐字稿 · 官方串流 ⇄ Google Drive ⇄ 外接 D: 碟</p>
     </div>
 
-
-    <!-- ========================================================================= -->
-    <!-- L1 認知減壓行動橫幅：最近面授即時倒數與雙門衝堂守護 (Immediate Action Banner) -->
-    <!-- ========================================================================= -->
-    <section class="bg-gradient-to-r from-indigo-950/90 via-slate-900/90 to-purple-950/90 border border-indigo-500/30 rounded-2xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-        
-        <!-- 左側：會議情報與雙開防護 -->
-        <div class="space-y-2">
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-              NEXT 最近面授日程
-            </span>
-            <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-0.5 rounded-full font-bold">
-              2026/09/14 (週一) 19:00 - 20:50
-            </span>
-            <span class="text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-              <i class="fa-solid fa-rocket"></i>
-              下一場待命中 (雲端自動守護已掛載)
-            </span>
-          </div>
-          <h2 class="text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2 flex-wrap">
-            <span>《永續的挑戰與實踐》</span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-900/60 text-indigo-200 border border-indigo-700/50 font-normal">
-              授課導師：蔡適應 老師 (分機 5196) ｜ 班級：ZZZ002
-            </span>
-          </h2>
-          <p class="text-xs text-gray-300 flex items-center gap-2 flex-wrap">
-            <span>⏰ 守護排程已鎖定：預定於 09/14 18:48 提早 12 分鐘自動喚醒就座，身分「112122209陳嬑萱」，守護 110 分鐘，下課延後 10 分鐘離場，100% 零遲到、零早退！</span>
-          </p>
-          <div class="pt-1 flex items-center gap-2 text-[11px] text-purple-300 flex-wrap">
-            <span class="px-2 py-0.5 rounded bg-purple-950/60 border border-purple-500/30 font-bold flex items-center gap-1">
-              <i class="fa-solid fa-shield-halved"></i> 衝堂提前預警
-            </span>
-            <span class="text-gray-400">9/23 (雙門衝堂) 與 10/5 (三門大衝堂) 平行無頭多開容器已就緒，自動分流出席！</span>
-          </div>
-        </div>
-
-        <!-- 右側：秒級精確倒數器與操作按鈕 -->
-        <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap justify-start lg:justify-end">
-          <div class="flex items-center gap-2 font-mono">
-            <div class="bg-gray-950/80 border border-white/10 rounded-xl px-3 py-2 text-center min-w-[56px]">
-              <div class="text-lg font-black text-cyan-400" id="cdDays">05</div>
-              <div class="text-[9px] text-gray-500 uppercase tracking-wider font-sans font-semibold">Days</div>
-            </div>
-            <span class="text-gray-600 font-bold">:</span>
-            <div class="bg-gray-950/80 border border-white/10 rounded-xl px-3 py-2 text-center min-w-[56px]">
-              <div class="text-lg font-black text-cyan-400" id="cdHours">19</div>
-              <div class="text-[9px] text-gray-500 uppercase tracking-wider font-sans font-semibold">Hours</div>
-            </div>
-            <span class="text-gray-600 font-bold">:</span>
-            <div class="bg-gray-950/80 border border-white/10 rounded-xl px-3 py-2 text-center min-w-[56px]">
-              <div class="text-lg font-black text-cyan-400" id="cdMins">45</div>
-              <div class="text-[9px] text-gray-500 uppercase tracking-wider font-sans font-semibold">Mins</div>
-            </div>
-            <span class="text-gray-600 font-bold">:</span>
-            <div class="bg-gray-950/80 border border-white/10 rounded-xl px-3 py-2 text-center min-w-[56px]">
-              <div class="text-lg font-black text-rose-400" id="cdSecs">00</div>
-              <div class="text-[9px] text-gray-500 uppercase tracking-wider font-sans font-semibold">Secs</div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <a href="https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4" target="_blank" class="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 transition transform hover:-translate-y-0.5 whitespace-nowrap">
-              <i class="fa-solid fa-video"></i>
-              <span>Webex 直達</span>
-            </a>
-            <a href="#audit-section" class="px-3 py-3 bg-gray-900/80 hover:bg-gray-800 text-gray-300 hover:text-white text-xs font-bold rounded-xl border border-white/10 transition flex items-center gap-1.5 whitespace-nowrap" title="直接前往查看 9/7 現場存證截圖與考勤報告">
-              <i class="fa-solid fa-camera text-emerald-400"></i>
-              <span>現場存證照片</span>
-            </a>
-          </div>
-
-        </div>
-
+    <!-- Live Heartbeat Radar Banner -->
+    <div class="heartbeat-banner" id="hbBanner">
+      <div class="heartbeat-beacon" id="hbBeacon"></div>
+      <div class="heartbeat-content">
+        <div class="heartbeat-title" id="hbTitle">🟢 雲端 GPU 實時心跳檢測中...</div>
+        <div class="heartbeat-desc" id="hbDesc">正在讀取 Google Drive 最新產出檔案...</div>
       </div>
-    </section>
+      <button class="btn-refresh" onclick="fetchLiveData(true)">🔄 重整</button>
+    </div>
 
-    <!-- ========================================================================= -->
-    <!-- L2 核心認知面板：平時成績 30% 四大支柱動態算分引擎 與 14 份作業 D-Day 戰情矩陣 -->
-    <!-- ========================================================================= -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-      <!-- 左側：平時成績 30% 四大支柱動態算分引擎 (佔 7 欄) -->
-      <section class="lg:col-span-7 bg-brand-surface backdrop-blur-xl border border-brand-border rounded-2xl p-6 shadow-2xl space-y-5 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between border-b border-gray-800/80 pb-3">
+    <!-- Dual Track Colab Status Cards -->
+    <div class="tracks-section">
+      <div class="tracks-title">🚀 Colab 雙軌工作階段執行進度</div>
+      <div class="tracks-grid">
+        <!-- Alpha Card -->
+        <div class="track-card alpha-card">
+          <div class="track-header">
             <div>
-              <h3 class="text-base font-black text-white flex items-center gap-2">
-                <i class="fa-solid fa-calculator text-indigo-400"></i> 平時成績 30% 四大支柱動態算分引擎
-              </h3>
-              <p class="text-xs text-gray-400 mt-0.5">空大學則法定評量基準：折合學期總成績之累積實得積分 (滿分 30.00 分)</p>
+              <div class="track-name">Master Worker Alpha (第一軌)</div>
+              <div class="track-scope">商學、管理、社科、法政集群</div>
             </div>
-            <div class="text-right">
-              <span class="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">當前折合實得積分</span>
-              <div class="text-2xl font-black font-mono text-emerald-400">
-                <span id="calc-regular-score">6.49</span> <span class="text-xs text-gray-400 font-sans font-normal">/ 30.00</span>
-              </div>
-            </div>
+            <span class="track-badge badge-alpha">Alpha 軌道</span>
           </div>
-
-          <!-- 四大支柱條列進度 -->
-          <div class="space-y-3.5 mt-4 text-xs">
-            <!-- 支柱 1: 課綱點燈 (20% -> 6.0分) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-300 font-medium flex items-center gap-2">
-                  <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                  <span>SCORM 課綱單元點燈閱畢率 (佔比 20% ｜ 折合 6.0 分)</span>
-                </span>
-                <span class="font-mono text-gray-300">
-                  <strong class="text-emerald-400 font-bold" id="calc-score-lighting">6.00</strong> / 6.00 分 
-                  <span class="text-emerald-400 font-semibold">(100% 綠燈滿分 🏆)</span>
-                </span>
-              </div>
-              <div class="w-full bg-gray-950 rounded-full h-3 p-0.5 border border-white/5 overflow-hidden">
-                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-1000 shadow-sm shadow-emerald-500/50" style="width: 100%"></div>
-              </div>
-            </div>
-
-            <!-- 支柱 2: 在線閱讀時數 (20% -> 6.0分) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-300 font-medium flex items-center gap-2">
-                  <i class="fa-solid fa-hourglass-half text-cyan-400 text-sm"></i>
-                  <span>SunNet LMS 在線學習時數 350h (佔比 20% ｜ 折合 6.0 分)</span>
-                </span>
-                <span class="font-mono text-gray-300">
-                  <strong class="text-cyan-400 font-bold" id="calc-score-hours">0.18</strong> / 6.00 分 
-                  <span class="text-gray-400" id="calc-text-hours">(10.4h / 350h)</span>
-                </span>
-              </div>
-              <div class="w-full bg-gray-950 rounded-full h-3 p-0.5 border border-white/5 overflow-hidden">
-                <div id="calc-bar-hours" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full transition-all duration-1000 shadow-sm shadow-cyan-500/50" style="width: 3.0%"></div>
-              </div>
-            </div>
-
-            <!-- 支柱 3: 視訊面授全勤 (30% -> 9.0分) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-300 font-medium flex items-center gap-2">
-                  <i class="fa-solid fa-video text-indigo-400 text-sm"></i>
-                  <span>視訊面授 29 場全勤出席 (佔比 30% ｜ 折合 9.0 分)</span>
-                </span>
-                <span class="font-mono text-gray-300">
-                  <strong class="text-indigo-400 font-bold" id="calc-score-meetings">0.31</strong> / 9.00 分 
-                  <span class="text-gray-400" id="calc-text-meetings">(1 / 29 場)</span>
-                </span>
-              </div>
-              <div class="w-full bg-gray-950 rounded-full h-3 p-0.5 border border-white/5 overflow-hidden">
-                <div id="calc-bar-meetings" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full transition-all duration-1000 shadow-sm shadow-indigo-500/50" style="width: 3.4%"></div>
-              </div>
-            </div>
-
-            <!-- 支柱 4: 平時作業全繳 (30% -> 9.0分) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-300 font-medium flex items-center gap-2">
-                  <i class="fa-solid fa-file-lines text-amber-400 text-sm"></i>
-                  <span>14 份平時作業全繳遞交 (佔比 30% ｜ 折合 9.0 分)</span>
-                </span>
-                <span class="font-mono text-gray-300">
-                  <strong class="text-amber-400 font-bold" id="calc-score-hw">0.00</strong> / 9.00 分 
-                  <span class="text-gray-400" id="calc-text-hw">(0 / 14 份已繳交)</span>
-                </span>
-              </div>
-              <div class="w-full bg-gray-950 rounded-full h-3 p-0.5 border border-white/5 overflow-hidden">
-                <div id="calc-bar-hw" class="bg-gradient-to-r from-amber-500 to-rose-500 h-full rounded-full transition-all duration-1000 shadow-sm shadow-amber-500/50" style="width: 0%"></div>
-              </div>
-            </div>
+          <div class="track-stat-row">
+            <div class="track-pct" style="color: #60A5FA;" id="alphaPct">79.0%</div>
+            <div class="track-count" id="alphaCount">128 / 162 門完全合規</div>
           </div>
-        </div>
-
-        <!-- 每日微積分動態回饋卡 -->
-        <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-xl p-3.5 flex items-center justify-between text-xs mt-4">
-          <span class="text-indigo-200 flex items-center gap-2">
-            <i class="fa-solid fa-sparkles text-indigo-400"></i>
-            <span>開學首週奠基成果：7 門課 100% 綠燈完成，已實時鎖定平時分基底！</span>
-          </span>
-          <span class="font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">
-            學期總分已落袋 +6.49 Pt
-          </span>
-        </div>
-      </section>
-
-      <!-- 右側：14 份作業全生命週期 D-Day 戰情矩陣 (佔 5 欄) -->
-      <section class="lg:col-span-5 bg-brand-surface backdrop-blur-xl border border-brand-border rounded-2xl p-6 shadow-2xl space-y-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between border-b border-gray-800/80 pb-3">
-            <div>
-              <h3 class="text-base font-black text-white flex items-center gap-2">
-                <i class="fa-solid fa-crosshairs text-amber-400"></i> 14 份作業 D-Day 戰情矩陣
-              </h3>
-              <p class="text-[11px] text-gray-400 mt-0.5">全學期 7 科 × 2 次 ＝ 共 14 份作業 (佔 9.0 分)</p>
-            </div>
-            <div class="text-right">
-              <span class="text-[10px] text-rose-400 font-bold bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded-full">
-                0 / 14 繳交 (缺14次)
-              </span>
-            </div>
+          <div class="track-bar-bg">
+            <div class="track-bar-fill bar-alpha" id="alphaBar" style="width: 79.0%;"></div>
           </div>
-
-          <!-- 作業分組頁籤切換器 -->
-          <div class="flex items-center gap-1.5 mt-3 pt-1">
-            <button onclick="filterHomeworks('all')" id="hwBtn-all" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white transition">全部 14 份</button>
-            <button onclick="filterHomeworks('1')" id="hwBtn-1" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 transition">第 1 次 (期中 7 份)</button>
-            <button onclick="filterHomeworks('2')" id="hwBtn-2" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 transition">第 2 次 (期末 7 份)</button>
-          </div>
-
-          <!-- 作業清單捲軸區 (動態或完整渲染) -->
-          <div id="homeworkListContainer" class="space-y-2.5 max-h-[300px] overflow-y-auto custom-scroll pr-1 mt-3">
-            <!-- 由 JS 動態注入 14 筆作業 -->
-          </div>
-        </div>
-
-        <div class="pt-2">
-          <a href="https://uu.nou.edu.tw/learn/index.php" target="_blank" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-900/80 to-blue-900/80 hover:from-indigo-800 hover:to-blue-800 text-cyan-200 hover:text-white text-xs font-bold flex items-center justify-center gap-2 border border-cyan-500/20 transition shadow-lg">
-            <i class="fa-solid fa-cloud-arrow-up text-cyan-400"></i>
-            <span>前往空大數位學習網作業專區 (uu.nou.edu.tw)</span>
+          <a href="https://colab.research.google.com/github/m0904103/m0904103.github.io/blob/main/MasterWorker_Alpha.ipynb" target="_blank" class="btn-colab btn-colab-alpha">
+            ⚡ 開啟 Colab Alpha 軌道筆記本
           </a>
         </div>
-      </section>
-    </div>
 
-    <!-- ========================================================================= -->
-    <!-- L2 深度數據層：在線時數 350h 自然燃起圖 (Velocity & Burn-up Chart) -->
-    <!-- ========================================================================= -->
-    <section class="bg-brand-surface backdrop-blur-xl border border-brand-border rounded-2xl p-6 shadow-2xl space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800/80 pb-3">
-        <div>
-          <h3 class="text-base font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-chart-line-up text-cyan-400"></i> 在線學習時數 350h 自然燃起圖與動態速率收斂預測
-          </h3>
-          <p class="text-xs text-gray-400 mt-0.5">即時累計步調、每日吸收速率（Velocity）與 50h 全科目滿分收斂預測曲線</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <div class="bg-gray-950 border border-white/10 px-3 py-1.5 rounded-lg text-right">
-            <div class="text-[10px] text-gray-500 uppercase font-semibold">當前累計</div>
-            <div class="text-sm font-mono font-bold text-cyan-400" id="burnup-current-hours">10.4 / 350.0 h</div>
-          </div>
-          <div class="bg-gray-950 border border-white/10 px-3 py-1.5 rounded-lg text-right">
-            <div class="text-[10px] text-gray-500 uppercase font-semibold">衝刺速率</div>
-            <div class="text-sm font-mono font-bold text-emerald-400">24.0 h / 天 (火力全開)</div>
-          </div>
-          <div class="bg-gray-950 border border-white/10 px-3 py-1.5 rounded-lg text-right">
-            <div class="text-[10px] text-gray-500 uppercase font-semibold">預計達標窗口</div>
-            <div class="text-sm font-mono font-bold text-indigo-400">14.1 天後 (09/22 全科封頂)</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ApexCharts 圖表渲染容器 -->
-      <div id="burnup-chart" class="w-full h-72"></div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 🛡️ 核心存證中樞：視訊面授實質出勤·官方合規拍照存證與全自動替身稽核專區 -->
-    <!-- (直觀消除學員出勤焦慮：包含真實拍照、精確時間戳、防早退遲到機制與衝堂平行多開實證) -->
-    <!-- ========================================================================= -->
-    <section id="audit-section" class="bg-brand-surface backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-6 shadow-2xl space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-3">
-        <div>
-          <h3 class="text-base font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-shield-check text-emerald-400 text-lg"></i>
-            <span>視訊面授出勤·真實拍照存證與全自動替身稽核專區 (1/29 全勤核定)</span>
-          </h3>
-          <p class="text-xs text-gray-400 mt-0.5">
-            100% 官方合規考勤標準：開課前 12 分鐘提早進場、課中定時拍照、下課後延後 10 分鐘離場，杜絕任何遲到早退爭議！
-          </p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-mono bg-emerald-950/60 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-500/40 font-bold flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            已核定全勤 1 場 ｜ 待守護 28 場
-          </span>
-        </div>
-      </div>
-
-      <!-- 存證主體兩欄劃分 -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-        <!-- 左側：9/7 首場面授真實考勤照片與審計日誌 (佔 7 欄) -->
-        <div class="lg:col-span-7 space-y-4">
-          <!-- ✅ 學員本人出席說明橫幅 -->
-          <div class="flex items-center gap-3 bg-emerald-950/50 border border-emerald-500/50 rounded-xl px-4 py-2.5 text-xs">
-            <i class="fa-solid fa-circle-check text-emerald-400 text-base flex-shrink-0"></i>
+        <!-- Beta Card -->
+        <div class="track-card beta-card">
+          <div class="track-header">
             <div>
-              <span class="font-black text-emerald-300">【學員本人出席 · 補登記】</span>
-              <span class="text-emerald-200/80"> 9/7 《人工智慧導論》由學員本人親自出席，於 9/10 確認補登記。自 9/14 起改由自動替身即時截圖存證。</span>
+              <div class="track-name">Master Worker Beta (第二軌)</div>
+              <div class="track-scope">生活科學、教育、人文藝術、科技</div>
             </div>
+            <span class="track-badge badge-beta">Beta 軌道</span>
           </div>
-          <div class="flex items-center justify-between">
-            <h4 class="text-sm font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-camera text-cyan-400"></i>
-              <span>9/7 首場面授出勤紀錄（學員本人出席 · 補登記）</span>
-            </h4>
-            <span class="text-[11px] font-mono text-gray-400">人工智慧導論 (ZZZ002班)</span>
+          <div class="track-stat-row">
+            <div class="track-pct" style="color: #34D399;" id="betaPct">63.2%</div>
+            <div class="track-count" id="betaCount">103 / 163 門完全合規</div>
           </div>
-
-          <!-- 兩張真實視訊截圖並排呈現 -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- 截圖 1: 簽到身分核驗 -->
-            <div class="group relative rounded-xl overflow-hidden border border-emerald-500/30 bg-gray-950 shadow-md">
-              <img src="attendance_proof.png" alt="9/7 Webex 簽到進場與身分驗證照" class="w-full h-44 object-cover object-top opacity-95 group-hover:opacity-100 transition duration-300" onerror="this.src='webex_proof_907.png'">
-              <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-90"></div>
-              <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[11px]">
-                <span class="bg-gray-900/90 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/30 font-mono font-bold">
-                  身分核驗：112122209陳嬑萱
-                </span>
-                <span class="text-emerald-400 font-bold flex items-center gap-1">
-                  <i class="fa-solid fa-circle-check"></i> 驗證就座
-                </span>
-              </div>
-            </div>
-
-            <!-- 截圖 2: 課堂在線守護 -->
-            <div class="group relative rounded-xl overflow-hidden border border-indigo-500/30 bg-gray-950 shadow-md">
-              <img src="webex_proof_907.png" alt="9/7 Webex 課中常態在線與全程守護照" class="w-full h-44 object-cover object-top opacity-95 group-hover:opacity-100 transition duration-300">
-              <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-90"></div>
-              <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[11px]">
-                <span class="bg-gray-900/90 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30 font-mono font-bold">
-                  會議室在線：靜音守護
-                </span>
-                <span class="text-emerald-400 font-bold flex items-center gap-1">
-                  <i class="fa-solid fa-clock"></i> 全程在線
-                </span>
-              </div>
-            </div>
+          <div class="track-bar-bg">
+            <div class="track-bar-fill bar-beta" id="betaBar" style="width: 63.2%;"></div>
           </div>
-
-          <!-- 官方稽核數據條 -->
-          <div class="p-3.5 bg-gray-950/80 rounded-xl border border-white/10 space-y-2 text-xs">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-2">
-              <span class="text-gray-400">課程與導師:</span>
-              <span class="font-bold text-white">人工智慧導論 (陳廷哲 老師 · 分機 5183)</span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
-              <div>
-                <span class="text-gray-500 block">替身進場打卡 (提早11分):</span>
-                <span class="font-mono text-cyan-300 font-bold">2026-09-07 18:48:12</span>
-              </div>
-              <div>
-                <span class="text-gray-500 block">替身離場打卡 (延後12分):</span>
-                <span class="font-mono text-cyan-300 font-bold">2026-09-07 21:02:35</span>
-              </div>
-              <div>
-                <span class="text-gray-500 block">實際在線總時長:</span>
-                <span class="font-mono text-emerald-400 font-black">134 分鐘 (標準110分)</span>
-              </div>
-            </div>
-            <div class="flex items-center justify-between pt-1 border-t border-gray-800 text-[11px] text-gray-400">
-              <span>空大系統出勤判定：<strong class="text-emerald-400">100% 全勤合格 (首場 +0.31 Pt 落袋)</strong></span>
-              <span class="font-mono text-[10px] text-gray-500">SHA-256: 7a9c8e...115f</span>
-            </div>
-          </div>
+          <a href="https://colab.research.google.com/github/m0904103/m0904103.github.io/blob/main/MasterWorker_Beta.ipynb" target="_blank" class="btn-colab btn-colab-beta">
+            ⚡ 開啟 Colab Beta 軌道筆記本
+          </a>
         </div>
-
-        <!-- 右側：未來 28 場自動替身與衝堂多開自律守護機制 (佔 5 欄) -->
-        <div class="lg:col-span-5 space-y-4 flex flex-col justify-between">
-          <div>
-            <h4 class="text-sm font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-server text-purple-400"></i>
-              <span>未來 28 場自動出席守護機制（消除焦慮保障）</span>
-            </h4>
-            
-            <div class="space-y-2.5 mt-3 text-xs">
-              <!-- 守護規則 1 -->
-              <div class="p-3 rounded-xl bg-gray-950/70 border border-white/5 space-y-1">
-                <div class="flex items-center gap-2 text-cyan-300 font-bold">
-                  <i class="fa-solid fa-bell"></i>
-                  <span>1. 開課前 12 分鐘自動喚醒就座 (防遲到)</span>
-                </div>
-                <p class="text-[11px] text-gray-400">
-                  雲端伺服器（GitHub Actions）會在每堂課前 12 分鐘精確喚醒，自動檢測 Webex 會議室開放狀態，一旦開房即以「112122209陳嬑萱」掛機就座。
-                </p>
-              </div>
-
-              <!-- 守護規則 2 -->
-              <div class="p-3 rounded-xl bg-gray-950/70 border border-white/5 space-y-1">
-                <div class="flex items-center gap-2 text-emerald-300 font-bold">
-                  <i class="fa-solid fa-camera-rotate"></i>
-                  <span>2. 課堂中每 15 分鐘自動巡檢截圖 (留存證)</span>
-                </div>
-                <p class="text-[11px] text-gray-400">
-                  課堂進行期間，背景無頭瀏覽器每 15 分鐘自動截取視訊畫面與出席名冊，確保全時在線紀錄完整，課後即時同步歸檔。
-                </p>
-              </div>
-
-              <!-- 守護規則 3 -->
-              <div class="p-3 rounded-xl bg-gray-950/70 border border-white/5 space-y-1">
-                <div class="flex items-center gap-2 text-indigo-300 font-bold">
-                  <i class="fa-solid fa-clock-rotate-left"></i>
-                  <span>3. 下課後延後 10 分鐘退出 (防早退)</span>
-                </div>
-                <p class="text-[11px] text-gray-400">
-                  下課時間到點不立即離線，延後守護 10 分鐘確認老師結束會議後才優雅登出，杜絕空大系統判定「早退」扣分。
-                </p>
-              </div>
-
-              <!-- 守護規則 4: 衝堂解法 -->
-              <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 space-y-1">
-                <div class="flex items-center gap-2 text-purple-300 font-bold">
-                  <i class="fa-solid fa-network-wired"></i>
-                  <span>4. 9/23 (雙開) & 10/5 (三開) 衝堂平行多開技術</span>
-                </div>
-                <p class="text-[11px] text-gray-300">
-                  遇衝堂時，系統自動啟動 2~3 組完全獨立的無頭 Chromium 容器，各自進駐各自會議室，互不干擾、同時掛機 110 分鐘，百分之百同時全勤！
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-2">
-            <button onclick="toggleModal(true)" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-bold flex items-center justify-center gap-2 border border-white/10 transition">
-              <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
-              <span>查看底層不可否認性 SHA-256 簽署完整日誌</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- L3 細粒度執行矩陣層：7 門修習課程詳細卡片矩陣 -->
-    <!-- ========================================================================= -->
-    <section class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-2">
-        <div>
-          <h3 class="text-base font-black text-white flex items-center gap-2">
-            <i class="fa-solid fa-graduation-cap text-indigo-400"></i> 115-1 全學期 7 門核心大課學術進度矩陣
-          </h3>
-          <p class="text-xs text-gray-400 mt-0.5">點燈完畢率 100% 綠燈 ｜ 面授全勤守護 ｜ 作業次數與截止期限明確追蹤</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs text-gray-400 font-mono bg-gray-900 px-3 py-1 rounded-lg border border-gray-800">
-            共 15 學分 / 7 科全數及格 (全PASS)
-          </span>
-        </div>
-      </div>
-
-      <!-- 課程卡片容器 (動態渲染) -->
-      <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- 由 JavaScript 動態填入 -->
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 全學期 29 場視訊面授排程清單 (含衝堂標籤) -->
-    <!-- ========================================================================= -->
-    <div class="glass-card rounded-2xl p-6 border border-gray-800 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-3">
-        <div>
-          <h3 class="font-bold text-white text-sm flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-emerald-400"></i>
-            <span>全學期 29 場視訊面授排程總表 (雲端守護排程)</span>
-          </h3>
-          <p class="text-xs text-gray-400 mt-0.5">含 9/23 雙門衝堂平行多開、10/5 三門衝堂多開替身全勤排程</p>
-        </div>
-        <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="filterMeetings('all')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 transition">全部 (29)</button>
-          <button onclick="filterMeetings('upcoming')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-950/40 text-amber-300 border border-amber-800/40 hover:bg-amber-900/50 transition">待出席 (28)</button>
-          <button onclick="filterMeetings('attended')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-950/40 text-emerald-300 border border-emerald-800/40 hover:bg-emerald-900/50 transition">已出席 (1)</button>
-          <button onclick="filterMeetings('oct5')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-950/40 text-purple-300 border border-purple-800/40 hover:bg-purple-900/50 transition">10/5 三門衝堂 (3)</button>
-        </div>
-      </div>
-
-      <div class="overflow-x-auto max-h-[350px] overflow-y-auto custom-scroll">
-        <table class="w-full text-left text-xs text-gray-300">
-          <thead class="bg-gray-800/80 text-gray-400 uppercase text-[11px] font-semibold sticky top-0 z-10 backdrop-blur">
-            <tr>
-              <th class="py-2.5 px-3 text-center">序號</th>
-              <th class="py-2.5 px-3">面授日期</th>
-              <th class="py-2.5 px-3">上課時段</th>
-              <th class="py-2.5 px-3">觸發喚醒</th>
-              <th class="py-2.5 px-3">課程名稱</th>
-              <th class="py-2.5 px-3">授課教師</th>
-              <th class="py-2.5 px-3">班級/屬性</th>
-              <th class="py-2.5 px-3 text-center">出勤狀態</th>
-              <th class="py-2.5 px-3 text-center">會議室直達</th>
-            </tr>
-          </thead>
-          <tbody id="meetingsTableBody" class="divide-y divide-gray-800/80 font-normal">
-            <!-- 由 JavaScript 動態填入 -->
-          </tbody>
-        </table>
       </div>
     </div>
 
-    <!-- ========================================================================= -->
-    <!-- 底層安全遙測座 (Footer) -->
-    <!-- ========================================================================= -->
-    <footer class="pt-6 pb-4 border-t border-white/5 text-center text-xs text-gray-500 space-y-2">
-      <div class="flex items-center justify-center gap-3 text-[11px] flex-wrap font-mono">
-        <span>伺服器雜湊: <strong class="text-gray-400">SHA-256: 7a9c8e...115f</strong></span>
-        <span>•</span>
-        <span>Session TTL: <strong class="text-emerald-400">正常存活中</strong></span>
-        <span>•</span>
-        <span>資料源: <strong class="text-cyan-400">國立空中大學 SunNet LMS (uu.nou.edu.tw) & Webex 官方對接</strong></span>
+    <!-- Summary Metrics -->
+    <div class="summary-bar">
+      <div class="sum-pill">
+        <span class="sum-pill-label">全校總課程</span>
+        <span class="sum-pill-val" style="color: #60A5FA;" id="sumTotal">343 門</span>
       </div>
-      <p class="text-[11px] text-gray-600">
-        國立空中大學 115學年度上學期 (115-1) 卓越學霸戰情室 ｜ 學員：陳嬑萱 (112122209) ｜ 臺北學習指導中心
-      </p>
-    </footer>
-
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 衝突防護不可否認性存證日誌彈窗 (Audit Proof Modal) -->
-  <!-- ========================================================================= -->
-  <div id="proof-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden">
-    <div class="bg-gray-900 border border-white/15 rounded-2xl max-w-xl w-full mx-4 p-6 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center pb-3 border-b border-white/10">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved text-emerald-400"></i> 面授衝堂存證與代理簽到日誌
-        </h3>
-        <button onclick="toggleModal(false)" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+      <div class="sum-pill" style="border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.05);">
+        <span class="sum-pill-label">🎙️ 實質真逐字稿講次</span>
+        <span class="sum-pill-val" style="color: #38BDF8;" id="sumLectures">45,553 講 (92.1%)</span>
       </div>
-      <div class="space-y-3 text-xs font-mono">
-        <div class="p-3.5 bg-gray-950 rounded-xl border border-white/10 space-y-2 text-gray-300">
-          <div class="text-emerald-400 font-bold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span>[DAEMON_STATUS] Multi-Session Webex Proxy Online</span>
-          </div>
-          <div>• 首場面授存證: 2026-09-07 19:00 《人工智慧導論》全程在線 134 分鐘完工 ✅</div>
-          <div>• 簽到打卡進場: 2026-09-07 18:48:12 (提早 11 分 48 秒就座)</div>
-          <div>• 簽退離場時間: 2026-09-07 21:02:35 (延後 12 分 35 秒離場)</div>
-          <div>• 下一場衝堂對接: 2026-09-23 19:00 《AI時代中文敘事》 衝堂 《作業系統理論基礎》</div>
-          <div>• 簽到防篡改雜湊: SHA-256: 8f9a2b3...c7e10 鎖定歸檔</div>
-        </div>
-
-        <div class="rounded-xl overflow-hidden border border-gray-700 bg-gray-950">
-          <img src="attendance_proof.png" alt="出席存證截圖" class="w-full h-40 object-cover object-top opacity-90 hover:opacity-100 transition" onerror="this.src='webex_proof_907.png'">
-        </div>
-
-        <div class="bg-gray-950 rounded-xl p-3 border border-white/5 flex items-center justify-between text-gray-400">
-          <span>簽到截圖憑據已自動歸檔至 GitHub Artifacts</span>
-          <span class="text-indigo-400 font-semibold">attendance_proof.png</span>
-        </div>
+      <div class="sum-pill">
+        <span class="sum-pill-label">🟢 100% 滿分合規</span>
+        <span class="sum-pill-val" style="color: #34D399;" id="sumFull">255 門 (74.3%)</span>
       </div>
-      <div class="flex justify-end pt-2">
-        <button onclick="toggleModal(false)" class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white rounded-xl text-xs font-bold transition">
-          關閉存證視窗
-        </button>
+      <div class="sum-pill">
+        <span class="sum-pill-label">🟡 待補收割</span>
+        <span class="sum-pill-val" style="color: #FBBF24;" id="sumPartial">82 門</span>
       </div>
+      <div class="sum-pill">
+        <span class="sum-pill-label">官方 PDF / 題庫</span>
+        <span class="sum-pill-val" style="color: #A78BFA;">100% 齊全</span>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls">
+      <div class="filter-scroll">
+        <button class="tab-btn active" onclick="setFilter('all', this)">全部 (338)</button>
+        <button class="tab-btn" onclick="setFilter('alpha', this)">Alpha軌</button>
+        <button class="tab-btn" onclick="setFilter('beta', this)">Beta軌</button>
+        <button class="tab-btn" onclick="setFilter('full', this)">🟢 完工</button>
+        <button class="tab-btn" onclick="setFilter('partial', this)">🟡 待補</button>
+        <button class="tab-btn" onclick="setFilter('pdf', this)">📄 官方PDF</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 搜尋課程名稱或關鍵字..." oninput="handleSearch()">
+      </div>
+    </div>
+
+    <!-- Responsive Course Cards (Zero Clipping on iPhone 15 Pro) -->
+    <div class="courses-container" id="coursesList">
+    </div>
+
+    <div class="footer">
+      <p>國立空中大學（NOU）神級寶典智算中心 · 實時心跳雷達監測中</p>
+      <p>路徑：<code>G:\我的雲端硬碟\空大課程_真逐字稿神級寶典\</code> ⇄ <code>D:\02_Academic_Study\空大課程\</code></p>
     </div>
   </div>
 
   <script>
-    let officialData = {"student": {"id": "112122209", "name": "陳嬑萱", "center": "臺北學習指導中心", "semester": "115學年度上學期 (115-1)", "semester_start": "2026-09-07", "target_reading_hours": 350.0}, "official_sync": {"last_checked_at": "2026-09-12 22:05:02", "status": "OFFICIAL_VERIFIED", "data_source": "國立空中大學 SunNet LMS (uu.nou.edu.tw) & 視訊面授系統 (vc.nou.edu.tw) 官方對接紀錄", "sync_mode": "REAL_TIME_AUTHENTIC", "audit_note": "100% 官方真實數據：點燈 100% 綠燈、官方在線閱讀 24.59 小時、面授出席 1/29、平時作業 0/14 (全數未繳交)"}, "analytics": {"total_courses": 7, "total_credits": 15, "total_reading_hours": 99.3, "average_lighting_percent": 100.0, "total_meetings": 29, "attended_meetings": 1, "attendance_rate": 3.4, "total_homework": 14, "submitted_homework": 0, "homework_submission_rate": 0.0, "current_earned_grade_avg": 8.3, "grade_policy": "依空大學則：平時(30%)=點燈(20%)+時數(20%)+面授(30%)+作業(30%)；期中(30%)+期末(40%)尚未開考計0分", "reading_hours_score": 1.7}, "courses": [{"id": "c1", "code": "AI101", "cid": "101276", "course_code": "760125", "name": "人工智慧導論", "credits": 2, "class_code": "ZZZ002", "type": "全遠距", "teacher": "陳廷哲", "ext": "5183", "time_slot": "night", "time_desc": "19:00 - 20:50 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "reading_hours": 16.14, "lighting_percent": 100, "meetings": [{"date": "2026-09-07", "time": "19:00", "attended": true, "note": "9/7 首場面授已由雲端替身出席完成 ✅"}, {"date": "2026-10-05", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-02", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}, {"date": "2026-11-30", "time": "19:00", "attended": false, "note": "第 4 次面授 (排定待出席)"}, {"date": "2026-12-07", "time": "19:00", "attended": false, "note": "第 5 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "115/11/16", "status_text": "尚未繳交", "has_doc": true, "doc_status": "題目已發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "115/12/01", "status_text": "尚未繳交", "has_doc": true, "doc_status": "題目已發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行 (預計11月)", "date_desc": "第 9 週 (2026/11/02~11/08)"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行 (預計1月)", "date_desc": "第 18 週 (2027/01/04~01/10)"}, "reading_time_str": "16:08:22", "last_study_time": "2026-09-11 12:39:47", "official_cid": "10053265"}, {"id": "c2", "code": "SD101", "cid": "101280", "course_code": "780087", "name": "永續的挑戰與實踐", "credits": 2, "class_code": "ZZZ002", "type": "全遠距", "teacher": "蔡適應", "ext": "5196", "time_slot": "night", "time_desc": "19:00 - 20:50 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "reading_hours": 10.11, "lighting_percent": 100, "meetings": [{"date": "2026-09-14", "time": "19:00", "attended": false, "note": "9/14 首場面授待開課"}, {"date": "2026-10-05", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-02", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}, {"date": "2027-01-04", "time": "19:00", "attended": false, "note": "第 4 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "期中考前 (約11月中)", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "期末考前 (約12月中)", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "10:06:42", "last_study_time": "2026-09-11 12:39:54", "official_cid": "10053170"}, {"id": "c3", "code": "OS201", "cid": "101088", "course_code": "760103", "name": "作業系統的理論基礎", "credits": 3, "class_code": "ZZZ101", "type": "全遠距", "teacher": "林秀鳳", "ext": "5189", "time_slot": "afternoon", "time_desc": "14:00 - 15:40 (下午班)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m5472c403628987b41ca4e56f376fb741", "reading_hours": 8.8, "lighting_percent": 100, "meetings": [{"date": "2026-09-21", "time": "14:00", "attended": false, "note": "9/21 首場面授待開課"}, {"date": "2026-10-19", "time": "14:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-23", "time": "14:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}, {"date": "2026-12-21", "time": "14:00", "attended": false, "note": "第 4 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "期中考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "期末考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "08:48:05", "last_study_time": "2026-09-11 12:39:48", "official_cid": "10053272"}, {"id": "c4", "code": "CH101", "cid": "101282", "course_code": "780085", "name": "AI時代的中文敘事與思辨", "credits": 2, "class_code": "ZZZ001", "type": "全遠距", "teacher": "歐喜強", "ext": "5188", "time_slot": "night", "time_desc": "19:00 - 21:00 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "reading_hours": 19.44, "lighting_percent": 100, "meetings": [{"date": "2026-09-23", "time": "19:00", "attended": false, "note": "9/23 首場面授待開課"}, {"date": "2026-10-14", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-04", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}, {"date": "2026-11-23", "time": "19:00", "attended": false, "note": "第 4 次面授 (排定待出席)"}, {"date": "2026-12-16", "time": "19:00", "attended": false, "note": "第 5 次面授 (排定待出席)"}, {"date": "2027-01-06", "time": "19:00", "attended": false, "note": "第 6 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "期中考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "期末考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "19:26:39", "last_study_time": "2026-09-11 12:39:46", "official_cid": "10053311"}, {"id": "c5", "code": "AP101", "cid": "101270", "course_code": "740057", "name": "生成式AI在行政實務的應用", "credits": 2, "class_code": "ZZZ001", "type": "微學分", "teacher": "廖洲棚", "ext": "5161", "time_slot": "night", "time_desc": "19:00 - 20:50 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mf993b669aa765845657de3883f590fcf", "reading_hours": 7.47, "lighting_percent": 100, "meetings": [{"date": "2026-09-21", "time": "19:00", "attended": false, "note": "9/21 首場面授待開課"}, {"date": "2026-10-05", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-10-19", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "課程結束前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "課程結束前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "07:28:24", "last_study_time": "2026-09-11 12:39:55", "official_cid": "10053349"}, {"id": "c6", "code": "ET101", "cid": "101277", "course_code": "760126", "name": "淺談人工智慧倫理", "credits": 2, "class_code": "ZZZ002", "type": "微學分", "teacher": "林秀鳳", "ext": "5189", "time_slot": "night", "time_desc": "19:00 - 20:50 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mfd69fd80c232164a0aae21cd365de040", "reading_hours": 16.02, "lighting_percent": 100, "meetings": [{"date": "2026-09-23", "time": "19:00", "attended": false, "note": "9/23 首場面授待開課"}, {"date": "2026-10-21", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-04", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "課程結束前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "課程結束前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "16:01:25", "last_study_time": "2026-09-12 07:23:19", "official_cid": "10053334"}, {"id": "c7", "code": "AS101", "cid": "101186", "course_code": "780070", "name": "探索宇宙之美", "credits": 2, "class_code": "ZZZ002", "type": "視訊夜間班", "teacher": "趙瑞青", "ext": "5184", "time_slot": "night", "time_desc": "19:00 - 20:50 (夜間)", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m901afaa6b9c2ec97a7e47177d77193a4", "reading_hours": 21.33, "lighting_percent": 100, "meetings": [{"date": "2026-09-15", "time": "19:00", "attended": false, "note": "9/15 首場面授待開課"}, {"date": "2026-10-13", "time": "19:00", "attended": false, "note": "第 2 次面授 (排定待出席)"}, {"date": "2026-11-17", "time": "19:00", "attended": false, "note": "第 3 次面授 (排定待出席)"}, {"date": "2026-12-08", "time": "19:00", "attended": false, "note": "第 4 次面授 (排定待出席)"}], "hw1": {"submitted": false, "score": 0, "deadline": "期中考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "hw2": {"submitted": false, "score": 0, "deadline": "期末考前", "status_text": "尚未繳交", "has_doc": false, "doc_status": "待老師發布"}, "midterm": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 9 週"}, "final": {"status": "NOT_STARTED", "score": 0, "status_text": "尚未舉行", "date_desc": "第 18 週"}, "reading_time_str": "21:19:33", "last_study_time": "2026-09-13 02:09:25", "official_cid": "10053339"}], "audit_logs": [{"timestamp": "2026-09-13 06:28:51", "type": "USER_VERIFIED_SYNC", "result": "SUCCESS", "detail": "使用者親自比對空大後台學習歷程全數相符！總時數已精確校準至 99.32 小時 (99.32h)，各科時數秒級完全一致。"}, {"timestamp": "2026-09-12 22:05:02", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 116.8h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-13 05:30:43", "type": "OFFICIAL_SYNC", "result": "SUCCESS", "detail": "官方後台學習歷程實時校驗同步：115上 7 門課官方總時數已達 98.81 小時！《探索宇宙之美》實質時數為 21:03:32 (21.06h)。"}, {"timestamp": "2026-09-12 18:15:31", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 100.8h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-12 12:03:26", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 96.6h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-12 04:02:53", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 90.3h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-11 22:22:41", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 86.1h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-11 19:04:06", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 84.0h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-11 12:43:26", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 79.1h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-11 04:01:08", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 72.8h，面授出席 1/29，作業 0/14 未繳交。"}, {"timestamp": "2026-09-10 22:22:52", "type": "OFFICIAL_CHECK", "result": "SUCCESS", "detail": "排程查核完成：全 7 科 100% 綠燈，在線時數 68.6h，面授出席 1/29，作業 0/14 未繳交。"}], "cloud_guardian": {"bot_name": "國立空中大學 115-1 雲端無頭視訊面授自動替身系統", "status": "ONLINE_ARMED", "status_text": "全天候雲端伺服器排程守護待命中 (100% 免開本機電腦)", "student_name": "陳嬑萱", "student_id": "112122209", "webex_display_name": "112122209陳嬑萱", "webex_email": "112122209@nou.edu.tw", "execution_engine": "GitHub Actions (Azure Linux Headless Chromium)", "workflow_file": ".github/workflows/webex_attendance.yml", "total_sessions": 29, "attended_sessions": 1, "remaining_sessions": 28, "clash_session_pairs": 4, "daily_cron_schedules": [{"slot": "下午課程 (14:00)", "wake_taipei": "13:55", "cron_utc": "55 5 * * *", "action": "於 13:55 喚醒雲端容器，檢核當日是否有下午課程，若有則自動以「112122209陳嬑萱」身分就座"}, {"slot": "夜間課程 (19:00)", "wake_taipei": "18:55", "cron_utc": "55 10 * * *", "action": "於 18:55 喚醒雲端容器，檢核當日是否有夜間課程，若遇衝堂自動平行開立多容器同時出席"}], "oct5_triple_clash_plan": {"date": "2026-10-05", "weekday": "週一", "time_slot": "19:00 - 20:50 (夜間)", "cron_wake_time": "2026-10-05 18:55:00", "clash_count": 3, "status": "ARMED_PARALLEL_TRIPLE", "status_text": "⚡ 10/5 三門大衝堂平行三開容器全自動出席已排定", "courses": [{"id": 8, "course_name": "人工智慧導論", "teacher": "陳廷哲 老師 (分機 5183)", "class_code": "ZZZ002", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "container_slot": "Container-Alpha (Chromium 獨立實例 #1)"}, {"id": 9, "course_name": "永續的挑戰與實踐", "teacher": "蔡適應 老師 (分機 5196)", "class_code": "ZZZ002", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "container_slot": "Container-Beta (Chromium 獨立實例 #2)"}, {"id": 10, "course_name": "生成式AI在行政實務的應用", "teacher": "廖洲棚 老師 (分機 5161)", "class_code": "ZZZ001", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mf993b669aa765845657de3883f590fcf", "container_slot": "Container-Gamma (Chromium 獨立實例 #3)"}], "execution_guarantee": "10/5 當日 18:55 GitHub Actions 雲端喚醒後，自動啟動 ThreadPoolExecutor 平行派遣 3 組獨立無頭瀏覽器，分別進駐 3 間會議室，統一使用「112122209陳嬑萱」掛機 110 分鐘，分別截圖存證，保證 3 門課同日 100% 全勤！"}, "next_session": {"session_id": 2, "course_name": "永續的挑戰與實踐", "teacher": "蔡適應 老師 (分機 5196)", "class_code": "ZZZ002", "date": "2026-09-14", "weekday": "週一", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-14 18:55", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "duration_minutes": 110, "action_plan": "2026/09/14 18:55 雲端 GitHub Actions 自動開機進入會議室，身分「112122209陳嬑萱」，守護 110 分鐘並留存存證截圖"}, "attendance_proof_recent": {"session_id": 1, "date": "2026-09-07", "time": "19:00 - 20:50", "course_name": "人工智慧導論", "teacher": "陳廷哲 老師", "result": "SUCCESS", "duration_minutes": 110, "image_file": "webex_proof_907.png", "note": "9/7 19:00 首場面授已由雲端替身出席完畢，會議室現場存證影像與完整日誌已歸檔。"}, "meetings_schedule": [{"date": "2026-09-07", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-07 18:55", "course_name": "人工智慧導論", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "陳廷哲", "ext": "5183", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "duration_minutes": 110, "attended": true, "proof_image": "webex_proof_907.png", "id": 1, "clash_count": 1, "is_clash": false, "status_text": "✅ 已出席 (學員本人親自出席)", "badge_class": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30", "attendance_source": "STUDENT_SELF"}, {"date": "2026-09-14", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-14 18:55", "course_name": "永續的挑戰與實踐", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "蔡適應", "ext": "5196", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 2, "clash_count": 1, "is_clash": false, "status_text": "🚀 下一場待命中 (雲端自動守護)", "badge_class": "bg-emerald-500/15 text-emerald-300 border-emerald-500/40 font-bold"}, {"date": "2026-09-15", "weekday": "週二", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-15 18:55", "course_name": "探索宇宙之美", "course_type": "視訊夜間班", "class_code": "ZZZ002", "teacher": "趙瑞青", "ext": "5184", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m901afaa6b9c2ec97a7e47177d77193a4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 3, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-09-21", "weekday": "週一", "start_time": "14:00", "end_time": "15:40", "time_slot": "14:00 - 15:40", "cron_wake_time": "2026-09-21 13:55", "course_name": "作業系統的理論基礎", "course_type": "全遠距", "class_code": "ZZZ101", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m5472c403628987b41ca4e56f376fb741", "duration_minutes": 100, "attended": false, "proof_image": null, "id": 4, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-09-21", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-21 18:55", "course_name": "生成式AI在行政實務的應用", "course_type": "微學分", "class_code": "ZZZ001", "teacher": "廖洲棚", "ext": "5161", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mf993b669aa765845657de3883f590fcf", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 5, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-09-23", "weekday": "週三", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-09-23 18:55", "course_name": "淺談人工智慧倫理", "course_type": "微學分", "class_code": "ZZZ002", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mfd69fd80c232164a0aae21cd365de040", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 6, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-09-23", "weekday": "週三", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2026-09-23 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 7, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-10-05", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-05 18:55", "course_name": "人工智慧導論", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "陳廷哲", "ext": "5183", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 8, "clash_count": 3, "is_clash": true, "status_text": "⚡ 10/5 三門大衝堂 (三開平行容器守護)", "badge_class": "bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold"}, {"date": "2026-10-05", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-05 18:55", "course_name": "永續的挑戰與實踐", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "蔡適應", "ext": "5196", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 9, "clash_count": 3, "is_clash": true, "status_text": "⚡ 10/5 三門大衝堂 (三開平行容器守護)", "badge_class": "bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold"}, {"date": "2026-10-05", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-05 18:55", "course_name": "生成式AI在行政實務的應用", "course_type": "微學分", "class_code": "ZZZ001", "teacher": "廖洲棚", "ext": "5161", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mf993b669aa765845657de3883f590fcf", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 10, "clash_count": 3, "is_clash": true, "status_text": "⚡ 10/5 三門大衝堂 (三開平行容器守護)", "badge_class": "bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold"}, {"date": "2026-10-13", "weekday": "週二", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-13 18:55", "course_name": "探索宇宙之美", "course_type": "視訊夜間班", "class_code": "ZZZ002", "teacher": "趙瑞青", "ext": "5184", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m901afaa6b9c2ec97a7e47177d77193a4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 11, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-10-14", "weekday": "週三", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2026-10-14 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 12, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-10-19", "weekday": "週一", "start_time": "14:00", "end_time": "15:40", "time_slot": "14:00 - 15:40", "cron_wake_time": "2026-10-19 13:55", "course_name": "作業系統的理論基礎", "course_type": "全遠距", "class_code": "ZZZ101", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m5472c403628987b41ca4e56f376fb741", "duration_minutes": 100, "attended": false, "proof_image": null, "id": 13, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-10-19", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-19 18:55", "course_name": "生成式AI在行政實務的應用", "course_type": "微學分", "class_code": "ZZZ001", "teacher": "廖洲棚", "ext": "5161", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mf993b669aa765845657de3883f590fcf", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 14, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-10-21", "weekday": "週三", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-10-21 18:55", "course_name": "淺談人工智慧倫理", "course_type": "微學分", "class_code": "ZZZ002", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mfd69fd80c232164a0aae21cd365de040", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 15, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-11-02", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-11-02 18:55", "course_name": "人工智慧導論", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "陳廷哲", "ext": "5183", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 16, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-11-02", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-11-02 18:55", "course_name": "永續的挑戰與實踐", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "蔡適應", "ext": "5196", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 17, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-11-04", "weekday": "週三", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-11-04 18:55", "course_name": "淺談人工智慧倫理", "course_type": "微學分", "class_code": "ZZZ002", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mfd69fd80c232164a0aae21cd365de040", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 18, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-11-04", "weekday": "週三", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2026-11-04 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 19, "clash_count": 2, "is_clash": true, "status_text": "⚡ 衝堂雙開支援 (平行雙容器就緒)", "badge_class": "bg-purple-500/15 text-purple-300 border-purple-500/30"}, {"date": "2026-11-17", "weekday": "週二", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-11-17 18:55", "course_name": "探索宇宙之美", "course_type": "視訊夜間班", "class_code": "ZZZ002", "teacher": "趙瑞青", "ext": "5184", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m901afaa6b9c2ec97a7e47177d77193a4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 20, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-11-23", "weekday": "週一", "start_time": "14:00", "end_time": "15:40", "time_slot": "14:00 - 15:40", "cron_wake_time": "2026-11-23 13:55", "course_name": "作業系統的理論基礎", "course_type": "全遠距", "class_code": "ZZZ101", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m5472c403628987b41ca4e56f376fb741", "duration_minutes": 100, "attended": false, "proof_image": null, "id": 21, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-11-23", "weekday": "週一", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2026-11-23 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 22, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-11-30", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-11-30 18:55", "course_name": "人工智慧導論", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "陳廷哲", "ext": "5183", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 23, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-12-07", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-12-07 18:55", "course_name": "人工智慧導論", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "陳廷哲", "ext": "5183", "webex_url": "https://nou.webex.com/nou/j.php?MTID=mcff7af114536c488155d05f57c253ab6", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 24, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-12-08", "weekday": "週二", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2026-12-08 18:55", "course_name": "探索宇宙之美", "course_type": "視訊夜間班", "class_code": "ZZZ002", "teacher": "趙瑞青", "ext": "5184", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m901afaa6b9c2ec97a7e47177d77193a4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 25, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-12-16", "weekday": "週三", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2026-12-16 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 26, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2026-12-21", "weekday": "週一", "start_time": "14:00", "end_time": "15:40", "time_slot": "14:00 - 15:40", "cron_wake_time": "2026-12-21 13:55", "course_name": "作業系統的理論基礎", "course_type": "全遠距", "class_code": "ZZZ101", "teacher": "林秀鳳", "ext": "5189", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m5472c403628987b41ca4e56f376fb741", "duration_minutes": 100, "attended": false, "proof_image": null, "id": 27, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2027-01-04", "weekday": "週一", "start_time": "19:00", "end_time": "20:50", "time_slot": "19:00 - 20:50", "cron_wake_time": "2027-01-04 18:55", "course_name": "永續的挑戰與實踐", "course_type": "全遠距", "class_code": "ZZZ002", "teacher": "蔡適應", "ext": "5196", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m87b58dd19bb80bebd4aca53210240bb4", "duration_minutes": 110, "attended": false, "proof_image": null, "id": 28, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}, {"date": "2027-01-06", "weekday": "週三", "start_time": "19:00", "end_time": "21:00", "time_slot": "19:00 - 21:00", "cron_wake_time": "2027-01-06 18:55", "course_name": "AI時代的中文敘事與思辨", "course_type": "全遠距", "class_code": "ZZZ001", "teacher": "歐喜強", "ext": "5188", "webex_url": "https://nou.webex.com/nou/j.php?MTID=m76064c5b44d1bb46cf6c52c2391e73dd", "duration_minutes": 120, "attended": false, "proof_image": null, "id": 29, "clash_count": 1, "is_clash": false, "status_text": "🟢 雲端排程已掛載 (待命中)", "badge_class": "bg-blue-500/15 text-blue-300 border-blue-500/30"}]}, "attendance_audit_policy": {"policy": "真實出席查核準則", "last_updated": "2026-09-10T17:38:36.090250", "rules": ["僅系統自動替身實際進入 Webex 會議室並取得截圖者，才計入正式出席", "每場次存證需包含：進場時間戳、課中截圖（每15分鐘一張）、離場時間戳", "result=DEMO_PLACEHOLDER 或 verified=false 者為示意資料，不計分"], "real_attendance_count": 1, "demo_count": 1, "note": "9/7 首場出席：學員本人親自上課（非自動替身）。自 9/14 起改由自動替身即時截圖存證。"}};
-    let courses = officialData.courses;
-    let currentMeetingFilter = 'all';
-    let currentHwFilter = 'all';
+    let ALL_COURSES = [];
+    let activeFilter = 'all';
+    let filterQuery = '';
 
-    // 14 份平時作業清單全量定義 (7科各2次：期中/期末)
-    const allHomeworks = [
-      // 第 1 次平時作業 (期中)
-      { id: "hw1-os201", round: 1, round_text: "第 1 次 (期中)", course_code: "OS201", course_name: "作業系統的理論基礎", teacher: "林秀鳳", d_day: "D-55", deadline: "115/11/02", doc_status: "題目預備中", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-ai101", round: 1, round_text: "第 1 次 (期中)", course_code: "AI101", course_name: "人工智慧導論", teacher: "陳廷哲", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-ap101", round: 1, round_text: "第 1 次 (期中)", course_code: "AP101", course_name: "生成式AI在行政實務的應用", teacher: "廖洲棚", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-as101", round: 1, round_text: "第 1 次 (期中)", course_code: "AS101", course_name: "探索宇宙之美", teacher: "趙瑞青", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-et101", round: 1, round_text: "第 1 次 (期中)", course_code: "ET101", course_name: "淺談人工智慧倫理", teacher: "林秀鳳", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-ch101", round: 1, round_text: "第 1 次 (期中)", course_code: "CH101", course_name: "AI時代的中文敘事與思辨", teacher: "歐喜強", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      { id: "hw1-sd101", round: 1, round_text: "第 1 次 (期中)", course_code: "SD101", course_name: "永續的挑戰與實踐", teacher: "蔡適應", d_day: "D-68", deadline: "115/11/16", doc_status: "題目已發布", status: "pending", status_text: "待繳交 (缺)", badge_class: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-      // 第 2 次平時作業 (期末)
-      { id: "hw2-ai101", round: 2, round_text: "第 2 次 (期末)", course_code: "AI101", course_name: "人工智慧導論", teacher: "陳廷哲", d_day: "D-83", deadline: "115/12/01", doc_status: "題目已備妥", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-os201", round: 2, round_text: "第 2 次 (期末)", course_code: "OS201", course_name: "作業系統的理論基礎", teacher: "林秀鳳", d_day: "D-103", deadline: "115/12/21", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-ap101", round: 2, round_text: "第 2 次 (期末)", course_code: "AP101", course_name: "生成式AI在行政實務的應用", teacher: "廖洲棚", d_day: "D-107", deadline: "115/12/25", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-as101", round: 2, round_text: "第 2 次 (期末)", course_code: "AS101", course_name: "探索宇宙之美", teacher: "趙瑞青", d_day: "D-107", deadline: "115/12/25", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-et101", round: 2, round_text: "第 2 次 (期末)", course_code: "ET101", course_name: "淺談人工智慧倫理", teacher: "林秀鳳", d_day: "D-107", deadline: "115/12/25", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-ch101", round: 2, round_text: "第 2 次 (期末)", course_code: "CH101", course_name: "AI時代的中文敘事與思辨", teacher: "歐喜強", d_day: "D-110", deadline: "115/12/28", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" },
-      { id: "hw2-sd101", round: 2, round_text: "第 2 次 (期末)", course_code: "SD101", course_name: "永續的挑戰與實踐", teacher: "蔡適應", d_day: "D-110", deadline: "115/12/28", doc_status: "待老師發布", status: "unopened", status_text: "尚未開放 (缺)", badge_class: "bg-gray-800 text-gray-400 border-gray-700" }
-    ];
+    async function fetchLiveData(isManual = false) {
+      try {
+        const btn = document.querySelector('.btn-refresh');
+        if (isManual && btn) btn.textContent = '⏳';
 
-    function toggleModal(show) {
-      document.getElementById('proof-modal').classList.toggle('hidden', !show);
-    }
-
-    // 啟動倒數計時器 (目標：2026/09/14 19:00 永續的挑戰與實踐)
-    function startCountdown() {
-      function updateTimer() {
-        const targetDate = new Date("2026-09-14T19:00:00+08:00").getTime();
-        const now = new Date().getTime();
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-          const container = document.getElementById('cdDays');
-          if (container) container.innerText = '00';
-          return;
+        const res = await fetch('courses_progress.json?nocache=' + Date.now());
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        
+        if (data.courses) {
+          ALL_COURSES = data.courses;
+        }
+        
+        // Update Heartbeat UI
+        const hbTitle = document.getElementById('hbTitle');
+        const hbDesc = document.getElementById('hbDesc');
+        const hbBeacon = document.getElementById('hbBeacon');
+        
+        if (data.heartbeat_status === 'active') {
+          hbTitle.innerHTML = '🟢 ' + data.heartbeat_text;
+          hbTitle.style.color = '#34D399';
+          hbBeacon.style.backgroundColor = '#10B981';
+          hbBeacon.style.boxShadow = '0 0 12px #34D399';
+        } else if (data.heartbeat_status === 'recent') {
+          hbTitle.innerHTML = '🟡 ' + data.heartbeat_text;
+          hbTitle.style.color = '#FBBF24';
+          hbBeacon.style.backgroundColor = '#F59E0B';
+          hbBeacon.style.boxShadow = '0 0 12px #FBBF24';
+        } else {
+          hbTitle.innerHTML = '⚪ ' + data.heartbeat_text;
+          hbTitle.style.color = '#94A3B8';
+          hbBeacon.style.backgroundColor = '#64748B';
+          hbBeacon.style.boxShadow = 'none';
+        }
+        
+        if (data.latest_activity && data.latest_activity.length > 0) {
+          const act = data.latest_activity[0];
+          hbDesc.innerHTML = `最新產出：<strong>【${act.course}】</strong> ${act.file} <span style="color:#60A5FA;">(${act.diff_text})</span>`;
+        } else {
+          hbDesc.textContent = '數據更新時間：' + (data.updated_at || '剛剛');
         }
 
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        // Update Track Stats
+        if (data.alpha_rate !== undefined) {
+          document.getElementById('alphaPct').textContent = data.alpha_rate + '%';
+          document.getElementById('alphaCount').textContent = `${data.alpha_full} / ${data.alpha_tot} 門完全合規`;
+          document.getElementById('alphaBar').style.width = data.alpha_rate + '%';
+        }
+        if (data.beta_rate !== undefined) {
+          document.getElementById('betaPct').textContent = data.beta_rate + '%';
+          document.getElementById('betaCount').textContent = `${data.beta_full} / ${data.beta_tot} 門完全合規`;
+          document.getElementById('betaBar').style.width = data.beta_rate + '%';
+        }
 
-        const elDays = document.getElementById('cdDays');
-        const elHours = document.getElementById('cdHours');
-        const elMins = document.getElementById('cdMins');
-        const elSecs = document.getElementById('cdSecs');
-
-        if (elDays) elDays.innerText = String(days).padStart(2, '0');
-        if (elHours) elHours.innerText = String(hours).padStart(2, '0');
-        if (elMins) elMins.innerText = String(mins).padStart(2, '0');
-        if (elSecs) elSecs.innerText = String(secs).padStart(2, '0');
+        // Update Summary Pills
+        document.getElementById('sumTotal').textContent = data.total_courses + ' 門';
+        if (data.total_real_lectures !== undefined && data.total_lectures !== undefined) {
+          const lecRate = ((data.total_real_lectures / data.total_lectures) * 100).toFixed(1);
+          const lecElem = document.getElementById('sumLectures');
+          if (lecElem) lecElem.textContent = `${data.total_real_lectures.toLocaleString()} 講 (${lecRate}%)`;
+        }
+        document.getElementById('sumFull').textContent = `${data.full_cnt} 門 (${data.overall_rate}%)`;
+        document.getElementById('sumPartial').textContent = data.partial_cnt + ' 門';
+        
+        const allTab = document.querySelector('.tab-btn');
+        if (allTab && data.total_courses) allTab.textContent = `全部 (${data.total_courses})`;
+        
+        renderCourses();
+        if (isManual && btn) btn.textContent = '🔄 重整';
+      } catch(e) {
+        console.warn('Live fetch fallback', e);
+        const btn = document.querySelector('.btn-refresh');
+        if (btn) btn.textContent = '🔄 重整';
       }
-
-      updateTimer();
-      setInterval(updateTimer, 1000);
     }
 
-    // 動態算分引擎
-    function updateCalculatedGrades() {
-      if (!officialData) return;
-      const hours = officialData.analytics ? officialData.analytics.total_reading_hours : 10.36;
-      const meetingsAttended = officialData.analytics ? officialData.analytics.attended_meetings : 1;
-      const hwSubmitted = officialData.analytics ? officialData.analytics.submitted_homework : 0;
-
-      // 1. 點燈 20% (6.0 分) - 100% 綠燈
-      const scoreLighting = 6.00;
-      
-      // 2. 時數 20% (6.0 分) - 依 350h 滿分比例折算
-      const scoreHours = Math.min(6.0, (hours / 350.0) * 6.0);
-      
-      // 3. 面授 30% (9.0 分) - 依 29 場全勤比例折算
-      const scoreMeetings = (meetingsAttended / 29.0) * 9.0;
-      
-      // 4. 作業 30% (9.0 分) - 依 14 份比例折算
-      const scoreHw = (hwSubmitted / 14.0) * 9.0;
-
-      const totalRegular = scoreLighting + scoreHours + scoreMeetings + scoreHw;
-
-      // 更新介面
-      document.getElementById('calc-regular-score').innerText = totalRegular.toFixed(2);
-      document.getElementById('calc-score-lighting').innerText = scoreLighting.toFixed(2);
-      document.getElementById('calc-score-hours').innerText = scoreHours.toFixed(2);
-      document.getElementById('calc-score-meetings').innerText = scoreMeetings.toFixed(2);
-      document.getElementById('calc-score-hw').innerText = scoreHw.toFixed(2);
-
-      document.getElementById('calc-text-hours').innerText = `(${hours.toFixed(1)}h / 350h)`;
-      document.getElementById('calc-text-meetings').innerText = `(${meetingsAttended} / 29 場)`;
-      document.getElementById('calc-text-hw').innerText = `(${hwSubmitted} / 14 份已繳交)`;
-
-      document.getElementById('calc-bar-hours').style.width = `${Math.min(100, (hours / 350) * 100)}%`;
-      document.getElementById('calc-bar-meetings').style.width = `${(meetingsAttended / 29) * 100}%`;
-      document.getElementById('calc-bar-hw').style.width = `${(hwSubmitted / 14) * 100}%`;
-
-      document.getElementById('burnup-current-hours').innerText = `${hours.toFixed(1)} / 350.0 h`;
-    }
-
-    // 渲染 14 份作業戰情矩陣
-    function renderHomeworkList() {
-      const container = document.getElementById('homeworkListContainer');
-      if (!container) return;
+    function renderCourses() {
+      const container = document.getElementById('coursesList');
       container.innerHTML = '';
 
-      const filteredHw = allHomeworks.filter(hw => {
-        if (currentHwFilter === '1') return hw.round === 1;
-        if (currentHwFilter === '2') return hw.round === 2;
+      const filtered = ALL_COURSES.filter(c => {
+        if (activeFilter === 'alpha' && c.track !== 'alpha') return false;
+        if (activeFilter === 'beta' && c.track !== 'beta') return false;
+        if (activeFilter === 'full' && c.cat !== 'full') return false;
+        if (activeFilter === 'partial' && c.cat !== 'partial') return false;
+        if (activeFilter === 'pdf' && c.pdfs === 0) return false;
+
+        if (filterQuery) {
+          return c.name.toLowerCase().includes(filterQuery.toLowerCase());
+        }
         return true;
       });
 
-      filteredHw.forEach(hw => {
-        const item = document.createElement('div');
-        item.className = "p-3 rounded-xl bg-gray-950/70 border border-white/10 hover:border-amber-500/40 transition flex items-center justify-between";
-        item.innerHTML = `
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-bold ${hw.badge_class} px-1.5 py-0.5 rounded font-mono">${hw.d_day}</span>
-              <h4 class="text-xs font-bold text-white tracking-wide">${hw.course_name} (${hw.round_text})</h4>
-            </div>
-            <p class="text-[11px] text-gray-400">截止: <strong class="text-gray-200 font-mono">${hw.deadline}</strong> • 狀態: <span class="${hw.round === 1 ? 'text-amber-400' : 'text-gray-500'} font-semibold">${hw.status_text}</span> (${hw.doc_status})</p>
-          </div>
-          <a href="https://uu.nou.edu.tw/learn/index.php" target="_blank" class="px-2.5 py-1 bg-gray-800 hover:bg-amber-600 hover:text-white text-gray-300 text-xs font-semibold rounded-lg border border-white/10 transition whitespace-nowrap">
-            前往繳交
-          </a>
-        `;
-        container.appendChild(item);
-      });
-    }
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px 10px; color: var(--text-sub);">無符合條件的課程</div>`;
+        return;
+      }
 
-    function filterHomeworks(type) {
-      currentHwFilter = type;
-      ['all', '1', '2'].forEach(t => {
-        const btn = document.getElementById(`hwBtn-${t}`);
-        if (btn) {
-          if (t === type) {
-            btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white transition";
-          } else {
-            btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 transition";
-          }
-        }
-      });
-      renderHomeworkList();
-    }
-
-    // 渲染 7 門大課卡片
-    function renderCourses() {
-      const grid = document.getElementById('coursesGrid');
-      if (!grid || !courses) return;
-      grid.innerHTML = '';
-
-      courses.forEach(c => {
+      filtered.forEach(c => {
         const card = document.createElement('div');
-        card.className = "glass-card rounded-2xl p-5 border border-white/10 hover:border-indigo-500/40 transition space-y-4 flex flex-col justify-between";
-        
-        // 查找該課程的兩次作業
-        const hw1 = allHomeworks.find(h => h.course_code === c.code && h.round === 1) || { deadline: '115/11/16', d_day: 'D-68', doc_status: '待繳交' };
-        const hw2 = allHomeworks.find(h => h.course_code === c.code && h.round === 2) || { deadline: '115/12/01', d_day: 'D-83', doc_status: '尚未開放' };
+        card.className = 'course-card';
+
+        let badgeHtml = '';
+        let barColor = '#10B981';
+        if (c.cat === 'full') {
+          badgeHtml = '<span class="card-badge badge-full">🟢 100% 合規</span>';
+          barColor = '#10B981';
+        } else {
+          badgeHtml = `<span class="card-badge badge-partial">🟡 尚欠 ${c.missing} 講</span>`;
+          barColor = '#F59E0B';
+        }
+
+        const pdfTag = c.pdfs > 0 ? `<span class="meta-tag" style="color: #C084FC;">📄 ${c.pdfs}份PDF</span>` : '';
+        const quizTag = c.quiz ? `<span class="meta-tag" style="color: #93C5FD;">✅ 題庫齊全</span>` : '';
+        const trackTag = c.track === 'alpha' ? '<span class="meta-tag" style="color: #60A5FA;">Alpha軌</span>' : (c.track === 'beta' ? '<span class="meta-tag" style="color: #34D399;">Beta軌</span>' : '');
 
         card.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                ${c.code || 'NOU'} • 2學分
-              </span>
-              <span class="text-xs font-mono text-emerald-400 font-bold flex items-center gap-1">
-                <i class="fa-solid fa-circle-check"></i> 點燈 100%
-              </span>
-            </div>
-            <h4 class="text-base font-black text-white tracking-wide">${c.name}</h4>
-            <p class="text-xs text-gray-400">
-              授課導師：<strong class="text-gray-200">${c.teacher} 老師</strong> ${c.ext ? `(分機 ${c.ext})` : ''}
-            </p>
+          <div class="card-top">
+            <div class="card-title">${c.name}</div>
+            ${badgeHtml}
           </div>
-
-          <div class="space-y-2.5 pt-2 border-t border-gray-800 text-xs">
-            <div class="flex justify-between items-center text-gray-300">
-              <span>在線閱讀時數:</span>
-              <span class="font-mono font-bold text-cyan-300">${c.reading_time_str || (c.reading_hours + 'h')}</span>
-            </div>
-            <div class="flex justify-between items-center text-gray-300">
-              <span>視訊面授出勤:</span>
-              <span class="font-mono text-emerald-400 font-semibold">${c.meetings ? c.meetings.filter(m => m.attended).length : 0} / ${c.meetings ? c.meetings.length : 4} 場</span>
-            </div>
-
-            <!-- 平時作業詳細進度區塊 (清楚展示次數與缺交狀態) -->
-            <div class="p-2.5 rounded-xl bg-gray-950/80 border border-white/5 space-y-1.5 mt-2">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-400 font-medium flex items-center gap-1">
-                  <i class="fa-solid fa-file-pen text-amber-400"></i> 平時作業進度:
-                </span>
-                <span class="font-mono font-bold text-amber-400">
-                  0 / 2 次 <span class="text-rose-400 font-normal text-[11px]">(尚缺 2 次)</span>
-                </span>
-              </div>
-              <div class="space-y-1 text-[11px] pt-1 border-t border-gray-800/80">
-                <div class="flex justify-between items-center p-1 rounded bg-gray-900/40">
-                  <span class="text-gray-300 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                    <strong>第 1 次 (期中):</strong>
-                  </span>
-                  <span class="font-mono text-amber-300">${hw1.deadline} (${hw1.d_day}) • 待繳</span>
-                </div>
-                <div class="flex justify-between items-center p-1 rounded bg-gray-900/40">
-                  <span class="text-gray-400 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
-                    <span>第 2 次 (期末):</span>
-                  </span>
-                  <span class="font-mono text-gray-500">${hw2.deadline} (${hw2.d_day}) • 未開</span>
-                </div>
-              </div>
-            </div>
+          <div class="card-progress-row">
+            <span>真逐字稿：<strong>${c.real}</strong> / ${c.total} 講</span>
+            <span style="font-weight: 700; color: ${barColor};">${c.ratio}%</span>
           </div>
-
-          <div class="pt-2 grid grid-cols-2 gap-2">
-            <a href="${c.webex_url}" target="_blank" class="py-2 rounded-xl bg-gray-800 hover:bg-emerald-600 hover:text-white text-gray-300 text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 transition">
-              <i class="fa-solid fa-video text-cyan-400"></i>
-              <span>會議室</span>
-            </a>
-            <a href="https://uu.nou.edu.tw/learn/index.php" target="_blank" class="py-2 rounded-xl bg-gray-800 hover:bg-indigo-600 hover:text-white text-gray-300 text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 transition">
-              <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i>
-              <span>繳交作業</span>
+          <div class="card-bar-bg">
+            <div class="card-bar-fill" style="width: ${c.ratio}%; background: ${barColor};"></div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-tags">
+              ${trackTag}
+              ${pdfTag}
+              ${quizTag}
+            </div>
+            <a href="https://colab.research.google.com/github/m0904103/m0904103.github.io/blob/main/MasterWorker_${c.track === 'alpha' ? 'Alpha' : 'Beta'}.ipynb" target="_blank" style="color: #93C5FD; font-weight: 600; text-decoration: none; font-size: 0.75rem;">
+              Colab攻堅 →
             </a>
           </div>
         `;
-        grid.appendChild(card);
+        container.appendChild(card);
       });
     }
 
-    // 渲染面授排程總表
-    function renderMeetingsTable() {
-      const tbody = document.getElementById('meetingsTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      const meetings = (officialData && officialData.cloud_guardian && officialData.cloud_guardian.meetings_schedule)
-        ? officialData.cloud_guardian.meetings_schedule
-        : [];
-
-      const filtered = meetings.filter(m => {
-        if (currentMeetingFilter === 'upcoming') return !m.attended;
-        if (currentMeetingFilter === 'attended') return m.attended;
-        if (currentMeetingFilter === 'oct5') return m.date === '2026-10-05';
-        return true;
-      });
-
-      filtered.forEach((m) => {
-        const tr = document.createElement('tr');
-        tr.className = `hover:bg-gray-800/40 transition ${m.attended ? 'bg-emerald-950/20' : (m.is_clash ? 'bg-purple-950/20' : '')}`;
-        
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 text-center font-mono text-gray-500">${String(m.id).padStart(2, '0')}</td>
-          <td class="py-2.5 px-3 font-semibold text-white font-mono flex items-center gap-1.5">
-            <span>${m.date}</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400">${m.weekday}</span>
-          </td>
-          <td class="py-2.5 px-3 text-gray-300 font-mono text-[11px]">${m.time_slot}</td>
-          <td class="py-2.5 px-3 font-mono text-cyan-300 text-[11px]">${m.cron_wake_time ? m.cron_wake_time.slice(5) : '18:45'}</td>
-          <td class="py-2.5 px-3 font-bold text-white">${m.course_name}</td>
-          <td class="py-2.5 px-3 text-gray-300">${m.teacher} 老師</td>
-          <td class="py-2.5 px-3 text-gray-400">
-            <span class="px-1.5 py-0.5 rounded bg-gray-800 text-[10px]">${m.class_code}</span>
-            ${m.is_clash ? '<span class="text-[10px] px-1 bg-amber-500/20 text-amber-300 rounded ml-1 font-bold">衝堂</span>' : ''}
-          </td>
-          <td class="py-2.5 px-3 text-center">
-            ${m.attended ? `
-              <a href="#audit-section" class="px-2 py-0.5 rounded-full text-[11px] border bg-emerald-500/15 text-emerald-400 border-emerald-500/30 font-bold inline-flex items-center gap-1 hover:bg-emerald-500/30 transition">
-                <i class="fa-solid fa-camera"></i>
-                <span>已出席 (檢視截圖)</span>
-              </a>
-            ` : `
-              <span class="px-2 py-0.5 rounded-full text-[11px] border ${m.badge_class || 'bg-gray-800 text-gray-400 border-gray-700'}">
-                ${m.status_text || '排定待出席'}
-              </span>
-            `}
-          </td>
-          <td class="py-2.5 px-3 text-center">
-            <a href="${m.webex_url}" target="_blank" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-emerald-600 hover:text-white text-gray-400 text-[10px] font-semibold border border-gray-700 transition inline-flex items-center gap-1">
-              <i class="fa-solid fa-video"></i>
-              <span>會議室</span>
-            </a>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function filterMeetings(type) {
-      currentMeetingFilter = type;
-      renderMeetingsTable();
-    }
-
-    // ApexCharts 自然燃起圖初始化
-    function initBurnupChart(currentHours = 10.4) {
-      const chartEl = document.querySelector("#burnup-chart");
-      if (!chartEl) return;
-      chartEl.innerHTML = '';
-
-      const options = {
-        series: [
-          {
-            name: "法定滿分目標 (Target 350h)",
-            type: "line",
-            data: [
-              { x: "開學 9/07", y: 350 },
-              { x: "第 5 天", y: 350 },
-              { x: "第 10 天", y: 350 },
-              { x: "第 15 天", y: 350 },
-              { x: "第 20 天", y: 350 }
-            ]
-          },
-          {
-            name: "已累積有效在線時數",
-            type: "area",
-            data: [
-              { x: "開學 9/07", y: 1.5 },
-              { x: "第 2 天", y: 6.2 },
-              { x: "今日 9/08", y: currentHours }
-            ]
-          },
-          {
-            name: "24H 極限火力全開預測 (Velocity: 24.0h/天)",
-            type: "line",
-            data: [
-              { x: "今日 9/08", y: currentHours },
-              { x: "第 5 天", y: 82.4 },
-              { x: "第 10 天", y: 202.4 },
-              { x: "第 15 天", y: 322.4 },
-              { x: "第 20 天", y: 350 }
-            ]
-          }
-        ],
-        chart: {
-          height: 280,
-          type: "line",
-          background: "transparent",
-          toolbar: { show: false }
-        },
-        theme: { mode: "dark" },
-        stroke: {
-          width: [2, 3, 2],
-          curve: ["straight", "smooth", "smooth"],
-          dashArray: [5, 0, 4]
-        },
-        colors: ["#f43f5e", "#06b6d4", "#10b981"],
-        fill: {
-          type: ["solid", "gradient", "solid"],
-          gradient: {
-            shade: "dark",
-            type: "vertical",
-            opacityFrom: 0.4,
-            opacityTo: 0.05
-          }
-        },
-        markers: {
-          size: [0, 4, 0],
-          hover: { size: 6 }
-        },
-        xaxis: {
-          type: "category",
-          labels: { style: { colors: "#94a3b8", fontSize: "11px" } },
-          axisBorder: { color: "#334155" },
-          axisTicks: { color: "#334155" }
-        },
-        yaxis: {
-          max: 380,
-          labels: {
-            style: { colors: "#94a3b8", fontSize: "11px" },
-            formatter: (val) => `${val.toFixed(0)}h`
-          }
-        },
-        grid: {
-          borderColor: "#1e293b",
-          strokeDashArray: 3
-        },
-        tooltip: {
-          theme: "dark",
-          y: { formatter: (val) => `${val.toFixed(1)} 小時` }
-        },
-        legend: {
-          position: "top",
-          horizontalAlign: "right",
-          labels: { colors: "#cbd5e1" },
-          fontSize: "12px"
-        }
-      };
-
-      const chart = new ApexCharts(chartEl, options);
-      chart.render();
-    }
-
-    // =========================================================================
-    // 實時時時監控引擎 (Real-time Live Polling Engine)
-    // =========================================================================
-    let pollIntervalSec = 15;
-    let pollRemaining = pollIntervalSec;
-    let isPollingActive = true;
-    let pollCountdownTimer = null;
-    let burnupChartInstance = null;
-
-    // 啟動 15 秒倒數與非同步動態拉取
-    function startRealtimeMonitor() {
-      if (pollCountdownTimer) clearInterval(pollCountdownTimer);
-      pollRemaining = pollIntervalSec;
-      
-      pollCountdownTimer = setInterval(() => {
-        if (!isPollingActive) return;
-        pollRemaining--;
-        const cdEl = document.getElementById('pollCountdown');
-        if (cdEl) cdEl.innerText = `${pollRemaining}s`;
-
-        if (pollRemaining <= 0) {
-          pollRemaining = pollIntervalSec;
-          fetchLatestLiveMetrics();
-        }
-      }, 1000);
-    }
-
-    function toggleAutoPolling() {
-      isPollingActive = !isPollingActive;
-      const icon = document.getElementById('pollStatusIcon');
-      const text = document.getElementById('pollStatusText');
-      const cdEl = document.getElementById('pollCountdown');
-
-      if (isPollingActive) {
-        icon.className = 'fa-solid fa-circle-play text-emerald-400';
-        text.innerText = '自動輪詢中';
-        cdEl.innerText = `${pollRemaining}s`;
-        pollRemaining = pollIntervalSec;
-      } else {
-        icon.className = 'fa-solid fa-circle-pause text-amber-400';
-        text.innerText = '輪詢暫停';
-        cdEl.innerText = 'PAUSE';
-      }
-    }
-
-    function triggerManualSync() {
-      pollRemaining = pollIntervalSec;
-      fetchLatestLiveMetrics(true);
-    }
-
-    // 多源備援無感資料抓取
-    async function fetchLatestLiveMetrics(manual = false) {
-      const spinner = document.getElementById('refreshSpinner');
-      if (spinner) spinner.classList.add('fa-spin');
-
-      const cacheBust = `?t=${Date.now()}`;
-      const sources = [
-        `data.json${cacheBust}`,
-        `https://raw.githubusercontent.com/m0904103/nou-115-webex-attendance/main/data.json${cacheBust}`,
-        `https://m0904103.github.io/nou-115-webex-attendance/data.json${cacheBust}`
-      ];
-
-      let fetchedData = null;
-      for (let src of sources) {
-        try {
-          const res = await fetch(src, { cache: 'no-store' });
-          if (res.ok) {
-            const d = await res.json();
-            if (d && d.courses && d.courses.length > 0) {
-              fetchedData = d;
-              break;
-            }
-          }
-        } catch (e) {
-          // 嘗試下一來源
-        }
-      }
-
-      if (fetchedData) {
-        applyLiveUpdate(fetchedData);
-      }
-
-      if (spinner) {
-        setTimeout(() => spinner.classList.remove('fa-spin'), 600);
-      }
-    }
-
-    function applyLiveUpdate(freshData) {
-      officialData = freshData;
-      courses = freshData.courses;
-
-      // 局部無感刷新 DOM
-      updateCalculatedGrades();
+    function setFilter(filter, el) {
+      activeFilter = filter;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
       renderCourses();
-      renderMeetingsTable();
-
-      // 更新時數與圖表
-      const totalHrs = freshData.analytics ? freshData.analytics.total_reading_hours : 99.3;
-      const burnUpEl = document.getElementById('burnup-current-hours');
-      if (burnUpEl) burnUpEl.innerText = `${totalHrs.toFixed(1)} / 350.0 h`;
-
-      // 更新伺服器連通時間
-      const now = new Date();
-      const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-      const syncEl = document.getElementById('lastSyncTime');
-      if (syncEl) syncEl.innerText = `${timeStr} (最新已連通)`;
-
-      // 閃爍更新指示燈
-      const pulseTag = document.getElementById('livePulseTag');
-      if (pulseTag) {
-        pulseTag.innerText = '已同步';
-        pulseTag.className = 'text-[10px] bg-cyan-500/30 text-cyan-200 border border-cyan-400 px-2 py-0.5 rounded-full font-mono font-bold animate-pulse';
-        setTimeout(() => {
-          pulseTag.innerText = '心跳正常';
-          pulseTag.className = 'text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono font-bold';
-        }, 2000);
-      }
     }
 
-    // 初始化頁面
-    document.addEventListener("DOMContentLoaded", () => {
-      startCountdown();
-      renderHomeworkList();
+    function handleSearch() {
+      filterQuery = document.getElementById('searchInput').value.trim();
       renderCourses();
-      renderMeetingsTable();
-      updateCalculatedGrades();
-      initBurnupChart(99.3);
-      startRealtimeMonitor();
-      // 載入即刻檢查一次最新遠端數據
-      fetchLatestLiveMetrics();
-    });
-    });
+    }
+
+    // Initial render & fetch
+    fetchLiveData();
+
+    // Auto-poll every 15s
+    setInterval(fetchLiveData, 15000);
   </script>
 </body>
 </html>
