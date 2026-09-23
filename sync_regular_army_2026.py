@@ -488,8 +488,10 @@ def sync_data():
 
     data = clean_nans(data)
 
-    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+    tmp_file = DATA_FILE + ".tmp"
+    with open(tmp_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_file, DATA_FILE)
 
     print(f"\n✨ Sync Complete! Updated {updated_count} stocks out of {len(symbols)}.")
     print(f"Current database size: {len(data['stocks'])} stocks.")

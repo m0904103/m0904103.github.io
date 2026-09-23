@@ -289,9 +289,10 @@ def sync_once():
         
     data = clean_nans(data)
 
-    # Save to file
-    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+    tmp_file = DATA_FILE + ".tmp"
+    with open(tmp_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2, allow_nan=False)
+    os.replace(tmp_file, DATA_FILE)
 
     print(f"  Updated {updated_count}/{len(all_symbols)} stocks.")
     return True
