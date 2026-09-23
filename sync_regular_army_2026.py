@@ -189,16 +189,26 @@ def sync_data():
                 for idx, row in df.iterrows():
                     row_str = ' '.join([str(x) for x in row.values])
                     if '外資' in row_str:
-                        # Find the last numeric column for net OI
-                        nums = [int(str(x).replace(',', '')) for x in row.values if str(x).replace('-', '').replace(',', '').isdigit()]
-                        if nums:
-                            taifex_oi_val = nums[-2] if len(nums) >= 2 else nums[-1]
-                            daily_change_val = nums[7] if len(nums) > 7 else 0
-                            indices_results['外資台指淨未平倉 (口)'] = {"close": taifex_oi_val}
-                            indices_results['外資台指期未平倉'] = {"close": taifex_oi_val}
-                            indices_results['外資台指淨未平倉增減 (口)'] = {"close": daily_change_val}
-                            print(f"  [OK] TAIFEX Live 外資台指淨未平倉: {taifex_oi_val} 口 (今日增減: {daily_change_val} 口)")
-                            break
+                        # Extract last numeric net OI column (未平倉多空淨額)
+                        nums = []
+                        for val in row.values:
+                            s = str(val).replace(',', '').strip()
+                            try:
+                                nums.append(int(s))
+                            except ValueError:
+                                pass
+                        if len(nums) >= 12:
+                            # nums[-2] is the net open interest contract count (e.g. -76084)
+                            taifex_oi_val = nums[-2]
+                            daily_change_val = nums[5] if len(nums) > 5 else 0
+                        elif nums:
+                            taifex_oi_val = nums[-1]
+                            daily_change_val = 0
+                        indices_results['外資台指淨未平倉 (口)'] = {"close": taifex_oi_val}
+                        indices_results['外資台指期未平倉'] = {"close": taifex_oi_val}
+                        indices_results['外資台指淨未平倉增減 (口)'] = {"close": daily_change_val}
+                        print(f"  [OK] TAIFEX Live 外資台指淨未平倉: {taifex_oi_val} 口 (今日單日買賣超: {daily_change_val} 口)")
+                        break
         
         # 2. 選擇權 Put/Call Ratio
         r_pc = requests.get('https://www.taifex.com.tw/cht/3/pcRatio', headers=headers, timeout=10)
