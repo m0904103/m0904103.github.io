@@ -17,8 +17,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 # ==========================================
 # 設定
 # ==========================================
-DATA_FILE = os.path.join('frontend', 'public', 'scan_results.json')
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'scan_results.json')
 
 # TWSE 官方即時報價 API
 TWSE_REALTIME_URL = "https://mis.twse.com.tw/stock/api/getStockInfo.asp"
@@ -124,25 +124,41 @@ def sync_once():
         twse_prices = get_twse_prices(tw_symbols)
         print(f"  TWSE returned {len(twse_prices)} prices.")
 
-    # Step 2: 用 Yahoo Finance 更新全部股票
+    # Step 2: 用 Yahoo Finance 批量更新全部股票
     updated_count = 0
     cross_check_alerts = []
+
+    print(f"  Bulk downloading {len(all_symbols)} tickers from Yahoo Finance...", flush=True)
+    bulk_data = {}
+    try:
+        df_bulk = yf.download(all_symbols, period='120d', group_by='ticker', threads=True, progress=False)
+        for sym in all_symbols:
+            try:
+                if len(all_symbols) == 1:
+                    stock_df = df_bulk.dropna(how='all')
+                else:
+                    stock_df = df_bulk[sym].dropna(how='all')
+                if not stock_df.empty and len(stock_df) >= 2:
+                    bulk_data[sym] = stock_df
+            except Exception:
+                pass
+    except Exception as e:
+        print(f"  Bulk download notice: {e}", flush=True)
 
     for sym in all_symbols:
         stock_obj = existing_stocks[sym]
         name = stock_obj.get('name', sym)
         try:
-            # Yahoo Finance
-            ticker = yf.Ticker(sym)
-            df = ticker.history(period='120d')
+            df = bulk_data.get(sym)
+            if df is None or df.empty:
+                try:
+                    df = yf.Ticker(sym).history(period='120d')
+                except Exception:
+                    pass
 
-            if df.empty:
-                alt_sym = sym.replace('.TW', '.TWO') if '.TW' in sym else sym
-                if alt_sym != sym:
-                    df = yf.Ticker(alt_sym).history(period='120d')
-                if df.empty:
-                    print(f"  {sym}: No data from Yahoo.")
-                    continue
+            if df is None or df.empty:
+                print(f"  {sym}: No data available.", flush=True)
+                continue
 
             yahoo_close = round(float(df['Close'].iloc[-1]), 2)
             prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else yahoo_close
