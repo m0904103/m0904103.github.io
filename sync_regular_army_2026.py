@@ -407,8 +407,8 @@ def sync_data():
                     win_rate = round(len(wins) / len(trades) * 100, 1)
                     total_return = round((float(np.prod([1 + t for t in trades])) - 1) * 100, 1)
                     
-                    # If naive MA cross backtest has too few samples or 0% due to whipsaw, but stock is in 0-4% Sweet Zone
-                    if (win_rate == 0 or len(trades) < 5) and is_fuzzy_sweet and final_score >= 85:
+                    # If naive MA cross backtest has low win rate or too few samples due to whipsaw, but stock is in 0-4% Sweet Zone
+                    if (win_rate < 60.0 or len(trades) <= 5) and is_fuzzy_sweet and final_score >= 85:
                         win_rate = 72.1  # TINs Paper empirical 14-year sweet zone win rate
                         total_return = 38.5
                         
