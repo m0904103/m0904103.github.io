@@ -53,7 +53,7 @@ def is_us_trading_hours():
 def get_update_interval_minutes():
     """Return appropriate update interval based on market status."""
     if is_tw_trading_hours() or is_us_trading_hours():
-        return 30  # Increased to 30 min to avoid IP bans
+        return 10  # Upgraded to 10 min ultra-fast mode for live market tracking
     else:
         return 60  # Every 60 min outside trading hours
 
