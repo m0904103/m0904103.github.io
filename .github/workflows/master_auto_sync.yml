@@ -43,7 +43,7 @@ jobs:
         working-directory: frontend
 
       - name: Run Master Sync (Yahoo Finance + TWSE/TAIFEX Dual Source)
-        run: python sync_regular_army_2026.py
+        run: python auto_sync.py --once
 
       - name: Run Big Data Engine (TW Three-Rates & Indicators)
         run: python scan_tw_big_data.py
