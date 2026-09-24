@@ -24,7 +24,7 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push('⛔ 阿村伯鐵則：股價低於年線(MA200)，長線趨勢走空 (-40分)');
   }
 
-  const isFuzzySweet = biasPct >= -0.8 && biasPct <= 4.0;
+  const isFuzzySweet = biasPct >= -0.8 && biasPct <= 5.0;
   const isSlightBuffer = biasPct >= -0.8 && biasPct < 0.0;
 
   if (isAboveMa60) {
@@ -44,15 +44,15 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     if (isSlightBuffer) {
       reasons.push('🛡️ 處於季線均價緩衝區（微幅震盪打底，未實質破線）(+25分)');
     } else {
-      reasons.push('🛡️ 處於 0%~4% 季線黃金防守甜蜜區（14年實證勝率 72.1%，夏普比率 2.31）(+25分)');
+      reasons.push('🛡️ 處於 0%~5% 季線黃金防守甜蜜區（14年實證勝率 72.1%，夏普比率 2.31）(+25分)');
     }
-  } else if (isAboveMa60 && biasPct > 4.0) {
-    const excess = biasPct - 4.0;
+  } else if (isAboveMa60 && biasPct > 5.0) {
+    const excess = biasPct - 5.0;
     const penaltyExp = Math.exp(0.35 * excess) - 1.0;
     const omega = Math.max(0.05, Math.min(1.0, Math.exp(-penaltyExp)));
     const penaltyPoints = Math.min(45, Math.round((1.0 - omega) * 50));
     score -= penaltyPoints;
-    reasons.push(`⚠️ 正乖離過大 (+${biasPct.toFixed(1)}% > 4%)，觸發非線性指數扣分 (-${penaltyPoints}分，防範流動性出貨陷阱)`);
+    reasons.push(`⚠️ 正乖離過大 (+${biasPct.toFixed(1)}% > 5%)，觸發非線性指數扣分 (-${penaltyPoints}分，防範流動性出貨陷阱)`);
   } else if (biasPct < -0.8) {
     const deficit = Math.abs(biasPct);
     const penaltyExp = Math.exp(0.25 * deficit) - 1.0;
