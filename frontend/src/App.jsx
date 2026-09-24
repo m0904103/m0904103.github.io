@@ -252,7 +252,7 @@ function App() {
     const winRateScore = calculateWinRateScore(s, indices).score;
 
     if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85;
-    else if (activeQuickFilter === 'sweet') matchFilter = close >= ma60 && biasPct >= 0.0 && biasPct <= 4.0;
+    else if (activeQuickFilter === 'sweet') matchFilter = biasPct >= -0.8 && biasPct <= 5.0;
     else if (activeQuickFilter === 'foreign') matchFilter = Boolean(s.chips?.foreign_buy);
     else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
     else if (activeQuickFilter === 'below_ma60') matchFilter = close < ma60;
@@ -262,11 +262,16 @@ function App() {
     const scoreA = calculateWinRateScore(a, indices).score;
     const scoreB = calculateWinRateScore(b, indices).score;
 
-    // 1. Dual-Factor Composite Score: TINs Score (70%) + Backtest Win Rate (30%)
+    // 0. Tier 0 Priority: Stocks triggering 95~99 Score Golden Sweet Zone get #1 Top Priority!
+    const isTopTriggerA = scoreA >= 95 ? 1 : 0;
+    const isTopTriggerB = scoreB >= 95 ? 1 : 0;
+    if (isTopTriggerB !== isTopTriggerA) return isTopTriggerB - isTopTriggerA;
+
+    // 1. Dual-Factor Composite Score: TINs Score (80%) + Backtest Win Rate (20%)
     const btWrA = a.backtest?.win_rate != null ? Number(a.backtest.win_rate) : 50.0;
     const btWrB = b.backtest?.win_rate != null ? Number(b.backtest.win_rate) : 50.0;
-    const compositeA = scoreA * 0.7 + btWrA * 0.3;
-    const compositeB = scoreB * 0.7 + btWrB * 0.3;
+    const compositeA = scoreA * 0.8 + btWrA * 0.2;
+    const compositeB = scoreB * 0.8 + btWrB * 0.2;
 
     // Prioritize composite score descending
     if (Math.abs(compositeB - compositeA) > 0.5) {
@@ -277,11 +282,11 @@ function App() {
     const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
     if (rankDiff !== 0) return rankDiff;
 
-    // 3. Within same tier: prioritize stocks in 0%~4% sweet zone over overbought ones
+    // 3. Within same tier: prioritize stocks in -0.8%~5.0% sweet zone over overbought ones
     const biasA = a.ma60 > 0 ? ((a.close - a.ma60) / a.ma60) * 100 : -99;
     const biasB = b.ma60 > 0 ? ((b.close - b.ma60) / b.ma60) * 100 : -99;
-    const inSweetA = biasA >= -0.8 && biasA <= 4.0 ? 1 : 0;
-    const inSweetB = biasB >= -0.8 && biasB <= 4.0 ? 1 : 0;
+    const inSweetA = biasA >= -0.8 && biasA <= 5.0 ? 1 : 0;
+    const inSweetB = biasB >= -0.8 && biasB <= 5.0 ? 1 : 0;
     if (inSweetB !== inSweetA) return inSweetB - inSweetA;
 
     // 4. MA60 deviation ascending
