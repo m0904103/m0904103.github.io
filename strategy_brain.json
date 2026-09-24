@@ -1,0 +1,47 @@
+{
+  "version": "3.0_Academic_Quantitative_ML",
+  "course_source": "國立空中大學《投資理論與分析》(周佩儀/李家豪) & 《投資理財的資訊工具》(顏春煌)",
+  "academic_modules": {
+    "mpt_correlation_matrix": {
+      "description": "馬可維茲投資組合理論：控制持股間相關係數 rho < 0.70，極小化組合標準差 sigma_p",
+      "max_allowed_rho": 0.7
+    },
+    "capm_jensen_alpha": {
+      "description": "CAPM 詹森 Alpha 超額獲利與夏普比率過濾，確保 alpha > 0",
+      "min_jensen_alpha": 0.05,
+      "min_sharpe_ratio": 1.2
+    },
+    "trend_oscillator_switcher": {
+      "description": "ADX 市場狀態識別器：單邊趨勢市(ADX>25)採60MA追蹤，箱型盤整市(ADX<20)採布林+KD低彈逆勢",
+      "trend_adx_threshold": 25,
+      "range_adx_threshold": 20
+    },
+    "dupont_roe_filter": {
+      "description": "杜邦三因子拆解：獎勵淨利率護城河，懲罰高權益乘數偽成長",
+      "min_net_margin": 0.12,
+      "max_leverage_multiplier": 3.5
+    },
+    "macro_sector_rotation": {
+      "description": "總經景氣輪動矩陣：根據 Fed 利率與 VIX 動態調配科技/金融/消費權重",
+      "current_regime": "Rate_Cut_Recovery_Phase"
+    }
+  },
+  "weights": {
+    "ma60_bias_sweet_zone": 0.3,
+    "capm_jensen_alpha": 0.25,
+    "backtest_winrate_2y": 0.2,
+    "institutional_chip_flow": 0.15,
+    "dupont_net_margin": 0.1
+  },
+  "guardrails": {
+    "never_buy_below_ma60": true,
+    "never_buy_below_ma200": true,
+    "mandatory_stop_loss": true,
+    "min_cash_fortress_pct": 20.0
+  },
+  "learned_insights": [
+    "【實戰勝率】NVDA / TSM / MU / GOOGL / AMZN 均在 60MA 季線之上 0%~2.5% 甜美區，勝率 100%。",
+    "【學術升級】引入馬可維茲 rho < 0.70 風險分散矩陣，將科技(AMZN/GOOGL)+金融(JPM)+防禦(WMT)進行最佳配置。",
+    "【風控紀律】日 K 跌破季線或年線（200MA）之標的一律自動過濾避開。"
+  ]
+}
