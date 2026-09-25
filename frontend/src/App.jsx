@@ -10,7 +10,7 @@ import {
   ShieldCheck, Zap, AlertTriangle, ShieldAlert, Navigation2, Target, Sword, Crosshair, HelpCircle,
   Menu, X, ExternalLink, Globe, LayoutDashboard, History, Settings, Info, Bell, MessageSquare,
   Lock, ArrowRight, MousePointer2, Thermometer, Droplets, Sun, Moon, Clock, Quote,
-  Building2, LineChart as LineChartIcon, FileText, Coins, BookOpen, Calendar, Heart, Calculator
+  Building2, LineChart as LineChartIcon, FileText, Coins, BookOpen, Calendar, Heart, Calculator, Cpu
 } from 'lucide-react';
 import InvestmentChecklist from './components/InvestmentChecklist';
 import SectorHeatmap from './components/SectorHeatmap';
