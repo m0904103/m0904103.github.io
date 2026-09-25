@@ -28,6 +28,19 @@ import DualStopLossGuard from './components/DualStopLossGuard';
 import InstitutionalRadar from './components/InstitutionalRadar';
 import SeasonalityCalendar from './components/SeasonalityCalendar';
 import RetirementCorePortfolio from './components/RetirementCorePortfolio';
+import AIQuantAdvisor from './components/AIQuantAdvisor';
+
+const AI_ALGO_MAP = {
+  '2330': { tag: '🏆 AI首選 7.6%', cls: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
+  '2317': { tag: '⭐ AI低波 6.8%', cls: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
+  '2383': { tag: '⭐ AI動能 5.7%', cls: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
+  '3017': { tag: '⭐ AI散熱 5.2%', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' },
+  'VRT':  { tag: '🇺🇸 美股AI 5.1%', cls: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' },
+  '6669': { tag: '⭐ AI純度 4.4%', cls: 'bg-rose-500/20 text-rose-300 border-rose-500/40' },
+  'NVDA': { tag: '🇺🇸 算力王 3.9%', cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+  '2454': { tag: '🟡 AI邊緣 1.4%', cls: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' },
+  '3324': { tag: '🚨 破季線避開 0%', cls: 'bg-red-500/20 text-red-400 border-red-500/50' }
+};
 
 const IS_PROD = window.location.hostname.includes('github.io');
 const API_BASE = IS_PROD ? '.' : (import.meta.env.VITE_API_URL || "http://localhost:8000");
@@ -53,7 +66,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("regular"); 
   const [selectedSector, setSelectedSector] = useState(null);
   const [activeQuickFilter, setActiveQuickFilter] = useState("all");
-  const [activeMainTab, setActiveMainTab] = useState("map");
+  const [activeMainTab, setActiveMainTab] = useState("algo");
 
   useEffect(() => {
     fetchData();
@@ -381,6 +394,31 @@ function App() {
           {renderWeatherStation()}
           <InstitutionalRadar indices={indices} taifexOi={taifexOi} />
         </section>
+
+        {/* 🚨 2026 演算法升級直通推薦條 */}
+        <div 
+          onClick={() => setActiveMainTab("algo")}
+          className="w-full p-4 rounded-2xl bg-gradient-to-r from-red-950/90 via-[#1C1217] to-amber-950/90 border border-red-500/50 hover:border-amber-400/80 transition-all cursor-pointer shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-red-600/30 text-red-400 group-hover:scale-110 transition-transform shrink-0">
+              <Cpu size={22} className="text-amber-300 animate-pulse" />
+            </div>
+            <div>
+              <div className="text-sm font-black text-amber-300 flex items-center gap-2 flex-wrap">
+                <span>🚨【2026 量化演算法已升級】當前市場狀態：空頭流動性危機警戒 (67.5% 置信度)</span>
+                <span className="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-mono">v2.5.0</span>
+              </div>
+              <p className="text-xs text-gray-300 mt-1">
+                已自動熔斷早盤追價（ORB 權重 0%）、現金下限強制 60.0%。點此查看「動態風險平價」最新推薦配比與各股防守線 👉
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white text-xs font-black group-hover:from-red-500 group-hover:to-amber-500 transition-all shrink-0 shadow-lg shadow-red-600/30">
+            <span>查看 2026 推薦參考</span>
+            <ArrowRight size={14} />
+          </div>
+        </div>
         
         {/* 🧭 雙師戰略指揮中心導覽列 */}
         <section className="space-y-4">
@@ -394,6 +432,15 @@ function App() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#161A1E] rounded-2xl border border-white/10">
+            <button
+              onClick={() => setActiveMainTab("algo")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'algo' ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-lg shadow-red-600/40 ring-1 ring-amber-400/50' : 'text-amber-400 bg-amber-500/10 hover:bg-amber-500/20'
+              }`}
+            >
+              <Cpu size={14} className="text-amber-300" /> 🤖 2026 演算法推薦
+              <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-red-500 text-white font-black">NEW</span>
+            </button>
             <button
               onClick={() => setActiveMainTab("map")}
               className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -437,6 +484,10 @@ function App() {
           </div>
 
           {/* Tab Views */}
+          {activeMainTab === 'algo' && (
+            <AIQuantAdvisor onSelectStock={handleSelectStock} stocks={stocks} />
+          )}
+
           {activeMainTab === 'map' && (
             <SectorStrategyMap stocks={stocks} onSelectStock={handleSelectStock} />
           )}
@@ -511,9 +562,21 @@ function App() {
                     <div key={stock.symbol} onClick={() => handleSelectStock(stock)} className={`p-3 rounded-2xl cursor-pointer transition-all border ${selectedStock?.symbol === stock.symbol ? 'bg-red-600/10 border-red-600/30' : 'bg-white/5 border-transparent hover:border-white/10'}`}>
                       <div className="flex justify-between items-start">
                         <div className="flex flex-col">
-                          <div className="font-black flex items-center gap-2">
+                          <div className="font-black flex items-center gap-2 flex-wrap">
                             <span>{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
                             {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-esg-gold/20 text-esg-gold border border-esg-gold/30 tracking-widest">🌱 ESG護城河</span>}
+                            {(() => {
+                              const clean = stock.symbol.replace(/\.TWO?$/, '');
+                              const algoInfo = AI_ALGO_MAP[clean] || AI_ALGO_MAP[stock.symbol];
+                              if (algoInfo) {
+                                return (
+                                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-black border ${algoInfo.cls}`}>
+                                    {algoInfo.tag}
+                                  </span>
+                                );
+                              }
+                              return null;
+                            })()}
                           </div>
                           {activeMarket === 'tw' && (
                             <div className="flex flex-wrap gap-1 mt-1">
