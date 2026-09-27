@@ -1,11 +1,23 @@
-name: Intraday LINE Sweet-Spot Alert (顏老師鐵律盤中推播)
+name: Intraday LINE Sweet-Spot Alert (顏老師鐵律美股+台股盤中推播)
 
 on:
   schedule:
-    # 台灣時間 09:00 ~ 13:30 (UTC 01:00 ~ 05:30) 每 15 分鐘執行一次
+    # ============================================================
+    # 🇺🇸 美股盤中時段 (台灣時間 21:30 ~ 05:00 = UTC 13:30 ~ 21:00)
+    # 每 15 分鐘全自動巡檢一次
+    # ============================================================
+    - cron: '30,45 13 * * 1-5'
+    - cron: '0,15,30,45 14,15,16,17,18,19,20 * * 1-5'
+    - cron: '0 21 * * 2-6'
+
+    # ============================================================
+    # 🇹🇼 台股盤中時段 (台灣時間 09:00 ~ 13:30 = UTC 01:00 ~ 05:30)
+    # 每 15 分鐘全自動巡檢一次
+    # ============================================================
     - cron: '0,15,30,45 1,2,3,4 * * 1-5'
     - cron: '0,15,30 5 * * 1-5'
-  workflow_dispatch: # 支援在 GitHub 網頁隨時手動點擊執行
+
+  workflow_dispatch: # 支援在 GitHub 網頁隨時手動點擊執行測試
 
 jobs:
   check-and-alert:
@@ -31,7 +43,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install yfinance requests pandas
 
-      - name: Run Intraday LINE Sweet-Spot Checker
+      - name: Run Intraday LINE Sweet-Spot Checker (US & TW Dual Market)
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
