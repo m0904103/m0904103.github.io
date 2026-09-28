@@ -68,7 +68,8 @@ DEFAULT_US_WATCHLIST = {
     'CEG': {'name': 'Constellation Energy', 'sector': '核能與智慧電網'},
     'VST': {'name': 'Vistra Corp', 'sector': 'AI電力電網'},
     'CRWD': {'name': 'CrowdStrike', 'sector': '主權AI與網安'},
-    'LLY': {'name': '禮來 (Eli Lilly)', 'sector': '生物AI與精準醫療'}
+    'LLY': {'name': '禮來 (Eli Lilly)', 'sector': '生物AI與精準醫療'},
+    'V': {'name': '威士 (Visa)', 'sector': '防禦對沖/ESG龍頭'}
 }
 
 DEFAULT_TW_WATCHLIST = {
@@ -238,7 +239,7 @@ def create_sweet_spot_card(symbol, name, current_price, low_price, ma60, bb_lowe
                     'contents': [
                         {
                             'type': 'text',
-                            'text': f'{symbol} {name}',
+                            'text': symbol if (not name or name == symbol) else (name if symbol in name else f'{symbol} {name}'),
                             'weight': 'bold',
                             'size': 'xl',
                             'color': '#F8FAFC',
