@@ -127,20 +127,23 @@ def load_config():
 # ------------------------------------------------------------------------------
 # 2. LINE Messaging API 推播模組
 # ------------------------------------------------------------------------------
-def push_line_message(token, user_id, messages):
-    if not token or not user_id:
-        print('❌ 未設定 LINE_CHANNEL_ACCESS_TOKEN 或 LINE_USER_ID，略過推播。')
+def push_line_message(token, user_id, messages, mode='broadcast'):
+    if not token:
+        print('❌ 未設定 LINE_CHANNEL_ACCESS_TOKEN，略過推播。')
         return False
-        
-    url = 'https://api.line.me/v2/bot/message/push'
+
+    messages_list = messages if isinstance(messages, list) else [messages]
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {token}'
     }
-    payload = {
-        'to': user_id,
-        'messages': messages if isinstance(messages, list) else [messages]
-    }
+
+    if mode == 'broadcast' or not user_id:
+        url = 'https://api.line.me/v2/bot/message/broadcast'
+        payload = {'messages': messages_list}
+    else:
+        url = 'https://api.line.me/v2/bot/message/push'
+        payload = {'to': user_id, 'messages': messages_list}
     
     data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
     req = urllib.request.Request(url, data=data, headers=headers, method='POST')
@@ -148,7 +151,7 @@ def push_line_message(token, user_id, messages):
     try:
         with urllib.request.urlopen(req, timeout=10) as res:
             if res.status == 200:
-                print('✅ LINE 戰情卡片已成功推播至學長手機！')
+                print('✅ LINE 戰情卡片已成功廣播推播至所有好友/成員手機！')
                 return True
             else:
                 print(f'⚠️ LINE 推播回傳狀態碼: {res.status}')
@@ -731,11 +734,159 @@ def get_active_markets():
     
     return is_us_time, is_tw_time
 
+def create_premarket_guidance_card(market='US'):
+    now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
+    is_us = (market.upper() == 'US')
+    market_flag = '🇺🇸 美股' if is_us else '🇹🇼 台股'
+    open_time_str = '21:30' if is_us else '09:00'
+    
+    flex_content = {
+        'type': 'bubble',
+        'size': 'mega',
+        'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'paddingAll': '16px',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': f'🛡️ 盤前安定軍心卡 ｜ {market_flag}',
+                    'weight': 'bold',
+                    'color': '#38BDF8',
+                    'size': 'sm'
+                },
+                {
+                    'type': 'text',
+                    'text': f'開盤前夕 ｜ 雙師學術與實戰指導',
+                    'weight': 'bold',
+                    'size': 'xl',
+                    'color': '#F8FAFC',
+                    'margin': 'xs'
+                },
+                {
+                    'type': 'text',
+                    'text': f'開盤時間：今晚 {open_time_str} ｜ 守護時間：{now_str}',
+                    'color': '#94A3B8',
+                    'size': 'xs',
+                    'margin': 'xs'
+                }
+            ]
+        },
+        'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#1E293B',
+            'paddingAll': '16px',
+            'contents': [
+                # 🎓 顏春煌教授 語錄
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'none',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🎓 顏春煌教授 數位學習與計量鐵律語錄：',
+                            'weight': 'bold',
+                            'color': '#60A5FA',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '「不求次次暴利，但求筆筆合規！開盤前 15 分鐘（21:30~21:45）市場常有機構情緒性激烈洗盤。恪守 60MA 季線生命線與正期望值 E[R] > 0，切勿在洗盤中盲目追高或恐慌拋售！」',
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 🌾 阿村伯 語錄
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🌾 阿村伯（蔡鎮村博士） 30年實戰操盤心法：',
+                            'weight': 'bold',
+                            'color': '#FBBF24',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '「開盤前 15 分鐘是機構法人洗盤誘空的時刻，聰明操盤手冷眼旁觀莫急躁！到價才開槍，沒到價就安心喝茶。只要部位抱得住、風控守得牢，今晚才能睡得著香！」',
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 三不原則
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#334155',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🛡️ 盤前開槍三大紀律公約：',
+                            'weight': 'bold',
+                            'color': '#34D399',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '1. ❌【不急追高】開盤 15 分鐘靜觀其變，不搶掛市價追高。\n2. ❌【不恐慌殺低】只要收盤未跌破 60MA 季線生命線，絕不被洗盤嚇退。\n3. 🟢【只在甜美區開槍】靜待開盤後若出現 99分 + 甜美區（+0.5%~+5.0%）到價圖卡，再從容限價掛單建倉！',
+                            'color': '#F8FAFC',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                }
+            ]
+        },
+        'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': '正規軍 4.0 安定軍心系統 ｜ 守護全體學員資產',
+                    'color': '#64748B',
+                    'size': 'xs',
+                    'align': 'center'
+                }
+            ]
+        }
+    }
+    
+    return {
+        'type': 'flex',
+        'altText': f'🛡️【q_quant_888 盤前安定軍心卡】{market_flag} 開盤前 15 分鐘雙師提醒！',
+        'contents': flex_content
+    }
+
 # ------------------------------------------------------------------------------
 # 主程式入口
 # ------------------------------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser(description='q_quant_888 顏老師鐵律波段到價 LINE 推播守護引擎')
+    parser.add_argument('--premarket', action='store_true', help='立即推播美股/台股盤前安定軍心與雙師教育指導卡片')
     parser.add_argument('--test', action='store_true', help='立即發送波段連線測試卡片至學長 LINE')
     parser.add_argument('--market', type=str, choices=['us', 'tw', 'all'], default=None, help='指定掃描市場 (預設自動根據開盤時段判定，非開盤時段優先美股)')
     parser.add_argument('--force-symbol', type=str, help='指定強制觸發特定股票卡片 (如 NVDA 或 2330.TW)')
@@ -747,6 +898,13 @@ def main():
     config = load_config()
     token = config.get('channel_access_token')
     user_id = config.get('user_id')
+    
+    if args.premarket:
+        print('🛡️ 執行 LINE 盤前安定軍心與雙師教育指導廣播推播...')
+        m_type = args.market.upper() if args.market else 'US'
+        card = create_premarket_guidance_card(market=m_type)
+        push_line_message(token, user_id, card, mode='broadcast')
+        return
     
     if args.test:
         print('📨 執行 LINE 連線與顏老師波段心法測試推播...')
