@@ -82,7 +82,9 @@ DEFAULT_TW_WATCHLIST = {
     '1519.TW': {'name': '華城', 'market': 'tse'},
     '2382.TW': {'name': '廣達', 'market': 'tse'},
     '2454.TW': {'name': '聯發科', 'market': 'tse'},
-    '2317.TW': {'name': '鴻海', 'market': 'tse'}
+    '2317.TW': {'name': '鴻海', 'market': 'tse'},
+    '2474.TW': {'name': '可成', 'market': 'tse'},
+    '1402.TW': {'name': '遠東新', 'market': 'tse'}
 }
 
 # ------------------------------------------------------------------------------
