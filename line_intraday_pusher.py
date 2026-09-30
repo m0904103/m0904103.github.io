@@ -217,7 +217,7 @@ def load_config():
         'channel_access_token': os.environ.get('LINE_CHANNEL_ACCESS_TOKEN', '').strip(),
         'user_id': os.environ.get('LINE_USER_ID', '').strip(),
         'primary_market': 'US',
-        'cooldown_minutes': 60,
+        'cooldown_minutes': 20,
         'us_watchlist': list(DEFAULT_US_WATCHLIST.keys()),
         'tw_watchlist': list(DEFAULT_TW_WATCHLIST.keys())
     }
