@@ -730,7 +730,7 @@ def get_active_markets():
     minute = now.minute
     
     is_us_time = (hour >= 21 and minute >= 30) or (hour in [22, 23, 0, 1, 2, 3, 4]) or (hour == 5 and minute <= 0)
-    is_tw_time = (hour == 9 and minute >= 0) or (hour in [10, 11, 12]) or (hour == 13 and minute <= 30)
+    is_tw_time = (hour == 8 and minute >= 30) or (hour in [9, 10, 11, 12]) or (hour == 13 and minute <= 30)
     
     return is_us_time, is_tw_time
 
