@@ -86,6 +86,130 @@ DEFAULT_TW_WATCHLIST = {
 }
 
 # ------------------------------------------------------------------------------
+# 🌾 阿村伯（蔡鎮村博士） 30年操盤大數據與風控名言庫 (動態輪動)
+# ------------------------------------------------------------------------------
+DR_TSUN_QUOTES = [
+    {
+        'category': '盤前沉著',
+        'title': '🌾 阿村伯 30年實戰操盤心法：',
+        'quote': '「開盤前 15 分鐘是機構法人洗盤誘空的時刻，聰明操盤手冷眼旁觀莫急躁！到價才開槍，沒到價就安心喝茶。只要部位抱得住、風控守得牢，今晚才能睡得著香！」'
+    },
+    {
+        'category': '盤前沉著',
+        'title': '🌾 阿村伯 開盤觀潮銘言：',
+        'quote': '「開盤爆量莫盲追，盤中衝高多洗盤！大數據顯示真正的安全買點，往往隱藏在收盤前趨勢確立的冷靜落腳處。讓子彈飛一會兒，本金安全第一！」'
+    },
+    {
+        'category': '風控鐵律',
+        'title': '🌾 阿村伯 兩度歸零血淚警言：',
+        'quote': '「阿村伯年輕時曾兩度賠光身家，深刻領悟：只要一次致命重傷，前面賺 100 次都是白費！不要急著發大財，先學會不虧大錢，保護本金是生存第一法則！」'
+    },
+    {
+        'category': '無情停損',
+        'title': '🌾 阿村伯 機器人停損紀律：',
+        'quote': '「進場前先算好虧損上限，觸發停損時要像機器人一樣執行！向下攤平只會越攤越貧，股票下跌必有法人知道而散戶不知道的理由，切勿護短！」'
+    },
+    {
+        'category': '大數據勝率',
+        'title': '🌾 阿村伯 大數據觀察心法：',
+        'quote': '「不識多空真面目，只緣身在波浪中！傳統技術分析看的是『點』，大數據分析看的是『面』。讓歷史統計勝率告訴你何時該進、何時該縮，勝率大於 70% 才能重兵出擊！」'
+    },
+    {
+        'category': '大數據勝率',
+        'title': '🌾 阿村伯 節慶勝率法則：',
+        'quote': '「股市也有四季輪動與節慶效應！不聽信市場小道消息，完全依據當前籌碼與大數據數據行動。數據說話最客觀，勝率未達標準前寧可空倉等待！」'
+    },
+    {
+        'category': '選股護城河',
+        'title': '🌾 阿村伯 三率三升選股鐵律：',
+        'quote': '「毛利率、營業利益率、稅後純益率『三率三升』才是企業真正的護城河！徹底淘汰三率衰退的落水狗，跟著法人與千張大戶站在買方，波段才能抱得穩如泰山！」'
+    },
+    {
+        'category': '選股護城河',
+        'title': '🌾 阿村伯 籌碼深度解密：',
+        'quote': '「看盤先看主力底牌！外資期貨空單、八大官股庫藏、千張大戶持股比例，籌碼沉澱且大戶集中度上升的地方，才是下一波飆股的誕生地！」'
+    },
+    {
+        'category': '持盈保泰',
+        'title': '🌾 阿村伯 退休資產防禦觀念：',
+        'quote': '「留得青山在，不怕沒柴燒！保留 20%~30% 以上的現金流動性，拒絕高槓桿押注。高現金就是最堅固的戰略堡壘，手中有糧，心中不慌！」'
+    },
+    {
+        'category': '均線順勢流',
+        'title': '🌾 阿村伯 均線順勢法則：',
+        'quote': '「5 日線跌破 10 日線，短線亮紅燈；60MA 季線向上，才是真正的波段生命線！均線下彎的弱勢股，反彈都是逃命波，絕不搶反彈！」'
+    }
+]
+
+# ------------------------------------------------------------------------------
+# 🎓 顏春煌教授 12講117單元計量與波段鐵律庫 (源自顏老師語錄合集.md 動態輪動)
+# ------------------------------------------------------------------------------
+PROF_YEN_QUOTES = [
+    {
+        'category': '理性與迷思',
+        'title': '🎓 顏春煌教授 投資理性與排除迷思：',
+        'quote': '「我們不會像投顧老師帶著同學做暴利股票，而是讓大家深入且快速排除投資迷思！運用系統化的方法與保持理性的態度進行投資，脫離新手階段，讓財富穩健累積。」'
+    },
+    {
+        'category': '計量鐵律',
+        'title': '🎓 顏春煌教授 數位學習與計量鐵律：',
+        'quote': '「不求次次暴利，但求筆筆合規！開盤前 15 分鐘市場常有機構情緒性激烈洗盤。恪守 60MA 季線生命線與正期望值 E[R] > 0，切勿在洗盤中盲目追高或恐慌拋售！」'
+    },
+    {
+        'category': '波段為王',
+        'title': '🎓 顏春煌教授 8-3-1 波段為王心法：',
+        'quote': '「波段為王，拒絕當沖！當沖手續費與交易稅吃掉大部分利潤，且振幅受限。優質成長股站在季線生命線上，能為你賺取 50% 甚至 100% 以上大波段利潤！」'
+    },
+    {
+        'category': '尾盤進場',
+        'title': '🎓 顏春煌教授 8-3-2 尾盤進場確認法：',
+        'quote': '「盤中回測布林下軌與 KD 低檔時先冷靜觀察，不毛躁追價！收盤前 15~30 分鐘確認 K 線收腳站回布林通道內、KD 金叉打底，才正式下單建倉！」'
+    },
+    {
+        'category': '守護防線',
+        'title': '🎓 顏春煌教授 8-4-2 買進日低點防線：',
+        'quote': '「買進當天絕不停損！當天最低價即為這筆波段未來數週的基準防守線。進入持有期後，只要每日收盤未跌破買進日低點，安心抱牢，讓獲利奔跑！」'
+    },
+    {
+        'category': '雙軌配置',
+        'title': '🎓 顏春煌教授 長短雙軌部位管理：',
+        'quote': '「50% 短期部位：達 +5%~+10% 價差先行落袋為安；50% 波段部位：一路抱牢直到衝過布林通道上軌且折回時才賣出，享受主升段最大獲利！」'
+    },
+    {
+        'category': '布林常態分佈',
+        'title': '🎓 顏春煌教授 布林通道統計學：',
+        'quote': '「股價分佈符合統計常態分佈，正負 2 個標準差涵蓋 95.4% 的價格變動。當股價觸及下軌反彈才是安全進場點，突破上軌折回則是停利訊號！」'
+    },
+    {
+        'category': '量先價行',
+        'title': '🎓 顏春煌教授 OBV 能量潮法則：',
+        'quote': '「量先價行！成交量往往先於股價變化。當股價在低檔盤整、OBV 能量潮率先向上突破時，代表主力正在沉澱吸籌，是趨勢反轉的前兆！」'
+    },
+    {
+        'category': '排除心理偏見',
+        'title': '🎓 顏春煌教授 克服追高殺低陷阱：',
+        'quote': '「散戶最常陷入追高殺低的情緒陷阱。技術分析指標能幫我們排除主觀心理偏見，客觀判斷高低點。我們無法買在最低賣在最高，但能避開相對高點追價與低點恐慌殺低！」'
+    },
+    {
+        'category': '程式回測實證',
+        'title': '🎓 顏春煌教授 Python 量化回測：',
+        'quote': '「透過 Python 程式與歷史數據回測，用客觀驗證替代主觀猜測！只有經得起歷史數據考驗的策略，才能在充滿不確定性的金融市場中帶你穩健前行。」'
+    }
+]
+
+import random
+
+def get_rotating_dr_tsun_quote(seed=None):
+    if seed is not None:
+        return DR_TSUN_QUOTES[seed % len(DR_TSUN_QUOTES)]
+    return random.choice(DR_TSUN_QUOTES)
+
+def get_rotating_prof_yen_quote(seed=None):
+    if seed is not None:
+        return PROF_YEN_QUOTES[seed % len(PROF_YEN_QUOTES)]
+    return random.choice(PROF_YEN_QUOTES)
+
+# ------------------------------------------------------------------------------
 # 1. 設定讀取模組
 # ------------------------------------------------------------------------------
 def load_config():
@@ -740,6 +864,9 @@ def create_premarket_guidance_card(market='US'):
     market_flag = '🇺🇸 美股' if is_us else '🇹🇼 台股'
     open_time_str = '21:30' if is_us else '09:00'
     
+    dr_tsun_item = get_rotating_dr_tsun_quote()
+    prof_yen_item = get_rotating_prof_yen_quote()
+    
     flex_content = {
         'type': 'bubble',
         'size': 'mega',
@@ -779,7 +906,7 @@ def create_premarket_guidance_card(market='US'):
             'backgroundColor': '#1E293B',
             'paddingAll': '16px',
             'contents': [
-                # 🎓 顏春煌教授 語錄
+                # 🎓 顏春煌教授 語錄 (動態輪動)
                 {
                     'type': 'box',
                     'layout': 'vertical',
@@ -790,14 +917,14 @@ def create_premarket_guidance_card(market='US'):
                     'contents': [
                         {
                             'type': 'text',
-                            'text': '🎓 顏春煌教授 數位學習與計量鐵律語錄：',
+                            'text': prof_yen_item['title'],
                             'weight': 'bold',
                             'color': '#60A5FA',
                             'size': 'xs'
                         },
                         {
                             'type': 'text',
-                            'text': '「不求次次暴利，但求筆筆合規！開盤前 15 分鐘（21:30~21:45）市場常有機構情緒性激烈洗盤。恪守 60MA 季線生命線與正期望值 E[R] > 0，切勿在洗盤中盲目追高或恐慌拋售！」',
+                            'text': prof_yen_item['quote'],
                             'color': '#E2E8F0',
                             'size': 'xs',
                             'wrap': True,
@@ -805,7 +932,7 @@ def create_premarket_guidance_card(market='US'):
                         }
                     ]
                 },
-                # 🌾 阿村伯 語錄
+                # 🌾 阿村伯 語錄 (動態輪動)
                 {
                     'type': 'box',
                     'layout': 'vertical',
@@ -816,14 +943,14 @@ def create_premarket_guidance_card(market='US'):
                     'contents': [
                         {
                             'type': 'text',
-                            'text': '🌾 阿村伯（蔡鎮村博士） 30年實戰操盤心法：',
+                            'text': dr_tsun_item['title'],
                             'weight': 'bold',
                             'color': '#FBBF24',
                             'size': 'xs'
                         },
                         {
                             'type': 'text',
-                            'text': '「開盤前 15 分鐘是機構法人洗盤誘空的時刻，聰明操盤手冷眼旁觀莫急躁！到價才開槍，沒到價就安心喝茶。只要部位抱得住、風控守得牢，今晚才能睡得著香！」',
+                            'text': dr_tsun_item['quote'],
                             'color': '#E2E8F0',
                             'size': 'xs',
                             'wrap': True,
@@ -877,12 +1004,14 @@ def create_premarket_guidance_card(market='US'):
     
     return {
         'type': 'flex',
-        'altText': f'🛡️【q_quant_888 盤前安定軍心卡】{market_flag} 開盤前 15 分鐘雙師提醒！',
+        'altText': f'🛡️【q_quant_888 盤前安定軍心卡】{market_flag} 雙師輪動紀律與實戰心法！',
         'contents': flex_content
     }
 
 def create_intraday_noon_card():
     now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
+    dr_tsun_item = get_rotating_dr_tsun_quote()
+    prof_yen_item = get_rotating_prof_yen_quote()
     
     flex_content = {
         'type': 'bubble',
@@ -923,7 +1052,7 @@ def create_intraday_noon_card():
             'backgroundColor': '#1E293B',
             'paddingAll': '16px',
             'contents': [
-                # 🎓 顏春煌教授 語錄
+                # 🎓 顏春煌教授 語錄 (動態輪動)
                 {
                     'type': 'box',
                     'layout': 'vertical',
@@ -934,14 +1063,14 @@ def create_intraday_noon_card():
                     'contents': [
                         {
                             'type': 'text',
-                            'text': '🎓 顏春煌教授 12:30 盤中學術報告：',
+                            'text': prof_yen_item['title'],
                             'weight': 'bold',
                             'color': '#60A5FA',
                             'size': 'xs'
                         },
                         {
                             'type': 'text',
-                            'text': '「離收盤倒數 1 小時！當前台股多頭架構穩健，可成(2474)、緯穎(6669)、華城(1519)等標的皆精準守在 60MA 季線生命線上方。此時切忌隨午盤尾盤拉扯情緒性急出或急追，恪守季線硬停損，正期望值 E[R] > 0 自然保護部位！」',
+                            'text': prof_yen_item['quote'],
                             'color': '#E2E8F0',
                             'size': 'xs',
                             'wrap': True,
@@ -949,7 +1078,7 @@ def create_intraday_noon_card():
                         }
                     ]
                 },
-                # 🌾 阿村伯 語錄
+                # 🌾 阿村伯 語錄 (動態輪動)
                 {
                     'type': 'box',
                     'layout': 'vertical',
@@ -960,14 +1089,14 @@ def create_intraday_noon_card():
                     'contents': [
                         {
                             'type': 'text',
-                            'text': '🌾 阿村伯（蔡鎮村博士） 30年持盈保泰三法則：',
+                            'text': dr_tsun_item['title'],
                             'weight': 'bold',
                             'color': '#FBBF24',
                             'size': 'xs'
                         },
                         {
                             'type': 'text',
-                            'text': '1. 🟢【已有部位者(如美股V)】：不被盤中雜訊干擾，未破季線安心續抱，抱得住才睡得香。\n2. 🟢【準備開槍者(如2474/6669)】：靜待 13:15 收盤前 15 分鐘，確認 K 線紅棒收腳站穩季線後，再限價下單建立基本倉！\n3. 🔴【絕不市價追高】：剩餘 1 小時不盲目追加高位股，留有資金餘裕。',
+                            'text': dr_tsun_item['quote'],
                             'color': '#E2E8F0',
                             'size': 'xs',
                             'wrap': True,
@@ -1025,6 +1154,155 @@ def create_intraday_noon_card():
         'contents': flex_content
     }
 
+def create_postmarket_summary_card(market='US'):
+    now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
+    is_us = (market.upper() == 'US')
+    market_flag = '🇺🇸 美股' if is_us else '🇹🇼 台股'
+    
+    dr_tsun_item = get_rotating_dr_tsun_quote()
+    prof_yen_item = get_rotating_prof_yen_quote()
+    
+    flex_content = {
+        'type': 'bubble',
+        'size': 'mega',
+        'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'paddingAll': '16px',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': f'🌅 盤後總結與戰果檢核卡 ｜ {market_flag}',
+                    'weight': 'bold',
+                    'color': '#10B981',
+                    'size': 'sm'
+                },
+                {
+                    'type': 'text',
+                    'text': f'收盤結算 ｜ 雙師總結與持盈保泰戰報',
+                    'weight': 'bold',
+                    'size': 'xl',
+                    'color': '#F8FAFC',
+                    'margin': 'xs'
+                },
+                {
+                    'type': 'text',
+                    'text': f'結算時間：{now_str} ｜ 全單元點燈完成',
+                    'color': '#94A3B8',
+                    'size': 'xs',
+                    'margin': 'xs'
+                }
+            ]
+        },
+        'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#1E293B',
+            'paddingAll': '16px',
+            'contents': [
+                # 🎓 顏春煌教授 語錄 (動態輪動)
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'none',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': prof_yen_item['title'],
+                            'weight': 'bold',
+                            'color': '#60A5FA',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': prof_yen_item['quote'],
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 🌾 阿村伯 語錄 (動態輪動)
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': dr_tsun_item['title'],
+                            'weight': 'bold',
+                            'color': '#FBBF24',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': dr_tsun_item['quote'],
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 盤後檢核三步驟
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#334155',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '📊 盤後資產檢核三步驟：',
+                            'weight': 'bold',
+                            'color': '#34D399',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '1. 🟢【波段防守線檢查】：確認持股（如 V, AMZN, 2474 等）收盤價是否守穩「買進日低點防線」與 60MA 生命線。\n2. 🟢【綠燈100%過關】：學習單元與系統數據已發送全綠燈點燈，合規滿分。\n3. 🔴【心態平靜安心】：今日無過度當沖與衝動操作，保留資金實力迎接明日戰局！',
+                            'color': '#F8FAFC',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                }
+            ]
+        },
+        'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': '正規軍 4.0 持盈保泰系統 ｜ 感謝學員每日嚴守紀律',
+                    'color': '#64748B',
+                    'size': 'xs',
+                    'align': 'center'
+                }
+            ]
+        }
+    }
+    
+    return {
+        'type': 'flex',
+        'altText': f'🌅【q_quant_888 盤後總結卡】{market_flag} 雙師盤後戰報與結算指導！',
+        'contents': flex_content
+    }
+
 # ------------------------------------------------------------------------------
 # 主程式入口
 # ------------------------------------------------------------------------------
@@ -1032,6 +1310,7 @@ def main():
     parser = argparse.ArgumentParser(description='q_quant_888 顏老師鐵律波段到價 LINE 推播守護引擎')
     parser.add_argument('--noon', action='store_true', help='立即推播 12:30 盤中定心丸與持盈保泰戰術卡片')
     parser.add_argument('--premarket', action='store_true', help='立即推播美股/台股盤前安定軍心與雙師教育指導卡片')
+    parser.add_argument('--postmarket', action='store_true', help='立即推播美股/台股盤後總結與戰果檢核卡片')
     parser.add_argument('--test', action='store_true', help='立即發送波段連線測試卡片至學長 LINE')
     parser.add_argument('--market', type=str, choices=['us', 'tw', 'all'], default=None, help='指定掃描市場 (預設自動根據開盤時段判定，非開盤時段優先美股)')
     parser.add_argument('--force-symbol', type=str, help='指定強制觸發特定股票卡片 (如 NVDA 或 2330.TW)')
@@ -1054,6 +1333,13 @@ def main():
         print('🛡️ 執行 LINE 盤前安定軍心與雙師教育指導廣播推播...')
         m_type = args.market.upper() if args.market else 'US'
         card = create_premarket_guidance_card(market=m_type)
+        push_line_message(token, user_id, card, mode='broadcast')
+        return
+
+    if args.postmarket:
+        print('🌅 執行 LINE 盤後總結與戰果檢核廣播推播...')
+        m_type = args.market.upper() if args.market else 'US'
+        card = create_postmarket_summary_card(market=m_type)
         push_line_message(token, user_id, card, mode='broadcast')
         return
     
