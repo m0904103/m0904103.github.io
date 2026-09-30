@@ -1303,6 +1303,158 @@ def create_postmarket_summary_card(market='US'):
         'contents': flex_content
     }
 
+def create_preclose_confirmation_card(market='US'):
+    """
+    🌆 尾盤到價戰術確認卡 (收盤前 15~30 分鐘)
+    顏春煌教授 8-3-2【尾盤確認進場法】+ 8-4-2【買進日低點防守線】最終判定
+    """
+    now_str = datetime.now(TAIPEI_TZ).strftime("%Y-%m-%d %H:%M:%S")
+    dr_tsun_item = get_rotating_dr_tsun_quote()
+    prof_yen_item = get_rotating_prof_yen_quote()
+    
+    market_flag = "🇺🇸 美股尾盤戰術區" if market == 'US' else "🇹🇼 台股尾盤戰術區"
+    
+    flex_content = {
+        'type': 'bubble',
+        'size': 'mega',
+        'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'paddingAll': '16px',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': f'🌆 尾盤到價戰術確認卡 ｜ {market_flag}',
+                    'weight': 'bold',
+                    'color': '#F59E0B',
+                    'size': 'sm'
+                },
+                {
+                    'type': 'text',
+                    'text': '收盤前 15~30 分鐘 ｜ 尾盤定心判定',
+                    'weight': 'bold',
+                    'size': 'xl',
+                    'color': '#F8FAFC',
+                    'margin': 'xs'
+                },
+                {
+                    'type': 'text',
+                    'text': f'確認時間：{now_str} ｜ 嚴守顏老師與阿村伯紀律',
+                    'color': '#94A3B8',
+                    'size': 'xs',
+                    'margin': 'xs'
+                }
+            ]
+        },
+        'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#1E293B',
+            'paddingAll': '16px',
+            'contents': [
+                # 🎓 顏春煌教授 語錄 (動態輪動)
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'none',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': prof_yen_item['title'],
+                            'weight': 'bold',
+                            'color': '#60A5FA',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': prof_yen_item['quote'],
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 🌾 阿村伯 語錄 (動態輪動)
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': dr_tsun_item['title'],
+                            'weight': 'bold',
+                            'color': '#FBBF24',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': dr_tsun_item['quote'],
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 尾盤定心三法則
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#334155',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🎯 顏老師尾盤定心三法（收盤前 15~30 分鐘）：',
+                            'weight': 'bold',
+                            'color': '#F59E0B',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '1. 🟡【觀望不盲追】：盤中回測下軌時絕不出手，只在收盤前 15~30 分鐘確認 K 線是否收腳打底！\n2. 🟢【到價開槍法】：若 K 線確認站回布林下軌且 KD 打底，才正式下單建倉 50% 短線部位！\n3. 🛡️【持股防守線】：買進當天絕不停損！持有標的（如 V, AMZN）未跌破買進日最低價防線，安心抱牢，今晚睡得香！',
+                            'color': '#F8FAFC',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                }
+            ]
+        },
+        'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': '正規軍 4.0 尾盤戰術守護 ｜ 顏老師與阿村伯陪伴您',
+                    'color': '#64748B',
+                    'size': 'xs',
+                    'align': 'center'
+                }
+            ]
+        }
+    }
+    
+    return {
+        'type': 'flex',
+        'altText': f'🌆【q_quant_888 尾盤戰術卡】{market_flag} 雙師尾盤定心與開槍判定！',
+        'contents': flex_content
+    }
+
 # ------------------------------------------------------------------------------
 # 主程式入口
 # ------------------------------------------------------------------------------
@@ -1310,6 +1462,7 @@ def main():
     parser = argparse.ArgumentParser(description='q_quant_888 顏老師鐵律波段到價 LINE 推播守護引擎')
     parser.add_argument('--noon', action='store_true', help='立即推播 12:30 盤中定心丸與持盈保泰戰術卡片')
     parser.add_argument('--premarket', action='store_true', help='立即推播美股/台股盤前安定軍心與雙師教育指導卡片')
+    parser.add_argument('--preclose', action='store_true', help='立即推播美股/台股收盤前 15~30 分鐘尾盤定心與戰術卡片')
     parser.add_argument('--postmarket', action='store_true', help='立即推播美股/台股盤後總結與戰果檢核卡片')
     parser.add_argument('--test', action='store_true', help='立即發送波段連線測試卡片至學長 LINE')
     parser.add_argument('--market', type=str, choices=['us', 'tw', 'all'], default=None, help='指定掃描市場 (預設自動根據開盤時段判定，非開盤時段優先美股)')
@@ -1333,6 +1486,13 @@ def main():
         print('🛡️ 執行 LINE 盤前安定軍心與雙師教育指導廣播推播...')
         m_type = args.market.upper() if args.market else 'US'
         card = create_premarket_guidance_card(market=m_type)
+        push_line_message(token, user_id, card, mode='broadcast')
+        return
+
+    if args.preclose:
+        print('🌆 執行 LINE 收盤前 15~30 分鐘尾盤戰術與開槍判定廣播推播...')
+        m_type = args.market.upper() if args.market else 'US'
+        card = create_preclose_confirmation_card(market=m_type)
         push_line_message(token, user_id, card, mode='broadcast')
         return
 
