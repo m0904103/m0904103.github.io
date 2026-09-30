@@ -881,11 +881,156 @@ def create_premarket_guidance_card(market='US'):
         'contents': flex_content
     }
 
+def create_intraday_noon_card():
+    now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
+    
+    flex_content = {
+        'type': 'bubble',
+        'size': 'mega',
+        'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'paddingAll': '16px',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': '🛡️ 12:30 盤中定心丸 ｜ 🇹🇼 台股持盈保泰',
+                    'weight': 'bold',
+                    'color': '#38BDF8',
+                    'size': 'sm'
+                },
+                {
+                    'type': 'text',
+                    'text': '距 13:30 收盤倒數 1 小時 ｜ 雙師指導',
+                    'weight': 'bold',
+                    'size': 'xl',
+                    'color': '#F8FAFC',
+                    'margin': 'xs'
+                },
+                {
+                    'type': 'text',
+                    'text': f'巡檢時間：{now_str} ｜ 離收盤剩餘 60 分鐘',
+                    'color': '#94A3B8',
+                    'size': 'xs',
+                    'margin': 'xs'
+                }
+            ]
+        },
+        'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#1E293B',
+            'paddingAll': '16px',
+            'contents': [
+                # 🎓 顏春煌教授 語錄
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'none',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🎓 顏春煌教授 12:30 盤中學術報告：',
+                            'weight': 'bold',
+                            'color': '#60A5FA',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '「離收盤倒數 1 小時！當前台股多頭架構穩健，可成(2474)、緯穎(6669)、華城(1519)等標的皆精準守在 60MA 季線生命線上方。此時切忌隨午盤尾盤拉扯情緒性急出或急追，恪守季線硬停損，正期望值 E[R] > 0 自然保護部位！」',
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 🌾 阿村伯 語錄
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#0F172A',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '🌾 阿村伯（蔡鎮村博士） 30年持盈保泰三法則：',
+                            'weight': 'bold',
+                            'color': '#FBBF24',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '1. 🟢【已有部位者(如美股V)】：不被盤中雜訊干擾，未破季線安心續抱，抱得住才睡得香。\n2. 🟢【準備開槍者(如2474/6669)】：靜待 13:15 收盤前 15 分鐘，確認 K 線紅棒收腳站穩季線後，再限價下單建立基本倉！\n3. 🔴【絕不市價追高】：剩餘 1 小時不盲目追加高位股，留有資金餘裕。',
+                            'color': '#E2E8F0',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                },
+                # 焦點標的表
+                {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'backgroundColor': '#334155',
+                    'cornerRadius': '8px',
+                    'paddingAll': '12px',
+                    'margin': 'md',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': '📊 焦點標的收盤前防守點參考：',
+                            'weight': 'bold',
+                            'color': '#34D399',
+                            'size': 'xs'
+                        },
+                        {
+                            'type': 'text',
+                            'text': '• 2474 可成：現價 $206.0 ｜ 季線硬防守 $199.13 (100%勝率)\n• 6669 緯穎：現價 $2,105 ｜ 季線硬防守 $2,056 (KD K=11.7超賣)\n• 1519 華城：現價 $699.0 ｜ 季線硬防守 $683.37 (乖離 +2.29%)',
+                            'color': '#F8FAFC',
+                            'size': 'xs',
+                            'wrap': True,
+                            'margin': 'xs'
+                        }
+                    ]
+                }
+            ]
+        },
+        'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'backgroundColor': '#0F172A',
+            'contents': [
+                {
+                    'type': 'text',
+                    'text': '正規軍 4.0 戰情室 ｜ 13:15 發送收盤前終極確認卡',
+                    'color': '#64748B',
+                    'size': 'xs',
+                    'align': 'center'
+                }
+            ]
+        }
+    }
+    
+    return {
+        'type': 'flex',
+        'altText': '🛡️【q_quant_888 12:30 盤中定心丸】距收盤倒數 1 小時雙師持盈保泰戰術指南！',
+        'contents': flex_content
+    }
+
 # ------------------------------------------------------------------------------
 # 主程式入口
 # ------------------------------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser(description='q_quant_888 顏老師鐵律波段到價 LINE 推播守護引擎')
+    parser.add_argument('--noon', action='store_true', help='立即推播 12:30 盤中定心丸與持盈保泰戰術卡片')
     parser.add_argument('--premarket', action='store_true', help='立即推播美股/台股盤前安定軍心與雙師教育指導卡片')
     parser.add_argument('--test', action='store_true', help='立即發送波段連線測試卡片至學長 LINE')
     parser.add_argument('--market', type=str, choices=['us', 'tw', 'all'], default=None, help='指定掃描市場 (預設自動根據開盤時段判定，非開盤時段優先美股)')
@@ -898,6 +1043,12 @@ def main():
     config = load_config()
     token = config.get('channel_access_token')
     user_id = config.get('user_id')
+    
+    if args.noon:
+        print('🛡️ 執行 LINE 12:30 盤中定心丸與持盈保泰戰術廣播推播...')
+        card = create_intraday_noon_card()
+        push_line_message(token, user_id, card, mode='broadcast')
+        return
     
     if args.premarket:
         print('🛡️ 執行 LINE 盤前安定軍心與雙師教育指導廣播推播...')
