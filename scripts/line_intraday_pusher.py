@@ -1526,6 +1526,7 @@ def main():
     def execute_scan():
         is_us_time, is_tw_time = get_active_markets()
         market_choice = args.market.lower() if args.market else None
+        now_hour = datetime.now(TAIPEI_TZ).hour
         
         if market_choice == 'us':
             scan_market(config['us_watchlist'], 'US', config)
@@ -1535,13 +1536,14 @@ def main():
             scan_market(config['us_watchlist'], 'US', config)
             scan_market(config['tw_watchlist'], 'TW', config)
         else:
-            if is_us_time:
-                scan_market(config['us_watchlist'], 'US', config)
-            elif is_tw_time:
+            if is_tw_time or (6 <= now_hour < 14):
+                # 06:00 ~ 14:00 台北時間：全精力專注台股觀測，絕不掃描或推播美股！
                 scan_market(config['tw_watchlist'], 'TW', config)
-            else:
-                print('ℹ️ 目前非盤中開盤時間，執行主力美股健康巡檢...')
+            elif is_us_time or (21 <= now_hour or now_hour < 6):
+                # 21:00 ~ 06:00 台北時間：美股夜盤時段專注美股
                 scan_market(config['us_watchlist'], 'US', config)
+            else:
+                scan_market(config['tw_watchlist'], 'TW', config)
                 
     if args.once:
         execute_scan()
