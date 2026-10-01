@@ -821,14 +821,16 @@ def scan_market(symbols, market_type, config, force_symbol=None):
             d_val = tech['d']
             
         # 顏老師鐵律條件判定
-        # 1. 守穩季線生命線之上 (容許 1% 緩衝回測)
-        is_above_ma60 = bool(price >= ma60 * 0.99)
-        # 2. 回測布林下軌甜蜜支撐區 (現價接近或低於下軌 2.5% 範圍內)
-        is_sweet_spot = bool(price <= bb_lower * 1.025)
+        # 1. 守穩季線生命線附近 (容許 5% 緩衝回測)
+        is_above_ma60 = bool(price >= ma60 * 0.95)
+        # 2. 回測布林下軌甜蜜支撐區 (現價接近或低於下軌 3.5% 範圍內)
+        is_sweet_spot = bool(price <= bb_lower * 1.035)
         # 3. KD 超賣或轉強打底 (K <= 35 或 K > D)
         is_kd_oversold = bool(k_val <= 35 or k_val > d_val)
+        # 4. 強烈打底特例：當 KD <= 30 且股價接近布林下軌 5% 內，認定為極致打底區
+        is_deep_sweet_zone = bool(is_sweet_spot or (k_val <= 30 and price <= bb_lower * 1.05))
         
-        should_alert = force_symbol is not None or (is_above_ma60 and is_sweet_spot and is_kd_oversold)
+        should_alert = force_symbol is not None or (is_above_ma60 and is_deep_sweet_zone and is_kd_oversold)
         
         unit = 'USD' if is_us else 'TWD'
         print(f'  - {sym} ({name}): 現價 {price:.2f} {unit}, MA60 {ma60:.2f}, 布林下軌 {bb_lower:.2f}, K:{k_val:.1f} | 甜蜜區:{is_sweet_spot}, 季線:{is_above_ma60}')
