@@ -1,0 +1,90 @@
+name: 24/7 Cloud Stock Scanner & LINE Pusher
+
+on:
+  schedule:
+    # Run every 5 minutes 24/7 on GitHub Cloud Servers
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  scan-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yfinance pandas numpy requests
+
+      - name: Run 24/7 Cloud LINE Intraday Scanner & Web Deploy
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN || 'SMJag6WXPzd+G6cFoxqrXl+pl1P5GW+9lC/JLr/pVmLay6RknAvB9Aascr5+PAU3iZVuB8asFuI5amZoy7eOn7D7prS52TuOiT8JAf+piKQXmyJH+T8Xooi4+WagsFP1XTQYu1LeyjfaJdwysXdIrAdB04t89/1O/w1cDnyilFU=' }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID || 'Uf405009290d0b8b377bf409b8701593a' }}
+        run: |
+          # 1. Run Intraday Scan & Push LINE Message if triggered
+          python line_intraday_pusher.py --once
+          
+          # 2. Update scan_results.json & Deploy to root / trading / q_quant_888
+          python -c "
+          import yfinance as yf, json, shutil
+          from pathlib import Path
+          from datetime import datetime, timezone, timedelta
+          TAIPEI_TZ = timezone(timedelta(hours=8))
+          now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
+          watch = {
+              'NVDA': '輝達', 'TSLA': '特斯拉', 'AAPL': '蘋果', 'AMZN': '亞馬遜', 'GOOGL': 'Google',
+              'VRT': 'Vertiv', 'PLTR': 'Palantir', 'AVGO': '博通', 'ASML': '艾司摩爾', 'AMAT': '應材',
+              'AMD': '超微', 'ARM': '安謀', 'VST': 'Vistra', 'CRWD': 'CrowdStrike', 'V': '威士',
+              '2330.TW': '台積電', '3017.TW': '奇鋐', '3324.TWO': '雙鴻', '6669.TW': '緯穎',
+              '3081.TWO': '聯亞', '6451.TW': '訊芯-KY', '1519.TW': '華城', '2382.TW': '廣達',
+              '2454.TW': '聯發科', '2317.TW': '鴻海', '2474.TW': '可成', '1402.TW': '遠東新'
+          }
+          items = []
+          for sym, name in watch.items():
+              try:
+                  t = yf.Ticker(sym)
+                  df = t.history(period='6mo', interval='1d')
+                  if df.empty or len(df)<60: continue
+                  lp = float(df['Close'].iloc[-1])
+                  pc = float(df['Close'].iloc[-2])
+                  chg = (lp - pc) / pc * 100
+                  ma60 = float(df['Close'].rolling(60).mean().iloc[-1])
+                  ma20 = float(df['Close'].rolling(20).mean().iloc[-1])
+                  std20 = float(df['Close'].rolling(20).std().iloc[-1])
+                  bbl = ma20 - std20*2
+                  bbu = ma20 + std20*2
+                  dist = (lp - bbl) / bbl * 100
+                  low9 = df['Low'].rolling(9).min()
+                  high9 = df['High'].rolling(9).max()
+                  rsv = ((df['Close'] - low9)/(high9 - low9)*100).fillna(50)
+                  k = 50.0
+                  for r in rsv: k = (2/3)*k + (1/3)*r
+                  items.append({
+                      'symbol': sym, 'name': name, 'price': round(lp, 2),
+                      'change_percent': round(chg, 2), 'ma60': round(ma60, 2),
+                      'above_ma60': bool(lp > ma60), 'bb_lower': round(bbl, 2),
+                      'bb_upper': round(bbu, 2), 'dist_bb_lower_pct': round(dist, 2),
+                      'k_val': round(k, 1), 'in_sweet_zone': bool(dist<=2.0 or k<=30)
+                  })
+              except Exception as e: pass
+          data = {'scan_time': now_str, 'market': 'US/TW', 'total_scanned': len(items), 'items': items}
+          with open('scan_results.json', 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+          for sub in ['trading', 'q_quant_888', 'frontend/public']:
+              Path(sub).mkdir(parents=True, exist_ok=True)
+              shutil.copy('scan_results.json', f'{sub}/scan_results.json')
+          "
+
+      - name: Commit and Push Updated Results to GitHub Pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "cloud-sync: 24/7 automated update [skip ci]" && git push)
