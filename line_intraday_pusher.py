@@ -1538,14 +1538,12 @@ def main():
             scan_market(config['us_watchlist'], 'US', config)
             scan_market(config['tw_watchlist'], 'TW', config)
         else:
-            if is_tw_time or (6 <= now_hour < 14):
-                # 06:00 ~ 14:00 台北時間：全精力專注台股觀測，絕不掃描或推播美股！
+            if (6 <= now_hour < 14):
+                # 06:00 ~ 14:00 台北時間：專注台股觀測
                 scan_market(config['tw_watchlist'], 'TW', config)
-            elif is_us_time or (21 <= now_hour or now_hour < 6):
-                # 21:00 ~ 06:00 台北時間：美股夜盤時段專注美股
-                scan_market(config['us_watchlist'], 'US', config)
             else:
-                scan_market(config['tw_watchlist'], 'TW', config)
+                # 14:00 ~ 06:00 台北時間：專注美股觀測 (包含傍晚與夜盤)
+                scan_market(config['us_watchlist'], 'US', config)
                 
     if args.once:
         execute_scan()
