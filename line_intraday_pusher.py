@@ -253,9 +253,38 @@ def load_config():
 # ------------------------------------------------------------------------------
 # 2. LINE Messaging API 推播模組
 # ------------------------------------------------------------------------------
+def push_telegram_message(text_content):
+    try:
+        tg_token = "8616885530:AAHfX91gCU4uqwFKRGHc9TgEbOWlI1YO58g"
+        tg_chat_id = "7660257976"
+        url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
+        payload = {'chat_id': tg_chat_id, 'text': text_content, 'parse_mode': 'Markdown'}
+        data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
+        with urllib.request.urlopen(req, timeout=10) as res:
+            if res.status == 200:
+                print('✅ Telegram 雙軌訊號已成功發送至 Telegram 頻道！')
+                return True
+    except Exception as e:
+        print(f'⚠️ Telegram 推播輔助發送: {e}')
+    return False
+
 def push_line_message(token, user_id, messages, mode='broadcast'):
+    # 自動雙軌同步推播至 Telegram
+    try:
+        msg_list = messages if isinstance(messages, list) else [messages]
+        for m in msg_list:
+            if isinstance(m, dict) and m.get('altText'):
+                push_telegram_message(f"🏛️ *【q_quant_888 雙師戰報】*\n{m.get('altText')}")
+            elif isinstance(m, dict) and m.get('text'):
+                push_telegram_message(m.get('text'))
+            elif isinstance(m, str):
+                push_telegram_message(m)
+    except Exception as tg_err:
+        pass
+
     if not token:
-        print('❌ 未設定 LINE_CHANNEL_ACCESS_TOKEN，略過推播。')
+        print('❌ 未設定 LINE_CHANNEL_ACCESS_TOKEN，略過 LINE 推播。')
         return False
 
     messages_list = messages if isinstance(messages, list) else [messages]
