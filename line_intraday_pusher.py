@@ -255,7 +255,7 @@ def load_config():
 # ------------------------------------------------------------------------------
 def push_telegram_message(text_content):
     try:
-        tg_token = "8616885530:AAHfX91gCU4uqwFKRGHc9TgEbOWlI1YO58g"
+        tg_token = "8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE"
         tg_chat_id = "7660257976"
         url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
         payload = {'chat_id': tg_chat_id, 'text': text_content, 'parse_mode': 'Markdown'}

@@ -27,7 +27,7 @@ jobs:
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN || 'SMJag6WXPzd+G6cFoxqrXl+pl1P5GW+9lC/JLr/pVmLay6RknAvB9Aascr5+PAU3iZVuB8asFuI5amZoy7eOn7D7prS52TuOiT8JAf+piKQXmyJH+T8Xooi4+WagsFP1XTQYu1LeyjfaJdwysXdIrAdB04t89/1O/w1cDnyilFU=' }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID || 'Uf405009290d0b8b377bf409b8701593a' }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || '8616885530:AAHfX91gCU4uqwFKRGHc9TgEbOWlI1YO58g' }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || '8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE' }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || '7660257976' }}
         run: |
           # 1. Run Intraday Scan & Push Telegram Message if triggered
