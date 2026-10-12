@@ -1,4 +1,4 @@
-name: 24/7 Cloud Stock Scanner & LINE Pusher
+name: 24/7 Cloud Stock Scanner & Telegram Pusher
 
 on:
   schedule:
@@ -6,12 +6,19 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   scan-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -25,13 +32,10 @@ jobs:
 
       - name: Run 24/7 Cloud Intraday Telegram Scanner & Web Deploy
         env:
-          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN || 'SMJag6WXPzd+G6cFoxqrXl+pl1P5GW+9lC/JLr/pVmLay6RknAvB9Aascr5+PAU3iZVuB8asFuI5amZoy7eOn7D7prS52TuOiT8JAf+piKQXmyJH+T8Xooi4+WagsFP1XTQYu1LeyjfaJdwysXdIrAdB04t89/1O/w1cDnyilFU=' }}
-          LINE_USER_ID: ${{ secrets.LINE_USER_ID || 'Uf405009290d0b8b377bf409b8701593a' }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || '8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE' }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || '7660257976' }}
         run: |
           # 1. Run Intraday Scan & Push Telegram Message if triggered
-          python telegram_intraday_pusher.py --once || true
           python line_intraday_pusher.py --once || true
           
           # 2. Update scan_results.json & Deploy to root / trading / q_quant_888
@@ -90,4 +94,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "cloud-sync: 24/7 automated update [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "cloud-sync: 24/7 automated update [skip ci]" && git push origin main)

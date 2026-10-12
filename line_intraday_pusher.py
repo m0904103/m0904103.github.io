@@ -255,16 +255,27 @@ def load_config():
 # ------------------------------------------------------------------------------
 def push_telegram_message(text_content):
     try:
-        tg_token = "8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE"
-        tg_chat_id = "7660257976"
-        url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
-        payload = {'chat_id': tg_chat_id, 'text': text_content, 'parse_mode': 'Markdown'}
-        data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
-        req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
-        with urllib.request.urlopen(req, timeout=10) as res:
-            if res.status == 200:
-                print('✅ Telegram 雙軌訊號已成功發送至 Telegram 頻道！')
-                return True
+        tg_token = os.environ.get("TELEGRAM_BOT_TOKEN") or "8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE"
+        chat_ids = ["7660257976", "7912782196"]
+        env_chat = os.environ.get("TELEGRAM_CHAT_ID")
+        if env_chat and env_chat.strip() not in chat_ids:
+            chat_ids.append(env_chat.strip())
+
+        success = False
+        for cid in chat_ids:
+            try:
+                url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
+                payload = {'chat_id': cid, 'text': text_content, 'parse_mode': 'Markdown'}
+                data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+                req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
+                with urllib.request.urlopen(req, timeout=10) as res:
+                    if res.status == 200:
+                        success = True
+            except Exception:
+                pass
+        if success:
+            print('✅ Telegram 雙軌訊號已成功廣播發送至 Telegram 學員手機！')
+            return True
     except Exception as e:
         print(f'⚠️ Telegram 推播輔助發送: {e}')
     return False
