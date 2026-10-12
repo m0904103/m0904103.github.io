@@ -6,13 +6,13 @@ import { ShieldCheck, Sparkles, Award, TrendingUp, AlertTriangle, Info, CheckCir
  * based on TINs (Technical Indicator Networks) paper.
  */
 export function calculateWinRateScore(stock, globalIndices = {}) {
-  if (!stock || !stock.close || !stock.ma60) return { score: 50, level: '中性', color: 'text-amber-400', sweetZone: false, reasons: [] };
+  const close = Number(stock?.close || stock?.price || 0);
+  const ma60 = Number(stock?.ma60 || stock?.plan?.sl || 0);
+  if (!stock || !close || !ma60) return { score: 50, level: '中性', color: 'text-amber-400', sweetZone: false, reasons: [] };
 
   let score = 50;
   const reasons = [];
   
-  const close = Number(stock.close);
-  const ma60 = Number(stock.ma60);
   const biasPct = ((close - ma60) / ma60) * 100;
   const ma200 = stock.ma200 ? Number(stock.ma200) : null;
   const isAboveMa60 = close >= ma60;

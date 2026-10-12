@@ -146,9 +146,9 @@ def sync_once():
         for sym in all_symbols:
             try:
                 if len(all_symbols) == 1:
-                    stock_df = df_bulk.dropna(how='all')
+                    stock_df = df_bulk.dropna(subset=['Close'])
                 else:
-                    stock_df = df_bulk[sym].dropna(how='all')
+                    stock_df = df_bulk[sym].dropna(subset=['Close'])
                 if not stock_df.empty and len(stock_df) >= 2:
                     bulk_data[sym] = stock_df
             except Exception:
@@ -161,14 +161,21 @@ def sync_once():
         name = stock_obj.get('name', sym)
         try:
             df = bulk_data.get(sym)
-            if df is None or df.empty:
+            if df is None or df.empty or 'Close' not in df.columns:
                 try:
                     df = yf.Ticker(sym).history(period='120d')
+                    if df is not None and not df.empty and 'Close' in df.columns:
+                        df = df.dropna(subset=['Close'])
                 except Exception:
                     pass
 
-            if df is None or df.empty:
+            if df is None or df.empty or 'Close' not in df.columns:
                 print(f"  {sym}: No data available.", flush=True)
+                continue
+
+            df = df.dropna(subset=['Close'])
+            if df.empty:
+                print(f"  {sym}: No valid close data available.", flush=True)
                 continue
 
             yahoo_close = round(float(df['Close'].iloc[-1]), 2)
@@ -176,7 +183,7 @@ def sync_once():
 
             # Try live price from Yahoo
             try:
-                live = ticker.fast_info.last_price
+                live = yf.Ticker(sym).fast_info.last_price
                 if live and not math.isnan(live) and live > 0:
                     yahoo_close = round(float(live), 2)
             except Exception:
@@ -249,6 +256,7 @@ def sync_once():
                     pass
 
             stock_obj["close"] = final_price
+            stock_obj["price"] = final_price
             stock_obj["price_source"] = price_source
             stock_obj["ma60"] = ma60
             stock_obj["change"] = change

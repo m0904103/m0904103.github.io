@@ -240,8 +240,8 @@ function App() {
   const quickFilterCounts = useMemo(() => {
     const counts = { all: currentMarketStocks.length, star5: 0, sweet: 0, foreign: 0, three_rates: 0, below_ma60: 0 };
     currentMarketStocks.forEach(s => {
-      const close = Number(s.close || 0);
-      const ma60 = Number(s.ma60 || 0);
+      const close = Number(s.close || s.price || 0);
+      const ma60 = Number(s.ma60 || s.plan?.sl || 0);
       const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
       const winRateScore = calculateWinRateScore(s, indices).score;
 
@@ -259,8 +259,8 @@ function App() {
     const matchSector = selectedSector ? s.sector === selectedSector : true;
     
     let matchFilter = true;
-    const close = Number(s.close || 0);
-    const ma60 = Number(s.ma60 || 0);
+    const close = Number(s.close || s.price || 0);
+    const ma60 = Number(s.ma60 || s.plan?.sl || 0);
     const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
     const winRateScore = calculateWinRateScore(s, indices).score;
 
@@ -637,7 +637,7 @@ function App() {
                     </div>
                     <div className="text-right">
                       <span className="text-xs text-gray-500 font-black uppercase">目前股價</span>
-                      <div className="text-3xl font-mono font-bold">${selectedStock.close}</div>
+                      <div className="text-3xl font-mono font-bold">${selectedStock.close || selectedStock.price || 0}</div>
                     </div>
                  </div>
                  <div className="h-[400px] w-full rounded-2xl overflow-hidden">
