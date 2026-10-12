@@ -256,10 +256,10 @@ def load_config():
 def push_telegram_message(text_content):
     try:
         tg_token = os.environ.get("TELEGRAM_BOT_TOKEN") or "8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE"
-        chat_ids = ["7660257976"]  # 專屬 Simon 大哥本人獨享
+        chat_ids = ["7660257976", "7912782196"]  # Simon Chang (張大哥) 與 Huang Chai Jung (黃嘉蓉學員)
         env_chat = os.environ.get("TELEGRAM_CHAT_ID")
-        if env_chat and env_chat.strip() == "7660257976":
-            pass
+        if env_chat and env_chat.strip() not in chat_ids:
+            chat_ids.append(env_chat.strip())
 
         success = False
         for cid in chat_ids:
