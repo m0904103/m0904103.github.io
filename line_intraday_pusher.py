@@ -261,11 +261,12 @@ def push_telegram_message(text_content):
         if env_chat and env_chat.strip() not in chat_ids:
             chat_ids.append(env_chat.strip())
 
-        success = False
+        # 徹底防禦 Telegram Markdown 將 $ 識別為 LaTeX 公式導致吞數字
+        clean_text = text_content.replace('$', '')
         for cid in chat_ids:
             try:
                 url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
-                payload = {'chat_id': cid, 'text': text_content, 'parse_mode': 'Markdown'}
+                payload = {'chat_id': cid, 'text': clean_text, 'parse_mode': 'Markdown'}
                 data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
                 req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
                 with urllib.request.urlopen(req, timeout=10) as res:
