@@ -114,6 +114,17 @@ def sync_once():
         data = json.load(f)
 
     existing_stocks = {s['symbol']: s for s in data.get('stocks', [])}
+    if len(existing_stocks) < 10:
+        backup_file = os.path.join(SCRIPT_DIR, 'backup_scan_results.json')
+        if os.path.exists(backup_file):
+            print("  ⚠️ Warning: Current data stocks count < 10! Restoring from backup...")
+            try:
+                with open(backup_file, 'r', encoding='utf-8') as bf:
+                    bdata = json.load(bf)
+                    existing_stocks = {s['symbol']: s for s in bdata.get('stocks', [])}
+            except Exception as e:
+                print(f"  Backup restore error: {e}")
+
     all_symbols = list(existing_stocks.keys())
     tw_symbols = [s for s in all_symbols if '.TW' in s or '.TWO' in s]
 
