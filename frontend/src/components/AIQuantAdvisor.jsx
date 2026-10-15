@@ -358,6 +358,15 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
         {/* 推薦卡片列表 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredRecs.map((rec) => {
+            const cleanSym = rec.symbol.replace(/\.TWO?$/, '');
+            let liveStock = null;
+            if (stocks) {
+              const list = rec.market === 'tw' ? (stocks.tw || []) : (stocks.us || []);
+              liveStock = list.find(s => s.symbol.includes(cleanSym) || s.symbol === rec.symbol);
+            }
+            const livePrice = liveStock?.close || rec.currPrice;
+            const liveSL = liveStock?.ma60 || rec.slPrice;
+            const liveTP = rec.tpPrice > 0 ? (liveStock ? Math.round(livePrice * 1.25) : rec.tpPrice) : 0;
             const allocAmount = ((totalCapital * rec.weightPct) / 100).toFixed(1);
             const isZero = rec.weightPct === 0;
 
@@ -391,7 +400,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                         {rec.action}
                       </span>
                       <div className="text-xs font-mono text-gray-400 mt-1">
-                        現價 <b className="text-white">${rec.currPrice}</b>
+                        現價 <b className="text-white">${livePrice}</b>
                       </div>
                     </div>
                   </div>
@@ -421,11 +430,11 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                   <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
                     <div className="p-1.5 rounded-lg bg-[#0F1316] text-center border border-white/5">
                       <span className="text-gray-500 block">季線防守點 (SL)</span>
-                      <span className="font-mono font-bold text-red-400">${rec.slPrice}</span>
+                      <span className="font-mono font-bold text-red-400">${liveSL}</span>
                     </div>
                     <div className="p-1.5 rounded-lg bg-[#0F1316] text-center border border-white/5">
                       <span className="text-gray-500 block">預期目標 (TP)</span>
-                      <span className="font-mono font-bold text-emerald-400">{rec.tpPrice > 0 ? `$${rec.tpPrice}` : '無'}</span>
+                      <span className="font-mono font-bold text-emerald-400">{liveTP > 0 ? `$${liveTP}` : '無'}</span>
                     </div>
                   </div>
                 </div>
