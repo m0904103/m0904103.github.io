@@ -1,11 +1,12 @@
 import React from 'react';
 import { ShieldCheck, ShieldAlert, Building2, Flame, Droplets, ArrowRight, Zap, Info } from 'lucide-react';
 
-export default function InstitutionalRadar({ indices = {}, taifexOi = -69847 }) {
+export default function InstitutionalRadar({ indices = {}, taifexOi = -89522 }) {
   const usVix = indices["US VIX (恐慌)"]?.close || indices["US VIX"]?.close || 14.97;
-  const twVix = indices["台指 VIX (波動率)"]?.close || indices["台指VIX (波動率)"]?.close || 29.51;
-  const retailSmall = indices["散戶小台多空比"]?.close || indices["小台散戶多空比"]?.close || 16.91;
-  const putCall = indices["全市場 P/C Ratio"]?.close || 105.81;
+  const twVix = indices["台指 VIX (波動率)"]?.close || indices["台指VIX (波動率)"]?.close || 28.25;
+  const retailSmall = indices["散戶小台多空比"]?.close || indices["小台散戶多空比"]?.close || 33.30;
+  const retailMicro = indices["微台散戶多空比"]?.close || indices["散戶微台多空比"]?.close || 47.57;
+  const putCall = indices["全市場 P/C Ratio"]?.close || indices["全市場Put/Call Ratio"]?.close || 64.46;
 
   // State Banks Buy/Sell Simulation or real
   const stateBankBuy = indices["八大官股買賣超(億)"]?.close || 45.8;

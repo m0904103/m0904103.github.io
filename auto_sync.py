@@ -97,8 +97,8 @@ def get_twse_prices(symbols):
     return prices
 
 def get_taifex_oi():
-    """Fetch TAIFEX Foreign Institutional Open Interest (TX+MTX). Simulated robustly for demo."""
-    return -66734
+    """Fetch TAIFEX Foreign Institutional Open Interest (TX+MTX). Updated with latest SinoPac 10/29 data."""
+    return -89522
 
 # ==========================================
 # 主同步邏輯（雙源 + 交叉驗證）
@@ -298,11 +298,24 @@ def sync_once():
     except Exception as e:
         print(f"  [Indices] Failed to update US VIX: {e}")
         
-    # Hardcode latest 0615 market data from image
-    indices['台指VIX (波動率)'] = {'close': 39.97}
-    indices['小台散戶多空比'] = {'close': 35.68}
-    indices['微台散戶多空比'] = {'close': 25.18}
-    indices['全市場Put/Call Ratio'] = {'close': 172.00}
+    # Latest 10/29 official market data from SinoPac Futures
+    indices['三大法人買賣超 (億)'] = {'close': -816.66}
+    indices['外資買賣超 (億)'] = {'close': -688.15}
+    indices['投信買賣超 (億)'] = {'close': 86.49}
+    indices['自營買賣超 (億)'] = {'close': -215.00}
+    indices['外資台指淨未平倉 (口)'] = {'close': -89522}
+    indices['外資台指淨未平倉增減 (口)'] = {'close': -4605}
+    indices['外資台指期未平倉'] = {'close': -89522}
+    indices['外資台指期留倉 (純大台)'] = {'close': -89522}
+    indices['小台散戶多空比'] = {'close': 33.30}
+    indices['散戶小台多空比'] = {'close': 33.30}
+    indices['微台散戶多空比'] = {'close': 47.57}
+    indices['散戶微台多空比'] = {'close': 47.57}
+    indices['全市場Put/Call Ratio'] = {'close': 64.46}
+    indices['全市場 P/C Ratio'] = {'close': 64.46}
+    indices['台指VIX (波動率)'] = {'close': 28.25}
+    indices['台指 VIX (波動率)'] = {'close': 28.25}
+    indices['上市融資餘額 (億)'] = {'close': 6323.0}
     
     data['indices'] = indices
     

@@ -119,7 +119,7 @@ function App() {
       }
       setStocks(stockData);
       setIndices(stockData.indices || {});
-      setTaifexOi(scanRes.data.indices?.["外資台指淨未平倉 (口)"]?.close || scanRes.data.indices?.["外資台指期未平倉"]?.close || scanRes.data.taifex_oi || -84836);
+      setTaifexOi(scanRes.data.indices?.["外資台指淨未平倉 (口)"]?.close || scanRes.data.indices?.["外資台指期未平倉"]?.close || scanRes.data.taifex_oi || -89522);
       setLastUpdated(new Date());
       setSystemStatus("online");
     } catch (error) {
@@ -161,10 +161,10 @@ function App() {
 
   const renderWeatherStation = () => {
     const usVix = indices["US VIX (恐慌)"]?.close || indices["US VIX"]?.close || 14.97;
-    const twVix = indices["台指 VIX (波動率)"]?.close || indices["台指VIX (波動率)"]?.close || 29.51;
-    const retailSmall = indices["散戶小台多空比"]?.close || indices["小台散戶多空比"]?.close || 16.91;
-    const putCall = indices["全市場 P/C Ratio"]?.close || 105.81;
-    const retailMicro = indices["微台散戶多空比"]?.close || 0;
+    const twVix = indices["台指 VIX (波動率)"]?.close || indices["台指VIX (波動率)"]?.close || 28.25;
+    const retailSmall = indices["散戶小台多空比"]?.close || indices["小台散戶多空比"]?.close || 33.30;
+    const putCall = indices["全市場 P/C Ratio"]?.close || indices["全市場Put/Call Ratio"]?.close || 64.46;
+    const retailMicro = indices["微台散戶多空比"]?.close || indices["散戶微台多空比"]?.close || 47.57;
     
     let suggestedCash = indices.suggested_cash || 30;
     
