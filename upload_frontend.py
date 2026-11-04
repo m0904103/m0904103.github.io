@@ -30,10 +30,11 @@ def deploy_to_target(target_dir):
         else:
             shutil.copy2(s, d)
 
-    scan_src = os.path.join(repo_root, "frontend", "public", "scan_results.json")
-    scan_dest = os.path.join(target_dir, "scan_results.json")
-    if os.path.exists(scan_src):
-        shutil.copy2(scan_src, scan_dest)
+    for jname in ["scan_results.json", "live_portfolio.json"]:
+        j_src = os.path.join(repo_root, "frontend", "public", jname)
+        j_dest = os.path.join(target_dir, jname)
+        if os.path.exists(j_src):
+            shutil.copy2(j_src, j_dest)
 
 def deploy():
     print("[START] Starting deployment process...")
@@ -57,10 +58,11 @@ def deploy():
         else:
             shutil.copy2(s, d)
 
-    scan_src = os.path.join(repo_root, "frontend", "public", "scan_results.json")
-    scan_dest = os.path.join(repo_root, "scan_results.json")
-    if os.path.exists(scan_src):
-        shutil.copy2(scan_src, scan_dest)
+    for jname in ["scan_results.json", "live_portfolio.json"]:
+        j_src = os.path.join(repo_root, "frontend", "public", jname)
+        j_dest = os.path.join(repo_root, jname)
+        if os.path.exists(j_src):
+            shutil.copy2(j_src, j_dest)
 
     print("[GIT] Committing and pushing to GitHub...")
     try:

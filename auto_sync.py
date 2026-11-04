@@ -21,7 +21,9 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'scan_results.json')
 
 # TWSE 官方即時報價 API
-TWSE_REALTIME_URL = "https://mis.twse.com.tw/stock/api/getStockInfo.asp"
+import urllib3
+urllib3.disable_warnings()
+TWSE_REALTIME_URL = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp"
 TWSE_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "Referer": "https://mis.twse.com.tw/stock/index.jsp",
@@ -53,7 +55,7 @@ def is_us_trading_hours():
 def get_update_interval_minutes():
     """Return appropriate update interval based on market status."""
     if is_tw_trading_hours() or is_us_trading_hours():
-        return 10  # Upgraded to 10 min ultra-fast mode for live market tracking
+        return 5   # Upgraded to 5 min ultra-fast mode for live market tracking
     else:
         return 60  # Every 60 min outside trading hours
 
@@ -62,36 +64,43 @@ def get_update_interval_minutes():
 # TWSE 備援數據源
 # ==========================================
 def get_twse_prices(symbols):
-    """Fetch TW stock prices from official TWSE real-time API."""
+    """Fetch TW stock prices from official TWSE real-time API (0-delay, supports TSE & OTC + bid/ask fallback)."""
     prices = {}
     tw_syms = [s for s in symbols if '.TW' in s or '.TWO' in s]
     if not tw_syms:
         return prices
 
-    codes = []
+    codes = ["tse_t00.tw"]
+    sym_map = {"t00": "^TWII"}
     for sym in tw_syms:
-        code = sym.replace('.TW', '').replace('.TWO', '')
-        codes.append(f"tse_{code}.tw")
+        code = sym.replace('.TWO', '').replace('.TW', '')
+        prefix = "otc" if ".TWO" in sym else "tse"
+        codes.append(f"{prefix}_{code}.tw")
+        sym_map[code] = sym
 
     batch_size = 20
     for i in range(0, len(codes), batch_size):
         batch = codes[i:i + batch_size]
         try:
             params = {"ex_ch": "|".join(batch), "json": "1", "delay": "0"}
-            resp = requests.get(TWSE_REALTIME_URL, params=params, headers=TWSE_HEADERS, timeout=10)
+            resp = requests.get(TWSE_REALTIME_URL, params=params, headers=TWSE_HEADERS, verify=False, timeout=10)
             if resp.status_code == 200:
                 data = resp.json()
                 for item in data.get("msgArray", []):
                     code = item.get("c", "")
                     z = item.get("z", "-")
-                    y = item.get("y", "-")  # y = yesterday close
-                    if z and z != "-":
-                        prices[f"{code}.TW"] = {
-                            "price": round(float(z), 2),
+                    b = item.get("b", "").split("_")[0]
+                    a = item.get("a", "").split("_")[0]
+                    y = item.get("y", "-")
+                    p_str = z if (z and z != "-") else (b if (b and b != "-") else a)
+                    if p_str and p_str != "-":
+                        full_sym = sym_map.get(code, f"{code}.TW")
+                        prices[full_sym] = {
+                            "price": round(float(p_str), 2),
                             "prev_close": round(float(y), 2) if y and y != "-" else None,
                             "source": "TWSE"
                         }
-                time.sleep(0.3)
+                time.sleep(0.25)
         except Exception as e:
             print(f"  [TWSE batch error: {e}]")
     return prices
@@ -142,7 +151,7 @@ def sync_once():
     print(f"  Bulk downloading {len(all_symbols)} tickers from Yahoo Finance...", flush=True)
     bulk_data = {}
     try:
-        df_bulk = yf.download(all_symbols, period='120d', group_by='ticker', threads=True, progress=False)
+        df_bulk = yf.download(all_symbols, period='1y', group_by='ticker', threads=True, progress=False)
         for sym in all_symbols:
             try:
                 if len(all_symbols) == 1:
@@ -163,7 +172,7 @@ def sync_once():
             df = bulk_data.get(sym)
             if df is None or df.empty or 'Close' not in df.columns:
                 try:
-                    df = yf.Ticker(sym).history(period='120d')
+                    df = yf.Ticker(sym).history(period='1y')
                     if df is not None and not df.empty and 'Close' in df.columns:
                         df = df.dropna(subset=['Close'])
                 except Exception:
@@ -210,9 +219,54 @@ def sync_once():
 
             change = round(((final_price - prev_close) / prev_close) * 100, 2) if prev_close > 0 else 0.0
 
-            ma60 = round(float(df['Close'].rolling(60).mean().iloc[-1]), 2) if len(df) >= 60 else final_price
-            is_regular = final_price > ma60
-            signal = "Strong Buy" if is_regular else "Hold"
+            valid_c = df['Close'].dropna()
+            ma60 = round(float(valid_c.iloc[-60:].mean()), 2) if len(valid_c) >= 60 else final_price
+            ma200 = round(float(valid_c.iloc[-200:].mean()), 2) if len(valid_c) >= 200 else stock_obj.get('ma200')
+            if ma200:
+                stock_obj['ma200'] = ma200
+            is_regular = final_price >= ma60
+            bias_pct = ((final_price - ma60) / ma60 * 100) if ma60 > 0 else 0.0
+            is_fuzzy_sweet = -0.8 <= bias_pct <= 4.0
+            is_slight_buffer = -0.8 <= bias_pct < 0.0
+            score_val = 50
+            if ma200 and final_price < ma200:
+                score_val -= 40
+            if is_regular:
+                score_val += 25
+            elif is_slight_buffer:
+                score_val += 15
+            else:
+                score_val -= 20
+            if is_fuzzy_sweet:
+                score_val += 25
+            elif is_regular and bias_pct > 4.0:
+                excess = bias_pct - 4.0
+                omega = max(0.05, min(1.0, math.exp(-(math.exp(0.35 * excess) - 1.0))))
+                score_val -= min(45, int(round((1.0 - omega) * 50)))
+            elif bias_pct < -0.8:
+                deficit = abs(bias_pct)
+                omega = max(0.05, min(1.0, math.exp(-(math.exp(0.25 * deficit) - 1.0))))
+                score_val -= min(35, int(round((1.0 - omega) * 40)))
+            if stock_obj.get('chips', {}).get('foreign_buy'):
+                score_val += 10
+            if stock_obj.get('fundamentals', {}).get('three_rates_rising'):
+                score_val += 10
+            if stock_obj.get('esg_elite'):
+                score_val += 10
+            sec_lower = (stock_obj.get('sector') or '').lower()
+            name_str = stock_obj.get('name') or ''
+            if ('ai' in sec_lower or '半導體' in sec_lower or 'cpo' in sec_lower or '軟體' in sec_lower or 'pcb' in sec_lower or '台積' in name_str or '廣達' in name_str) and is_fuzzy_sweet:
+                score_val += 10
+            final_score = int(max(10, min(99, score_val)))
+            stock_obj['score'] = final_score
+            if final_score >= 85 and is_fuzzy_sweet:
+                signal = "Strong Buy"
+            elif final_score >= 70 and is_regular:
+                signal = "Buy"
+            elif is_regular or final_score >= 55:
+                signal = "Hold"
+            else:
+                signal = "Avoid"
 
             # --- LEVEL 3 VOLUME SURGE ---
             vol_surge = False
@@ -365,17 +419,24 @@ def sync_once():
         
     data = clean_nans(data)
 
+    if "^TWII" in twse_prices and twse_prices["^TWII"].get("price"):
+        data["indices"]["加權指數"] = {"close": twse_prices["^TWII"]["price"]}
+
     tmp_file = DATA_FILE + ".tmp"
     with open(tmp_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2, allow_nan=False)
     os.replace(tmp_file, DATA_FILE)
+
+    live_portfolio_file = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'live_portfolio.json')
+    with open(live_portfolio_file, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2, allow_nan=False)
 
     print(f"  Updated {updated_count}/{len(all_symbols)} stocks.")
     return True
 
 
 def deploy_to_github():
-    """Build frontend and push to GitHub using the official script."""
+    """Run scan_tw_big_data.py, build frontend, and push to GitHub."""
     try:
         import shutil
         npm_cmd = shutil.which("npm") or "npm.cmd"

@@ -199,14 +199,20 @@ def run_scan():
             return None
         return obj
 
-    from datetime import timezone
-    data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    from datetime import timezone, timedelta
+    now_utc = datetime.now(timezone.utc)
+    data['last_updated'] = now_utc.strftime('%Y-%m-%dT%H:%M:%SZ')
+    data['updated_at'] = (now_utc + timedelta(hours=8)).strftime('%Y/%m/%d %H:%M:%S')
     data = clean_nans(data)
 
     tmp_file = DATA_FILE + ".tmp"
     with open(tmp_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     os.replace(tmp_file, DATA_FILE)
+
+    live_portfolio_file = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'live_portfolio.json')
+    with open(live_portfolio_file, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
     print(f"\nBig Data Scan Complete! Processed {updated_count} TW stocks.")
 
