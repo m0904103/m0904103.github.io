@@ -235,7 +235,24 @@ function App() {
 
   const signalRank = { 'Strong Buy': 0, 'Buy': 1, 'Hold': 2, 'Sell': 3, 'Strong Sell': 4 };
 
-  const currentMarketStocks = (activeMarket === 'tw' ? stocks.tw : stocks.us) || [];
+  const allStocksCombined = useMemo(() => [...(stocks.tw || []), ...(stocks.us || [])], [stocks]);
+  const globalSearchMatches = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return [];
+    return allStocksCombined.filter(s =>
+      (s.symbol && s.symbol.toLowerCase().includes(q)) ||
+      (s.name && s.name.toLowerCase().includes(q)) ||
+      (s.sector && s.sector.toLowerCase().includes(q))
+    ).slice(0, 8);
+  }, [allStocksCombined, searchTerm]);
+
+  const currentMarketStocks = useMemo(() => {
+    const base = (activeMarket === 'tw' ? stocks.tw : stocks.us) || [];
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return base;
+    const hasInCurrent = base.some(s => s.symbol.toLowerCase().includes(q) || s.name.toLowerCase().includes(q));
+    return hasInCurrent ? base : allStocksCombined;
+  }, [activeMarket, stocks, searchTerm, allStocksCombined]);
 
   const quickFilterCounts = useMemo(() => {
     const counts = { all: currentMarketStocks.length, star5: 0, sweet: 0, foreign: 0, three_rates: 0, below_ma60: 0 };
@@ -270,7 +287,7 @@ function App() {
     else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
     else if (activeQuickFilter === 'below_ma60') matchFilter = close < ma60;
 
-    return matchSearch && matchSector && matchFilter;
+    return searchTerm.trim() ? matchSearch : (matchSearch && matchSector && matchFilter);
   }).sort((a, b) => {
     const scoreA = calculateWinRateScore(a, indices).score;
     const scoreB = calculateWinRateScore(b, indices).score;
@@ -338,10 +355,15 @@ function App() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-red-500 transition-colors" size={16} />
             <input 
               type="text" 
-              placeholder="搜尋代號或名稱..." 
-              className="w-full bg-[#161A1E] border border-white/5 rounded-2xl py-2 pl-10 pr-10 text-sm focus:outline-none focus:border-red-500/50 transition-all font-bold"
+              placeholder="搜尋代號或名稱 (如 2330、NVDA，按 Enter 直達圖表)..." 
+              className="w-full bg-[#161A1E] border border-white/10 rounded-2xl py-2 pl-10 pr-10 text-sm focus:outline-none focus:border-red-500 transition-all font-bold text-white"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && globalSearchMatches.length > 0) {
+                  handleSelectStock(globalSearchMatches[0]);
+                }
+              }}
             />
             {searchTerm && (
               <button 
@@ -351,6 +373,56 @@ function App() {
               >
                 <X size={14} />
               </button>
+            )}
+
+            {/* Instant Global Search Dropdown */}
+            {searchTerm.trim() !== "" && (
+              <div className="absolute left-0 right-0 top-full mt-2 bg-[#12161B] border border-red-500/40 rounded-2xl shadow-2xl overflow-hidden z-[200] max-h-96 overflow-y-auto">
+                <div className="px-3 py-1.5 bg-red-950/40 border-b border-white/10 flex justify-between items-center text-[10px] text-amber-300 font-bold">
+                  <span>🔍 跨市場即時搜尋結果 ({globalSearchMatches.length} 檔)</span>
+                  <span>點選或按 Enter 直達 K 線診斷圖表 ↵</span>
+                </div>
+                {globalSearchMatches.length === 0 ? (
+                  <div className="p-4 text-center text-xs text-gray-400">
+                    找不到符合「{searchTerm}」的標的
+                  </div>
+                ) : (
+                  globalSearchMatches.map((item) => {
+                    const sc = calculateWinRateScore(item, indices).score;
+                    return (
+                      <div
+                        key={item.symbol}
+                        onClick={() => {
+                          handleSelectStock(item);
+                          setSearchTerm("");
+                        }}
+                        className="px-4 py-2.5 hover:bg-red-600/20 border-b border-white/5 last:border-0 flex items-center justify-between cursor-pointer transition-colors"
+                      >
+                        <div>
+                          <div className="text-sm font-black text-white flex items-center gap-2">
+                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-white/10 text-amber-300">
+                              {item.market === 'tw' ? '🇹🇼 台股' : '🇺🇸 美股'}
+                            </span>
+                            <span>{item.symbol.replace(/\.TWO?$/, '')}</span>
+                            <span className="text-gray-300">{item.name}</span>
+                          </div>
+                          <div className="text-[10px] text-gray-400 mt-0.5">
+                            產業：{item.sector || '核心資產'} ｜ 季線 MA60：{item.ma60}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-mono font-black text-emerald-400">
+                            ${item.close}
+                          </div>
+                          <div className="text-[10px] font-bold text-amber-300">
+                            TINs {sc}分 ({item.signal})
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             )}
           </div>
         </div>
