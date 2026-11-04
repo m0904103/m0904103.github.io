@@ -18,9 +18,9 @@ const RECOMMENDATIONS = [
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
     weightPct: 7.58,
     annualVol: 27.06,
-    slPrice: 945.0,
-    tpPrice: 1250.0,
-    currPrice: 980.0,
+    slPrice: 2426.8,
+    tpPrice: 2868.0,
+    currPrice: 2295.0,
     highlight: '全球 2nm/3nm 先進製程大壟斷，毛利率穩超 53%，三率三升，外資長線核心定海神針。'
   },
   {
@@ -33,9 +33,9 @@ const RECOMMENDATIONS = [
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
     weightPct: 6.81,
     annualVol: 28.51,
-    slPrice: 178.5,
-    tpPrice: 235.0,
-    currPrice: 184.0,
+    slPrice: 250.6,
+    tpPrice: 306.0,
+    currPrice: 245.5,
     highlight: 'GB200 AI 伺服器首發出貨，本益比合理，外資與投信近期波段加碼重心。'
   },
   {
@@ -108,9 +108,9 @@ const RECOMMENDATIONS = [
     actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
     weightPct: 3.94,
     annualVol: 45.78,
-    slPrice: 115.0,
-    tpPrice: 160.0,
-    currPrice: 122.5,
+    slPrice: 221.0,
+    tpPrice: 258.0,
+    currPrice: 206.69,
     highlight: '算力無可撼動，但因年化波動度高達 45.78%，ERC 平價演算法自動減權以控制總風險。'
   },
   {
@@ -123,9 +123,9 @@ const RECOMMENDATIONS = [
     actionColor: 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30',
     weightPct: 1.42,
     annualVol: 52.88,
-    slPrice: 1180.0,
-    tpPrice: 1500.0,
-    currPrice: 1215.0,
+    slPrice: 4343.3,
+    tpPrice: 4590.0,
+    currPrice: 3675.0,
     highlight: '天璣晶片旗艦導入，但短期受宏觀手機週期影響年化波動 52.88%，系統自動壓低曝險。'
   },
   {
@@ -381,9 +381,13 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             }
             const livePrice = liveStock?.close || rec.currPrice;
             const liveSL = liveStock?.ma60 || rec.slPrice;
+            const isBelowMA60 = livePrice < liveSL * 0.992;
+            const effectiveWeight = isBelowMA60 && rec.weightPct === 0 ? 0 : rec.weightPct;
             const liveTP = rec.tpPrice > 0 ? (liveStock ? Math.round(livePrice * 1.25) : rec.tpPrice) : 0;
-            const allocAmount = ((totalCapital * rec.weightPct) / 100).toFixed(1);
-            const isZero = rec.weightPct === 0;
+            const allocAmount = ((totalCapital * effectiveWeight) / 100).toFixed(1);
+            const isZero = effectiveWeight === 0;
+            const dynAction = isZero ? rec.action : (isBelowMA60 ? '【暫破季線 / 待站回MA60或尾盤收腳】' : rec.action);
+            const dynActionColor = isZero ? rec.actionColor : (isBelowMA60 ? 'text-amber-300 bg-amber-500/20 border-amber-500/40' : rec.actionColor);
 
             return (
               <div
@@ -411,8 +415,8 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                     </div>
 
                     <div className="text-right">
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${rec.actionColor}`}>
-                        {rec.action}
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${dynActionColor}`}>
+                        {dynAction}
                       </span>
                       <div className="text-xs font-mono text-gray-400 mt-1">
                         現價 <b className="text-white">${livePrice}</b>

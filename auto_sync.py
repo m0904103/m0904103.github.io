@@ -289,14 +289,41 @@ def sync_once():
     # Re-assemble data
     data['stocks'] = list(existing_stocks.values())
     
-    # Update Indices dynamically
+    # Update Indices dynamically (US VIX, TAIEX ^TWII, USD/TWD, TSM ADR Premium)
     indices = data.get('indices', {})
     try:
-        vix_df = yf.Ticker('^VIX').history(period='1d')
+        vix_df = yf.Ticker('^VIX').history(period='5d')
         if not vix_df.empty:
-            indices['US VIX (恐慌)'] = {'close': round(float(vix_df['Close'].iloc[-1]), 2)}
+            indices['US VIX (恐慌)'] = {'close': round(float(vix_df['Close'].dropna().iloc[-1]), 2)}
     except Exception as e:
         print(f"  [Indices] Failed to update US VIX: {e}")
+
+    try:
+        twii_df = yf.Ticker('^TWII').history(period='5d')
+        if not twii_df.empty:
+            indices['加權指數'] = {'close': round(float(twii_df['Close'].dropna().iloc[-1]), 2)}
+    except Exception as e:
+        print(f"  [Indices] Failed to update ^TWII: {e}")
+
+    try:
+        fx_df = yf.Ticker('TWD=X').history(period='5d')
+        if not fx_df.empty:
+            usd_twd = round(float(fx_df['Close'].dropna().iloc[-1]), 3)
+            indices['美金/台幣'] = {'close': usd_twd}
+    except Exception as e:
+        print(f"  [Indices] Failed to update TWD=X: {e}")
+
+    try:
+        tsm_adr_p = existing_stocks.get('TSM', {}).get('close')
+        tsm_tw_p = existing_stocks.get('2330.TW', {}).get('close')
+        fx_p = indices.get('美金/台幣', {}).get('close', 32.8)
+        if tsm_adr_p and tsm_tw_p and fx_p:
+            indices['TSM_ADR'] = {'close': tsm_adr_p}
+            indices['TSM_TW'] = {'close': tsm_tw_p}
+            prem = round(((tsm_adr_p * fx_p / 5.0) - tsm_tw_p) / tsm_tw_p * 100, 2)
+            indices['adr_premium'] = {'close': prem}
+    except Exception as e:
+        print(f"  [Indices] Failed to update ADR premium: {e}")
         
     # Latest 10/29 official market data from SinoPac Futures
     indices['三大法人買賣超 (億)'] = {'close': -816.66}
@@ -321,6 +348,7 @@ def sync_once():
     
     data['taifex_oi'] = get_taifex_oi()
     data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
+    data['updated_at'] = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y/%m/%d %H:%M:%S')
 
     # Sort stocks: US first, then Taiwan
     data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))

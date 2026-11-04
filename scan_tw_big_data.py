@@ -85,8 +85,7 @@ def run_scan():
         
     updated_count = 0
     for stock in data.get('stocks', []):
-        if stock.get('market') != 'tw':
-            continue
+        # Scan BOTH Taiwan and US stocks for unified TINs scoring & fundamentals
             
         sym = stock['symbol']
         print(f"  - Scanning {sym} ({stock.get('name')})...", end="", flush=True)
@@ -150,7 +149,9 @@ def run_scan():
             is_slight_buffer = -0.8 <= bias_pct < 0.0
 
             valid_closes = df['Close'].dropna() if not df.empty else []
-            ma200_p = float(valid_closes.iloc[-200:].mean()) if len(valid_closes) >= 200 else None
+            ma200_p = round(float(valid_closes.iloc[-200:].mean()), 2) if len(valid_closes) >= 200 else (round(float(valid_closes.iloc[-120:].mean()), 2) if len(valid_closes) >= 120 else None)
+            if ma200_p:
+                stock['ma200'] = ma200_p
             if ma200_p and close_p < ma200_p:
                 score_val -= 40
 
