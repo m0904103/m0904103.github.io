@@ -4745,45 +4745,41 @@
     },
     {
       "symbol": "SMCI",
-      "name": "超微電腦",
-      "signal": "Hold",
-      "close": 31.39,
-      "ma60": 37.84,
+      "name": "美超微 (Super Micro)",
+      "sector": "AI液冷伺服器",
       "market": "us",
-      "change": -4.73,
-      "vol_ratio": 1.5,
-      "tactic": "「正規軍」：趨勢確認，沿生命線操作。",
-      "sector": "AI 基建/散熱",
-      "is_regular": false,
-      "plan": {
-        "entry": 31.39,
-        "sl": 37.84,
-        "tp": 39.24
-      },
-      "backtest": {
-        "win_rate": 100.0,
-        "total_return": 10.2,
-        "trade_count": 1
-      },
-      "price": 31.39,
+      "close": 30.44,
+      "price": 30.44,
       "price_source": "Yahoo",
-      "esg_elite": false,
-      "patterns": {},
+      "ma60": 37.84,
+      "ma200": 32.67,
+      "change": -7.62,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 10,
-      "ma200": 32.67,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
       "technicals": {
         "bb_lower_touch": false,
         "kd_cross_up": false
       },
       "chips": {
-        "foreign_buy": true,
-        "margin_surge": false
+        "foreign_buy": false,
+        "margin_surge": true
       },
-      "fundamentals": {
-        "three_rates_rising": true
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 30.44,
+        "sl": 29.22,
+        "tp": 35.92
       }
     },
     {
@@ -5002,45 +4998,42 @@
     },
     {
       "symbol": "SPCX",
-      "name": "The SPAC and New Issue ETF",
+      "name": "SpaceX (太空探索ETF)",
+      "sector": "低軌衛星與太空軍",
       "market": "us",
-      "sector": "ETF",
-      "close": 141.31,
+      "close": 136.37,
+      "price": 136.37,
+      "price_source": "Yahoo",
       "ma60": 147.95,
-      "vol_surge": false,
+      "ma200": 147.95,
+      "change": 1.22,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
       "gap_up": false,
-      "technicals": {
-        "bb_lower_touch": false,
-        "kd_cross_up": true
-      },
+      "k_pattern": null,
+      "vol_surge": false,
       "fundamentals": {
         "three_rates_rising": false
       },
-      "patterns": {},
+      "technicals": {
+        "bb_lower_touch": false,
+        "kd_cross_up": false
+      },
       "chips": {
         "foreign_buy": false,
-        "margin_surge": false
+        "margin_surge": true
       },
-      "price_source": "Yahoo",
-      "change": 4.89,
-      "signal": "Hold",
-      "is_regular": false,
-      "k_pattern": "Harami",
-      "plan": {
-        "entry": 141.31,
-        "sl": 147.95,
-        "tp": 176.64
-      },
-      "esg_elite": false,
-      "vol_ratio": 1.5,
-      "tactic": "「觀望區」：跌破生命線，暫避鋒芒。",
       "backtest": {
-        "win_rate": 0.0,
-        "total_return": -3.3,
-        "trade_count": 1
+        "win_rate": 52.0,
+        "total_return": -8.2
       },
-      "score": 10,
-      "price": 141.31
+      "plan": {
+        "entry": 136.37,
+        "sl": 130.92,
+        "tp": 160.92
+      }
     },
     {
       "symbol": "SPY",
@@ -6319,6 +6312,318 @@
       },
       "fundamentals": {
         "three_rates_rising": false
+      }
+    },
+    {
+      "symbol": "00406A.TW",
+      "name": "主動中信台灣收益",
+      "sector": "主動收益型ETF",
+      "market": "tw",
+      "close": 7.9,
+      "price": 7.9,
+      "price_source": "TWSE",
+      "ma60": 9.41,
+      "ma200": 9.41,
+      "change": -1.0,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 7.9,
+        "sl": 7.58,
+        "tp": 9.32
+      }
+    },
+    {
+      "symbol": "0050.TW",
+      "name": "元大台灣50",
+      "sector": "市值型核心ETF",
+      "market": "tw",
+      "close": 100.05,
+      "price": 100.05,
+      "price_source": "TWSE",
+      "ma60": 108.18,
+      "ma200": 94.19,
+      "change": -0.55,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 100.05,
+        "sl": 96.05,
+        "tp": 118.06
+      }
+    },
+    {
+      "symbol": "0056.TW",
+      "name": "元大高股息",
+      "sector": "高股息護城河ETF",
+      "market": "tw",
+      "close": 52.85,
+      "price": 52.85,
+      "price_source": "TWSE",
+      "ma60": 54.08,
+      "ma200": 45.0,
+      "change": -1.31,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 52.85,
+        "sl": 50.74,
+        "tp": 62.36
+      }
+    },
+    {
+      "symbol": "006208.TW",
+      "name": "富邦台50",
+      "sector": "市值型核心ETF",
+      "market": "tw",
+      "close": 229.5,
+      "price": 229.5,
+      "price_source": "TWSE",
+      "ma60": 247.75,
+      "ma200": 215.47,
+      "change": -0.46,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 229.5,
+        "sl": 220.32,
+        "tp": 270.81
+      }
+    },
+    {
+      "symbol": "00878.TW",
+      "name": "國泰永續高股息",
+      "sector": "ESG高股息ETF",
+      "market": "tw",
+      "close": 33.44,
+      "price": 33.44,
+      "price_source": "TWSE",
+      "ma60": 34.1,
+      "ma200": 28.22,
+      "change": -1.27,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 33.44,
+        "sl": 32.1,
+        "tp": 39.46
+      }
+    },
+    {
+      "symbol": "00919.TW",
+      "name": "群益台灣精選高息",
+      "sector": "高股息護城河ETF",
+      "market": "tw",
+      "close": 31.23,
+      "price": 31.23,
+      "price_source": "TWSE",
+      "ma60": 31.27,
+      "ma200": 26.33,
+      "change": -1.54,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 31.23,
+        "sl": 29.98,
+        "tp": 36.85
+      }
+    },
+    {
+      "symbol": "00929.TW",
+      "name": "復華台灣科技優息",
+      "sector": "科技月配息ETF",
+      "market": "tw",
+      "close": 26.22,
+      "price": 26.22,
+      "price_source": "TWSE",
+      "ma60": 28.51,
+      "ma200": 24.28,
+      "change": -1.13,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 26.22,
+        "sl": 25.17,
+        "tp": 30.94
+      }
+    },
+    {
+      "symbol": "00940.TW",
+      "name": "元大台灣價值高息",
+      "sector": "價值高股息ETF",
+      "market": "tw",
+      "close": 12.44,
+      "price": 12.44,
+      "price_source": "TWSE",
+      "ma60": 12.87,
+      "ma200": 11.26,
+      "change": -1.27,
+      "signal": "Hold",
+      "score": 42,
+      "is_regular": false,
+      "esg_elite": true,
+      "gap_up": false,
+      "k_pattern": null,
+      "vol_surge": false,
+      "fundamentals": {
+        "three_rates_rising": false
+      },
+      "technicals": {
+        "bb_lower_touch": true,
+        "kd_cross_up": false
+      },
+      "chips": {
+        "foreign_buy": false,
+        "margin_surge": true
+      },
+      "backtest": {
+        "win_rate": 52.0,
+        "total_return": -8.2
+      },
+      "plan": {
+        "entry": 12.44,
+        "sl": 11.94,
+        "tp": 14.68
       }
     },
     {
@@ -13850,7 +14155,7 @@
       "ma200": null
     }
   ],
-  "last_updated": "2026-11-04T01:39:36Z",
+  "last_updated": "2026-11-04T01:49:44Z",
   "indices": {
     "US VIX (恐慌)": {
       "close": 20.83
@@ -13972,5 +14277,5 @@
     "us": "Yahoo Finance"
   },
   "taifex_oi": -89522,
-  "updated_at": "2026/11/04 09:39:36"
+  "updated_at": "2026/11/04 09:49:44"
 }
