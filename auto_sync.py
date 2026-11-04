@@ -49,7 +49,7 @@ def is_us_trading_hours():
         return False
     # US market opens 21:30 Taiwan time, closes 04:00 next day
     us_open = now.replace(hour=21, minute=30, second=0, microsecond=0)
-    return now >= us_open or now.hour < 4
+    return now >= us_open or now.hour <= 5
 
 
 def get_update_interval_minutes():
@@ -190,11 +190,24 @@ def sync_once():
             yahoo_close = round(float(df['Close'].iloc[-1]), 2)
             prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else yahoo_close
 
-            # Try live price from Yahoo
+            # Also write latest 120-bar history file for K-line chart
             try:
-                live = yf.Ticker(sym).fast_info.last_price
-                if live and not math.isnan(live) and live > 0:
-                    yahoo_close = round(float(live), 2)
+                hist_dir = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'history')
+                os.makedirs(hist_dir, exist_ok=True)
+                hist_df = df.tail(120)
+                hist_records = []
+                for idx_dt, row_h in hist_df.iterrows():
+                    d_str = idx_dt.strftime('%Y-%m-%d') if hasattr(idx_dt, 'strftime') else str(idx_dt)[:10]
+                    hist_records.append({
+                        'date': d_str,
+                        'open': round(float(row_h.get('Open', row_h['Close'])), 2),
+                        'high': round(float(row_h.get('High', row_h['Close'])), 2),
+                        'low': round(float(row_h.get('Low', row_h['Close'])), 2),
+                        'close': round(float(row_h['Close']), 2),
+                        'volume': int(float(row_h.get('Volume', 0) or 0))
+                    })
+                with open(os.path.join(hist_dir, f'{sym}.json'), 'w', encoding='utf-8') as hf:
+                    json.dump(hist_records, hf, ensure_ascii=False)
             except Exception:
                 pass
 
