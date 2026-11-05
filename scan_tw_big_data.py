@@ -7,7 +7,8 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
-DATA_FILE = os.path.join('frontend', 'public', 'scan_results.json')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'scan_results.json')
 
 def check_three_rates(ticker_obj):
     # Try to get quarterly financials

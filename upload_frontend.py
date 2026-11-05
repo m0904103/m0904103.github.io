@@ -84,7 +84,7 @@ def deploy():
             push_res = subprocess.run(["git", "push", "origin", "main"], check=False)
             if push_res.returncode != 0:
                 print("[RETRY] Re-syncing with remote and retrying push...")
-                subprocess.run(["git", "fetch", "origin", "main"], check=False)
+                subprocess.run(["git", "pull", "--rebase", "-X", "ours", "origin", "main"], check=False)
                 subprocess.run(["git", "push", "origin", "main"], check=True)
             print("[OK] Frontend successfully deployed to GitHub Pages via Git Push!")
         else:
