@@ -31,15 +31,26 @@ import RetirementCorePortfolio from './components/RetirementCorePortfolio';
 import AIQuantAdvisor from './components/AIQuantAdvisor';
 
 const AI_ALGO_MAP = {
-  '2330': { tag: '🏆 AI首選 7.6%', cls: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
-  '2317': { tag: '⭐ AI低波 6.8%', cls: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
-  '2383': { tag: '⭐ AI動能 5.7%', cls: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
-  '3017': { tag: '⭐ AI散熱 5.2%', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' },
-  'VRT':  { tag: '🇺🇸 美股AI 5.1%', cls: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' },
-  '6669': { tag: '⭐ AI純度 4.4%', cls: 'bg-rose-500/20 text-rose-300 border-rose-500/40' },
-  'NVDA': { tag: '🇺🇸 算力王 3.9%', cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
-  '2454': { tag: '🟡 AI邊緣 1.4%', cls: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' },
-  '3324': { tag: '🚨 破季線避開 0%', cls: 'bg-red-500/20 text-red-400 border-red-500/50' }
+  'VTI':   { tag: '🇺🇸 美股底倉 25%', cls: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
+  'AVGO':  { tag: '🇺🇸 ASIC霸主 15%', cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+  'GOOGL': { tag: '🇺🇸 TPU低估 15%', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' },
+  'TSM':   { tag: '🇺🇸 代工總司令 12%', cls: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
+  'ETN':   { tag: '⚡ 電網基建 10%', cls: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
+  'CEG':   { tag: '⚛️ 核能電力 8%', cls: 'bg-teal-500/20 text-teal-300 border-teal-500/40' },
+  'BE':    { tag: '🔋 離網燃料 Alpha', cls: 'bg-lime-500/20 text-lime-300 border-lime-500/40' },
+  'ASML':  { tag: '🏗️ 設備賣鏟人 12%', cls: 'bg-sky-500/20 text-sky-300 border-sky-500/40' },
+  'MU':    { tag: '🧠 HBM超級週期 6%', cls: 'bg-pink-500/20 text-pink-300 border-pink-500/40' },
+  'VRT':   { tag: '❄️ 液冷基建 4~10%', cls: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' },
+  'NVDA':  { tag: '⚠️ 治理降權 5%', cls: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' },
+  'SPCX':  { tag: '🚀 衛星獲利拔檔', cls: 'bg-orange-500/20 text-orange-300 border-orange-500/40' },
+  '2330':  { tag: '🏆 台股壓艙 15%', cls: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
+  '2454':  { tag: '🚀 TPU重估 15%', cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+  '2317':  { tag: '⭐ 機櫃整合 8%', cls: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
+  '3017':  { tag: '⭐ 水冷精選 8%', cls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' },
+  '2383':  { tag: '⭐ 高階CCL 追蹤', cls: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
+  '00406A':{ tag: '💰 收益長抱領息', cls: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+  '3324':  { tag: '🚨 破季線剔除 0%', cls: 'bg-red-500/20 text-red-400 border-red-500/50' },
+  '6669':  { tag: '⚠️ 剔除同質 0%', cls: 'bg-red-500/20 text-red-400 border-red-500/50' }
 };
 
 const IS_PROD = window.location.hostname.includes('github.io');

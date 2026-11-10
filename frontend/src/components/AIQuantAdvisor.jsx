@@ -6,155 +6,327 @@ import {
   HelpCircle, Compass, Activity, ArrowRight, DollarSign
 } from 'lucide-react';
 
-// Recommended Reference Universe calculated by SLSQP ERC & Half-Kelly optimization
-const RECOMMENDATIONS = [
+// 2026-11-10 Wall Street Buy-Side Consensus ERC 2.0: Pure US Universe
+const RECOMMENDATIONS_US = [
+  {
+    symbol: 'VTI',
+    name: 'Vanguard 全美指數 ETF',
+    market: 'us',
+    tier: '🇺🇸 全市場防禦底倉 (Core Anchor)',
+    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
+    action: '【回撤 $338~$347 分批建倉】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 25.0,
+    annualVol: 16.5,
+    slPrice: 376.23,
+    tpPrice: 420.0,
+    currPrice: 370.9,
+    highlight: '涵蓋全美數千家企業，捕捉非科技股滾動式復甦，抵禦 5% 美債利率衝擊的最強防禦核心。'
+  },
+  {
+    symbol: 'AVGO',
+    name: 'Broadcom 博通',
+    market: 'us',
+    tier: '🇺🇸 AI ASIC 霸主 (去輝達化首選)',
+    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
+    action: '【站穩月線/頸線分批佈局】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 15.0,
+    annualVol: 32.4,
+    slPrice: 350.13,
+    tpPrice: 399.0,
+    currPrice: 319.48,
+    highlight: '掌握 Google TPU 70~80% 市佔與 Meta MTIA，Q2 AI 營收年增 143%，完美對沖 GPU 壟斷鬆動。'
+  },
+  {
+    symbol: 'GOOGL',
+    name: 'Alphabet 谷歌-A',
+    market: 'us',
+    tier: '🇺🇸 低估值 TPU 帝國 (P/E ~15x)',
+    tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
+    action: '【黃金坑 $265~$272 低接】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 15.0,
+    annualVol: 28.2,
+    slPrice: 333.79,
+    tpPrice: 360.0,
+    currPrice: 288.15,
+    highlight: 'TPU v8 推論成本僅 GPU 一半（$0.42 vs $0.91），本益比七巨頭最低，重倉 SpaceX 攻守兼備。'
+  },
+  {
+    symbol: 'TSM',
+    name: '台積電 ADR',
+    market: 'us',
+    tier: '🏆 全球先進製程壟斷 (賣鏟總司令)',
+    tierColor: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
+    action: '【黃金坑 $335~$345 低接】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 12.0,
+    annualVol: 31.5,
+    slPrice: 428.52,
+    tpPrice: 486.0,
+    currPrice: 388.62,
+    highlight: '無論 GPU 或 ASIC 競爭誰勝，全須經由 2nm/CoWoS/3D DRAM 製造，完全免疫設計端洗牌。'
+  },
+  {
+    symbol: 'ETN',
+    name: 'Eaton 伊頓電力',
+    market: 'us',
+    tier: '⚡ 電網基建與變壓器龍頭',
+    tierColor: 'text-purple-300 bg-purple-500/10 border-purple-500/30',
+    action: '【電網剛需 / 降低科技相關性】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 10.0,
+    annualVol: 24.8,
+    slPrice: 407.04,
+    tpPrice: 450.0,
+    currPrice: 359.3,
+    highlight: '電氣在手訂單飆升 46% 至 200 億美元，配電與資料中心剛需大幅平滑純科技股波動。'
+  },
+  {
+    symbol: 'CEG',
+    name: 'Constellation 核能電力',
+    market: 'us',
+    tier: '⚛️ 核能全天候零碳電力',
+    tierColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
+    action: '【已站回 60MA 季線偏多！】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 8.0,
+    annualVol: 36.2,
+    slPrice: 270.93,
+    tpPrice: 348.0,
+    currPrice: 276.09,
+    highlight: '已率先收復季線！手握 8,500 MW 長期核電協議，不受限於藍潮綠能併網阻礙，高盛美銀喊買。'
+  },
+  {
+    symbol: 'MU',
+    name: 'Micron 美光科技',
+    market: 'us',
+    tier: '🧠 HBM3e/HBM4 超級週期',
+    tierColor: 'text-pink-300 bg-pink-500/10 border-pink-500/30',
+    action: '【回測 $600~$635 分批布局】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 6.0,
+    annualVol: 48.5,
+    slPrice: 955.94,
+    tpPrice: 916.0,
+    currPrice: 733.15,
+    highlight: '記憶體佔 AI 資本支出比重將升至 64%，做空 ETF (MUZ) 遭主力軋空，HBM 報價強勁上行。'
+  },
+  {
+    symbol: 'NVDA',
+    name: 'NVIDIA 輝達',
+    market: 'us',
+    tier: '⚠️ 獨立調查案降權控管',
+    tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
+    action: '【靜待 11/17 財報 / $155~$175 鐵底】',
+    actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
+    weightPct: 5.0,
+    annualVol: 45.78,
+    slPrice: 218.64,
+    tpPrice: 223.0,
+    currPrice: 178.67,
+    highlight: '面臨 CEO 調查與 ESG 治理折價，ERC 主動壓低權重至 5%；11/17 財報與 $155~$175 區間為關鍵防線。'
+  },
+  {
+    symbol: 'VRT',
+    name: 'Vertiv Holdings 液冷',
+    market: 'us',
+    tier: '❄️ 高密度 DLC 液冷與電源',
+    tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
+    action: '【已站回 $200 / 等站穩季線】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 4.0,
+    annualVol: 41.2,
+    slPrice: 240.76,
+    tpPrice: 330.0,
+    currPrice: 200.47,
+    highlight: 'Q3 營收年增 61%、積壓訂單 150 億美元，遠期本益比已修正至 26 倍均值，大摩目標價 $330。'
+  },
+  {
+    symbol: 'BE',
+    name: 'Bloom Energy 燃料電池',
+    market: 'us',
+    tier: '🔋 離網供電 Alpha 衛星觀察',
+    tierColor: 'text-lime-300 bg-lime-500/10 border-lime-500/30',
+    action: '【突破觀察 / 逢回配置】',
+    actionColor: 'text-lime-300 bg-lime-500/20 border-lime-500/30',
+    weightPct: 0.0,
+    annualVol: 58.0,
+    slPrice: 150.0,
+    tpPrice: 242.0,
+    currPrice: 193.88,
+    highlight: '與 Oracle 簽 2.8 GW 離網合約，繞過藍潮電網排隊期，Q3 營收暴增 138%，可作 CEG 衛星替補。'
+  }
+];
+
+// 2026-11-10 Cross-Market TW+US ERC 2.0
+const RECOMMENDATIONS_CROSS = [
   {
     symbol: '2330.TW',
     name: '台積電',
     market: 'tw',
-    tier: '🏆 核心首選 (Core #1)',
+    tier: '🏆 核心壓艙石 (Core #1)',
     tierColor: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
-    action: '【分批逢低承接】',
+    action: '【分批逢低承接 / 守季線】',
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 7.58,
+    weightPct: 15.0,
     annualVol: 27.06,
-    slPrice: 2426.8,
-    tpPrice: 2868.0,
-    currPrice: 2295.0,
-    highlight: '全球 2nm/3nm 先進製程大壟斷，毛利率穩超 53%，三率三升，外資長線核心定海神針。'
-  },
-  {
-    symbol: '2317.TW',
-    name: '鴻海',
-    market: 'tw',
-    tier: '⭐ 穩健低波 (Low Volatility)',
-    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
-    action: '【守穩季線分批佈局】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 6.81,
-    annualVol: 28.51,
-    slPrice: 250.6,
-    tpPrice: 306.0,
-    currPrice: 245.5,
-    highlight: 'GB200 AI 伺服器首發出貨，本益比合理，外資與投信近期波段加碼重心。'
-  },
-  {
-    symbol: '2383.TW',
-    name: '台光電',
-    market: 'tw',
-    tier: '⭐ 成長動能 (Growth Momentum)',
-    tierColor: 'text-purple-300 bg-purple-500/10 border-purple-500/30',
-    action: '【回測季線支撐逢低吸納】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 5.68,
-    annualVol: 35.84,
-    slPrice: 432.0,
-    tpPrice: 560.0,
-    currPrice: 456.0,
-    highlight: 'M8/M9 高階銅箔基板 (CCL) 全球市佔率第一，受惠 AI 伺服器規格全面升級。'
-  },
-  {
-    symbol: '3017.TW',
-    name: '奇鋐',
-    market: 'tw',
-    tier: '⭐ 散熱龍料 (Liquid Cooling)',
-    tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
-    action: '【箱型拉回偏多操作】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 5.19,
-    annualVol: 39.67,
-    slPrice: 580.0,
-    tpPrice: 750.0,
-    currPrice: 615.0,
-    highlight: '水冷板與分歧管核心供應商，獲利連三季成長，站穩季線具備強大結構支撐。'
-  },
-  {
-    symbol: 'VRT',
-    name: 'Vertiv Holdings',
-    market: 'us',
-    tier: '🇺🇸 美股 AI 基建 (US Infrastructure)',
-    tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
-    action: '【波段順勢抱牢 / 拉回加碼】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 5.05,
-    annualVol: 39.96,
-    slPrice: 88.5,
-    tpPrice: 135.0,
-    currPrice: 94.2,
-    highlight: '全球數據中心熱管理與電力系統龍頭，微軟、Google 算力基建必選設備商。'
-  },
-  {
-    symbol: '6669.TW',
-    name: '緯穎',
-    market: 'tw',
-    tier: '⭐ 雲端純度最高 (Pure Cloud AI)',
-    tierColor: 'text-rose-300 bg-rose-500/10 border-rose-500/30',
-    action: '【高價股輕倉參與】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 4.35,
-    annualVol: 43.53,
-    slPrice: 1980.0,
-    tpPrice: 2600.0,
-    currPrice: 2090.0,
-    highlight: 'ASIC 客製化伺服器大單湧入，EPS 具爆發力，但高波動依演算法縮減配置比重。'
-  },
-  {
-    symbol: 'NVDA',
-    name: '輝達',
-    market: 'us',
-    tier: '🇺🇸 全球算力霸主 (AI King)',
-    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
-    action: '【高波動適度降權 / 定額持有】',
-    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-    weightPct: 3.94,
-    annualVol: 45.78,
-    slPrice: 221.0,
-    tpPrice: 258.0,
-    currPrice: 206.69,
-    highlight: '算力無可撼動，但因年化波動度高達 45.78%，ERC 平價演算法自動減權以控制總風險。'
+    slPrice: 2414.51,
+    tpPrice: 2856.0,
+    currPrice: 2285.0,
+    highlight: '全球 2nm/CoWoS/3D DRAM 大壟斷，免疫 GPU 與 ASIC 設計架構轉換，外資長線核心定海神針。'
   },
   {
     symbol: '2454.TW',
     name: '聯發科',
     market: 'tw',
-    tier: '🟡 邊緣旗艦 (Edge AI)',
-    tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
-    action: '【極高波動輕倉防守】',
-    actionColor: 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30',
-    weightPct: 1.42,
-    annualVol: 52.88,
-    slPrice: 4343.3,
-    tpPrice: 4590.0,
-    currPrice: 3675.0,
-    highlight: '天璣晶片旗艦導入，但短期受宏觀手機週期影響年化波動 52.88%，系統自動壓低曝險。'
+    tier: '🚀 ASIC 進攻主軸 (價值重估)',
+    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
+    action: '【TPU 推理贏家 / 搶先突圍觀察】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 15.0,
+    annualVol: 42.8,
+    slPrice: 4315.08,
+    tpPrice: 4788.0,
+    currPrice: 3830.0,
+    highlight: '切入 Google TPU v8x (Zebrafish) 推理晶片打破博通壟斷，外資大幅重估 AI ASIC 長線成長。'
   },
   {
-    symbol: '3324.TW',
+    symbol: 'AVGO',
+    name: 'Broadcom 博通',
+    market: 'us',
+    tier: '🇺🇸 ASIC 對沖雙引擎',
+    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
+    action: '【對沖去輝達化核心】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 15.0,
+    annualVol: 32.4,
+    slPrice: 350.13,
+    tpPrice: 399.0,
+    currPrice: 319.48,
+    highlight: 'Google TPU 與 Meta MTIA 核心夥伴，結合乙太網與 VMware 軟體現金流，完美分散 NVDA 風險。'
+  },
+  {
+    symbol: 'CEG',
+    name: 'Constellation 核電',
+    market: 'us',
+    tier: '⚛️ 電力基建 (降低相關性)',
+    tierColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
+    action: '【已站穩季線 / 抗震防禦】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 12.0,
+    annualVol: 36.2,
+    slPrice: 270.93,
+    tpPrice: 348.0,
+    currPrice: 276.09,
+    highlight: '打破純半導體硬體高相關性，受惠 AI 無碳基載剛需，目前股價已強勢站上 60MA 季線。'
+  },
+  {
+    symbol: 'ASML',
+    name: '艾司摩爾',
+    market: 'us',
+    tier: '🏗️ 半導體設備賣鏟人',
+    tierColor: 'text-sky-300 bg-sky-500/10 border-sky-500/30',
+    action: '【壟斷設備 / 平滑淨值】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 12.0,
+    annualVol: 30.8,
+    slPrice: 1686.33,
+    tpPrice: 1891.0,
+    currPrice: 1513.25,
+    highlight: 'EUV 光刻機全球唯一壟斷，完全免疫下游晶片廠市佔廝殺，擔任底層低波壓艙石。'
+  },
+  {
+    symbol: 'VRT',
+    name: 'Vertiv Holdings',
+    market: 'us',
+    tier: '🇺🇸 美股 AI 基建與液冷',
+    tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
+    action: '【強彈回 $200 / 等站回季線】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 10.0,
+    annualVol: 41.2,
+    slPrice: 240.76,
+    tpPrice: 330.0,
+    currPrice: 200.47,
+    highlight: '全球數據中心熱管理與電力系統龍頭，Q3 營收年增 61%，回測修正至合理本益比區間。'
+  },
+  {
+    symbol: '3017.TW',
+    name: '奇鋐',
+    market: 'tw',
+    tier: '⭐ 散熱龍頭 (精選保留)',
+    tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
+    action: '【適度降權至 8% / 等站回季線】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 8.0,
+    annualVol: 39.67,
+    slPrice: 3221.34,
+    tpPrice: 3488.0,
+    currPrice: 2790.0,
+    highlight: '水冷板與分歧管核心供應商，縮減同質重疊保留最強龍頭，待站穩季線分批承接。'
+  },
+  {
+    symbol: '2317.TW',
+    name: '鴻海',
+    market: 'tw',
+    tier: '⭐ 機櫃整合雙軌受惠',
+    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
+    action: '【最接近季線 / 準備轉強】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 8.0,
+    annualVol: 28.51,
+    slPrice: 248.2,
+    tpPrice: 302.0,
+    currPrice: 241.5,
+    highlight: 'GB200 與 TPU L10-L11 機櫃雙軌受惠，現價距離季線僅約 2.7%，最有潛力率先突破。'
+  },
+  {
+    symbol: 'NVDA',
+    name: '輝達',
+    market: 'us',
+    tier: '⚠️ 調查案降權控管',
+    tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
+    action: '【降權 5% / $155~$175 鐵底】',
+    actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
+    weightPct: 5.0,
+    annualVol: 45.78,
+    slPrice: 218.64,
+    tpPrice: 223.0,
+    currPrice: 178.67,
+    highlight: '面臨 CEO 獨立調查與治理折價，ERC 主動壓低權重至 5%；靜待 11/17 財報檢驗與鐵底支撐。'
+  },
+  {
+    symbol: '3324.TWO',
     name: '雙鴻',
     market: 'tw',
-    tier: '🚨 破季線避開 (Below MA60 Alert)',
+    tier: '🚨 破季線剔除避開',
     tierColor: 'text-red-400 bg-red-500/20 border-red-500/40',
     action: '【剛性避開 / 0% 配比 / 嚴禁接飛刀】',
     actionColor: 'text-red-400 bg-red-600/30 border-red-500/50',
     weightPct: 0.0,
     annualVol: 36.06,
-    slPrice: 685.0,
+    slPrice: 1335.4,
     tpPrice: 0.0,
-    currPrice: 642.0,
-    highlight: '【顏春煌教授鐵律】股價跌破 60MA 生命線，嚴禁盲目低接！半凱利上限與 ERC 強制歸零！'
+    currPrice: 1235.0,
+    highlight: '【顏春煌教授鐵律】散熱集中度過高且跌破 60MA 生命線，ERC 強制歸零避開。'
   }
 ];
 
 export default function AIQuantAdvisor({ onSelectStock, stocks }) {
   const [totalCapital, setTotalCapital] = useState(300); // 300 萬元
   const [filterType, setFilterType] = useState('all'); // 'all', 'buy', 'avoid'
+  const [universeMode, setUniverseMode] = useState('us'); // 'us' (純美股 ERC 2.0) | 'cross' (台美跨市場 2.0)
+
+  const activeRecs = universeMode === 'us' ? RECOMMENDATIONS_US : RECOMMENDATIONS_CROSS;
 
   // Extract live macroeconomic indicators dynamically from stocks/indices state
   const foreignOi = stocks?.indices?.['外資台指期未平倉']?.close ?? 
                     stocks?.indices?.['外資台指淨未平倉 (口)']?.close ?? 
-                    (stocks?.taifex_oi ?? -86814);
+                    (stocks?.taifex_oi ?? -103473);
   const twVix = stocks?.indices?.['台指 VIX (波動率)']?.close ?? 
-                stocks?.indices?.['台指VIX (波動率)']?.close ?? 29.51;
+                stocks?.indices?.['台指VIX (波動率)']?.close ?? 28.25;
 
   // Dynamic Regime Probability calculation based on Foreign OI and VIX
   const rawCrisis = 55 + (Math.abs(foreignOi) - 50000) / 2500 + (twVix - 20) * 1.2;
@@ -171,7 +343,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
   const cashCapital = (totalCapital * (cashPct / 100)).toFixed(1);
 
   // Filter recommendations
-  const filteredRecs = RECOMMENDATIONS.filter(item => {
+  const filteredRecs = activeRecs.filter(item => {
     if (filterType === 'buy') return item.weightPct > 0;
     if (filterType === 'avoid') return item.weightPct === 0;
     return true;
@@ -183,7 +355,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
     let matchedStock = null;
     if (stocks) {
       const list = rec.market === 'tw' ? (stocks.tw || []) : (stocks.us || []);
-      matchedStock = list.find(s => s.symbol.includes(cleanSym) || s.symbol === rec.symbol);
+      matchedStock = list.find(s => s.symbol === rec.symbol || s.symbol.replace(/\.TWO?$/, '') === cleanSym);
     }
     if (matchedStock) {
       onSelectStock(matchedStock);
@@ -348,25 +520,42 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 p-1 bg-[#1A2026] rounded-xl border border-white/10 text-xs font-black">
-            <button
-              onClick={() => setFilterType('all')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'all' ? 'bg-white/10 text-white shadow' : 'text-gray-400 hover:text-white'}`}
-            >
-              全部標的 ({RECOMMENDATIONS.length})
-            </button>
-            <button
-              onClick={() => setFilterType('buy')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'buy' ? 'bg-emerald-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
-            >
-              推薦配置 ({RECOMMENDATIONS.filter(r => r.weightPct > 0).length})
-            </button>
-            <button
-              onClick={() => setFilterType('avoid')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'avoid' ? 'bg-red-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
-            >
-              破線避開 ({RECOMMENDATIONS.filter(r => r.weightPct === 0).length})
-            </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1 p-1 bg-[#1A2026] rounded-xl border border-amber-500/30 text-xs font-black">
+              <button
+                onClick={() => setUniverseMode('us')}
+                className={`px-3 py-1.5 rounded-lg transition-all ${universeMode === 'us' ? 'bg-amber-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                🇺🇸 純美股 ERC 2.0
+              </button>
+              <button
+                onClick={() => setUniverseMode('cross')}
+                className={`px-3 py-1.5 rounded-lg transition-all ${universeMode === 'cross' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                🌐 台美跨市場 2.0
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1.5 p-1 bg-[#1A2026] rounded-xl border border-white/10 text-xs font-black">
+              <button
+                onClick={() => setFilterType('all')}
+                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'all' ? 'bg-white/10 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                全部標的 ({activeRecs.length})
+              </button>
+              <button
+                onClick={() => setFilterType('buy')}
+                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'buy' ? 'bg-emerald-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                推薦配置 ({activeRecs.filter(r => r.weightPct > 0).length})
+              </button>
+              <button
+                onClick={() => setFilterType('avoid')}
+                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'avoid' ? 'bg-red-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                衛星 / 剔除 ({activeRecs.filter(r => r.weightPct === 0).length})
+              </button>
+            </div>
           </div>
         </div>
 
@@ -377,7 +566,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             let liveStock = null;
             if (stocks) {
               const list = rec.market === 'tw' ? (stocks.tw || []) : (stocks.us || []);
-              liveStock = list.find(s => s.symbol.includes(cleanSym) || s.symbol === rec.symbol);
+              liveStock = list.find(s => s.symbol === rec.symbol || s.symbol.replace(/\.TWO?$/, '') === cleanSym);
             }
             const livePrice = liveStock?.close || rec.currPrice;
             const liveSL = liveStock?.ma60 || rec.slPrice;

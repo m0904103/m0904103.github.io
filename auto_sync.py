@@ -105,9 +105,143 @@ def get_twse_prices(symbols):
             print(f"  [TWSE batch error: {e}]")
     return prices
 
-def get_taifex_oi():
-    """Fetch TAIFEX Foreign Institutional Open Interest (TX+MTX). Updated with latest SinoPac 10/29 data."""
-    return -89522
+def fetch_tw_institutional_data(existing_indices):
+    """Fetch live Taiwan institutional buy/sell, margin balance, TAIFEX OI, PCR & VIX."""
+    import re
+    inst = dict(existing_indices or {})
+    now = datetime.now()
+    dates_to_try = [(now - timedelta(days=d)) for d in range(5) if (now - timedelta(days=d)).weekday() < 5]
+
+    # 1. TWSE BFI82U (三大法人買賣超金額)
+    for dt_obj in dates_to_try:
+        ymd = dt_obj.strftime('%Y%m%d')
+        try:
+            r = requests.get(f'https://www.twse.com.tw/rwd/zh/fund/BFI82U?response=json&dayDate={ymd}', headers=TWSE_HEADERS, verify=False, timeout=8)
+            j = r.json()
+            if j.get('stat') == 'OK' and j.get('data'):
+                rows = j['data']
+                def parse_num(s):
+                    return float(str(s).replace(',', '').strip())
+                dealer = 0.0
+                trust = 0.0
+                foreign = 0.0
+                total = 0.0
+                for row in rows:
+                    label = row[0]
+                    val = parse_num(row[3]) / 1e8
+                    if '自營商' in label:
+                        dealer += val
+                    elif '投信' in label:
+                        trust += val
+                    elif '外資及陸資' in label:
+                        foreign += val
+                    elif '合計' in label:
+                        total = val
+                inst['三大法人買賣超 (億)'] = {'close': round(total, 2)}
+                inst['三大法人買賣超'] = {'close': round(total, 2)}
+                inst['外資買賣超 (億)'] = {'close': round(foreign, 2)}
+                inst['外資買賣超'] = {'close': round(foreign, 2)}
+                inst['投信買賣超 (億)'] = {'close': round(trust, 2)}
+                inst['投信買賣超'] = {'close': round(trust, 2)}
+                inst['自營買賣超 (億)'] = {'close': round(dealer, 2)}
+                inst['自營買賣超'] = {'close': round(dealer, 2)}
+                print(f"  [TWSE BFI82U {ymd}] 三大法人={total:.2f}億, 外資={foreign:.2f}億, 投信={trust:.2f}億")
+                break
+        except Exception as e:
+            print(f"  [TWSE BFI82U {ymd}] err: {e}")
+
+    # 2. TWSE MI_MARGN (上市融資餘額)
+    try:
+        r_m = requests.get('https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?response=json&selectType=MS', headers=TWSE_HEADERS, verify=False, timeout=8)
+        jm = r_m.json()
+        for tb in jm.get('tables', []):
+            for row in tb.get('data', []):
+                if '融資金額' in row[0]:
+                    bal_yi = round(float(str(row[-1]).replace(',', '').strip()) / 1e5, 2)
+                    inst['上市融資餘額 (億)'] = {'close': bal_yi}
+                    print(f"  [TWSE MI_MARGN] 上市融資餘額={bal_yi}億")
+                    break
+    except Exception as e:
+        print(f"  [TWSE MI_MARGN] err: {e}")
+
+    # 3. TAIFEX TXF/MXF/TMF Open Interest
+    for dt_obj in dates_to_try:
+        qdate = dt_obj.strftime('%Y/%m/%d')
+        try:
+            r_txf = requests.post('https://www.taifex.com.tw/cht/3/futContractsDateDown', data={
+                'queryStartDate': qdate, 'queryEndDate': qdate, 'commodityId': 'TXF'
+            }, headers=TWSE_HEADERS, verify=False, timeout=10)
+            txt = r_txf.content.decode('big5', errors='ignore')
+            lines = [l.strip() for l in txt.splitlines() if l.strip()]
+            if len(lines) >= 4 and '外資及陸資' in txt:
+                foreign_txf = None
+                trust_txf = None
+                dealer_txf = None
+                for l in lines[1:]:
+                    cols = l.split(',')
+                    if len(cols) >= 14:
+                        role = cols[2]
+                        net_oi = int(cols[13])
+                        if '外資' in role:
+                            foreign_txf = net_oi
+                        elif '投信' in role:
+                            trust_txf = net_oi
+                        elif '自營商' in role:
+                            dealer_txf = net_oi
+                if foreign_txf is not None:
+                    inst['外資台指淨未平倉 (口)'] = {'close': foreign_txf}
+                    inst['外資台指淨未平倉'] = {'close': foreign_txf}
+                    inst['外資台指期未平倉'] = {'close': foreign_txf}
+                    inst['外資台指期留倉 (純大台)'] = {'close': foreign_txf}
+                    if trust_txf is not None:
+                        inst['投信期貨未平倉'] = {'close': trust_txf}
+                    if dealer_txf is not None:
+                        inst['自營商期貨未平倉'] = {'close': dealer_txf}
+                    print(f"  [TAIFEX TXF {qdate}] 外資淨未平倉={foreign_txf}口")
+                    break
+        except Exception as e:
+            print(f"  [TAIFEX TXF {qdate}] err: {e}")
+
+    # 4. TAIFEX Put/Call Ratio
+    try:
+        r_pcr = requests.post('https://www.taifex.com.tw/cht/3/pcRatio', data={
+            'queryStartDate': (now - timedelta(days=10)).strftime('%Y/%m/%d'),
+            'queryEndDate': now.strftime('%Y/%m/%d')
+        }, headers=TWSE_HEADERS, verify=False, timeout=10)
+        rows = re.findall(r'<tr[^>]*>(.*?)</tr>', r_pcr.text, re.S)
+        for row in rows[:10]:
+            cells = [re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', c)).strip() for c in re.findall(r'<t[dh][^>]*>(.*?)</t[dh]>', row, re.S)]
+            if cells and '202' in cells[0] and len(cells) >= 7:
+                pcr_val = float(cells[6].replace(',', ''))
+                inst['全市場Put/Call Ratio'] = {'close': pcr_val}
+                inst['全市場 P/C Ratio'] = {'close': pcr_val}
+                print(f"  [TAIFEX PCR {cells[0]}] P/C Ratio={pcr_val}%")
+                break
+    except Exception as e:
+        print(f"  [TAIFEX PCR] err: {e}")
+
+    # 5. TAIFEX VIX
+    try:
+        r_vix = requests.get('https://mis.taifex.com.tw/futures/VolatilityQuotes/', headers=TWSE_HEADERS, verify=False, timeout=10)
+        if r_vix.status_code == 200:
+            nums = re.findall(r'(\d{2,3}\.\d{2})', r_vix.content.decode('utf-8', errors='ignore'))
+            valid = [float(n) for n in nums if 5.0 < float(n) < 120.0]
+            if valid:
+                inst['台指VIX (波動率)'] = {'close': round(valid[0], 2)}
+                inst['台指 VIX (波動率)'] = {'close': round(valid[0], 2)}
+                print(f"  [TAIFEX VIX] 台指VIX={valid[0]}")
+    except Exception as e:
+        print(f"  [TAIFEX VIX] err: {e}")
+
+    return inst
+
+def get_taifex_oi(indices=None):
+    """Return latest TAIFEX Foreign Institutional Net Open Interest."""
+    if indices:
+        for k in ['外資台指淨未平倉 (口)', '外資台指期未平倉', '外資台指淨未平倉']:
+            if k in indices and indices[k].get('close') is not None:
+                return int(indices[k]['close'])
+    return -103473
 
 # ==========================================
 # 主同步邏輯（雙源 + 交叉驗證）
@@ -190,10 +324,12 @@ def sync_once():
             yahoo_close = round(float(df['Close'].iloc[-1]), 2)
             prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else yahoo_close
 
-            # Also write latest 120-bar history file for K-line chart
+            # Also write latest 120-bar history file for K-line chart (both history/ and assets/)
             try:
                 hist_dir = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'history')
+                assets_dir = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'assets')
                 os.makedirs(hist_dir, exist_ok=True)
+                os.makedirs(assets_dir, exist_ok=True)
                 hist_df = df.tail(120)
                 hist_records = []
                 for idx_dt, row_h in hist_df.iterrows():
@@ -208,6 +344,8 @@ def sync_once():
                     })
                 with open(os.path.join(hist_dir, f'{sym}.json'), 'w', encoding='utf-8') as hf:
                     json.dump(hist_records, hf, ensure_ascii=False)
+                with open(os.path.join(assets_dir, f'history_{sym}.json'), 'w', encoding='utf-8') as af:
+                    json.dump(hist_records, af, ensure_ascii=False)
             except Exception:
                 pass
 
@@ -392,28 +530,12 @@ def sync_once():
     except Exception as e:
         print(f"  [Indices] Failed to update ADR premium: {e}")
         
-    # Latest 10/29 official market data from SinoPac Futures
-    indices['三大法人買賣超 (億)'] = {'close': -816.66}
-    indices['外資買賣超 (億)'] = {'close': -688.15}
-    indices['投信買賣超 (億)'] = {'close': 86.49}
-    indices['自營買賣超 (億)'] = {'close': -215.00}
-    indices['外資台指淨未平倉 (口)'] = {'close': -89522}
-    indices['外資台指淨未平倉增減 (口)'] = {'close': -4605}
-    indices['外資台指期未平倉'] = {'close': -89522}
-    indices['外資台指期留倉 (純大台)'] = {'close': -89522}
-    indices['小台散戶多空比'] = {'close': 33.30}
-    indices['散戶小台多空比'] = {'close': 33.30}
-    indices['微台散戶多空比'] = {'close': 47.57}
-    indices['散戶微台多空比'] = {'close': 47.57}
-    indices['全市場Put/Call Ratio'] = {'close': 64.46}
-    indices['全市場 P/C Ratio'] = {'close': 64.46}
-    indices['台指VIX (波動率)'] = {'close': 28.25}
-    indices['台指 VIX (波動率)'] = {'close': 28.25}
-    indices['上市融資餘額 (億)'] = {'close': 6323.0}
+    # Dynamically fetch latest official TWSE + TAIFEX institutional & VIX data
+    indices = fetch_tw_institutional_data(indices)
     
     data['indices'] = indices
     
-    data['taifex_oi'] = get_taifex_oi()
+    data['taifex_oi'] = get_taifex_oi(indices)
     data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
     data['updated_at'] = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y/%m/%d %H:%M:%S')
 
