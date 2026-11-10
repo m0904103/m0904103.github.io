@@ -34,20 +34,36 @@ const TradingChart = ({ data, symbol, buyPrice, stopLoss, takeProfit, currentPri
       wickDownColor: '#10B981',
     });
 
-    // Calculate dynamic MA60 if missing
-    const enrichedData = data.map((d, index) => {
+    // Normalize time key ('time' or legacy 'date'), filter invalid, deduplicate & calculate dynamic MA60 if missing
+    const seenTimes = new Set();
+    const validData = data
+      .map(d => ({ ...d, time: d.time || d.date }))
+      .filter(d => d.time && d.open != null && d.high != null && d.low != null && d.close != null)
+      .sort((a, b) => String(a.time).localeCompare(String(b.time)))
+      .filter(d => {
+        if (seenTimes.has(d.time)) return false;
+        seenTimes.add(d.time);
+        return true;
+      });
+
+    if (validData.length === 0) {
+      chart.remove();
+      return;
+    }
+
+    const enrichedData = validData.map((d, index) => {
       if (d.ma60) return d;
       if (index >= 59) {
         let sum = 0;
         for (let j = index - 59; j <= index; j++) {
-          sum += data[j].close;
+          sum += validData[j].close;
         }
         return { ...d, ma60: Number((sum / 60).toFixed(2)) };
-      } else if (index >= 9 && data.length < 60) {
+      } else if (index >= 9 && validData.length < 60) {
         // Progressive average for shorter history
         let sum = 0;
         for (let j = 0; j <= index; j++) {
-          sum += data[j].close;
+          sum += validData[j].close;
         }
         return { ...d, ma60: Number((sum / (index + 1)).toFixed(2)) };
       }

@@ -330,16 +330,24 @@ def sync_once():
                 assets_dir = os.path.join(SCRIPT_DIR, 'frontend', 'public', 'assets')
                 os.makedirs(hist_dir, exist_ok=True)
                 os.makedirs(assets_dir, exist_ok=True)
-                hist_df = df.tail(120)
+                df_copy = df.copy()
+                df_copy['ma60_roll'] = df_copy['Close'].rolling(window=60).mean()
+                hist_df = df_copy.tail(120)
                 hist_records = []
+                seen_dates = set()
                 for idx_dt, row_h in hist_df.iterrows():
                     d_str = idx_dt.strftime('%Y-%m-%d') if hasattr(idx_dt, 'strftime') else str(idx_dt)[:10]
+                    if d_str in seen_dates:
+                        continue
+                    seen_dates.add(d_str)
+                    ma60_v = row_h.get('ma60_roll')
                     hist_records.append({
-                        'date': d_str,
+                        'time': d_str,
                         'open': round(float(row_h.get('Open', row_h['Close'])), 2),
                         'high': round(float(row_h.get('High', row_h['Close'])), 2),
                         'low': round(float(row_h.get('Low', row_h['Close'])), 2),
                         'close': round(float(row_h['Close']), 2),
+                        'ma60': round(float(ma60_v), 2) if ma60_v is not None and not math.isnan(float(ma60_v)) else None,
                         'volume': int(float(row_h.get('Volume', 0) or 0))
                     })
                 with open(os.path.join(hist_dir, f'{sym}.json'), 'w', encoding='utf-8') as hf:
