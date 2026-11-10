@@ -32,7 +32,7 @@ jobs:
 
       - name: Run 24/7 Cloud Intraday Telegram Scanner
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || '8616885530:AAGFvOIq5fG6INrDhDFcCNn9ljsvnej8IfE' }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || '7660257976' }}
         run: |
           python line_intraday_pusher.py --once || true

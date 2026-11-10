@@ -50,22 +50,25 @@ TAIPEI_TZ = timezone(timedelta(hours=8))
 # 標的庫定義（美股優先旗艦配置 + 台股雙軌）
 # ------------------------------------------------------------------------------
 DEFAULT_US_WATCHLIST = {
+    'VTI': {'name': 'Vanguard 全美指數 ETF', 'sector': '美股核心大盤'},
+    'DIA': {'name': '道瓊藍籌指數 ETF', 'sector': '美股核心大盤'},
+    'AVGO': {'name': '博通 (Broadcom)', 'sector': '矽光子/CPO'},
+    'GOOGL': {'name': 'Alphabet (Google)', 'sector': '主權AI與模型'},
+    'TSM': {'name': '台積電 ADR', 'sector': '先進製程代工'},
+    'ETN': {'name': 'Eaton (伊頓電力)', 'sector': '核能與智慧電網'},
+    'CEG': {'name': 'Constellation Energy', 'sector': '核能與智慧電網'},
+    'BE': {'name': 'Bloom Energy', 'sector': '核能與智慧電網'},
+    'ASML': {'name': '艾司摩爾 (ASML)', 'sector': '先進封裝光刻機'},
+    'MU': {'name': '美光科技 (Micron)', 'sector': 'HBM超級週期'},
     'NVDA': {'name': '輝達 (NVIDIA)', 'sector': '極限算力基建'},
     'VRT': {'name': 'Vertiv (AI散熱龍頭)', 'sector': '極限算力基建'},
     'PLTR': {'name': 'Palantir (AI國防軟體)', 'sector': '代理型AI軟體'},
     'TSLA': {'name': '特斯拉 (Tesla)', 'sector': '實體AI機器人'},
-    'AVGO': {'name': '博通 (Broadcom)', 'sector': '矽光子/CPO'},
     'AAPL': {'name': '蘋果 (Apple)', 'sector': '邊緣AI與終端'},
     'MSFT': {'name': '微軟 (Microsoft)', 'sector': '雲端AI巨頭'},
-    'ASML': {'name': '艾司摩爾 (ASML)', 'sector': '先進封裝光刻機'},
     'AMAT': {'name': '應用材料 (Applied Materials)', 'sector': '半導體設備'},
     'AMD': {'name': '超微 (AMD)', 'sector': 'AI加速器'},
-    'ARM': {'name': '安謀 (ARM)', 'sector': '邊緣端晶片架構'},
-    'GOOGL': {'name': 'Alphabet (Google)', 'sector': '主權AI與模型'},
     'AMZN': {'name': '亞馬遜 (Amazon)', 'sector': 'AWS算力雲端'},
-    'ASTS': {'name': 'AST SpaceMobile', 'sector': '低軌衛星通訊'},
-    'RKLB': {'name': 'Rocket Lab', 'sector': '太空發射火箭'},
-    'CEG': {'name': 'Constellation Energy', 'sector': '核能與智慧電網'},
     'VST': {'name': 'Vistra Corp', 'sector': 'AI電力電網'},
     'CRWD': {'name': 'CrowdStrike', 'sector': '主權AI與網安'},
     'LLY': {'name': '禮來 (Eli Lilly)', 'sector': '生物AI與精準醫療'},
@@ -255,25 +258,29 @@ def load_config():
 # ------------------------------------------------------------------------------
 def push_telegram_message(text_content):
     try:
-        tg_token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+        tg_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+        if not tg_token:
+            print('⚠️ 未設定 TELEGRAM_BOT_TOKEN 環境變數，略過 Telegram 推播。')
+            return False
         chat_ids = ["7660257976", "7912782196"]  # Simon Chang (張大哥) 與 Huang Chai Jung (黃嘉蓉學員)
         env_chat = os.environ.get("TELEGRAM_CHAT_ID")
         if env_chat and env_chat.strip() not in chat_ids:
             chat_ids.append(env_chat.strip())
 
-        # 徹底防禦 Telegram Markdown 將 $ 識別為 LaTeX 公式導致吞數字
-        clean_text = text_content.replace('$', '')
+        # 徹底防禦 Telegram Markdown 將 $ 識別為 LaTeX 或底線(_)導致 HTTP 400 解析失敗
+        clean_text = str(text_content).replace('$', '')
+        success = False
         for cid in chat_ids:
             try:
                 url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
-                payload = {'chat_id': cid, 'text': clean_text, 'parse_mode': 'Markdown'}
+                payload = {'chat_id': cid, 'text': clean_text}
                 data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
                 req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
                 with urllib.request.urlopen(req, timeout=10) as res:
                     if res.status == 200:
                         success = True
-            except Exception:
-                pass
+            except Exception as send_err:
+                print(f'⚠️ Telegram chat_id={cid} 發送失敗: {send_err}')
         if success:
             print('✅ Telegram 雙軌訊號已成功廣播發送至 Telegram 學員手機！')
             return True
