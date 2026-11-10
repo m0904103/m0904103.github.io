@@ -129,14 +129,14 @@ def fetch_tw_institutional_data(existing_indices):
                 for row in rows:
                     label = row[0]
                     val = parse_num(row[3]) / 1e8
-                    if '自營商' in label:
-                        dealer += val
+                    if '合計' in label:
+                        total = val
+                    elif '外資' in label:
+                        foreign += val
                     elif '投信' in label:
                         trust += val
-                    elif '外資及陸資' in label:
-                        foreign += val
-                    elif '合計' in label:
-                        total = val
+                    elif '自營商' in label:
+                        dealer += val
                 inst['三大法人買賣超 (億)'] = {'close': round(total, 2)}
                 inst['三大法人買賣超'] = {'close': round(total, 2)}
                 inst['外資買賣超 (億)'] = {'close': round(foreign, 2)}
