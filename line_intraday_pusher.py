@@ -29,6 +29,7 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 # 確保輸出編碼為 UTF-8
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -341,42 +342,58 @@ def push_line_message(token, user_id, messages, mode='broadcast'):
 # ------------------------------------------------------------------------------
 # 3. 提示工程：建構顏老師正統波段交易戰情卡片 (Flex Message)
 # ------------------------------------------------------------------------------
-def create_sweet_spot_card(symbol, name, current_price, low_price, ma60, bb_lower, kd_k, kd_d, market='US'):
+def create_sweet_spot_card(symbol, name, current_price, low_price, ma60, bb_lower, kd_k, kd_d, market='US',
+                           sl_price=None, tp1_price=None, rsi=None, vol_ratio=None, macro_note=None):
     now_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d %H:%M:%S')
     is_us = (market.upper() == 'US')
-    
-    currency_symbol = '$'
+
+    currency_symbol = '' if is_us else ''
     currency_unit = 'USD' if is_us else 'TWD'
     market_flag = '🇺🇸 美股' if is_us else '🇹🇼 台股'
-    
-    # 顏老師正統 SOP：以買進當日盤中低點作為未來持有期間的波段防守點 (Low of Entry Day)
-    sl_price = round(low_price, 2)
-    # 顏老師雙軌部位獲利目標：短期部位 +5%~+10%，波段部位抱到突破布林上軌折回
-    tp1_price = round(current_price * 1.05, 2)  # 短期第一目標 +5%
-    tp2_price = round(current_price * 1.10, 2)  # 短期第二目標 +10%
-    
+
+    # 雙師 V4-Yen 防禦停損與 8-3-1 雙軌目標價
+    if sl_price is None:
+        sl_price = round(max(low_price * 0.97, current_price * 0.93), 2)
+    if tp1_price is None:
+        tp1_price = round(current_price * 1.08, 2)
+    sl_pct = (sl_price / current_price - 1.0) * 100
+
     price_fmt = f'{current_price:.2f}' if is_us else f'{current_price:.1f}'
     low_fmt = f'{low_price:.2f}' if is_us else f'{low_price:.1f}'
     ma60_fmt = f'{ma60:.2f}' if is_us else f'{ma60:.1f}'
     sl_fmt = f'{sl_price:.2f}' if is_us else f'{sl_price:.1f}'
     tp1_fmt = f'{tp1_price:.2f}' if is_us else f'{tp1_price:.1f}'
-    tp2_fmt = f'{tp2_price:.2f}' if is_us else f'{tp2_price:.1f}'
-    
-    alt_text = f'【q_quant_888 顏老師鐵律｜{market_flag}波段預警】{symbol} {name} 觸發甜蜜買進！現價: {currency_symbol}{price_fmt}'
-    
+    extra_stats = []
+    if rsi is not None:
+        extra_stats.append(f'RSI:{rsi:.0f}')
+    if vol_ratio is not None:
+        extra_stats.append(f'量比:{vol_ratio:.2f}x')
+    extra_str = ' ｜ '.join(extra_stats) if extra_stats else f'K:{kd_k:.1f}/D:{kd_d:.1f}'
+    macro_line = f'\n🌐 【總經氣候】{macro_note}' if macro_note else ''
+
+    alt_text = (
+        f'🎯【q_quant_888 顏老師 V4-Yen 精選訊號｜{market_flag}】\n'
+        f'📌 標的：{symbol} {name}\n'
+        f'💵 現價：{price_fmt} {currency_unit}（{extra_str}｜KD {kd_k:.1f}>{kd_d:.1f}）\n'
+        f'🛡️ 雙重防洗停損：{sl_fmt} {currency_unit}（{sl_pct:.1f}%，ATR緩衝兼-7%硬保險絲）\n'
+        f'🚀 8-3-1 雙軌目標：TP1 {tp1_fmt} (+8%賣半保本) ｜ 剩餘抱破布林上軌\n'
+        f'⏰ 紀律：請等收盤前15~30分鐘確認收強紅K（站穩季線 {ma60_fmt}）再下單！'
+        f'{macro_line}'
+    )
+
     entry_timing = (
-        '現價已回測進入布林下軌超賣區！請於【收盤前半小時 (美東 15:30 左右)】確認 K 線收腳站回通道內再行進場。'
+        '現價已通過年/季線雙均線、紅K收強與量能篩選！請於【美股收盤前半小時 (美東 15:30)】確認收腳站穩再下限價單。'
         if is_us else
-        '現價已回測進入布林下軌超賣區！請於【收盤前 15 分鐘 (13:15 左右)】確認 K 線紅棒站回底線再行進場。'
+        '現價已通過年/季線雙均線、紅K收強與量能篩選！請於【台股收盤前 15 分鐘 (13:15)】確認紅K收高再進場。'
     )
-    
+
     tips = (
-        '1. 【拒絕當沖】顏老師強調波段賺取 50%~100% 大行情，反對頻繁當沖耗損成本。\n'
-        '2. 【進場當日不停損】今日低點為「未來波段防守線」；持有期只要每日收盤不破此低點，安心續抱！\n'
-        '3. 【長短雙軌配置】50% 部位達 +5%~+10% 先行落袋；50% 波段部位抱到衝出布林上軌折回才賣！'
+        '1. 【V4-Yen 核心】11.2年大數據驗證：站穩MA60向上＋MA200＋布林下軌＋KD金叉＋收強紅K＋量能健康。\n'
+        '2. 【阿村伯硬停損保險絲】採「近3日低點-1.2×ATR」與「-7%硬底線」取較高者，防針刺洗盤同時封死重傷。\n'
+        '3. 【顏式 8-3-1 雙軌出場】達 +8% 先賣一半落袋並移保本，剩餘 50% 抱至衝破布林上軌折回才賣！'
     )
-    
-    app_hint = '美股無漲跌幅限制，請採「限價單 (Limit Order)」掛單防滑價' if is_us else '下單前請務必核對「整張(1,000股)」與「零股(100股)」視窗防呆'
+
+    app_hint = '美股無漲跌幅限制，請採「限價單 (Limit Order)」防滑價' if is_us else '下單前請務必核對「整張(1,000股)」與「零股」視窗防呆'
     
     flex_content = {
         'type': 'bubble',
@@ -537,16 +554,16 @@ def create_sweet_spot_card(symbol, name, current_price, low_price, ma60, bb_lowe
                             'type': 'box',
                             'layout': 'horizontal',
                             'contents': [
-                                {'type': 'text', 'text': '🛡️ 未來波段停損線', 'color': '#F87171', 'size': 'sm', 'weight': 'bold', 'flex': 2},
-                                {'type': 'text', 'text': f'{currency_symbol}{sl_fmt} (買進日低點防線)', 'color': '#F87171', 'size': 'sm', 'weight': 'bold', 'flex': 3}
+                                {'type': 'text', 'text': '🛡️ 雙師防洗停損', 'color': '#F87171', 'size': 'sm', 'weight': 'bold', 'flex': 2},
+                                {'type': 'text', 'text': f'{sl_fmt} {currency_unit} ({sl_pct:.1f}% ATR+-7%)', 'color': '#F87171', 'size': 'sm', 'weight': 'bold', 'flex': 3}
                             ]
                         },
                         {
                             'type': 'box',
                             'layout': 'horizontal',
                             'contents': [
-                                {'type': 'text', 'text': '🚀 短期價差目標', 'color': '#4ADE80', 'size': 'sm', 'weight': 'bold', 'flex': 2},
-                                {'type': 'text', 'text': f'{currency_symbol}{tp1_fmt} (+5%) ~ {currency_symbol}{tp2_fmt} (+10%)', 'color': '#4ADE80', 'size': 'sm', 'weight': 'bold', 'flex': 3}
+                                {'type': 'text', 'text': '🚀 8-3-1 第一目標', 'color': '#4ADE80', 'size': 'sm', 'weight': 'bold', 'flex': 2},
+                                {'type': 'text', 'text': f'{tp1_fmt} {currency_unit} (+8%賣半保本)', 'color': '#4ADE80', 'size': 'sm', 'weight': 'bold', 'flex': 3}
                             ]
                         },
                         {
@@ -569,14 +586,14 @@ def create_sweet_spot_card(symbol, name, current_price, low_price, ma60, bb_lowe
                     'contents': [
                         {
                             'type': 'text',
-                            'text': f'💡 顏老師實務進出場心法與防呆：',
+                            'text': '💡 顏老師 V4-Yen 雙軌心法與防呆：',
                             'color': '#FDE047',
                             'size': 'xs',
                             'weight': 'bold'
                         },
                         {
                             'type': 'text',
-                            'text': f'【進場確認】{entry_timing}\n{tips}\n⚠️ 注意：{app_hint}。',
+                            'text': f'【進場確認】{entry_timing}\n{tips}{macro_line}\n⚠️ 注意：{app_hint}。',
                             'color': '#CBD5E1',
                             'size': 'xxs',
                             'wrap': True,
@@ -628,21 +645,33 @@ def fetch_us_realtime_quotes(watchlist):
                     price = meta.get('regularMarketPrice')
                     low = meta.get('regularMarketDayLow')
                     high = meta.get('regularMarketDayHigh')
+                    open_p = meta.get('regularMarketOpen')
+                    vol = meta.get('regularMarketVolume')
                     prev = meta.get('chartPreviousClose')
-                    
+
+                    # 從當日分鐘線補抓開盤價與高低點
+                    q_list = chart_res[0].get('indicators', {}).get('quote', [{}])
+                    if q_list and open_p is None:
+                        opens = [o for o in (q_list[0].get('open') or []) if o is not None]
+                        if opens:
+                            open_p = opens[0]
+
                     if price is None:
                         price = meta.get('postMarketPrice') or meta.get('preMarketPrice') or prev
-                        
+
                     if low is None: low = price
                     if high is None: high = price
-                    
+                    if open_p is None: open_p = price
+
                     name = DEFAULT_US_WATCHLIST.get(sym, {}).get('name', sym)
                     results[sym] = {
                         'symbol': sym,
                         'name': name,
                         'price': float(price),
+                        'open': float(open_p),
                         'low': float(low),
                         'high': float(high),
+                        'volume': float(vol or 0.0),
                         'yesterday_close': float(prev or price),
                         'market': 'US'
                     }
@@ -697,14 +726,20 @@ def fetch_tw_realtime_quotes(watchlist):
                         
                 low_val = float(l_str) if l_str != '-' else price
                 high_val = float(h_str) if h_str != '-' else price
-                
+                open_str = item.get('o', '-')
+                open_val = float(open_str) if open_str not in ('-', '', None) else price
+                vol_str = item.get('v', '0')
+                vol_shares = float(vol_str) * 1000.0 if vol_str not in ('-', '', None) else 0.0
+
                 results[f'{code}.TW'] = {
                     'symbol': f'{code}.TW',
                     'name': name,
                     'price': price,
+                    'open': open_val,
                     'yesterday_close': y_val,
                     'low': low_val,
                     'high': high_val,
+                    'volume': vol_shares,
                     'market': 'TW'
                 }
     except Exception as e:
@@ -713,51 +748,158 @@ def fetch_tw_realtime_quotes(watchlist):
     return results
 
 # ------------------------------------------------------------------------------
-# 6. 技術指標計算與歷史快取 (MA60, 布林通道, KD)
+# 6. 技術指標計算與歷史快取 (V4-Yen: MA60/MA200, BB, KD, RSI, ATR14, Low3, Vol20)
 # ------------------------------------------------------------------------------
+_MACRO_CACHE = {}
+
+def get_session_elapsed_ratio(is_us=True):
+    """計算盤中已經過時間比例（用於等比例推估當日全日量能），非盤中回傳 1.0"""
+    if is_us:
+        now_et = datetime.now(ZoneInfo('America/New_York'))
+        if now_et.weekday() < 5:
+            mins = now_et.hour * 60 + now_et.minute
+            if 570 <= mins < 960:  # 09:30 ~ 16:00 ET (390 mins)
+                return max(0.18, min(1.0, (mins - 570) / 390.0))
+    else:
+        now_tw = datetime.now(TAIPEI_TZ)
+        if now_tw.weekday() < 5:
+            mins = now_tw.hour * 60 + now_tw.minute
+            if 540 <= mins < 810:  # 09:00 ~ 13:30 TW (270 mins)
+                return max(0.18, min(1.0, (mins - 540) / 270.0))
+    return 1.0
+
+def get_macro_climate_shield(is_us=True):
+    """大盤氣候總開關：美股看 SPY 季線/年線與 10Y 美債殖利率；台股看加權與台幣匯率月線"""
+    key = 'US' if is_us else 'TW'
+    cached = _MACRO_CACHE.get(key)
+    if cached and (time.time() - cached.get('ts', 0) < 900):
+        return cached
+
+    res = {'market_ok': True, 'sizing_hint': '🟢 總經氣候平穩，可依標準倉位執行', 'ts': time.time()}
+    try:
+        import yfinance as yf
+        if is_us:
+            spy = yf.Ticker('SPY').history(period='1y')
+            tnx = yf.Ticker('^TNX').history(period='1mo')
+            if not spy.empty and len(spy) >= 65:
+                spy_c = float(spy['Close'].iloc[-1])
+                spy_ma60 = float(spy['Close'].rolling(60).mean().iloc[-1])
+                spy_ma60_prev = float(spy['Close'].rolling(60).mean().iloc[-6])
+                spy_ma200 = float(spy['Close'].rolling(200).mean().iloc[-1]) if len(spy) >= 200 else spy_ma60
+                tnx_v = float(tnx['Close'].iloc[-1]) if not tnx.empty else 4.5
+                bear_mode = (spy_c < spy_ma60 * 0.96) or (spy_c < spy_ma200 and spy_ma60 < spy_ma60_prev)
+                if bear_mode:
+                    res['market_ok'] = False
+                    res['sizing_hint'] = f'🐻 美股熊市總開關啟動 (SPY {spy_c:.1f} < MA60 {spy_ma60:.1f} 或 MA200 {spy_ma200:.1f} 轉空)，鎖住開槍！'
+                elif tnx_v >= 4.90:
+                    res['sizing_hint'] = f'⚠️ 10Y美債殖利率偏高 ({tnx_v:.2f}%)，建議減半偵察試單 (SPY {spy_c:.1f} 尚穩)'
+                else:
+                    res['sizing_hint'] = f'🟢 美股氣候穩健 (SPY {spy_c:.1f} >= 季線 {spy_ma60:.1f}，10Y美債 {tnx_v:.2f}%)，可依標準倉位'
+        else:
+            twd = yf.Ticker('TWD=X').history(period='2mo')
+            twii = yf.Ticker('^TWII').history(period='6mo')
+            twii_bear = False
+            if not twii.empty and len(twii) >= 60:
+                tw_c = float(twii['Close'].iloc[-1])
+                tw_m60 = float(twii['Close'].rolling(60).mean().iloc[-1])
+                twii_bear = (tw_c < tw_m60 * 0.93)
+            if twii_bear:
+                res['market_ok'] = False
+                res['sizing_hint'] = '🐻 台股加權跌破季線 7% 以上空頭格局，鎖住開槍！'
+            elif not twd.empty and len(twd) >= 20:
+                fx_c = float(twd['Close'].iloc[-1])
+                fx_m20 = float(twd['Close'].rolling(20).mean().iloc[-1])
+                if fx_c <= fx_m20 * 1.002:
+                    res['sizing_hint'] = f'🟢 台幣升值順風區 ({fx_c:.2f} <= 月線 {fx_m20:.2f}，歷史20日勝率80.4%)，可依標準倉位'
+                else:
+                    res['sizing_hint'] = f'⚠️ 台幣貶值逆風區 ({fx_c:.2f} > 月線 {fx_m20:.2f}，歷史勝率68.4%)，建議減半輕試'
+    except Exception as e:
+        res['sizing_hint'] = f'⚠️ 總經氣候抓取略過 ({e})'
+    _MACRO_CACHE[key] = res
+    return res
+
 def get_stock_technicals(symbol, is_us=True):
     cache = {}
     today_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d')
-    
+    now_ts = time.time()
+
     if CACHE_FILE.exists():
         try:
             with open(CACHE_FILE, 'r', encoding='utf-8') as f:
                 cache = json.load(f)
         except Exception:
             cache = {}
-            
-    if symbol in cache and cache[symbol].get('date') == today_str:
-        return cache[symbol]
-        
+
+    if symbol in cache:
+        c_item = cache[symbol]
+        # 15 分鐘內且具備完整 V4-Yen 欄位才使用快取
+        if (now_ts - c_item.get('ts', 0) < 900) and ('ma200' in c_item) and ('atr14' in c_item):
+            return c_item
+
     try:
         import yfinance as yf
+        import pandas as pd
         ticker_sym = symbol
-        df = yf.Ticker(ticker_sym).history(period='6mo')
+        df = yf.Ticker(ticker_sym).history(period='1y')
         if df.empty and symbol.endswith('.TW'):
             ticker_sym = symbol.replace('.TW', '.TWO')
-            df = yf.Ticker(ticker_sym).history(period='6mo')
-            
-        if not df.empty and len(df) >= 20:
-            ma60 = float(df['Close'].rolling(60).mean().iloc[-1]) if len(df) >= 60 else float(df['Close'].mean())
+            df = yf.Ticker(ticker_sym).history(period='1y')
+
+        if not df.empty and len(df) >= 65:
+            ma60_s = df['Close'].rolling(60).mean()
+            ma60 = float(ma60_s.iloc[-1])
+            ma60_prev5 = float(ma60_s.iloc[-6]) if len(ma60_s.dropna()) >= 6 else ma60
+            ma60_slope5 = ma60 - ma60_prev5
+            ma200 = float(df['Close'].rolling(200).mean().iloc[-1]) if len(df) >= 200 else ma60
             ma20 = float(df['Close'].rolling(20).mean().iloc[-1])
             std20 = float(df['Close'].rolling(20).std().iloc[-1])
             bb_lower = ma20 - (2 * std20)
             bb_upper = ma20 + (2 * std20)
-            
+            low3 = float(df['Low'].iloc[-3:].min())
+
+            hl = df['High'] - df['Low']
+            hc = (df['High'] - df['Close'].shift(1)).abs()
+            lc = (df['Low'] - df['Close'].shift(1)).abs()
+            tr = pd.concat([hl, hc, lc], axis=1).max(axis=1)
+            atr14 = float(tr.rolling(14).mean().iloc[-1])
+
+            # 使用前 20 個已收盤交易日均量，避免盤中尚未收盤拉低基準
+            vol20 = float(df['Volume'].iloc[-21:-1].mean()) if len(df) >= 22 else float(df['Volume'].mean())
+
+            delta = df['Close'].diff()
+            gain = delta.clip(lower=0).rolling(14).mean()
+            loss = (-delta.clip(upper=0)).rolling(14).mean()
+            rs = gain / loss.replace(0, float('nan'))
+            rsi14 = float((100 - (100 / (1 + rs))).iloc[-1])
+            if pd.isna(rsi14):
+                rsi14 = 50.0
+
             l9 = df['Low'].rolling(9).min()
             h9 = df['High'].rolling(9).max()
-            rsv = 100 * (df['Close'] - l9) / (h9 - l9)
-            k_series = rsv.ewm(com=2, adjust=False).mean()
-            d_series = k_series.ewm(com=2, adjust=False).mean()
-            
+            rsv = 100 * (df['Close'] - l9) / (h9 - l9).replace(0, float('nan'))
+            k_val, d_val = 50.0, 50.0
+            for r in rsv:
+                if pd.notna(r):
+                    k_val = (2.0 / 3.0) * k_val + (1.0 / 3.0) * float(r)
+                    d_val = (2.0 / 3.0) * d_val + (1.0 / 3.0) * k_val
+
             tech_data = {
                 'date': today_str,
+                'ts': now_ts,
                 'ma60': round(ma60, 2),
+                'ma60_slope5': round(ma60_slope5, 4),
+                'ma200': round(ma200, 2),
                 'ma20': round(ma20, 2),
                 'bb_lower': round(bb_lower, 2),
                 'bb_upper': round(bb_upper, 2),
-                'k': round(float(k_series.iloc[-1]), 2),
-                'd': round(float(d_series.iloc[-1]), 2)
+                'low3': round(low3, 2),
+                'atr14': round(atr14, 2),
+                'vol20': round(vol20, 1),
+                'last_vol': float(df['Volume'].iloc[-1]),
+                'last_open': float(df['Open'].iloc[-1]),
+                'rsi14': round(rsi14, 2),
+                'k': round(k_val, 2),
+                'd': round(d_val, 2)
             }
             cache[symbol] = tech_data
             try:
@@ -768,7 +910,7 @@ def get_stock_technicals(symbol, is_us=True):
             return tech_data
     except Exception as e:
         print(f'⚠️ 計算 {symbol} 技術指標失敗: {e}')
-        
+
     return None
 
 # ------------------------------------------------------------------------------
@@ -829,72 +971,111 @@ def mark_alert_sent(symbol, current_price):
 def scan_market(symbols, market_type, config, force_symbol=None):
     is_us = (market_type.upper() == 'US')
     market_label = '美股' if is_us else '台股'
-    
+
     if force_symbol:
         symbols = [force_symbol]
-        
-    print(f'\n🔍 啟動【{market_label}】波段巡檢，監控標的: {len(symbols)} 檔...')
-    
+
+    macro = get_macro_climate_shield(is_us=is_us)
+    elapsed_ratio = get_session_elapsed_ratio(is_us=is_us)
+    print(f'\n🔍 啟動【{market_label}】V4-Yen 雙師波段巡檢（監控 {len(symbols)} 檔 | 時段進度 {elapsed_ratio*100:.0f}%）')
+    print(f'   🌐 總經氣候：{macro["sizing_hint"]}')
+
     quotes = fetch_us_realtime_quotes(symbols) if is_us else fetch_tw_realtime_quotes(symbols)
-    
+
     alerts_triggered = 0
     token = config.get('channel_access_token')
     user_id = config.get('user_id')
     cooldown = config.get('cooldown_minutes', 60)
-    
+
     for sym in symbols:
         q = quotes.get(sym)
         if not q and not is_us:
             alt_sym = sym.replace('.TWO', '.TW') if sym.endswith('.TWO') else sym.replace('.TW', '.TWO')
             q = quotes.get(alt_sym)
-            
+
         if not q or q['price'] <= 0:
             print(f'  - {sym}: 無即時報價')
             continue
-            
+
         price = q['price']
         low_p = q['low']
+        high_p = q.get('high', price)
+        open_p = q.get('open', price)
+        raw_vol = q.get('volume', 0.0)
         name = q.get('name') or (DEFAULT_US_WATCHLIST.get(sym, {}).get('name') if is_us else DEFAULT_TW_WATCHLIST.get(sym, {}).get('name', sym))
-        
+
         tech = get_stock_technicals(sym, is_us=is_us)
         if not tech:
-            ma60 = round(price * 0.95, 2)
-            bb_lower = round(price * 0.98, 2)
-            k_val = 25.0
-            d_val = 26.0
-        else:
-            ma60 = tech['ma60']
-            bb_lower = tech['bb_lower']
-            k_val = tech['k']
-            d_val = tech['d']
-            
-        # 顏老師鐵律條件判定
-        # 1. 守穩季線生命線附近 (容許 5% 緩衝回測)
-        is_above_ma60 = bool(price >= ma60 * 0.95)
-        # 2. 回測布林下軌甜蜜支撐區 (現價接近或低於下軌 3.5% 範圍內)
-        is_sweet_spot = bool(price <= bb_lower * 1.035)
-        # 3. KD 超賣或轉強打底 (K <= 35 或 K > D)
-        is_kd_oversold = bool(k_val <= 35 or k_val > d_val)
-        # 4. 強烈打底特例：當 KD <= 30 且股價接近布林下軌 5% 內，認定為極致打底區
-        is_deep_sweet_zone = bool(is_sweet_spot or (k_val <= 30 and price <= bb_lower * 1.05))
-        
-        should_alert = force_symbol is not None or (is_above_ma60 and is_deep_sweet_zone and is_kd_oversold)
-        
+            print(f'  - {sym} ({name}): 歷史指標不足，略過判定')
+            continue
+
+        ma60 = tech['ma60']
+        ma60_slope5 = tech.get('ma60_slope5', 0.0)
+        ma200 = tech.get('ma200', ma60)
+        bb_lower = tech['bb_lower']
+        low3 = min(tech.get('low3', low_p), low_p)
+        atr14 = max(tech.get('atr14', price * 0.02), price * 0.005)
+        vol20 = tech.get('vol20', 0.0)
+        rsi14 = tech.get('rsi14', 50.0)
+        k_val = tech['k']
+        d_val = tech['d']
+
+        if open_p == price and tech.get('last_open'):
+            open_p = tech['last_open']
+        if raw_vol <= 0 and tech.get('last_vol', 0) > 0:
+            raw_vol = tech['last_vol']
+
+        proj_vol_ratio = (raw_vol / elapsed_ratio) / vol20 if (vol20 > 0 and raw_vol > 0) else 1.0
+        rng = max(high_p - low_p, 1e-6)
+        close_pos = (price - low_p) / rng if high_p > low_p else 0.6
+
+        # ------------------------------------------------------------------
+        # 顏老師 V4-Yen 簡約大數據六大鐵律（經 11.2 年 22 萬根 K 棒認證，PF > 2.0）
+        # 1. 雙均線趨勢護城河：站穩季線 60MA ＋ 季線斜率向上 ＋ 站穩年線 200MA
+        is_trend_ok = bool(price >= ma60 and ma60_slope5 > 0 and price >= ma200)
+        # 2. 布林下軌甜蜜回測 (BB_Lower * 1.05)
+        is_sweet_spot = bool(price <= bb_lower * 1.05)
+        # 3. KD 低檔金叉 ＋ RSI 不過熱 (K <= 50 且 K > D 且 RSI <= 55)
+        is_kd_rsi_ok = bool(k_val <= 50.0 and k_val > d_val and rsi14 <= 55.0)
+        # 4. 8-3-1 紅 K 收強確認止跌 (Close >= Open 且收在當日振福上 45%)
+        is_red_strong = bool(price >= open_p and close_pos >= 0.55)
+        # 5. 老王量能健康過濾 (0.90x ~ 2.50x 均量，有量換手又避開爆量出貨)
+        is_vol_ok = bool(0.90 <= proj_vol_ratio <= 2.50)
+        # 6. 大盤熊市總開關 (熊市時自動鎖住多方買訊)
+        is_macro_ok = bool(macro['market_ok'])
+
+        # 雙師風控防守與目標計算 (ATR 緩衝兼阿村伯 -7% 硬停損保險絲)
+        sl_price = round(max(low3 - 1.2 * atr14, price * 0.93), 2)
+        tp1_price = round(price * 1.08, 2)
+
+        should_alert = (force_symbol is not None) or (
+            is_macro_ok and is_trend_ok and is_sweet_spot and is_kd_rsi_ok and is_red_strong and is_vol_ok
+        )
+
         unit = 'USD' if is_us else 'TWD'
-        print(f'  - {sym} ({name}): 現價 {price:.2f} {unit}, MA60 {ma60:.2f}, 布林下軌 {bb_lower:.2f}, K:{k_val:.1f} | 甜蜜區:{is_sweet_spot}, 季線:{is_above_ma60}')
-        
+        watch_tag = '👀[候選]' if (is_trend_ok and is_sweet_spot) else '  '
+        print(
+            f'  {watch_tag} {sym} ({name}): 現價 {price:.2f} {unit} | '
+            f'MA60={ma60:.2f}({"↑" if ma60_slope5>0 else "↓"}) MA200={ma200:.2f} BBL*1.05={bb_lower*1.05:.2f} | '
+            f'KD={k_val:.1f}/{d_val:.1f} RSI={rsi14:.0f} Pos={close_pos:.2f} 量={proj_vol_ratio:.2f}x'
+        )
+
         if should_alert:
             can_send, reason = check_can_alert(sym, price, cooldown)
             if force_symbol or can_send:
-                print(f'    🚨 【觸發波段買進預警！】向 LINE 發送通知...')
-                card = create_sweet_spot_card(sym, name, price, low_p, ma60, bb_lower, k_val, d_val, market=market_type)
+                print(f'    🚨 【V4-Yen 精選狙擊觸發！】Stop={sl_price:.2f} | TP1={tp1_price:.2f} -> 發送通知...')
+                card = create_sweet_spot_card(
+                    sym, name, price, low_p, ma60, bb_lower, k_val, d_val, market=market_type,
+                    sl_price=sl_price, tp1_price=tp1_price, rsi=rsi14, vol_ratio=proj_vol_ratio,
+                    macro_note=macro['sizing_hint']
+                )
                 success = push_line_message(token, user_id, card)
                 if success:
                     mark_alert_sent(sym, price)
                     alerts_triggered += 1
             else:
                 print(f'    ⏳ 觸發訊號但 {reason}')
-                
+
     return alerts_triggered
 
 # ------------------------------------------------------------------------------
