@@ -356,8 +356,11 @@ function App() {
             <ShieldCheck className="text-white" size={24} />
           </div>
           <div>
-            <h1 className="text-lg md:text-xl font-black tracking-tighter uppercase leading-none">正規軍量化交易終端</h1>
-            <span className="text-[9px] font-black text-red-500 uppercase tracking-widest opacity-80">Regular Army Strategic Command</span>
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg md:text-xl font-black tracking-tighter uppercase leading-none">正規軍量化交易終端</h1>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 tracking-wider">V4-Yen 雙師認證</span>
+            </div>
+            <span className="text-[9px] font-black text-red-500 uppercase tracking-widest opacity-80">Regular Army V4-Yen Command (11.2Y Big Data)</span>
           </div>
         </div>
 
@@ -668,8 +671,10 @@ function App() {
                               {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
                             </div>
                           )}
-                          {/* Level 2 & 3: Gap, K-Line, and Volume Surge Badges */}
+                          {/* Level 2 & 3: V4-Yen, Gap, K-Line, and Volume Surge Badges */}
                           <div className="flex flex-wrap gap-1 mt-1">
+                            {stock.technicals?.v4_trigger && <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/30 text-red-300 border border-red-400/50 tracking-wider font-black">🚨 V4-Yen狙擊</span>}
+                            {stock.technicals?.v4_watch && !stock.technicals?.v4_trigger && <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/25 text-amber-300 border border-amber-400/40 tracking-wider font-bold">👀 V4-Yen候選</span>}
                             {stock.vol_surge && <span className="text-[9px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30 tracking-widest font-bold">🌊 爆量突破</span>}
                             {stock.gap_up && <span className="text-[9px] px-1.5 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 tracking-widest font-bold">🚀 向上缺口</span>}
                             {stock.k_pattern === 'Engulfing' && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30 tracking-widest font-bold">🔄 吞噬反轉</span>}

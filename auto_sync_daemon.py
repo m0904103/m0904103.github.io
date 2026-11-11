@@ -72,32 +72,13 @@ while True:
         
         NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
 
-        # 1. Sync Regular Army
+        # 1. Execute Unified V4-Yen Sync & Frontend Deploy (auto_sync.py --once)
         try:
-            subprocess.run([sys.executable, "sync_regular_army_2026.py"], timeout=600, check=False, creationflags=NO_WINDOW)
+            subprocess.run([sys.executable, "auto_sync.py", "--once"], timeout=480, check=False, creationflags=NO_WINDOW)
         except subprocess.TimeoutExpired:
-            print("[WARN] sync_regular_army_2026 timed out, proceeding...")
-        
-        # 2. Scan TW Big Data
-        try:
-            subprocess.run([sys.executable, "scan_tw_big_data.py"], timeout=600, check=False, creationflags=NO_WINDOW)
-        except subprocess.TimeoutExpired:
-            print("[WARN] scan_tw_big_data timed out, proceeding...")
-        
-        # 3. Build Frontend
-        frontend_dir = os.path.join(repo_root, "frontend")
-        try:
-            subprocess.run("npm run build", cwd=frontend_dir, shell=True, timeout=180, check=False, creationflags=NO_WINDOW)
-        except subprocess.TimeoutExpired:
-            print("[WARN] npm run build timed out, proceeding...")
-        
-        # 4. Upload & Deploy
-        try:
-            subprocess.run([sys.executable, "upload_frontend.py"], timeout=180, check=False, creationflags=NO_WINDOW)
-        except subprocess.TimeoutExpired:
-            print("[WARN] upload_frontend timed out, proceeding...")
+            print("[WARN] auto_sync.py --once timed out, proceeding...")
 
-        sleep_sec = 30 if is_market_open() else 180
+        sleep_sec = 180 if is_market_open() else 900
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Sync cycle complete! Sleeping {sleep_sec}s...")
         time.sleep(sleep_sec)
         

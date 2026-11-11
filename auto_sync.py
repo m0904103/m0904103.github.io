@@ -9,8 +9,9 @@ import math
 import time
 import subprocess
 import requests
+import pandas as pd
 import yfinance as yf
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -92,12 +93,22 @@ def get_twse_prices(symbols):
                     b = item.get("b", "").split("_")[0]
                     a = item.get("a", "").split("_")[0]
                     y = item.get("y", "-")
+                    o_str = item.get("o", "-")
+                    h_str = item.get("h", "-")
+                    l_str = item.get("l", "-")
+                    v_str = item.get("v", "0")
                     p_str = z if (z and z != "-") else (b if (b and b != "-") else a)
                     if p_str and p_str != "-":
+                        p_val = round(float(p_str), 2)
                         full_sym = sym_map.get(code, f"{code}.TW")
                         prices[full_sym] = {
-                            "price": round(float(p_str), 2),
+                            "price": p_val,
                             "prev_close": round(float(y), 2) if y and y != "-" else None,
+                            "open": round(float(o_str), 2) if o_str and o_str != "-" else p_val,
+                            "high": round(float(h_str), 2) if h_str and h_str != "-" else p_val,
+                            "low": round(float(l_str), 2) if l_str and l_str != "-" else p_val,
+                            "volume": float(v_str) * 1000.0 if v_str and v_str != "-" else 0.0,
+                            "date": item.get("d", ""),
                             "source": "TWSE"
                         }
                 time.sleep(0.25)
@@ -243,11 +254,119 @@ def get_taifex_oi(indices=None):
                 return int(indices[k]['close'])
     return -103473
 
+
+def get_v4_macro_climate():
+    """Calculate V4-Yen dual-market macro climate shields (SPY/TNX for US, TWII/TWD=X for TW)."""
+    macro = {
+        'us': {'market_ok': True, 'half_size': False, 'hint': '🟢 美股氣候穩健'},
+        'tw': {'market_ok': True, 'half_size': False, 'hint': '🟢 台股氣候穩健'},
+    }
+    try:
+        spy_t = yf.Ticker('SPY')
+        spy = spy_t.history(period='1y').dropna(subset=['Close'])
+        tnx = yf.Ticker('^TNX').history(period='1mo').dropna(subset=['Close'])
+        if not spy.empty and len(spy) >= 65:
+            spy_c = float(spy['Close'].iloc[-1])
+            spy_ma60 = float(spy['Close'].rolling(60).mean().iloc[-1])
+            spy_ma60_prev = float(spy['Close'].rolling(60).mean().iloc[-6])
+            spy_ma200 = float(spy['Close'].rolling(200).mean().iloc[-1]) if len(spy) >= 200 else spy_ma60
+            tnx_v = float(tnx['Close'].iloc[-1]) if not tnx.empty else 4.5
+            bear = (spy_c < spy_ma60 * 0.96) or (spy_c < spy_ma200 and spy_ma60 < spy_ma60_prev)
+            if bear:
+                macro['us'] = {'market_ok': False, 'half_size': True, 'hint': f'🐻 美股熊市總開關啟動 (SPY {spy_c:.1f} < MA60 {spy_ma60:.1f} 或 MA200 {spy_ma200:.1f})'}
+            elif tnx_v >= 4.90:
+                macro['us'] = {'market_ok': True, 'half_size': True, 'hint': f'⚠️ 10Y美債殖利率偏高 ({tnx_v:.2f}%)，建議減半偵察 (SPY {spy_c:.1f} >= 季線 {spy_ma60:.1f})'}
+            else:
+                macro['us'] = {'market_ok': True, 'half_size': False, 'hint': f'🟢 美股氣候穩健 (SPY {spy_c:.1f} >= 季線 {spy_ma60:.1f}，10Y美債 {tnx_v:.2f}%)'}
+    except Exception as e:
+        print(f"  [V4 Macro US err] {e}")
+
+    try:
+        twii_t = yf.Ticker('^TWII')
+        twii = twii_t.history(period='6mo').dropna(subset=['Close'])
+        twd = yf.Ticker('TWD=X').history(period='2mo').dropna(subset=['Close'])
+        if not twii.empty and len(twii) >= 60:
+            last_px = None
+            try:
+                last_px = twii_t.fast_info.get('lastPrice')
+            except Exception:
+                pass
+            tw_c = float(last_px or twii['Close'].iloc[-1])
+            tw_m60 = float(twii['Close'].rolling(60).mean().iloc[-1])
+            if tw_c < tw_m60 * 0.93:
+                macro['tw'] = {'market_ok': False, 'half_size': True, 'hint': f'🐻 台股加權 ({tw_c:.0f}) 跌破季線 ({tw_m60:.0f}) 7% 以上，鎖住開槍'}
+            elif not twd.empty and len(twd) >= 20:
+                fx_c = float(twd['Close'].iloc[-1])
+                fx_m20 = float(twd['Close'].rolling(20).mean().iloc[-1])
+                if fx_c <= fx_m20 * 1.002:
+                    macro['tw'] = {'market_ok': True, 'half_size': False, 'hint': f'🟢 台幣升值順風 ({fx_c:.2f} <= 月線 {fx_m20:.2f}，20日勝率80.4%)'}
+                else:
+                    macro['tw'] = {'market_ok': True, 'half_size': True, 'hint': f'⚠️ 台幣貶值逆風 ({fx_c:.2f} > 月線 {fx_m20:.2f}，歷史勝率68.4%)，減半輕試'}
+    except Exception as e:
+        print(f"  [V4 Macro TW err] {e}")
+    return macro
+
+
+def patch_tw_latest_bar(df, sym, twse_entry):
+    """Ensure TW DataFrame reflects latest TWSE / fast_info bar when Yahoo daily Close lags or drops NaN."""
+    if df is None or df.empty:
+        return df, None, "Yahoo"
+
+    last_idx = df.index[-1]
+    last_date_str = last_idx.strftime('%Y-%m-%d') if hasattr(last_idx, 'strftime') else str(last_idx)[:10]
+    yahoo_close = float(df['Close'].iloc[-1])
+
+    # 1. Check TWSE MIS entry first (0-delay official Taiwan price)
+    if twse_entry and twse_entry.get("price"):
+        twse_px = float(twse_entry["price"])
+        raw_d = str(twse_entry.get("date") or "")
+        twse_date = f"{raw_d[:4]}-{raw_d[4:6]}-{raw_d[6:8]}" if len(raw_d) == 8 else last_date_str
+        prev_c = twse_entry.get("prev_close")
+        # If TWSE date is newer than Yahoo's last valid close row, append a clean bar
+        if twse_date > last_date_str or (twse_date == last_date_str and abs(twse_px - yahoo_close) > 1e-6):
+            new_row = {
+                'Open': float(twse_entry.get('open') or twse_px),
+                'High': float(twse_entry.get('high') or twse_px),
+                'Low': float(twse_entry.get('low') or twse_px),
+                'Close': twse_px,
+                'Volume': float(twse_entry.get('volume') or df['Volume'].iloc[-1]),
+            }
+            if twse_date > last_date_str:
+                new_idx = pd.Timestamp(f"{twse_date} 00:00:00", tz=df.index.tz)
+                df = pd.concat([df, pd.DataFrame([new_row], index=[new_idx])])
+            else:
+                for col, val in new_row.items():
+                    if col in df.columns:
+                        df.iloc[-1, df.columns.get_loc(col)] = val
+            return df, prev_c, "TWSE"
+        return df, prev_c, "TWSE" if is_tw_trading_hours() else "Yahoo"
+
+    # 2. Fallback to Yahoo fast_info when TWSE MIS missed the ticker (e.g. OTC mismatch)
+    if '.TW' in sym or '.TWO' in sym:
+        try:
+            fi = yf.Ticker(sym).fast_info
+            fi_px = fi.get('lastPrice')
+            fi_prev = fi.get('previousClose') or fi.get('regularMarketPreviousClose')
+            if fi_px and float(fi_px) > 0 and abs(float(fi_px) - yahoo_close) > max(0.01, yahoo_close * 0.002):
+                fi_open = float(fi.get('open') or fi_px)
+                fi_high = float(fi.get('dayHigh') or max(fi_open, float(fi_px)))
+                fi_low = float(fi.get('dayLow') or min(fi_open, float(fi_px)))
+                fi_vol = float(fi.get('lastVolume') or df['Volume'].iloc[-1])
+                new_idx = last_idx + pd.Timedelta(days=1)
+                new_row = {'Open': fi_open, 'High': fi_high, 'Low': fi_low, 'Close': float(fi_px), 'Volume': fi_vol}
+                df = pd.concat([df, pd.DataFrame([new_row], index=[new_idx])])
+                return df, (float(fi_prev) if fi_prev else yahoo_close), "Yahoo-Fast"
+        except Exception:
+            pass
+
+    return df, None, "Yahoo"
+
+
 # ==========================================
-# 主同步邏輯（雙源 + 交叉驗證）
+# 主同步邏輯（V4-Yen 雙源 + 交叉驗證）
 # ==========================================
 def sync_once():
-    print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Starting sync... (TW={is_tw_trading_hours()}, US={is_us_trading_hours()})")
+    print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Starting V4-Yen sync... (TW={is_tw_trading_hours()}, US={is_us_trading_hours()})")
 
     if not os.path.exists(DATA_FILE):
         print("ERROR: scan_results.json not found!")
@@ -271,12 +390,15 @@ def sync_once():
     all_symbols = list(existing_stocks.keys())
     tw_symbols = [s for s in all_symbols if '.TW' in s or '.TWO' in s]
 
-    # Step 1: 先用 TWSE 抓台股即時報價（盤中）
-    twse_prices = {}
-    if is_tw_trading_hours():
-        print(f"  Fetching TWSE real-time for {len(tw_symbols)} TW stocks...")
-        twse_prices = get_twse_prices(tw_symbols)
-        print(f"  TWSE returned {len(twse_prices)} prices.")
+    # Step 1: 一律向 TWSE 抓取台股官方最新報價（含盤中即時與盤後正式收盤價，補救 Yahoo 延遲）
+    print(f"  Fetching TWSE official quotes for {len(tw_symbols)} TW stocks...")
+    twse_prices = get_twse_prices(tw_symbols)
+    print(f"  TWSE returned {len(twse_prices)} prices.")
+
+    # Step 1.5: 計算 V4-Yen 雙市場總經氣候護盾
+    v4_macro = get_v4_macro_climate()
+    print(f"  V4-Yen Macro US: {v4_macro['us']['hint']}")
+    print(f"  V4-Yen Macro TW: {v4_macro['tw']['hint']}")
 
     # Step 2: 用 Yahoo Finance 批量更新全部股票
     updated_count = 0
@@ -316,13 +438,28 @@ def sync_once():
                 print(f"  {sym}: No data available.", flush=True)
                 continue
 
-            df = df.dropna(subset=['Close'])
+            df = df.dropna(subset=['Open', 'High', 'Low', 'Close'])
             if df.empty:
                 print(f"  {sym}: No valid close data available.", flush=True)
                 continue
 
-            yahoo_close = round(float(df['Close'].iloc[-1]), 2)
-            prev_close = float(df['Close'].iloc[-2]) if len(df) > 1 else yahoo_close
+            is_tw_sym = ('.TW' in sym or '.TWO' in sym)
+            twse_entry = twse_prices.get(sym) or twse_prices.get(sym.replace('.TWO', '.TW'))
+            yahoo_raw_close = round(float(df['Close'].iloc[-1]), 2)
+            if twse_entry and twse_entry.get("price") and yahoo_raw_close > 0:
+                diff_pct = abs((twse_entry["price"] - yahoo_raw_close) / yahoo_raw_close * 100)
+                if diff_pct > 1.5:
+                    cross_check_alerts.append(
+                        f"  INFO: {sym} Yahoo={yahoo_raw_close} vs TWSE={twse_entry['price']} diff={diff_pct:.1f}% -> using TWSE/latest bar"
+                    )
+
+            override_prev = None
+            price_source = "Yahoo"
+            if is_tw_sym:
+                df, override_prev, price_source = patch_tw_latest_bar(df, sym, twse_entry)
+
+            final_price = round(float(df['Close'].iloc[-1]), 2)
+            prev_close = float(override_prev) if (override_prev and override_prev > 0) else (float(df['Close'].iloc[-2]) if len(df) > 1 else final_price)
 
             # Also write latest 120-bar history file for K-line chart (both history/ and assets/)
             try:
@@ -357,75 +494,136 @@ def sync_once():
             except Exception:
                 pass
 
-            final_price = yahoo_close
-            price_source = "Yahoo"
-
-            # Step 3: 交叉驗證 (台股盤中 - 用 TWSE 為準)
-            twse_entry = twse_prices.get(sym) or twse_prices.get(sym.replace('.TWO', '.TW'))
-            if twse_entry:
-                twse_price = twse_entry["price"]
-                diff_pct = abs((twse_price - yahoo_close) / yahoo_close * 100) if yahoo_close > 0 else 0
-                if diff_pct > 1.5:
-                    cross_check_alerts.append(
-                        f"  WARNING: {sym} Yahoo={yahoo_close} vs TWSE={twse_price} diff={diff_pct:.1f}%"
-                    )
-                # During TW trading hours, trust TWSE official price
-                if is_tw_trading_hours():
-                    final_price = twse_price
-                    price_source = "TWSE"
-                    if twse_entry.get("prev_close"):
-                        prev_close = twse_entry["prev_close"]
-
             change = round(((final_price - prev_close) / prev_close) * 100, 2) if prev_close > 0 else 0.0
 
+            # ==============================================================
+            # 顏老師 V4-Yen 雙師 11.2 年大數據核心計量評級
+            # ==============================================================
             valid_c = df['Close'].dropna()
-            ma60 = round(float(valid_c.iloc[-60:].mean()), 2) if len(valid_c) >= 60 else final_price
+            ma60_series = valid_c.rolling(60).mean()
+            ma60 = round(float(ma60_series.iloc[-1]), 2) if len(valid_c) >= 60 else final_price
+            ma60_prev5 = round(float(ma60_series.iloc[-6]), 2) if len(ma60_series.dropna()) >= 6 else ma60
+            ma60_slope5 = round(ma60 - ma60_prev5, 4)
             ma200 = round(float(valid_c.iloc[-200:].mean()), 2) if len(valid_c) >= 200 else stock_obj.get('ma200')
             if ma200:
                 stock_obj['ma200'] = ma200
+
+            ma20 = float(valid_c.rolling(20).mean().iloc[-1]) if len(valid_c) >= 20 else final_price
+            std20 = float(valid_c.rolling(20).std().iloc[-1]) if len(valid_c) >= 20 else final_price * 0.02
+            if math.isnan(std20):
+                std20 = final_price * 0.02
+            bb_lower = round(ma20 - 2.0 * std20, 2)
+            bb_upper = round(ma20 + 2.0 * std20, 2)
+
+            low3 = float(df['Low'].iloc[-3:].min()) if len(df) >= 3 else float(df['Low'].iloc[-1])
+            hl = df['High'] - df['Low']
+            hc = (df['High'] - df['Close'].shift(1)).abs()
+            lc = (df['Low'] - df['Close'].shift(1)).abs()
+            tr = pd.concat([hl, hc, lc], axis=1).max(axis=1)
+            atr14 = float(tr.rolling(14).mean().iloc[-1]) if len(tr) >= 14 else final_price * 0.02
+            if math.isnan(atr14) or atr14 <= 0:
+                atr14 = final_price * 0.02
+
+            vol20 = float(df['Volume'].iloc[-21:-1].mean()) if len(df) >= 22 else float(df['Volume'].mean() or 1.0)
+            last_vol = float(df['Volume'].iloc[-1] or 0.0)
+            vol_ratio = round(last_vol / vol20, 2) if vol20 > 0 else 1.0
+
+            delta_c = valid_c.diff()
+            gain = delta_c.clip(lower=0).rolling(14).mean()
+            loss = (-delta_c.clip(upper=0)).rolling(14).mean()
+            rs = gain / loss.replace(0, float('nan'))
+            rsi_s = 100.0 - (100.0 / (1.0 + rs))
+            rsi14 = float(rsi_s.iloc[-1]) if not rsi_s.empty and not pd.isna(rsi_s.iloc[-1]) else 50.0
+
+            l9 = df['Low'].rolling(9).min()
+            h9 = df['High'].rolling(9).max()
+            rsv = 100.0 * (df['Close'] - l9) / (h9 - l9).replace(0, float('nan'))
+            kd_k, kd_d = 50.0, 50.0
+            for r_val in rsv:
+                if pd.notna(r_val):
+                    kd_k = (2.0 / 3.0) * kd_k + (1.0 / 3.0) * float(r_val)
+                    kd_d = (2.0 / 3.0) * kd_d + (1.0 / 3.0) * kd_k
+
+            day_open = float(df['Open'].iloc[-1])
+            day_high = float(df['High'].iloc[-1])
+            day_low = float(df['Low'].iloc[-1])
+            close_pos = (final_price - day_low) / max(day_high - day_low, 1e-6) if day_high > day_low else 0.6
+
+            mkt_key = 'tw' if is_tw_sym else 'us'
+            macro_ok = bool(v4_macro[mkt_key]['market_ok'])
+
+            # V4-Yen 六大鐵律檢定
             is_regular = final_price >= ma60
-            bias_pct = ((final_price - ma60) / ma60 * 100) if ma60 > 0 else 0.0
-            is_fuzzy_sweet = -0.8 <= bias_pct <= 4.0
-            is_slight_buffer = -0.8 <= bias_pct < 0.0
-            score_val = 50
+            is_trend_ok = bool(is_regular and ma60_slope5 > 0 and (ma200 is None or final_price >= ma200))
+            is_sweet_spot = bool(final_price <= bb_lower * 1.05)
+            is_kd_rsi_ok = bool(kd_k <= 50.0 and kd_k > kd_d and rsi14 <= 55.0)
+            is_red_strong = bool(final_price >= day_open and close_pos >= 0.55)
+            is_vol_ok = bool(0.90 <= vol_ratio <= 2.50)
+
+            v4_trigger = bool(macro_ok and is_trend_ok and is_sweet_spot and is_kd_rsi_ok and is_red_strong and is_vol_ok)
+            v4_watch = bool(is_trend_ok and is_sweet_spot and not v4_trigger)
+
+            # Score & Signal aligned with V4-Yen
+            score_val = 45
             if ma200 and final_price < ma200:
-                score_val -= 40
+                score_val -= 30
             if is_regular:
-                score_val += 25
-            elif is_slight_buffer:
                 score_val += 15
             else:
                 score_val -= 20
-            if is_fuzzy_sweet:
-                score_val += 25
-            elif is_regular and bias_pct > 4.0:
-                excess = bias_pct - 4.0
-                omega = max(0.05, min(1.0, math.exp(-(math.exp(0.35 * excess) - 1.0))))
-                score_val -= min(45, int(round((1.0 - omega) * 50)))
-            elif bias_pct < -0.8:
-                deficit = abs(bias_pct)
-                omega = max(0.05, min(1.0, math.exp(-(math.exp(0.25 * deficit) - 1.0))))
-                score_val -= min(35, int(round((1.0 - omega) * 40)))
+            if ma60_slope5 > 0:
+                score_val += 10
+            if is_sweet_spot:
+                score_val += 12
+            if is_kd_rsi_ok:
+                score_val += 10
+            if is_red_strong:
+                score_val += 8
+            if is_vol_ok:
+                score_val += 5
             if stock_obj.get('chips', {}).get('foreign_buy'):
-                score_val += 10
+                score_val += 5
             if stock_obj.get('fundamentals', {}).get('three_rates_rising'):
-                score_val += 10
-            if stock_obj.get('esg_elite'):
-                score_val += 10
-            sec_lower = (stock_obj.get('sector') or '').lower()
-            name_str = stock_obj.get('name') or ''
-            if ('ai' in sec_lower or '半導體' in sec_lower or 'cpo' in sec_lower or '軟體' in sec_lower or 'pcb' in sec_lower or '台積' in name_str or '廣達' in name_str) and is_fuzzy_sweet:
-                score_val += 10
+                score_val += 5
             final_score = int(max(10, min(99, score_val)))
             stock_obj['score'] = final_score
-            if final_score >= 85 and is_fuzzy_sweet:
+
+            if v4_trigger:
                 signal = "Strong Buy"
-            elif final_score >= 70 and is_regular:
+                v4_tactic = "🚨 V4-Yen 精選狙擊觸發！季線↑+BBL+KD金叉+強紅K+健康量能共振"
+            elif macro_ok and is_trend_ok and is_sweet_spot and (is_kd_rsi_ok or is_red_strong):
                 signal = "Buy"
-            elif is_regular or final_score >= 55:
+                v4_tactic = "⚡ V4-Yen 準觸發區：站穩MA60↑回測BBL甜蜜帶，待尾盤確認共振"
+            elif is_regular:
                 signal = "Hold"
+                if v4_watch:
+                    v4_tactic = f"👀 V4-Yen 一號追蹤候選：守季線{ma60}(↑)且入BBL*1.05帶，靜待轉紅K與KD金叉"
+                else:
+                    v4_tactic = f"🛡️ 站穩季線({ma60})多方正規軍（續抱觀察，嚴守買進低點防線）"
             else:
                 signal = "Avoid"
+                v4_tactic = f"⚠️ 跌破季線生命線({ma60})或季線走弱，反彈不追高、保留現金"
+
+            stock_obj['tactic'] = v4_tactic
+            stock_obj['vol_ratio'] = vol_ratio
+            stock_obj['engine'] = 'V4-Yen'
+            stock_obj['technicals'] = {
+                **(stock_obj.get('technicals') or {}),
+                'bb_lower': bb_lower,
+                'bb_upper': bb_upper,
+                'bb_lower_touch': is_sweet_spot,
+                'bb_bounce': bool(is_sweet_spot and is_red_strong),
+                'kd_k': round(kd_k, 1),
+                'kd_d': round(kd_d, 1),
+                'kd_oversold': bool(kd_k <= 35.0 and kd_k > kd_d),
+                'rsi14': round(rsi14, 1),
+                'ma60_slope5': ma60_slope5,
+                'atr14': round(atr14, 2),
+                'close_pos': round(close_pos, 2),
+                'v4_watch': v4_watch,
+                'v4_trigger': v4_trigger,
+                'engine': 'V4-Yen',
+            }
 
             # --- LEVEL 3 VOLUME SURGE ---
             vol_surge = False
@@ -483,8 +681,8 @@ def sync_once():
             if "plan" not in stock_obj:
                 stock_obj["plan"] = {}
             stock_obj["plan"]["entry"] = final_price
-            stock_obj["plan"]["sl"] = ma60
-            stock_obj["plan"]["tp"] = round(final_price * 1.25, 2)
+            stock_obj["plan"]["sl"] = round(max(low3 - 1.2 * atr14, final_price * 0.93), 2)
+            stock_obj["plan"]["tp"] = round(final_price * 1.08, 2)
 
             existing_stocks[sym] = stock_obj
             updated_count += 1
@@ -512,19 +710,40 @@ def sync_once():
         print(f"  [Indices] Failed to update US VIX: {e}")
 
     try:
-        twii_df = yf.Ticker('^TWII').history(period='5d')
-        if not twii_df.empty:
-            indices['加權指數'] = {'close': round(float(twii_df['Close'].dropna().iloc[-1]), 2)}
+        twii_t = yf.Ticker('^TWII')
+        twii_df = twii_t.history(period='5d').dropna(subset=['Close'])
+        twii_fi = None
+        try:
+            twii_fi = twii_t.fast_info.get('lastPrice')
+        except Exception:
+            pass
+        if "^TWII" in twse_prices and twse_prices["^TWII"].get("price"):
+            indices['加權指數'] = {'close': round(float(twse_prices["^TWII"]["price"]), 2)}
+        elif twii_fi:
+            indices['加權指數'] = {'close': round(float(twii_fi), 2)}
+        elif not twii_df.empty:
+            indices['加權指數'] = {'close': round(float(twii_df['Close'].iloc[-1]), 2)}
     except Exception as e:
         print(f"  [Indices] Failed to update ^TWII: {e}")
 
     try:
-        fx_df = yf.Ticker('TWD=X').history(period='5d')
+        fx_df = yf.Ticker('TWD=X').history(period='5d').dropna(subset=['Close'])
         if not fx_df.empty:
-            usd_twd = round(float(fx_df['Close'].dropna().iloc[-1]), 3)
+            usd_twd = round(float(fx_df['Close'].iloc[-1]), 3)
             indices['美金/台幣'] = {'close': usd_twd}
     except Exception as e:
         print(f"  [Indices] Failed to update TWD=X: {e}")
+
+    try:
+        tnx_df = yf.Ticker('^TNX').history(period='5d').dropna(subset=['Close'])
+        if not tnx_df.empty:
+            indices['10Y美債殖利率'] = {'close': round(float(tnx_df['Close'].iloc[-1]), 2)}
+    except Exception as e:
+        print(f"  [Indices] Failed to update ^TNX: {e}")
+
+    indices['V4_Yen_US_Macro'] = v4_macro['us']
+    indices['V4_Yen_TW_Macro'] = v4_macro['tw']
+    data['engine'] = 'V4-Yen'
 
     try:
         tsm_adr_p = existing_stocks.get('TSM', {}).get('close')
@@ -544,8 +763,9 @@ def sync_once():
     data['indices'] = indices
     
     data['taifex_oi'] = get_taifex_oi(indices)
-    data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
-    data['updated_at'] = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y/%m/%d %H:%M:%S')
+    now_utc = datetime.now(timezone.utc)
+    data['last_updated'] = now_utc.strftime('%Y-%m-%dT%H:%M:%SZ')  # UTC ISO format - timezone safe
+    data['updated_at'] = (now_utc + timedelta(hours=8)).strftime('%Y/%m/%d %H:%M:%S')
 
     # Sort stocks: US first, then Taiwan
     data['stocks'].sort(key=lambda x: (x.get('market') != 'us', x.get('symbol')))

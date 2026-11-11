@@ -247,10 +247,10 @@ const InvestmentChecklist = ({ stock }) => {
               <span className="text-green-300 font-black">【選股順序】</span> 基本面（三率三升）→ 籌碼面（外資買超）→ 技術面（均線多頭排列+量能）
             </div>
             <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-2">
-              <span className="text-orange-300 font-black">【進場缺一不可】</span> ① 季線之上 ② 均線多頭排列 ③ KD黃金交叉(在20以下) ④ 布林下軌站回或帶量突破 ⑤ 先設停損再下單
+              <span className="text-orange-300 font-black">【V4-Yen 進場缺一不可】</span> ① 站穩MA60↑與年線 ② 回測BBL×1.05甜蜜區 ③ KD≤50金叉與RSI≤55 ④ 尾盤收強紅K(Pos≥0.55) ⑤ 量能0.9~2.5倍健康換手 ⑥ 先設ATR/-7%硬停損
             </div>
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2">
-              <span className="text-red-300 font-black">【出場條件】</span> 停損：跌破設定點立刻出場（機器人模式）｜停利：① 漲10% ② 布林上軌 ③ 趨勢反轉訊號
+              <span className="text-red-300 font-black">【8-3-1 雙軌出場】</span> 停損：3日低-1.2×ATR 或 -7% 機械停損｜停利：① 半倉+8%先落袋 ② 半倉抱至布林上軌折回
             </div>
           </div>
         )}

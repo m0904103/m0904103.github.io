@@ -95,6 +95,17 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push('🚨 阿村伯形態警告：ABC 修正 C 波主跌段，嚴禁抄底 (-30分)');
   }
 
+  // 5.5 V4-Yen 11.2-Year Big Data Bonus
+  if (stock.technicals?.v4_trigger) {
+    score += 20;
+    category = '🚨 V4-Yen 雙師狙擊';
+    reasons.push('🎯 V4-Yen 11.2年實證：季線↑+BBL+KD金叉+強紅K六大條件共振 (+20分)');
+  } else if (stock.technicals?.v4_watch) {
+    score += 10;
+    category = '👀 V4-Yen 重點候選';
+    reasons.push('👀 V4-Yen 候選觀察：站穩季線向上且回落 BBL*1.05 甜蜜區 (+10分，待轉紅金叉)');
+  }
+
   // 6. Market Risk Assessment (VIX / Options)
   const twVix = globalIndices['台指 VIX (波動率)']?.close || globalIndices['vix']?.value || 20;
   if (twVix > 35) {
