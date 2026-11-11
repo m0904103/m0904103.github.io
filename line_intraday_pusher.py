@@ -797,16 +797,23 @@ def get_macro_climate_shield(is_us=True):
                     res['sizing_hint'] = f'🟢 美股氣候穩健 (SPY {spy_c:.1f} >= 季線 {spy_ma60:.1f}，10Y美債 {tnx_v:.2f}%)，可依標準倉位'
         else:
             twd = yf.Ticker('TWD=X').history(period='2mo')
-            twii = yf.Ticker('^TWII').history(period='6mo')
+            twii_t = yf.Ticker('^TWII')
+            twii = twii_t.history(period='6mo').dropna(subset=['Close'])
             twii_bear = False
             if not twii.empty and len(twii) >= 60:
-                tw_c = float(twii['Close'].iloc[-1])
+                last_px = None
+                try:
+                    last_px = twii_t.fast_info.get('lastPrice')
+                except Exception:
+                    pass
+                tw_c = float(last_px or twii['Close'].iloc[-1])
                 tw_m60 = float(twii['Close'].rolling(60).mean().iloc[-1])
                 twii_bear = (tw_c < tw_m60 * 0.93)
             if twii_bear:
                 res['market_ok'] = False
-                res['sizing_hint'] = '🐻 台股加權跌破季線 7% 以上空頭格局，鎖住開槍！'
+                res['sizing_hint'] = f'🐻 台股加權 ({tw_c:.0f}) 跌破季線 ({tw_m60:.0f}) 7% 以上空頭格局，鎖住開槍！'
             elif not twd.empty and len(twd) >= 20:
+                twd = twd.dropna(subset=['Close'])
                 fx_c = float(twd['Close'].iloc[-1])
                 fx_m20 = float(twd['Close'].rolling(20).mean().iloc[-1])
                 if fx_c <= fx_m20 * 1.002:
@@ -819,6 +826,7 @@ def get_macro_climate_shield(is_us=True):
     return res
 
 def get_stock_technicals(symbol, is_us=True):
+    import math
     cache = {}
     today_str = datetime.now(TAIPEI_TZ).strftime('%Y-%m-%d')
     now_ts = time.time()
@@ -832,8 +840,9 @@ def get_stock_technicals(symbol, is_us=True):
 
     if symbol in cache:
         c_item = cache[symbol]
-        # 15 分鐘內且具備完整 V4-Yen 欄位才使用快取
-        if (now_ts - c_item.get('ts', 0) < 900) and ('ma200' in c_item) and ('atr14' in c_item):
+        # 15 分鐘內且具備完整有效 V4-Yen 數值才使用快取
+        ma60_v = c_item.get('ma60')
+        if (now_ts - c_item.get('ts', 0) < 900) and ('ma200' in c_item) and ('atr14' in c_item) and isinstance(ma60_v, (int, float)) and not math.isnan(ma60_v):
             return c_item
 
     try:
@@ -845,6 +854,7 @@ def get_stock_technicals(symbol, is_us=True):
             ticker_sym = symbol.replace('.TW', '.TWO')
             df = yf.Ticker(ticker_sym).history(period='1y')
 
+        df = df.dropna(subset=['Open', 'High', 'Low', 'Close'])
         if not df.empty and len(df) >= 65:
             ma60_s = df['Close'].rolling(60).mean()
             ma60 = float(ma60_s.iloc[-1])
