@@ -38,8 +38,12 @@ export default function KeyPriceCalculator({ selectedStock }) {
   const s2 = pivot ? (pivot - (numHigh - numLow)) : 0;
 
   const currentPrice = numClose || numOpen;
-  const isAboveKey = currentPrice >= tsunKeyPrice;
-  const diffPct = tsunKeyPrice > 0 ? (((currentPrice - tsunKeyPrice) / tsunKeyPrice) * 100).toFixed(2) : 0;
+  const roundedKey = Number(tsunKeyPrice.toFixed(2));
+  const rawDiffPct = roundedKey > 0 ? ((currentPrice - roundedKey) / roundedKey) * 100 : 0;
+  const isAtKey = Math.abs(currentPrice - roundedKey) < 0.005;
+  const isAboveKey = currentPrice >= roundedKey;
+  const diffPctNum = Number(rawDiffPct.toFixed(2));
+  const diffPctStr = isAtKey || diffPctNum === 0 ? '0.00%' : (diffPctNum > 0 ? `+${diffPctNum.toFixed(2)}%` : `${diffPctNum.toFixed(2)}%`);
 
   return (
     <div className="glass rounded-3xl p-5 md:p-6 border border-white/10 space-y-5 bg-gradient-to-br from-[#161A1E] to-[#0D1013] shadow-xl">
@@ -119,17 +123,23 @@ export default function KeyPriceCalculator({ selectedStock }) {
       {tsunKeyPrice > 0 ? (
         <div className="space-y-4">
           <div className={`p-4 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-4 transition-all ${
-            isAboveKey 
-              ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300' 
-              : 'bg-rose-950/30 border-rose-500/40 text-rose-300'
+            isAtKey
+              ? 'bg-amber-950/30 border-amber-500/40 text-amber-300'
+              : isAboveKey 
+                ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300' 
+                : 'bg-rose-950/30 border-rose-500/40 text-rose-300'
           }`}>
             <div className="flex items-center gap-3 text-center md:text-left">
-              <div className={`p-3 rounded-2xl ${isAboveKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+              <div className={`p-3 rounded-2xl ${isAtKey ? 'bg-amber-500/20 text-amber-400' : isAboveKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
                 {isAboveKey ? <ArrowUpRight size={28} /> : <ArrowDownRight size={28} />}
               </div>
               <div>
                 <span className="text-xs font-extrabold uppercase tracking-wider block opacity-80">
-                  {isAboveKey ? '🟢 多方強勢掌控中（站穩關鍵價）' : '🔴 空方壓制警戒中（跌破關鍵價）'}
+                  {isAtKey
+                    ? '🟡 緊貼關鍵價（多空分水嶺拉鋸，待表態或手動輸入昨高低開）'
+                    : isAboveKey
+                      ? '🟢 多方強勢掌控中（站穩關鍵價）'
+                      : '🔴 空方壓制警戒中（跌破關鍵價）'}
                 </span>
                 <div className="text-xl md:text-2xl font-black font-mono mt-0.5">
                   阿村伯開盤關鍵價：<span className="text-amber-400">{tsunKeyPrice.toFixed(2)}</span> 元
@@ -138,8 +148,8 @@ export default function KeyPriceCalculator({ selectedStock }) {
             </div>
             <div className="text-center md:text-right shrink-0">
               <span className="text-xs text-gray-400 block font-bold">現價與關鍵價乖離</span>
-              <span className={`text-lg font-black font-mono ${diffPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                {diffPct >= 0 ? `+${diffPct}%` : `${diffPct}%`}
+              <span className={`text-lg font-black font-mono ${isAtKey ? 'text-amber-300' : diffPctNum >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {diffPctStr}
               </span>
             </div>
           </div>

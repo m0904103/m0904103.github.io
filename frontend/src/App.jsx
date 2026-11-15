@@ -123,7 +123,14 @@ function App() {
       if (stockData && stockData.stocks) {
         const tw = stockData.stocks.filter(s => s.market === 'tw');
         const us = stockData.stocks.filter(s => s.market === 'us');
-        stockData = { tw, us, indices: stockData.indices };
+        stockData = {
+          tw,
+          us,
+          indices: stockData.indices,
+          market_regime: stockData.market_regime,
+          quant_advisor: stockData.quant_advisor,
+          rsi_loop: stockData.rsi_loop,
+        };
       } else if (!stockData || !stockData.tw) {
         // Fallback to prevent TypeError in render if data is corrupted
         stockData = { tw: [], us: [], indices: {} };
