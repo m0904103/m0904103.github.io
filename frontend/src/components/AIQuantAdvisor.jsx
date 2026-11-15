@@ -315,7 +315,7 @@ const RECOMMENDATIONS_CROSS = [
 ];
 
 export default function AIQuantAdvisor({ onSelectStock, stocks }) {
-  const [totalCapital, setTotalCapital] = useState(300); // 300 萬元
+  const [totalCapital, setTotalCapital] = useState(100); // 預設 100 萬元實戰本金
   const [filterType, setFilterType] = useState('all'); // 'all', 'buy', 'avoid'
   const [universeMode, setUniverseMode] = useState('cross'); // 'us' (純美股 ERC 2.0) | 'cross' (台美跨市場 2.0)
 
@@ -653,7 +653,16 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             const isBelowMA60 = livePrice < liveSL * 0.992;
             const effectiveWeight = isBelowMA60 && rec.weightPct === 0 ? 0 : rec.weightPct;
             const liveTP = rec.tpPrice > 0 ? (liveStock ? Math.round(livePrice * 1.25) : rec.tpPrice) : 0;
+            const allocNtd = totalCapital * 10000 * (effectiveWeight / 100);
             const allocAmount = ((totalCapital * effectiveWeight) / 100).toFixed(1);
+            const estShares = livePrice > 0
+              ? (rec.market === 'tw'
+                  ? Math.max(1, Math.floor(allocNtd / livePrice))
+                  : Math.max(1, Math.floor((allocNtd / 32.5) / livePrice)))
+              : 0;
+            const shareDesc = rec.market === 'tw'
+              ? (estShares >= 1000 ? `約 ${(estShares / 1000).toFixed(1)} 張 (${estShares.toLocaleString()}股)` : `約 ${estShares} 股 (盤中零股)`)
+              : `約 ${estShares} 股`;
             const isZero = effectiveWeight === 0;
             const dynAction = isZero ? rec.action : (isBelowMA60 ? '【暫破季線 / 待站回MA60或尾盤收腳】' : rec.action);
             const dynActionColor = isZero ? rec.actionColor : (isBelowMA60 ? 'text-amber-300 bg-amber-500/20 border-amber-500/40' : rec.actionColor);
@@ -711,7 +720,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-gray-400">目前本金試算買進：</span>
                     <span className={`font-mono font-black text-sm ${isZero ? 'text-gray-500' : 'text-amber-300'}`}>
-                      {isZero ? '0 萬 (禁止買進)' : `${allocAmount} 萬元`}
+                      {isZero ? '0 萬 (禁止買進)' : `${allocAmount} 萬元（${shareDesc}）`}
                     </span>
                   </div>
 
