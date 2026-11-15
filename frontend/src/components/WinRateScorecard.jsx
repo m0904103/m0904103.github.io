@@ -62,14 +62,31 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push(`⚠️ 實質偏離季線下方 (${biasPct.toFixed(1)}%)，加收負乖離風險扣分 (-${penaltyPoints}分)`);
   }
 
-  // 3. Chip & Fundamental Alignment (+20)
+  // 3. Chip & Fundamental Alignment (TWSE / TPEx / TDCC Real Data)
   if (stock.chips?.foreign_buy) {
     score += 10;
-    reasons.push('✅ 外資連續買超卡位 (+10分)');
+    const fLots = stock.chips?.foreign_lots != null ? `外資 ${stock.chips.foreign_lots > 0 ? '+' : ''}${stock.chips.foreign_lots}張` : '';
+    const tLots = stock.chips?.trust_lots != null ? ` / 投信 ${stock.chips.trust_lots > 0 ? '+' : ''}${stock.chips.trust_lots}張` : '';
+    const tdcc = stock.chips?.tdcc_1000_pct != null ? ` / 千張大戶 ${stock.chips.tdcc_1000_pct}%` : '';
+    reasons.push(`✅ 官方真實法人籌碼偏多${fLots || tLots ? `（${fLots}${tLots}${tdcc}）` : ''} (+10分)`);
   }
   if (stock.fundamentals?.three_rates_rising) {
     score += 10;
-    reasons.push('✅ 三率齊升基本面強勁 (+10分)');
+    const yoy = stock.fundamentals?.rev_yoy != null ? `（月營收 YoY ${stock.fundamentals.rev_yoy > 0 ? '+' : ''}${Number(stock.fundamentals.rev_yoy).toFixed(1)}%）` : '';
+    reasons.push(`✅ 三率三升 / 營收動能強勁${yoy} (+10分)`);
+  }
+
+  // 3.5 RSI (Recursive Self-Improvement) Gen-18 Backtest Win-Rate Gate
+  const btWr = stock.backtest?.win_rate != null ? Number(stock.backtest.win_rate) : null;
+  const btRet = stock.backtest?.total_return != null ? Number(stock.backtest.total_return) : null;
+  if (btWr !== null) {
+    if (btWr >= 65) {
+      score += 15;
+      reasons.push(`🧬 RSI 遞迴演化認證：歷史實戰勝率 ${btWr}% (≥65% 鐵門過關${btRet !== null ? `，累計報酬 ${btRet >= 0 ? '+' : ''}${btRet}%` : ''}) (+15分)`);
+    } else if (btWr < 50) {
+      score -= 20;
+      reasons.push(`⚠️ RSI 遞迴演化警示：歷史回測勝率僅 ${btWr}% (<50%)，強制降權防禦 (-20分)`);
+    }
   }
 
   // 4. Thematic Resonance & Keynesian Spotlight Category (美台主題共振)
@@ -113,8 +130,9 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push('⚠️ 全局 VIX 恐慌指數 >35，大盤震盪洗盤 (-15分)');
   }
 
-  // Cap score between 10 and 99
-  const finalScore = Math.max(10, Math.min(99, score));
+  // Cap score between 10 and 99; enforce 65% win-rate gate for 5-star (>=85)
+  const rawScore = Math.max(10, Math.min(99, score));
+  const finalScore = (btWr !== null && btWr < 65) ? Math.min(82, rawScore) : rawScore;
 
   let level = '普通觀望';
   let color = 'text-slate-400';

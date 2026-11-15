@@ -272,8 +272,9 @@ function App() {
       const ma60 = Number(s.ma60 || s.plan?.sl || 0);
       const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
       const winRateScore = calculateWinRateScore(s, indices).score;
+      const btWr = Number(s.backtest?.win_rate ?? 0);
 
-      if (winRateScore >= 85) counts.star5++;
+      if (winRateScore >= 85 && btWr >= 65) counts.star5++;
       if (close >= ma60 && biasPct >= 0.0 && biasPct <= 4.0) counts.sweet++;
       if (s.chips?.foreign_buy) counts.foreign++;
       if (s.fundamentals?.three_rates_rising) counts.three_rates++;
@@ -291,8 +292,9 @@ function App() {
     const ma60 = Number(s.ma60 || s.plan?.sl || 0);
     const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
     const winRateScore = calculateWinRateScore(s, indices).score;
+    const btWr = Number(s.backtest?.win_rate ?? 0);
 
-    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85;
+    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85 && btWr >= 65;
     else if (activeQuickFilter === 'sweet') matchFilter = biasPct >= -0.8 && biasPct <= 5.0;
     else if (activeQuickFilter === 'foreign') matchFilter = Boolean(s.chips?.foreign_buy);
     else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
@@ -302,17 +304,17 @@ function App() {
   }).sort((a, b) => {
     const scoreA = calculateWinRateScore(a, indices).score;
     const scoreB = calculateWinRateScore(b, indices).score;
-
-    // 0. Tier 0 Priority: Stocks triggering 95~99 Score Golden Sweet Zone get #1 Top Priority!
-    const isTopTriggerA = scoreA >= 95 ? 1 : 0;
-    const isTopTriggerB = scoreB >= 95 ? 1 : 0;
-    if (isTopTriggerB !== isTopTriggerA) return isTopTriggerB - isTopTriggerA;
-
-    // 1. Dual-Factor Composite Score: TINs Score (80%) + Backtest Win Rate (20%)
     const btWrA = a.backtest?.win_rate != null ? Number(a.backtest.win_rate) : 50.0;
     const btWrB = b.backtest?.win_rate != null ? Number(b.backtest.win_rate) : 50.0;
-    const compositeA = scoreA * 0.8 + btWrA * 0.2;
-    const compositeB = scoreB * 0.8 + btWrB * 0.2;
+
+    // 0. Tier 0 Priority: Stocks triggering >=90 Score AND >=65% RSI Backtest Win Rate get #1 Top Priority!
+    const isTopTriggerA = (scoreA >= 90 && btWrA >= 65) ? 1 : 0;
+    const isTopTriggerB = (scoreB >= 90 && btWrB >= 65) ? 1 : 0;
+    if (isTopTriggerB !== isTopTriggerA) return isTopTriggerB - isTopTriggerA;
+
+    // 1. Dual-Factor Composite Score: TINs Score (50%) + RSI Backtest Win Rate (50%)
+    const compositeA = scoreA * 0.5 + btWrA * 0.5;
+    const compositeB = scoreB * 0.5 + btWrB * 0.5;
 
     // Prioritize composite score descending
     if (Math.abs(compositeB - compositeA) > 0.5) {
@@ -666,8 +668,21 @@ function App() {
                           </div>
                           {activeMarket === 'tw' && (
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {stock.fundamentals?.three_rates_rising && <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">🟢 三率三升</span>}
-                              {stock.chips?.foreign_buy && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">🔵 外資買超</span>}
+                              {stock.fundamentals?.three_rates_rising && (
+                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">
+                                  🟢 三率三升{stock.fundamentals?.rev_yoy != null ? ` (YoY ${stock.fundamentals.rev_yoy > 0 ? '+' : ''}${Number(stock.fundamentals.rev_yoy).toFixed(0)}%)` : ''}
+                                </span>
+                              )}
+                              {stock.chips?.foreign_buy && (
+                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                                  🔵 法人買超{stock.chips?.total_inst_lots != null ? ` (${stock.chips.total_inst_lots > 0 ? '+' : ''}${Math.round(stock.chips.total_inst_lots)}張)` : ''}
+                                </span>
+                              )}
+                              {stock.chips?.tdcc_1000_pct != null && Number(stock.chips.tdcc_1000_pct) >= 60 && (
+                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                  🐋 千張大戶 {Number(stock.chips.tdcc_1000_pct).toFixed(0)}%
+                                </span>
+                              )}
                               {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
                             </div>
                           )}
