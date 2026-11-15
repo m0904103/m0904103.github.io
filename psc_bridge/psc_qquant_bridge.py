@@ -9,11 +9,12 @@ q_quant_888 × 統一金贏島 62欄原生 DATA 同步更新與 V4-Yen 高勝率
 """
 import json
 import os
+import sqlite3
 import ssl
 import subprocess
 import sys
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
@@ -25,6 +26,74 @@ OUT_JSON = os.path.join(BRIDGE_DIR, 'psc_all_quotes.json')
 ENGINE_EXE = os.path.join(BRIDGE_DIR, 'PSCQuoteEngine.exe')
 REPORT_TXT = os.path.join(BRIDGE_DIR, 'psc_live_dashboard.txt')
 CONFIG_FILE = os.path.join(BASE_DIR, 'config', 'line_config.json')
+DB_DIR = r'D:\PSC_Quant_DB'
+INTRADAY_DB = os.path.join(DB_DIR, 'intraday_flow.db')
+
+
+def log_intraday_and_get_deltas(quotes, now_str):
+    """將金贏島 62 欄即時快照與完整五檔寫入 D 槽 SQLite，並計算近 15 分鐘外盤買氣加速度"""
+    deltas = {}
+    try:
+        os.makedirs(DB_DIR, exist_ok=True)
+        conn = sqlite3.connect(INTRADAY_DB, timeout=10)
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS intraday_snapshots (
+                ts TEXT NOT NULL,
+                symbol TEXT NOT NULL,
+                trade_date TEXT,
+                price REAL,
+                avg_price REAL,
+                in_size INTEGER,
+                out_size INTEGER,
+                bid5_vol INTEGER,
+                ask5_vol INTEGER,
+                total_vol INTEGER,
+                PRIMARY KEY (ts, symbol)
+            )
+        """)
+        cur.execute("CREATE INDEX IF NOT EXISTS idx_sym_ts ON intraday_snapshots(symbol, ts)")
+
+        rows = []
+        for q in quotes:
+            if q.get('price', 0) > 0:
+                rows.append((
+                    now_str, q['symbol'], str(q.get('date', '')),
+                    float(q['price']), float(q.get('avg_price', 0)),
+                    int(q.get('in_size', 0)), int(q.get('out_size', 0)),
+                    int(q.get('bid5_vol', 0)), int(q.get('ask5_vol', 0)),
+                    int(q.get('total_vol', 0))
+                ))
+        if rows:
+            cur.executemany(
+                "INSERT OR REPLACE INTO intraday_snapshots VALUES (?,?,?,?,?,?,?,?,?,?)",
+                rows
+            )
+            conn.commit()
+
+        cutoff = (datetime.strptime(now_str, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
+        today_prefix = now_str[:10]
+        cur.execute("""
+            SELECT symbol, in_size, out_size
+            FROM intraday_snapshots
+            WHERE ts >= ? AND ts <= ?
+            ORDER BY ts ASC
+        """, (today_prefix + ' 00:00:00', cutoff))
+        base_map = {}
+        for sym, in_s, out_s in cur.fetchall():
+            base_map[sym] = (in_s, out_s)
+
+        for q in quotes:
+            sym = q['symbol']
+            if sym in base_map:
+                b_in, b_out = base_map[sym]
+                d_in = max(0, int(q.get('in_size', 0)) - b_in)
+                d_out = max(0, int(q.get('out_size', 0)) - b_out)
+                deltas[sym] = (d_in, d_out)
+        conn.close()
+    except Exception as e:
+        print(f"[DB] intraday_flow 寫入略過: {e}")
+    return deltas
 
 CORE_HOLDINGS = {
     'GOOGL': {'psc': 'GOOGL.US', 'name': '谷歌-A (持股5股)', 'cost': 299.142, 'stop': 291.50, 'target': 315.00},
@@ -66,8 +135,11 @@ def sync_all_260_and_report(push_tg=False):
         for ps in all_psc_syms:
             f.write(ps + '\n')
 
-    # 等待 6000ms 確保 260 檔批次訂閱全數完成快照更新
-    subprocess.run([ENGINE_EXE, SYMBOLS_TXT, OUT_JSON, '6000'], check=False)
+    # 等待 6000ms 確保 260 檔批次訂閱全數完成快照更新 (完全隱藏背景視窗)
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    si.wShowWindow = 0
+    subprocess.run([ENGINE_EXE, SYMBOLS_TXT, OUT_JSON, '6000'], check=False, startupinfo=si, creationflags=0x08000000)
 
     if not os.path.exists(OUT_JSON):
         print("❌ 找不到統一報價輸出檔")
@@ -83,6 +155,7 @@ def sync_all_260_and_report(push_tg=False):
     quotes = psc_data.get('quotes', [])
     quote_map = {q['symbol']: q for q in quotes}
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    deltas_15m = log_intraday_and_get_deltas(quotes, now_str)
 
     # 將統一即時報價回寫更新進 scan_results.json
     updated_count = 0
@@ -100,11 +173,20 @@ def sync_all_260_and_report(push_tg=False):
             in_v = q['in_size']
             out_v = q['out_size']
             ratio = round(out_v / in_v, 2) if in_v > 0 else 1.0
+            bid5 = q.get('bid5_vol', 0)
+            ask5 = q.get('ask5_vol', 0)
+            ob_ratio = round(bid5 / ask5, 2) if ask5 > 0 else 1.0
+            d_in, d_out = deltas_15m.get(ps, (0, 0))
             s['psc_live'] = {
                 'avg_price': round(q['avg_price'], 2),
                 'in_size': in_v,
                 'out_size': out_v,
                 'out_in_ratio': ratio,
+                'bid5_vol': bid5,
+                'ask5_vol': ask5,
+                'bid5_ask5_ratio': ob_ratio,
+                'delta_in_15m': d_in,
+                'delta_out_15m': d_out,
                 'total_vol': q['total_vol'],
                 'updated_at': now_str
             }
@@ -116,6 +198,13 @@ def sync_all_260_and_report(push_tg=False):
 
     with open(SCAN_FILE, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
+
+    # 同步寫入網站實際發布目錄 q_quant_888 下的 scan_results.json 與 live_portfolio.json
+    import shutil
+    web_dir = os.path.join(BASE_DIR, 'q_quant_888')
+    if os.path.exists(web_dir):
+        shutil.copy2(SCAN_FILE, os.path.join(web_dir, 'scan_results.json'))
+        shutil.copy2(SCAN_FILE, os.path.join(web_dir, 'live_portfolio.json'))
 
     # ──────────────────────────────────────────────
     # 產出 100% 對齊網站「高勝率買進邏輯」的戰情報告
@@ -201,5 +290,32 @@ def sync_all_260_and_report(push_tg=False):
             except Exception as e:
                 print(f"\n[Telegram] 推送失敗: {e}")
 
+    # 自動 Git Push 更新線上網站 (僅當帶 --git 參數時觸發，且每 3 分鐘同步一次網頁避免 GitHub Actions 塞車)
+    if '--git' in sys.argv:
+        now_min = datetime.now().minute
+        if '--force' in sys.argv or (now_min % 3 == 0):
+            try:
+                si = subprocess.STARTUPINFO()
+                si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                si.wShowWindow = 0
+                cf = 0x08000000
+                subprocess.run(['git', 'add', 'scan_results.json', 'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
+                if res.returncode == 0:
+                    subprocess.run(['git', 'pull', '--rebase', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                    subprocess.run(['git', 'push', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                    print("[GitHub] 已將統一即時數據自動同步至線上網站！")
+            except Exception as ge:
+                print(f"[GitHub] 自動推送異常: {ge}")
+
 if __name__ == '__main__':
-    sync_all_260_and_report(push_tg='--notify' in sys.argv)
+    # 僅在交易時段 (台股 09:00-13:35 或 美股 22:30-05:05) 執行背景定時排程，除非有 --force
+    now = datetime.now()
+    hm = now.hour * 100 + now.minute
+    wd = now.weekday() # 0=Mon .. 6=Sun
+    in_tw = (wd < 5) and (900 <= hm <= 1335)
+    in_us = (wd < 5 and hm >= 2230) or (1 <= wd <= 5 and hm <= 505)
+    if '--force' in sys.argv or in_tw or in_us:
+        sync_all_260_and_report(push_tg='--notify' in sys.argv)
+    else:
+        print(f"[{now.strftime('%H:%M:%S')}] 目前非台/美股開盤時段，靜默待命。")

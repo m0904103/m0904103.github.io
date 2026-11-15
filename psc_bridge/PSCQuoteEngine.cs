@@ -88,6 +88,13 @@ class PSCQuoteEngine
 
                         long bid1Size = Convert.ToInt64(q[13]);
                         long ask1Size = Convert.ToInt64(q[23]);
+                        long bid5Vol = 0;
+                        long ask5Vol = 0;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            bid5Vol += Convert.ToInt64(q[13 + k]);
+                            ask5Vol += Convert.ToInt64(q[23 + k]);
+                        }
                         long inSize = Convert.ToInt64(q[28]);
                         long outSize = Convert.ToInt64(q[29]);
                         long totalVol = Convert.ToInt64(q[39]);
@@ -109,6 +116,8 @@ class PSCQuoteEngine
                         sb.Append("\"ask1\": " + ask1.ToString("F4") + ", ");
                         sb.Append("\"bid1_size\": " + bid1Size + ", ");
                         sb.Append("\"ask1_size\": " + ask1Size + ", ");
+                        sb.Append("\"bid5_vol\": " + bid5Vol + ", ");
+                        sb.Append("\"ask5_vol\": " + ask5Vol + ", ");
                         sb.Append("\"in_size\": " + inSize + ", ");
                         sb.Append("\"out_size\": " + outSize + ", ");
                         sb.Append("\"total_vol\": " + totalVol);
