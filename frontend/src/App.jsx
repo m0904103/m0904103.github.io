@@ -251,7 +251,7 @@ function App() {
     );
   };
 
-  const signalRank = { 'Strong Buy': 0, 'Buy': 1, 'Hold': 2, 'Sell': 3, 'Strong Sell': 4 };
+  const signalRank = { 'Strong Buy': 0, 'Buy': 1, 'Hold': 2, 'Sell': 3, 'Strong Sell': 4, 'Avoid': 5 };
 
   const allStocksCombined = useMemo(() => [...(stocks.tw || []), ...(stocks.us || [])], [stocks]);
   const globalSearchMatches = useMemo(() => {
@@ -277,17 +277,18 @@ function App() {
     currentMarketStocks.forEach(s => {
       const close = Number(s.close || s.price || 0);
       const ma60 = Number(s.ma60 || s.plan?.sl || 0);
+      const aboveMa60 = close >= ma60 && s.signal !== 'Avoid';
       const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
       const winRateScore = calculateWinRateScore(s, indices).score;
       const btWr = Number(s.backtest?.win_rate ?? 0);
       const btTrades = Number(s.backtest?.trade_count ?? 0);
-      const instOk = s.market === 'tw' ? Number(s.chips?.total_inst_lots ?? 0) > 0 : true;
+      const instOk = Boolean(s.chips?.foreign_buy);
 
-      if (winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk) counts.star5++;
-      if (close >= ma60 && biasPct >= 0.0 && biasPct <= 4.0) counts.sweet++;
-      if (s.chips?.foreign_buy) counts.foreign++;
-      if (s.fundamentals?.three_rates_rising) counts.three_rates++;
-      if (close < ma60) counts.below_ma60++;
+      if (aboveMa60 && winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk) counts.star5++;
+      if (aboveMa60 && biasPct >= 0.0 && biasPct <= 5.0) counts.sweet++;
+      if (aboveMa60 && s.chips?.foreign_buy) counts.foreign++;
+      if (aboveMa60 && s.fundamentals?.three_rates_rising) counts.three_rates++;
+      if (close < ma60 || s.signal === 'Avoid') counts.below_ma60++;
     });
     return counts;
   }, [currentMarketStocks, indices]);
@@ -299,17 +300,18 @@ function App() {
     let matchFilter = true;
     const close = Number(s.close || s.price || 0);
     const ma60 = Number(s.ma60 || s.plan?.sl || 0);
+    const aboveMa60 = close >= ma60 && s.signal !== 'Avoid';
     const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
     const winRateScore = calculateWinRateScore(s, indices).score;
     const btWr = Number(s.backtest?.win_rate ?? 0);
     const btTrades = Number(s.backtest?.trade_count ?? 0);
-    const instOk = s.market === 'tw' ? Number(s.chips?.total_inst_lots ?? 0) > 0 : true;
+    const instOk = Boolean(s.chips?.foreign_buy);
 
-    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk;
-    else if (activeQuickFilter === 'sweet') matchFilter = biasPct >= -0.8 && biasPct <= 5.0;
-    else if (activeQuickFilter === 'foreign') matchFilter = Boolean(s.chips?.foreign_buy);
-    else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
-    else if (activeQuickFilter === 'below_ma60') matchFilter = close < ma60;
+    if (activeQuickFilter === 'star5') matchFilter = aboveMa60 && winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk;
+    else if (activeQuickFilter === 'sweet') matchFilter = aboveMa60 && biasPct >= 0.0 && biasPct <= 5.0;
+    else if (activeQuickFilter === 'foreign') matchFilter = aboveMa60 && Boolean(s.chips?.foreign_buy);
+    else if (activeQuickFilter === 'three_rates') matchFilter = aboveMa60 && Boolean(s.fundamentals?.three_rates_rising);
+    else if (activeQuickFilter === 'below_ma60') matchFilter = close < ma60 || s.signal === 'Avoid';
 
     return searchTerm.trim() ? matchSearch : (matchSearch && matchSector && matchFilter);
   }).sort((a, b) => {
@@ -339,8 +341,8 @@ function App() {
     // 3. Within same tier: prioritize stocks in -0.8%~5.0% sweet zone over overbought ones
     const biasA = a.ma60 > 0 ? ((a.close - a.ma60) / a.ma60) * 100 : -99;
     const biasB = b.ma60 > 0 ? ((b.close - b.ma60) / b.ma60) * 100 : -99;
-    const inSweetA = biasA >= -0.8 && biasA <= 5.0 ? 1 : 0;
-    const inSweetB = biasB >= -0.8 && biasB <= 5.0 ? 1 : 0;
+    const inSweetA = biasA >= 0.0 && biasA <= 5.0 ? 1 : 0;
+    const inSweetB = biasB >= 0.0 && biasB <= 5.0 ? 1 : 0;
     if (inSweetB !== inSweetA) return inSweetB - inSweetA;
 
     // 4. MA60 deviation ascending
@@ -690,15 +692,27 @@ function App() {
                               const liveCross = stocks?.quant_advisor?.cross || [];
                               const liveUs = stocks?.quant_advisor?.us || [];
                               const matchedErc = [...liveCross, ...liveUs].find(r => r.symbol === stock.symbol);
-                              if (matchedErc && matchedErc.weightPct > 0 && stock.signal !== 'Avoid') {
+                              const w = matchedErc?.weightPct || stock.erc_weight || 0;
+                              if (w > 0 && stock.signal !== 'Avoid') {
                                 return (
                                   <span className="px-1.5 py-0.5 rounded text-[9px] font-black border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
-                                    ⭐ Gen{stocks?.rsi_loop?.gen_version || 20}配置 {matchedErc.weightPct}%
+                                    ⭐ Gen{stocks?.rsi_loop?.gen_version || 23}配置 {w}%
                                   </span>
                                 );
                               }
                               return null;
                             })()}
+                            {stock.signal?.includes('Buy') && stock.auto_order?.key_price > 0 && (
+                              stock.auto_order.above_key_price ? (
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-black border bg-cyan-500/20 text-cyan-300 border-cyan-500/40">
+                                  🟢 三閘全過 (已站上關鍵價 {stock.auto_order.key_price})
+                                </span>
+                              ) : (
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold border bg-amber-500/20 text-amber-300 border-amber-500/40">
+                                  🟡 二閘待命 (待破關鍵價 {stock.auto_order.key_price})
+                                </span>
+                              )
+                            )}
                           </div>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {activeMarket === 'tw' ? (
@@ -770,7 +784,15 @@ function App() {
                           })()}
                          </div>
                          <div className="flex flex-col items-end gap-1 shrink-0">
-                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black ${stock.signal.includes('Buy') ? 'bg-red-600/20 text-red-500 border border-red-500/30' : 'bg-gray-800 text-gray-500'}`}>{stock.signal}</span>
+                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black ${
+                              stock.signal === 'Strong Buy'
+                                ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm shadow-emerald-500/20'
+                                : stock.signal === 'Buy'
+                                  ? 'bg-red-600/20 text-red-400 border border-red-500/30'
+                                  : stock.signal === 'Avoid'
+                                    ? 'bg-red-950/40 text-red-500/70 border border-red-900/40'
+                                    : 'bg-gray-800 text-gray-400'
+                            }`}>{stock.signal}</span>
                             <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
                               勝率 {stock.backtest?.win_rate != null ? `${stock.backtest.win_rate}%` : '65%'}
                             </span>

@@ -715,7 +715,13 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
+                  <div className="grid grid-cols-3 gap-1.5 text-[10px] pt-1">
+                    <div className="p-1.5 rounded-lg bg-[#0F1316] text-center border border-white/5">
+                      <span className="text-gray-500 block">開盤關鍵價 (二閘)</span>
+                      <span className={`font-mono font-bold ${rec.aboveKeyPrice !== false ? 'text-cyan-300' : 'text-amber-300'}`}>
+                        {rec.keyPrice ? (rec.market === 'tw' ? `NT$${rec.keyPrice}` : `US$${rec.keyPrice}`) : '--'}
+                      </span>
+                    </div>
                     <div className="p-1.5 rounded-lg bg-[#0F1316] text-center border border-white/5">
                       <span className="text-gray-500 block">季線防守點 (SL)</span>
                       <span className="font-mono font-bold text-red-400">{rec.market === 'tw' ? `NT$${liveSL}` : `US$${liveSL}`}</span>
