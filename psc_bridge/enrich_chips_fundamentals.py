@@ -533,13 +533,23 @@ def main():
     conn.commit()
     conn.close()
 
+    scan_data['last_updated'] = now_str
     scan_data['updated_at'] = now_str
-    scan_data['engine'] = 'V4-Yen × Gen18-Ultimate (TWSE/TPEx Real Chips & Fundamentals)'
+    scan_data['engine'] = 'V4-Yen × Gen18-Ultimate (TWSE/TPEx/TDCC Real Chips & Fundamentals)'
     with open(SCAN_FILE, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
-    if os.path.exists(WEB_DIR):
-        shutil.copy2(SCAN_FILE, os.path.join(WEB_DIR, 'scan_results.json'))
-        shutil.copy2(SCAN_FILE, os.path.join(WEB_DIR, 'live_portfolio.json'))
+    for rel_target in (
+        'live_portfolio.json',
+        os.path.join('q_quant_888', 'scan_results.json'),
+        os.path.join('q_quant_888', 'live_portfolio.json'),
+        os.path.join('frontend', 'public', 'scan_results.json'),
+        os.path.join('frontend', 'public', 'live_portfolio.json'),
+        os.path.join('trading', 'scan_results.json'),
+        os.path.join('trading', 'live_portfolio.json'),
+    ):
+        full_t = os.path.join(BASE_DIR, rel_target)
+        if os.path.exists(os.path.dirname(full_t)):
+            shutil.copy2(SCAN_FILE, full_t)
 
     print(f"2. ✅ 升級完成！全站勝率 >= 65% 共 {high_wr_cnt} 檔 | 嚴選 Strong Buy: {strong_buy_cnt} 檔 | Buy: {buy_cnt} 檔")
 
