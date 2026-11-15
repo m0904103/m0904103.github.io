@@ -63,26 +63,37 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
   }
 
   // 3. Chip & Fundamental Alignment (TWSE / TPEx / TDCC Real Data)
-  if (stock.chips?.foreign_buy) {
+  const totInstLots = stock.chips?.total_inst_lots != null ? Number(stock.chips.total_inst_lots) : null;
+  if (stock.chips?.foreign_buy && (totInstLots === null || totInstLots > 0)) {
     score += 10;
     const fLots = stock.chips?.foreign_lots != null ? `外資 ${stock.chips.foreign_lots > 0 ? '+' : ''}${stock.chips.foreign_lots}張` : '';
     const tLots = stock.chips?.trust_lots != null ? ` / 投信 ${stock.chips.trust_lots > 0 ? '+' : ''}${stock.chips.trust_lots}張` : '';
     const tdcc = stock.chips?.tdcc_1000_pct != null ? ` / 千張大戶 ${stock.chips.tdcc_1000_pct}%` : '';
     reasons.push(`✅ 官方真實法人籌碼偏多${fLots || tLots ? `（${fLots}${tLots}${tdcc}）` : ''} (+10分)`);
+  } else if (totInstLots !== null && totInstLots < 0) {
+    score -= 12;
+    reasons.push(`⚠️ 三大法人合計調節賣超（${totInstLots}張），老王鐵律嚴禁逆勢接刀 (-12分)`);
   }
-  if (stock.fundamentals?.three_rates_rising) {
+  const revYoy = stock.fundamentals?.rev_yoy != null ? Number(stock.fundamentals.rev_yoy) : null;
+  if (stock.fundamentals?.three_rates_rising && (revYoy === null || revYoy > 0)) {
     score += 10;
-    const yoy = stock.fundamentals?.rev_yoy != null ? `（月營收 YoY ${stock.fundamentals.rev_yoy > 0 ? '+' : ''}${Number(stock.fundamentals.rev_yoy).toFixed(1)}%）` : '';
+    const yoy = revYoy !== null ? `（月營收 YoY ${revYoy > 0 ? '+' : ''}${revYoy.toFixed(1)}%）` : '';
     reasons.push(`✅ 三率三升 / 營收動能強勁${yoy} (+10分)`);
+  } else if (revYoy !== null && revYoy < 0) {
+    score -= 15;
+    reasons.push(`⚠️ 月營收年增率衰退（YoY ${revYoy.toFixed(1)}%），阿村伯基本面防雷扣分 (-15分)`);
   }
 
-  // 3.5 RSI (Recursive Self-Improvement) Gen-18 Backtest Win-Rate Gate
+  // 3.5 RSI (Recursive Self-Improvement) Gen-21 Backtest Win-Rate & Sample Size Gate
   const btWr = stock.backtest?.win_rate != null ? Number(stock.backtest.win_rate) : null;
   const btRet = stock.backtest?.total_return != null ? Number(stock.backtest.total_return) : null;
+  const btTrades = stock.backtest?.trade_count != null ? Number(stock.backtest.trade_count) : 5;
   if (btWr !== null) {
-    if (btWr >= 65) {
+    if (btWr >= 65 && btTrades >= 5) {
       score += 15;
-      reasons.push(`🧬 RSI 遞迴演化認證：歷史實戰勝率 ${btWr}% (≥65% 鐵門過關${btRet !== null ? `，累計報酬 ${btRet >= 0 ? '+' : ''}${btRet}%` : ''}) (+15分)`);
+      reasons.push(`🧬 RSI 遞迴演化認證：歷史實戰勝率 ${btWr}% (${btTrades}次交易 ≥5次鐵門過關${btRet !== null ? `，累計報酬 ${btRet >= 0 ? '+' : ''}${btRet}%` : ''}) (+15分)`);
+    } else if (btWr >= 65 && btTrades < 5) {
+      reasons.push(`⚠️ 顏老師統計防雷：歷史勝率 ${btWr}% 但僅交易 ${btTrades} 次 (<5次屬小樣本偏差)，不予加分並限制5星資格`);
     } else if (btWr < 50) {
       score -= 20;
       reasons.push(`⚠️ RSI 遞迴演化警示：歷史回測勝率僅 ${btWr}% (<50%)，強制降權防禦 (-20分)`);
@@ -130,9 +141,10 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push('⚠️ 全局 VIX 恐慌指數 >35，大盤震盪洗盤 (-15分)');
   }
 
-  // Cap score between 10 and 99; enforce 65% win-rate gate for 5-star (>=85)
+  // Cap score between 10 and 99; enforce 65% win-rate, >=5 trades, positive inst flow & positive YoY for 5-star (>=85)
   const rawScore = Math.max(10, Math.min(99, score));
-  const finalScore = (btWr !== null && btWr < 65) ? Math.min(82, rawScore) : rawScore;
+  const disqualFiveStar = (btWr !== null && btWr < 65) || btTrades < 5 || (totInstLots !== null && totInstLots < 0) || (revYoy !== null && revYoy < 0);
+  const finalScore = disqualFiveStar ? Math.min(82, rawScore) : rawScore;
 
   let level = '普通觀望';
   let color = 'text-slate-400';

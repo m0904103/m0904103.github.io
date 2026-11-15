@@ -526,6 +526,12 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
 
               <div className="text-[11px] text-gray-300 bg-[#0B0E11]/70 p-3 rounded-xl border border-white/5 space-y-1">
                 <div className="font-black text-amber-300">⚡ 已驗證有效並直接投入本輪迭代之規則 ({evo.rule_name})：</div>
+                {(attr.self_audit_log || []).map((logItem, idx) => (
+                  <div key={`audit-${idx}`} className="flex items-center gap-1.5 text-cyan-300 font-mono">
+                    <Zap size={12} className="text-cyan-400 shrink-0" />
+                    <span>[自動遞迴審計] {logItem}</span>
+                  </div>
+                ))}
                 {(evo.active_rules_injected || []).map((rule, idx) => (
                   <div key={idx} className="flex items-center gap-1.5">
                     <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />

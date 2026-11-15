@@ -413,7 +413,8 @@ def main():
             t_lots = ci.get('trust_lots', 0.0)
             tot_lots = ci.get('total_inst_lots', 0.0)
             m_diff = ci.get('margin_diff', 0)
-            is_inst_buy = bool(tot_lots > 0 or t_lots > 0 or f_lots > 0)
+            # 嚴格定義：三大法人合計買賣超必須 > 0 才算法人偏多，杜絕外資大賣、投信小買卻標示買超的假陽性
+            is_inst_buy = bool(tot_lots > 0)
             is_margin_surge = bool(m_diff > 500 and tot_lots < 0)
             s['chips'] = {
                 'foreign_buy': is_inst_buy,
