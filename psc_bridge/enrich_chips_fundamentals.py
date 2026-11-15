@@ -140,6 +140,37 @@ def fetch_tw_chips():
     except Exception as me:
         print(f"[TWSE MI_MARGN] 略過: {me}")
 
+    # 4. 集保中心 (TDCC) 最新千張大戶與400張大戶持股比例 (getOD.ashx?id=1-5)
+    try:
+        ctx = ssl._create_unverified_context()
+        req = urllib.request.Request('https://smart.tdcc.com.tw/opendata/getOD.ashx?id=1-5', headers={'User-Agent': 'Mozilla/5.0'})
+        raw_csv = urllib.request.urlopen(req, context=ctx, timeout=20).read().decode('utf-8-sig', errors='replace')
+        for line in raw_csv.splitlines()[1:]:
+            parts = line.split(',')
+            if len(parts) < 6:
+                continue
+            code = parts[1].strip()
+            lvl = _to_int(parts[2], 0)
+            cnt = _to_int(parts[3], 0)
+            pct = _to_float(parts[5], 0.0) or 0.0
+            if not code:
+                continue
+            entry = chips_map.setdefault(code, {
+                'date': trade_date_str or datetime.now().strftime('%Y-%m-%d'),
+                'foreign_net_shares': 0, 'trust_net_shares': 0,
+                'dealer_net_shares': 0, 'total_inst_shares': 0,
+                'foreign_lots': 0.0, 'trust_lots': 0.0, 'total_inst_lots': 0.0,
+            })
+            if lvl in (12, 13, 14, 15):
+                entry['tdcc_400_pct'] = round(entry.get('tdcc_400_pct', 0.0) + pct, 2)
+            if lvl == 15:
+                entry['tdcc_1000_pct'] = round(pct, 2)
+                entry['tdcc_1000_holders'] = cnt
+            elif lvl == 17:
+                entry['tdcc_total_holders'] = cnt
+    except Exception as tde:
+        print(f"[TDCC 1-5] 略過: {tde}")
+
     return chips_map, trade_date_str
 
 
@@ -391,8 +422,11 @@ def main():
                 'trust_lots': t_lots,
                 'total_inst_lots': tot_lots,
                 'margin_diff': m_diff,
+                'tdcc_1000_pct': ci.get('tdcc_1000_pct'),
+                'tdcc_400_pct': ci.get('tdcc_400_pct'),
+                'tdcc_total_holders': ci.get('tdcc_total_holders'),
                 'date': ci.get('date', chip_date),
-                'source': 'TWSE/TPEx Official',
+                'source': 'TWSE/TPEx/TDCC Official',
             }
             cur.execute(
                 "INSERT OR REPLACE INTO chips_daily VALUES (?,?,?,?,?,?,?,?,?)",

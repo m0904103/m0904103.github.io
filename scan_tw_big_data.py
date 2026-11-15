@@ -109,11 +109,16 @@ def run_scan():
         # 2. Technicals (BB & KD)
         bb_lower, kd_cross = check_technicals(df)
         
-        # 3. Mock Chips (Since TWSE API blocked, mock based on volume momentum)
+        # 3. Real Official Chips (TWSE / TPEx / TDCC via enrich_chips_fundamentals)
         try:
-            df['Vol_MA5'] = df['Volume'].rolling(5).mean()
-            is_foreign_buying = bool(df['Close'].iloc[-1] > df['Close'].rolling(5).mean().iloc[-1] and df['Volume'].iloc[-1] > df['Vol_MA5'].iloc[-1])
-            margin_surge = bool(df['Volume'].iloc[-1] > df['Vol_MA5'].iloc[-1] * 2 and df['Close'].iloc[-1] < df['Close'].iloc[-2])
+            if not hasattr(run_scan, '_real_chips'):
+                sys.path.insert(0, os.path.join(SCRIPT_DIR, 'psc_bridge'))
+                import enrich_chips_fundamentals as ecf
+                run_scan._real_chips, _ = ecf.fetch_tw_chips()
+            code_only = sym.split('.')[0]
+            ci = run_scan._real_chips.get(code_only, {})
+            is_foreign_buying = bool(ci.get('total_inst_lots', 0) > 0 or ci.get('trust_lots', 0) > 0 or ci.get('foreign_lots', 0) > 0)
+            margin_surge = bool(ci.get('margin_diff', 0) > 500 and ci.get('total_inst_lots', 0) < 0)
         except Exception:
             is_foreign_buying = False
             margin_surge = False
