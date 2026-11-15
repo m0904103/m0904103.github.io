@@ -483,30 +483,52 @@ function App() {
           <InstitutionalRadar indices={indices} taifexOi={taifexOi} />
         </section>
 
-        {/* 🚨 2026 演算法升級直通推薦條 */}
-        <div 
-          onClick={() => setActiveMainTab("algo")}
-          className="w-full p-4 rounded-2xl bg-gradient-to-r from-red-950/90 via-[#1C1217] to-amber-950/90 border border-red-500/50 hover:border-amber-400/80 transition-all cursor-pointer shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
-        >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-red-600/30 text-red-400 group-hover:scale-110 transition-transform shrink-0">
-              <Cpu size={22} className="text-amber-300 animate-pulse" />
-            </div>
-            <div>
-              <div className="text-sm font-black text-amber-300 flex items-center gap-2 flex-wrap">
-                <span>🚨【2026 量化演算法已升級】當前市場狀態：空頭流動性危機警戒 (67.5% 置信度)</span>
-                <span className="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-mono">v2.5.0</span>
+        {/* 🚨 2026 演算法升級直通推薦條 (動態大盤狀態與 Gen18 RSI 閉環) */}
+        {(() => {
+          const mr = stocks?.market_regime;
+          const rsiInfo = stocks?.rsi_loop;
+          const regimeLabel = mr?.label || '空頭流動性危機警戒';
+          const regimeConf = mr?.confidence ?? 67.5;
+          const cashLim = mr?.cash_pct ?? 60.0;
+          const orbStr = mr?.orb_mode || '熔斷暫停 (0%)';
+          const isBull = mr?.tone === 'emerald';
+          const isWarn = mr?.tone === 'red' || !mr;
+          const bannerBg = isBull
+            ? 'from-emerald-950/90 via-[#101C18] to-teal-950/90 border-emerald-500/50'
+            : isWarn
+              ? 'from-red-950/90 via-[#1C1217] to-amber-950/90 border-red-500/50'
+              : 'from-blue-950/90 via-[#121821] to-amber-950/80 border-blue-500/50';
+          return (
+            <div 
+              onClick={() => setActiveMainTab("algo")}
+              className={`w-full p-4 rounded-2xl bg-gradient-to-r ${bannerBg} hover:border-amber-400/80 transition-all cursor-pointer shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 group border`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`p-2.5 rounded-xl ${isBull ? 'bg-emerald-600/30 text-emerald-400' : 'bg-red-600/30 text-red-400'} group-hover:scale-110 transition-transform shrink-0`}>
+                  <Cpu size={22} className="text-amber-300 animate-pulse" />
+                </div>
+                <div>
+                  <div className="text-sm font-black text-amber-300 flex items-center gap-2 flex-wrap">
+                    <span>
+                      {isBull ? '🟢' : '🚨'}【Gen {rsiInfo?.gen_version || 18} RSI 閉環實戰】當前市場狀態：{regimeLabel} ({regimeConf}% 置信度)
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-600 text-white font-mono">
+                      Gen{rsiInfo?.gen_version || 18}-RSI
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-300 mt-1">
+                    早盤 ORB：{orbStr} ｜ 現金下限 {cashLim.toFixed(1)}% ｜ 台股站上季線 {mr?.tw_breadth_60ma ?? '--'}%
+                    {rsiInfo ? ` ｜ 帳本累計 ${rsiInfo.total_logged} 檔追蹤` : ''}。點此查看「動態風險平價」最新推薦配比 👉
+                  </p>
+                </div>
               </div>
-              <p className="text-xs text-gray-300 mt-1">
-                已自動熔斷早盤追價（ORB 權重 0%）、現金下限強制 60.0%。點此查看「動態風險平價」最新推薦配比與各股防守線 👉
-              </p>
+              <div className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white text-xs font-black group-hover:from-red-500 group-hover:to-amber-500 transition-all shrink-0 shadow-lg shadow-red-600/30">
+                <span>查看 2026 推薦參考</span>
+                <ArrowRight size={14} />
+              </div>
             </div>
-          </div>
-          <div className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white text-xs font-black group-hover:from-red-500 group-hover:to-amber-500 transition-all shrink-0 shadow-lg shadow-red-600/30">
-            <span>查看 2026 推薦參考</span>
-            <ArrowRight size={14} />
-          </div>
-        </div>
+          );
+        })()}
         
         {/* 🧭 雙師戰略指揮中心導覽列 */}
         <section className="space-y-4">

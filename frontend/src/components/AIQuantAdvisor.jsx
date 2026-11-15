@@ -317,28 +317,48 @@ const RECOMMENDATIONS_CROSS = [
 export default function AIQuantAdvisor({ onSelectStock, stocks }) {
   const [totalCapital, setTotalCapital] = useState(300); // 300 萬元
   const [filterType, setFilterType] = useState('all'); // 'all', 'buy', 'avoid'
-  const [universeMode, setUniverseMode] = useState('us'); // 'us' (純美股 ERC 2.0) | 'cross' (台美跨市場 2.0)
+  const [universeMode, setUniverseMode] = useState('cross'); // 'us' (純美股 ERC 2.0) | 'cross' (台美跨市場 2.0)
 
-  const activeRecs = universeMode === 'us' ? RECOMMENDATIONS_US : RECOMMENDATIONS_CROSS;
+  const mr = stocks?.market_regime;
+  const rsiInfo = stocks?.rsi_loop;
+  const qa = stocks?.quant_advisor;
 
-  // Extract live macroeconomic indicators dynamically from stocks/indices state
-  const foreignOi = stocks?.indices?.['外資台指期未平倉']?.close ?? 
+  // 優先使用後端 Gen18+ 實時算出的 ERC 推薦組合，無資料時才退回預設範本
+  const dynamicUs = qa?.us?.length ? qa.us.map(item => ({
+    ...item,
+    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+  })) : RECOMMENDATIONS_US;
+  const dynamicCross = qa?.cross?.length ? qa.cross.map(item => ({
+    ...item,
+    tierColor: item.market === 'tw' ? 'text-amber-300 bg-amber-500/10 border-amber-500/30' : 'text-blue-300 bg-blue-500/10 border-blue-500/30',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+  })) : RECOMMENDATIONS_CROSS;
+
+  const activeRecs = universeMode === 'us' ? dynamicUs : dynamicCross;
+
+  // Extract live macroeconomic indicators dynamically from backend market_regime or indices
+  const foreignOi = mr?.foreign_oi ??
+                    stocks?.indices?.['外資台指期未平倉']?.close ?? 
                     stocks?.indices?.['外資台指淨未平倉 (口)']?.close ?? 
-                    (stocks?.taifex_oi ?? -103473);
-  const twVix = stocks?.indices?.['台指 VIX (波動率)']?.close ?? 
-                stocks?.indices?.['台指VIX (波動率)']?.close ?? 28.25;
+                    (stocks?.taifex_oi ?? -40000);
+  const twVix = mr?.tw_vix ??
+                stocks?.indices?.['台指 VIX (波動率)']?.close ?? 
+                stocks?.indices?.['台指VIX (波動率)']?.close ?? 20.0;
 
-  // Dynamic Regime Probability calculation based on Foreign OI and VIX
-  const rawCrisis = 55 + (Math.abs(foreignOi) - 50000) / 2500 + (twVix - 20) * 1.2;
-  const crisisConfidence = Math.min(88.5, Math.max(50.0, rawCrisis));
-  const crisisPct = Number(crisisConfidence.toFixed(2));
-  const shakeoutPct = Number(((100 - crisisPct) * 0.52).toFixed(2));
-  const consolPct = Number(((100 - crisisPct) * 0.33).toFixed(2));
-  const expandPct = Number((100 - crisisPct - shakeoutPct - consolPct).toFixed(2));
+  // Dynamic Regime Probabilities from real backend calculation
+  const crisisPct = mr?.probs?.crisis ?? 25.0;
+  const shakeoutPct = mr?.probs?.shakeout ?? 20.0;
+  const consolPct = mr?.probs?.consolidation ?? 25.0;
+  const expandPct = mr?.probs?.expansion ?? 30.0;
+  const regimeCode = mr?.code || 'CONSOLIDATION_ROTATION';
+  const regimeLabel = mr?.label || '動態量化掃描中';
+  const regimeConf = mr?.confidence ?? crisisPct;
+  const orbMode = mr?.orb_mode || '依季線訊號執行';
 
-  // Cash and Equity split
-  const equityPct = 40.0;
-  const cashPct = 60.0;
+  // Cash and Equity split dynamically driven by regime
+  const equityPct = mr?.equity_pct ?? 60.0;
+  const cashPct = mr?.cash_pct ?? 40.0;
   const equityCapital = (totalCapital * (equityPct / 100)).toFixed(1);
   const cashCapital = (totalCapital * (cashPct / 100)).toFixed(1);
 
@@ -386,64 +406,64 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                 <h2 className="text-lg md:text-xl font-black tracking-tight text-white flex items-center gap-2">
                   🤖 2026 正規軍量化演算與推薦參考系統
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-red-600/20 text-red-300 border border-red-500/30">
-                  v2.5.0-AlphaUpgraded
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-600/20 text-emerald-300 border border-emerald-500/30">
+                  Gen{rsiInfo?.gen_version || 18}-RSI-Live
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  實時量化推薦
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  帳本追蹤 {rsiInfo?.total_logged ?? 0} 檔
                 </span>
               </div>
               <p className="text-xs text-gray-400 mt-0.5">
-                基於機器學習市場狀態辨識 (Regime Switching)、動態等風險貢獻 (ERC) 數值最佳化與顏春煌教授 60MA 剛性防衛線
+                基於即時市場寬度 ({mr?.tw_breadth_60ma ?? '--'}% 站上60MA)、動態等風險貢獻 (ERC) 與顏春煌教授 60MA 剛性防衛線
               </p>
             </div>
           </div>
         </div>
 
         {/* 🚨 模組一：機器學習市場狀態動態切換引擎 (ML Regime Card) */}
-        <div className="p-5 rounded-2xl bg-red-950/20 border border-red-500/40 space-y-4">
+        <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/15 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${mr?.tone === 'emerald' ? 'bg-emerald-400' : 'bg-amber-400'} opacity-75`}></span>
+                <span className={`relative inline-flex rounded-full h-3 w-3 ${mr?.tone === 'emerald' ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
               </span>
-              <span className="text-xs font-black uppercase tracking-wider text-red-300">
-                機器學習微觀狀態辨識
+              <span className="text-xs font-black uppercase tracking-wider text-gray-200">
+                動態大盤狀態辨識 (Real-Time Regime)
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-gray-400">當前置信度：</span>
-              <span className="text-sm font-mono font-black text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/30">
-                {crisisPct}%
+              <span className="text-sm font-mono font-black text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+                {regimeConf}%
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl bg-[#0B0E11]/90 border border-red-500/30">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl bg-[#0B0E11]/90 border border-white/10">
             <div>
               <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">當前市場狀態 (Market Regime)</div>
-              <div className="text-2xl font-black text-red-400 tracking-tight flex items-center gap-2 mt-0.5">
-                <AlertTriangle size={24} className="text-red-500" />
-                BEAR_LIQUIDITY_CRISIS (空頭流動性危機警戒)
+              <div className={`text-2xl font-black tracking-tight flex items-center gap-2 mt-0.5 ${mr?.tone === 'emerald' ? 'text-emerald-400' : mr?.tone === 'red' ? 'text-red-400' : 'text-amber-300'}`}>
+                <AlertTriangle size={24} />
+                {regimeCode} ({regimeLabel})
               </div>
               <div className="text-xs text-gray-400 mt-1 leading-relaxed">
-                觸發因子：外資期貨淨留倉 <b className="text-red-400 font-mono">{Number(foreignOi).toLocaleString()} 口</b> 歷史重壓、台指 VIX 飆升至 <b className="text-purple-400 font-mono">{twVix}</b>，市場處於高脆弱期。
+                實測因子：外資期貨淨留倉 <b className="text-white font-mono">{Number(foreignOi).toLocaleString()} 口</b>、台指 VIX <b className="text-purple-400 font-mono">{twVix}</b>、台股站上 60MA 比例 <b className="text-emerald-400 font-mono">{mr?.tw_breadth_60ma ?? '--'}%</b>。
               </div>
             </div>
 
             <div className="flex flex-wrap md:flex-nowrap gap-2 shrink-0">
-              <div className="px-3 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-center min-w-[110px]">
-                <span className="text-[9px] font-black text-gray-400 uppercase block">早盤ORB突破</span>
-                <span className="text-xs font-black text-red-400 mt-0.5 block">🛑 熔斷暫停 (0%)</span>
+              <div className="px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-center min-w-[110px]">
+                <span className="text-[9px] font-black text-gray-400 uppercase block">早盤ORB策略</span>
+                <span className="text-xs font-black text-amber-300 mt-0.5 block">{orbMode}</span>
               </div>
               <div className="px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center min-w-[110px]">
                 <span className="text-[9px] font-black text-gray-400 uppercase block">現金儲備下限</span>
-                <span className="text-xs font-black text-amber-300 font-mono mt-0.5 block">🛡️ 60.0% 強制</span>
+                <span className="text-xs font-black text-amber-300 font-mono mt-0.5 block">🛡️ {cashPct.toFixed(1)}%</span>
               </div>
               <div className="px-3 py-2 rounded-xl bg-blue-500/10 border border-blue-500/30 text-center min-w-[110px]">
                 <span className="text-[9px] font-black text-gray-400 uppercase block">股票總曝險上限</span>
-                <span className="text-xs font-black text-blue-300 font-mono mt-0.5 block">💼 40.0% 封頂</span>
+                <span className="text-xs font-black text-blue-300 font-mono mt-0.5 block">💼 {equityPct.toFixed(1)}%</span>
               </div>
             </div>
           </div>
@@ -487,14 +507,14 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           <div className="p-3.5 rounded-2xl bg-amber-950/30 border border-amber-500/40">
-            <span className="text-[10px] font-black text-amber-400 uppercase tracking-wider block">保命防禦現金池 (60%)</span>
+            <span className="text-[10px] font-black text-amber-400 uppercase tracking-wider block">保命防禦現金池 ({cashPct}%)</span>
             <span className="text-2xl font-black font-mono text-amber-300 mt-1 block">{cashCapital} 萬元</span>
-            <span className="text-[10px] text-gray-400 mt-0.5 block">保留充足彈藥，待外資空單與 VIX 退潮時低檔接棒</span>
+            <span className="text-[10px] text-gray-400 mt-0.5 block">隨大盤 60MA 寬度與 VIX 動態調整，保留低檔接棒彈藥</span>
           </div>
           <div className="p-3.5 rounded-2xl bg-blue-950/30 border border-blue-500/40">
-            <span className="text-[10px] font-black text-blue-400 uppercase tracking-wider block">動態平價股票總曝險 (40%)</span>
+            <span className="text-[10px] font-black text-blue-400 uppercase tracking-wider block">動態平價股票總曝險 ({equityPct}%)</span>
             <span className="text-2xl font-black font-mono text-blue-300 mt-1 block">{equityCapital} 萬元</span>
-            <span className="text-[10px] text-gray-400 mt-0.5 block">分散於 8 檔三率三升主流標的，單一股票風險精確均等化</span>
+            <span className="text-[10px] text-gray-400 mt-0.5 block">由 Gen18 高勝率候選池依反波動率 (ERC) 風險均等化配置</span>
           </div>
           <div className="p-3.5 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 sm:col-span-2 md:col-span-1">
             <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block">SLSQP 最佳化成效</span>

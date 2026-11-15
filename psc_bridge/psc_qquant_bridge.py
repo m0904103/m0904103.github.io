@@ -190,11 +190,25 @@ def sync_all_260_and_report(push_tg=False):
                 'total_vol': q['total_vol'],
                 'updated_at': now_str
             }
+            # 盤中即時 60MA 季線熔斷防呆：跌破季線立即撤銷買進訊號
+            ma60_p = float(s.get('ma60') or 0)
+            if ma60_p > 0 and p < ma60_p:
+                if s.get('signal') in ('Strong Buy', 'Buy'):
+                    s['signal'] = 'Avoid'
+                    s['score'] = min(int(s.get('score', 50)), 58)
             updated_count += 1
+
+    try:
+        import rsi_closed_loop
+        regime, quant_advisor = rsi_closed_loop.compute_dynamic_regime_and_erc(scan_data)
+        scan_data['market_regime'] = regime
+        scan_data['quant_advisor'] = quant_advisor
+    except Exception as re_err:
+        print(f"[RSI] 動態狀態略過: {re_err}")
 
     scan_data['last_updated'] = now_str
     scan_data['updated_at'] = now_str
-    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法'
+    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen18 RSI閉環'
 
     with open(SCAN_FILE, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
@@ -321,6 +335,28 @@ if __name__ == '__main__':
     wd = now.weekday() # 0=Mon .. 6=Sun
     in_tw = (wd < 5) and (900 <= hm <= 1335)
     in_us = (wd < 5 and hm >= 2230) or (1 <= wd <= 5 and hm <= 505)
+    # 每個交易日 15:45 後自動執行一次盤後真實籌碼/財報/日K/RSI帳本驗算閉環
+    stamp_file = r'D:\PSC_Quant_DB\last_postmarket_enrich.txt'
+    today_ymd = now.strftime('%Y-%m-%d')
+    done_today = False
+    if os.path.exists(stamp_file):
+        try:
+            with open(stamp_file, 'r', encoding='utf-8') as sf:
+                done_today = (sf.read().strip() == today_ymd)
+        except Exception:
+            done_today = False
+
+    if '--enrich' in sys.argv or (wd < 5 and hm >= 1545 and not done_today):
+        try:
+            import enrich_chips_fundamentals
+            import rsi_closed_loop
+            enrich_chips_fundamentals.main()
+            rsi_closed_loop.main()
+            with open(stamp_file, 'w', encoding='utf-8') as sf:
+                sf.write(today_ymd)
+        except Exception as ee:
+            print(f"[PostMarket] 盤後閉環執行異常: {ee}")
+
     if '--force' in sys.argv or in_tw or in_us:
         sync_all_260_and_report(push_tg='--notify' in sys.argv)
     else:
