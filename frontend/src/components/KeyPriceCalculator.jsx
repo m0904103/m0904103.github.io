@@ -8,17 +8,18 @@ export default function KeyPriceCalculator({ selectedStock }) {
   const [open, setOpen] = useState('');
   const [stockName, setStockName] = useState('');
 
-  // Auto-fill when selectedStock changes
+  // Auto-fill when selectedStock changes (優先使用後端 daily_bars 真實昨高/昨低/昨收與今開，徹底消滅 ±2% 假高低價)
   useEffect(() => {
     if (selectedStock) {
       const p = Number(selectedStock.close || 0);
-      const h = Number(selectedStock.high || (p * 1.02).toFixed(2));
-      const l = Number(selectedStock.low || (p * 0.98).toFixed(2));
+      const prevClose = Number(selectedStock.prev_close || p);
+      const h = Number(selectedStock.prev_high || selectedStock.high || (prevClose * 1.015).toFixed(2));
+      const l = Number(selectedStock.prev_low || selectedStock.low || (prevClose * 0.985).toFixed(2));
       const o = Number(selectedStock.open || p);
 
       setHigh(h.toString());
       setLow(l.toString());
-      setClose(p.toString());
+      setClose(prevClose.toString());
       setOpen(o.toString());
       setStockName(`${selectedStock.symbol} ${selectedStock.name}`);
     }
@@ -28,8 +29,9 @@ export default function KeyPriceCalculator({ selectedStock }) {
   const numLow = parseFloat(low) || 0;
   const numClose = parseFloat(close) || 0;
   const numOpen = parseFloat(open) || numClose;
+  const liveSpot = Number(selectedStock?.price || selectedStock?.close || numOpen || numClose);
 
-  // Key Price Calculation Formulas (Dr. Tsun's Master Formula)
+  // Key Price Calculation Formulas (Dr. Tsun's Master Formula: (昨高+昨低+2*昨收+今開)/5)
   const pivot = numHigh && numLow && numClose ? (numHigh + numLow + numClose) / 3 : 0;
   const tsunKeyPrice = numHigh && numLow && numClose && numOpen ? (numHigh + numLow + 2 * numClose + numOpen) / 5 : pivot;
   const r1 = pivot ? (2 * pivot - numLow) : 0;
@@ -37,7 +39,7 @@ export default function KeyPriceCalculator({ selectedStock }) {
   const r2 = pivot ? (pivot + (numHigh - numLow)) : 0;
   const s2 = pivot ? (pivot - (numHigh - numLow)) : 0;
 
-  const currentPrice = numClose || numOpen;
+  const currentPrice = liveSpot || numClose || numOpen;
   const roundedKey = Number(tsunKeyPrice.toFixed(2));
   const rawDiffPct = roundedKey > 0 ? ((currentPrice - roundedKey) / roundedKey) * 100 : 0;
   const isAtKey = Math.abs(currentPrice - roundedKey) < 0.005;

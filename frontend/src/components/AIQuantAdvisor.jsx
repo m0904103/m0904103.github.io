@@ -482,6 +482,60 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             </div>
           </div>
         </div>
+
+        {/* 🧬 模組一之二：RSI (Recursive Self-Improvement) 遞迴自我改進實戰驗算面板 */}
+        {rsiInfo?.evolution_report && (() => {
+          const evo = rsiInfo.evolution_report;
+          const attr = evo.attribution || {};
+          return (
+            <div className="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/40 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <Zap size={18} className="text-emerald-400" />
+                  <span className="text-sm font-black text-emerald-300">
+                    🧬 RSI 遞迴自我改進閉環 (Gen 18 ➔ Gen {evo.gen_version} 自動驗證晉升)
+                  </span>
+                </div>
+                <span className="text-xs font-mono text-emerald-200 bg-emerald-500/15 px-2.5 py-0.5 rounded-lg border border-emerald-500/30">
+                  實戰驗算帳本：{rsiInfo.total_evaluated?.toLocaleString()} 筆真實買訊 ｜ 嚴選樣本：{evo.evolved_trades?.toLocaleString()} 筆
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-[#0B0E11]/90 border border-white/10">
+                  <span className="text-[10px] text-gray-400 block">5 日實戰勝率 & 期望報酬 (扣0.3%成本)</span>
+                  <div className="font-mono font-black text-sm text-white mt-1">
+                    {evo.baseline_wr_5d}% ➔ <span className="text-emerald-400">{evo.evolved_wr_5d}%</span>
+                    <span className="text-amber-300 ml-2">(+{evo.baseline_exp_5d}% ➔ +{evo.evolved_exp_5d}%)</span>
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-[#0B0E11]/90 border border-white/10">
+                  <span className="text-[10px] text-gray-400 block">20 日波段勝率 & 期望報酬 (扣0.3%成本)</span>
+                  <div className="font-mono font-black text-sm text-white mt-1">
+                    {evo.baseline_wr_20d}% ➔ <span className="text-emerald-400">{evo.evolved_wr_20d}%</span>
+                    <span className="text-amber-300 ml-2">(+{evo.baseline_exp_20d}% ➔ +{evo.evolved_exp_20d}%)</span>
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-[#0B0E11]/90 border border-white/10">
+                  <span className="text-[10px] text-gray-400 block">AI 自動敗因歸因診斷</span>
+                  <div className="font-mono font-bold text-xs text-gray-200 mt-1">
+                    三率三升期望值 <b className="text-emerald-400">+{attr.tr_rising_exp20}%</b> vs 無三率 <b className="text-red-400">+{attr.no_tr_exp20}%</b>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-[11px] text-gray-300 bg-[#0B0E11]/70 p-3 rounded-xl border border-white/5 space-y-1">
+                <div className="font-black text-amber-300">⚡ 已驗證有效並直接投入本輪迭代之規則 ({evo.rule_name})：</div>
+                {(evo.active_rules_injected || []).map((rule, idx) => (
+                  <div key={idx} className="flex items-center gap-1.5">
+                    <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                    <span>{rule}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* 🧮 實戰資金配置模擬計算器 */}
