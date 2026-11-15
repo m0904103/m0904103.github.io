@@ -703,7 +703,11 @@ function App() {
                               return null;
                             })()}
                             {stock.signal?.includes('Buy') && stock.auto_order?.key_price > 0 && (
-                              stock.auto_order.above_key_price ? (
+                              stock.auto_order.gate_status === 'WAIT_PULLBACK_MA60' ? (
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold border bg-amber-500/25 text-amber-200 border-amber-400/50">
+                                  {stock.auto_order.gate_label || `🟡 初穿季線勿追高 (待回測季線 ${stock.auto_order.sl_price})`}
+                                </span>
+                              ) : stock.auto_order.above_key_price ? (
                                 <span className="px-1.5 py-0.5 rounded text-[9px] font-black border bg-cyan-500/20 text-cyan-300 border-cyan-500/40">
                                   🟢 三閘全過 (已站上關鍵價 {stock.auto_order.key_price})
                                 </span>

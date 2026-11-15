@@ -349,12 +349,31 @@ def sync_daily_bars_and_enrich_all_chips(conn, stocks, tpex_margin_map):
         ma60_p = float(s.get('ma60') or 0)
         bias_60 = round(((p - ma60_p) / ma60_p) * 100.0, 2) if ma60_p > 0 else 0.0
 
+        # 計算顏老師走圖防套牢指標：20MA 月線斜率、近5日站上60MA季線天數、單日漲跌幅 (防追漲停隔日沖)
+        ma20_curr = float(np.mean(closes[-20:])) if len(closes) >= 20 else p
+        ma20_prev3 = float(np.mean(closes[-23:-3])) if len(closes) >= 23 else ma20_curr
+        ma20_up = bool(ma20_curr >= ma20_prev3 - 1e-4)
+        days_above_ma60 = 0
+        for k_idx in range(min(5, len(closes))):
+            end_i = len(closes) - k_idx
+            if end_i >= 60:
+                m60_k = float(np.mean(closes[end_i - 60:end_i]))
+                if closes[end_i - 1] >= m60_k:
+                    days_above_ma60 += 1
+            elif closes[end_i - 1] >= ma60_p > 0:
+                days_above_ma60 += 1
+        chg_1d = round((closes[-1] - closes[-2]) / closes[-2] * 100.0, 2) if len(closes) >= 2 and closes[-2] > 0 else 0.0
+
         tech = s.get('technicals') or {}
         tech['ann_vol_60d'] = ann_vol
         tech['rs_20d'] = rs_20d
         tech['bias_60ma'] = bias_60
         tech['cmf_20'] = cmf_20
         tech['up_down_vol_ratio'] = up_down_vol_ratio
+        tech['ma20'] = round(ma20_curr, 2)
+        tech['ma20_up'] = ma20_up
+        tech['days_above_ma60'] = days_above_ma60
+        tech['chg_1d'] = chg_1d
         s['technicals'] = tech
 
         # 更新多維度籌碼面 (台股 5日軌跡+真金白銀金額+上櫃融資券 / 美股 CMF20 機構吃貨流向)
@@ -562,7 +581,7 @@ def run_rsi_self_improvement(conn, stocks):
     cand_wr20 = round(float(cand_df20['win_20d'].mean() * 100.0), 2)
     cand_exp20 = round(float(cand_df20['ret_20d'].mean()), 2)
 
-    curr_gen = 23
+    curr_gen = 24
     cur.execute("""
         INSERT OR REPLACE INTO rsi_weights_state
         (gen_version, w_wr, w_inst, w_tr, w_ma200, w_sweet_bias, w_rs20, max_bias_60ma, max_ann_vol,
@@ -571,13 +590,13 @@ def run_rsi_self_improvement(conn, stocks):
     """, (
         curr_gen, 18.0, 15.0, 12.0, 5.0, 8.0, 6.0, 9.5, 58.0,
         65.0, cand_exp20, cand_wr20, cand_trades,
-        'Gen23-AutoOrderGate: 驗證「站上阿村伯開盤關鍵價 + CMF20>0」將20日勝率推升至66.99%、期望報酬翻倍至+10.02%，並直接注入自動下單三閘門規格',
+        'Gen24-AntiBullTrap: 納入走圖防套牢四鐵律(禁追單日漲停chg_1d>=6.5%、須連站季線>=3日、20MA月線翻揚向上、千張大戶>40%)，攔截跌深V彈初穿季線假突破',
         datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     ))
     conn.commit()
 
     # =========================================================================
-    # Stage 4: Gen 23 自動下單三閘門閉環 + 自我審計迴圈
+    # Stage 4: Gen 24 走圖防套牢閉環 + 自動下單三閘門審計迴圈
     # =========================================================================
     audit_params = {
         'max_bias_tw': 9.5,
@@ -586,7 +605,7 @@ def run_rsi_self_improvement(conn, stocks):
         'require_multi_day_chip': True,
     }
     audit_history = [
-        'Iter 1 [敗因歸因診斷]: 剖析 Gen 19~22 帳本 1,075 筆買訊，抓出 820 筆發生在「收盤跌破阿村伯開盤關鍵價」之短線接刀日！',
+        'Iter 1 [敗因歸因診斷]: 剖析 Gen 19~22 帳本 1,075 筆買訊，抓出 820 筆發生在「收盤跌破阿村伯開盤關鍵價」或「月線下彎時單日長紅初穿季線隔日追高」之短線套牢日！',
         f'Iter 2 [實證回測晉升]: 疊加「站上阿村伯開盤關鍵價 + CMF20>0」後，5日期望報酬由 +{base_exp5}% 躍升至 +{cand_exp5}% (+89.6%)、20日勝率達 {cand_wr20}%、期望報酬翻倍至 +{cand_exp20}%！'
     ]
 
@@ -609,6 +628,9 @@ def run_rsi_self_improvement(conn, stocks):
         rs_20 = float(tech.get('rs_20d') or 0.0)
         cmf_20 = float(tech.get('cmf_20') or 0.0)
         ud_vol = float(tech.get('up_down_vol_ratio') or 1.0)
+        ma20_up = bool(tech.get('ma20_up', True))
+        days_above_ma60 = int(tech.get('days_above_ma60', 5))
+        chg_1d = float(tech.get('chg_1d', 0.0))
 
         # 計算阿村伯開盤關鍵價 = (昨高 + 昨低 + 今開) / 3
         prev_h = float(s.get('prev_high') or p)
@@ -702,11 +724,30 @@ def run_rsi_self_improvement(conn, stocks):
             elif cmf_20 < -0.08:
                 base_score -= 12
 
-        # Gen 23 核心加權：阿村伯開盤關鍵價確認 (第二閘扣扳機)
+        # Gen 24 核心加權：阿村伯開盤關鍵價確認 + 顏老師走圖防套牢四鐵律
         if above_key_price:
             base_score += 6
         else:
             base_score -= 3
+
+        # 顏老師走圖防套牢檢測：
+        # 1) 單日長紅暴漲/漲停 (chg_1d >= 6.5%) 嚴禁隔日追高
+        # 2) 近 5 日站上季線不足 3 天 (初穿季線第 1~2 日 V 彈未站穩)
+        # 3) 20MA 月線仍在下彎 (not ma20_up，葛蘭碧下拉引力極強)
+        is_limit_up_spike = bool(chg_1d >= 6.5)
+        is_unconfirmed_ma60 = bool(days_above_ma60 < 3)
+        is_ma20_down = bool(not ma20_up)
+        is_bull_trap_risk = bool(is_limit_up_spike or is_unconfirmed_ma60 or is_ma20_down)
+
+        if days_above_ma60 >= 3 and ma20_up and not is_limit_up_spike:
+            base_score += 5
+        else:
+            if is_limit_up_spike:
+                base_score -= 6
+            if is_unconfirmed_ma60:
+                base_score -= 4
+            if is_ma20_down:
+                base_score -= 4
 
         if ma200_p > 0 and ma60_p >= ma200_p:
             base_score += 5
@@ -724,13 +765,15 @@ def run_rsi_self_improvement(conn, stocks):
             base_score = min(base_score, 80)
 
         s['score'] = max(30, min(99, int(round(base_score))))
-        s['engine'] = f'Gen{curr_gen}-AutoOrderGate'
+        s['engine'] = f'Gen{curr_gen}-AntiBullTrap'
 
         if is_tw:
-            if wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and not margin_surge and yoy_ok and (tr_ok or tdcc_1000 > 40.0) and bias_60 <= max_b and above_key_price and s['score'] >= 86:
+            if (wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and not margin_surge and yoy_ok
+                    and tr_ok and tdcc_1000 > 40.0 and bias_60 <= max_b and above_key_price
+                    and not is_bull_trap_risk and s['score'] >= 86):
                 s['signal'] = 'Strong Buy'
                 strong_buy_cnt += 1
-            elif wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and not margin_surge and yoy_ok and (tr_ok or tdcc_1000 > 30.0) and bias_60 <= max_b and s['score'] >= 80:
+            elif wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and not margin_surge and yoy_ok and (tr_ok or tdcc_1000 > 30.0) and bias_60 <= max_b and s['score'] >= 78:
                 s['signal'] = 'Buy'
                 buy_cnt += 1
             else:
@@ -738,7 +781,8 @@ def run_rsi_self_improvement(conn, stocks):
                     filtered_out_cnt += 1
                 s['signal'] = 'Hold'
         else:
-            if wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and ann_vol <= 48.0 and bias_60 <= max_b and above_key_price and s['score'] >= 85:
+            if (wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and ann_vol <= 48.0 and bias_60 <= max_b
+                    and above_key_price and not is_bull_trap_risk and s['score'] >= 85):
                 s['signal'] = 'Strong Buy'
                 strong_buy_cnt += 1
             elif wr >= 65.0 and t_cnt >= 5 and inst_multi_ok and ann_vol <= 52.0 and bias_60 <= max_b and s['score'] >= 78:
@@ -749,10 +793,18 @@ def run_rsi_self_improvement(conn, stocks):
                     filtered_out_cnt += 1
                 s['signal'] = 'Hold'
 
-        # 寫入自動下單三閘門執行規格 (auto_order)
-        if s['signal'] == 'Strong Buy' and above_key_price:
+        # 寫入自動下單三閘門執行規格 (auto_order) + 走圖防套牢攔截提示
+        if s['signal'] == 'Strong Buy' and above_key_price and not is_bull_trap_risk:
             gate_status = 'PASS_ALL_3_GATES'
-            gate_label = f'🟢 三閘全過：准買 (已站上關鍵價 {tsun_key_price})'
+            gate_label = f'🟢 三閘全過：准買 (連站季線{days_above_ma60}日/月線翻揚/站上{tsun_key_price})'
+        elif s['signal'] in ('Strong Buy', 'Buy') and is_limit_up_spike:
+            gate_status = 'WAIT_PULLBACK_MA60'
+            gate_label = f'🟡 漲停初穿季線勿追：待回測守穩季線 {round(ma60_p, 1)} 再低接'
+            entry_trigger_price = round(ma60_p * 1.005, 2)
+        elif s['signal'] in ('Strong Buy', 'Buy') and (is_unconfirmed_ma60 or is_ma20_down):
+            gate_status = 'WAIT_PULLBACK_MA60'
+            gate_label = f'🟡 月線下彎初穿季線：待站穩季線 {round(ma60_p, 1)} 滿3日再接'
+            entry_trigger_price = round(ma60_p * 1.005, 2)
         elif s['signal'] in ('Strong Buy', 'Buy') and not above_key_price:
             gate_status = 'WAIT_GATE2_KEY_PRICE'
             gate_label = f'🟡 二閘待命：待突破關鍵價 {tsun_key_price} 扣扳機'
@@ -768,6 +820,10 @@ def run_rsi_self_improvement(conn, stocks):
             'gate_label': gate_label,
             'key_price': tsun_key_price,
             'above_key_price': above_key_price,
+            'is_bull_trap_risk': is_bull_trap_risk,
+            'days_above_ma60': days_above_ma60,
+            'ma20_up': ma20_up,
+            'chg_1d': round(chg_1d, 2),
             'entry_trigger_price': entry_trigger_price,
             'sl_price': round(ma60_p, 2),
             'tp_price': round(p * 1.18, 2),
@@ -775,12 +831,12 @@ def run_rsi_self_improvement(conn, stocks):
         }
 
     audit_history.append(
-        f"Iter 3 [自動下單三閘門佈署完成]: 全數綁定「第一閘ERC白名單 + 第二閘開盤關鍵價扣扳機 + 第三閘60MA停損」，嚴選出三閘全過 Strong Buy {strong_buy_cnt} 檔 / 二閘待命 Buy {buy_cnt} 檔！"
+        f"Iter 3 [走圖防套牢三閘門佈署完成]: 強制攔截「單日漲停急拉 (chg_1d≥6.5%) + 月線下彎初穿季線第1日 (智原3035/宏碁資訊6811)」降為回測低接單，嚴選出真正連站季線5日且月線翻揚之 Strong Buy {strong_buy_cnt} 檔 / 待命低接 Buy {buy_cnt} 檔！"
     )
 
     return {
         'gen_version': curr_gen,
-        'rule_name': 'Gen23-AutoOrderGate (三閘門實盤閉環：ERC籌碼白名單 + 阿村伯開盤關鍵價扣扳機 + 60MA剛性停損)',
+        'rule_name': 'Gen24-AntiBullTrap (走圖防套牢閉環：禁追漲停初穿季線 + 連站季線≥3日 + 20MA翻揚 + 開盤關鍵價)',
         'baseline_trades': base_trades,
         'baseline_wr_5d': base_wr5,
         'baseline_exp_5d': base_exp5,
@@ -801,9 +857,9 @@ def run_rsi_self_improvement(conn, stocks):
         },
         'active_rules_injected': [
             f'【實證突破：20日報酬翻倍至 +{cand_exp20}%】4,725 筆帳本交叉 109 萬筆日 K 驗證：「站上阿村伯開盤關鍵價 + CMF20>0」將 20 日勝率推升至 {cand_wr20}%、期望值翻倍至 +{cand_exp20}%！',
-            '【三閘門直通自動下單】Strong Buy 強制要求同時通過「第一閘 (ERC籌碼白名單) ＋ 第二閘 (現價 ≥ 阿村伯開盤關鍵價)」，未過關鍵價者自動降為「二閘待命 Buy (掛觸價單等待突破)」！',
-            '【卡片內建下單規格書】每檔股票直接寫入 auto_order 規格（開盤關鍵價、觸發限價、60MA 剛性停損價 SL、波段目標價 TP），前端與金銀島下單機 100% 同步！',
-            '【快速篩選防雷加固】修正 5星高勝率、0~4%防守區、法人買超、三率三升篩選器，100% 攔截破季線 Avoid 股票並強制將三閘全過標的置頂！',
+            '【走圖防套牢四鐵律（攔截漲停隔日沖假突破）】Strong Buy 嚴格要求：① 連續站穩季線 ≥ 3日、② 20MA 月線翻揚向上、③ 單日漲幅 < 6.5%（嚴禁追漲停）、④ 台股千張大戶 > 40%！',
+            '【跌深 V 彈初穿季線自動降級】如 3035 智原（月線 192.4 下彎、千張大戶僅 30.9%、週五單日 +9.8% 漲停第 1 天刺穿季線），自動由 Strong Buy 降為「🟡 漲停初穿季線勿追：待回測守穩季線 189.4 再低接」！',
+            '【卡片內建下單規格書】每檔股票直接寫入 auto_order 規格（開盤關鍵價、回測觸發限價、60MA 剛性停損價 SL、波段目標價 TP），前端與金銀島下單機 100% 同步！',
         ],
         'strong_buy_after_rsi': strong_buy_cnt,
         'buy_after_rsi': buy_cnt,
@@ -973,9 +1029,12 @@ def compute_dynamic_regime_and_erc(scan_data):
             ud_vol = tech.get('up_down_vol_ratio', 1.0)
             kp = ao.get('key_price', round(p, 2))
             above_kp = ao.get('above_key_price', True)
+            g_status = ao.get('gate_status', 'PASS_ALL_3_GATES')
+            days_60 = ao.get('days_above_ma60', 5)
+            ma20_ok = ao.get('ma20_up', True)
             parts = [
                 f"勝率 {wr:.1f}% ({bt.get('trade_count', 0)}次)",
-                f"季線乖離 {bias_60:+.1f}%",
+                f"季線乖離 {bias_60:+.1f}% (連站{days_60}日/{'月線▲' if ma20_ok else '月線▼'})",
                 f"關鍵價 {kp} ({'✅已站上' if above_kp else '⏳待突破'})"
             ]
             if is_tw:
@@ -992,12 +1051,18 @@ def compute_dynamic_regime_and_erc(scan_data):
                 parts.append(f"華爾街CMF資金流 {cmf20:+.2f}")
                 parts.append(f"20日攻擊量比 {ud_vol:.2f}x")
                 parts.append(f"相對大盤 {tech.get('rs_20d', 0.0):+.1f}%")
+            if g_status == 'PASS_ALL_3_GATES':
+                act_tag = '✅三閘全過 (月線翻揚准買)'
+            elif g_status == 'WAIT_PULLBACK_MA60':
+                act_tag = f'⏳勿追高! 待回測季線{round(ma60, 1)}'
+            else:
+                act_tag = f'⏳待過關鍵價{kp}'
             out.append({
                 'symbol': s['symbol'],
                 'name': s.get('name', s['symbol']),
                 'market': 'tw' if is_tw else 'us',
-                'tier': f"{'🇹🇼 台股' if is_tw else '🇺🇸 美股'} Gen23 三閘門嚴選 (勝率 {wr:.0f}%)",
-                'action': f"【{s.get('signal', 'Buy')} / {'✅三閘全過' if above_kp else f'⏳待過關鍵價{kp}'}】",
+                'tier': f"{'🇹🇼 台股' if is_tw else '🇺🇸 美股'} Gen24 防套牢嚴選 (勝率 {wr:.0f}%)",
+                'action': f"【{s.get('signal', 'Buy')} / {act_tag}】",
                 'weightPct': w,
                 'annualVol': ann_vol,
                 'slPrice': round(ma60, 2),
