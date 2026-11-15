@@ -208,17 +208,20 @@ def sync_all_260_and_report(push_tg=False):
 
     scan_data['last_updated'] = now_str
     scan_data['updated_at'] = now_str
-    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen18 RSI閉環'
+    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen24 RSI走圖防套牢閉環'
 
     with open(SCAN_FILE, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
 
-    # 同步寫入網站實際發布目錄 q_quant_888 下的 scan_results.json 與 live_portfolio.json
+    # 同步寫入網站所有實際發布目錄下的 scan_results.json 與 live_portfolio.json
     import shutil
-    web_dir = os.path.join(BASE_DIR, 'q_quant_888')
-    if os.path.exists(web_dir):
-        shutil.copy2(SCAN_FILE, os.path.join(web_dir, 'scan_results.json'))
-        shutil.copy2(SCAN_FILE, os.path.join(web_dir, 'live_portfolio.json'))
+    for sub in ['', 'q_quant_888', 'trading', os.path.join('frontend', 'public')]:
+        target_dir = os.path.join(BASE_DIR, sub) if sub else BASE_DIR
+        if os.path.exists(target_dir):
+            for fname in ['scan_results.json', 'live_portfolio.json']:
+                dst = os.path.join(target_dir, fname)
+                if os.path.abspath(dst) != os.path.abspath(SCAN_FILE):
+                    shutil.copy2(SCAN_FILE, dst)
 
     # ──────────────────────────────────────────────
     # 產出 100% 對齊網站「高勝率買進邏輯」的戰情報告
@@ -319,7 +322,14 @@ def sync_all_260_and_report(push_tg=False):
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 si.wShowWindow = 0
                 cf = 0x08000000
-                subprocess.run(['git', 'add', 'scan_results.json', 'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json', 'news_radar.json', 'q_quant_888/news_radar.json'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                subprocess.run([
+                    'git', 'add',
+                    'scan_results.json', 'live_portfolio.json',
+                    'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json',
+                    'trading/scan_results.json', 'trading/live_portfolio.json',
+                    'frontend/public/scan_results.json', 'frontend/public/live_portfolio.json',
+                    'news_radar.json', 'q_quant_888/news_radar.json'
+                ], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                 res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
                 if res.returncode == 0:
                     subprocess.run(['git', 'pull', '--rebase', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
@@ -328,13 +338,32 @@ def sync_all_260_and_report(push_tg=False):
             except Exception as ge:
                 print(f"[GitHub] 自動推送異常: {ge}")
 
+
+def is_psc_running():
+    """偵測統一金贏島 (daqPSCAP.exe / DAQPSCAPProxy.exe) 是否正開啟運行中"""
+    try:
+        si = subprocess.STARTUPINFO()
+        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        si.wShowWindow = 0
+        out = subprocess.check_output(
+            ['tasklist', '/FI', 'IMAGENAME eq daqPSCAP.exe', '/NH'],
+            startupinfo=si, creationflags=0x08000000, text=True, errors='ignore'
+        )
+        if 'daqPSCAP.exe' in out:
+            return True
+    except Exception:
+        pass
+    return False
+
+
 if __name__ == '__main__':
-    # 僅在交易時段 (台股 09:00-13:35 或 美股 22:30-05:05) 執行背景定時排程，除非有 --force
+    # 只要張大哥開著統一金贏島 (daqPSCAP.exe)，不論是否為開盤時段皆 24 小時全天候時時同步！
     now = datetime.now()
     hm = now.hour * 100 + now.minute
     wd = now.weekday() # 0=Mon .. 6=Sun
     in_tw = (wd < 5) and (900 <= hm <= 1335)
     in_us = (wd < 5 and hm >= 2230) or (1 <= wd <= 5 and hm <= 505)
+    psc_open = is_psc_running()
     # 每個交易日 15:45 後自動執行一次盤後真實籌碼/財報/日K/RSI帳本驗算閉環
     stamp_file = r'D:\PSC_Quant_DB\last_postmarket_enrich.txt'
     today_ymd = now.strftime('%Y-%m-%d')
@@ -357,7 +386,7 @@ if __name__ == '__main__':
         except Exception as ee:
             print(f"[PostMarket] 盤後閉環執行異常: {ee}")
 
-    if '--force' in sys.argv or in_tw or in_us:
+    if '--force' in sys.argv or psc_open or in_tw or in_us:
         sync_all_260_and_report(push_tg='--notify' in sys.argv)
     else:
-        print(f"[{now.strftime('%H:%M:%S')}] 目前非台/美股開盤時段，靜默待命。")
+        print(f"[{now.strftime('%H:%M:%S')}] 統一金贏島未開啟且非開盤時段，靜默待命。")
