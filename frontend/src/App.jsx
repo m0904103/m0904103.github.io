@@ -280,8 +280,10 @@ function App() {
       const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
       const winRateScore = calculateWinRateScore(s, indices).score;
       const btWr = Number(s.backtest?.win_rate ?? 0);
+      const btTrades = Number(s.backtest?.trade_count ?? 0);
+      const instOk = s.market === 'tw' ? Number(s.chips?.total_inst_lots ?? 0) > 0 : true;
 
-      if (winRateScore >= 85 && btWr >= 65) counts.star5++;
+      if (winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk) counts.star5++;
       if (close >= ma60 && biasPct >= 0.0 && biasPct <= 4.0) counts.sweet++;
       if (s.chips?.foreign_buy) counts.foreign++;
       if (s.fundamentals?.three_rates_rising) counts.three_rates++;
@@ -300,8 +302,10 @@ function App() {
     const biasPct = ma60 > 0 ? ((close - ma60) / ma60) * 100 : -99;
     const winRateScore = calculateWinRateScore(s, indices).score;
     const btWr = Number(s.backtest?.win_rate ?? 0);
+    const btTrades = Number(s.backtest?.trade_count ?? 0);
+    const instOk = s.market === 'tw' ? Number(s.chips?.total_inst_lots ?? 0) > 0 : true;
 
-    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85 && btWr >= 65;
+    if (activeQuickFilter === 'star5') matchFilter = winRateScore >= 85 && btWr >= 65 && btTrades >= 5 && instOk;
     else if (activeQuickFilter === 'sweet') matchFilter = biasPct >= -0.8 && biasPct <= 5.0;
     else if (activeQuickFilter === 'foreign') matchFilter = Boolean(s.chips?.foreign_buy);
     else if (activeQuickFilter === 'three_rates') matchFilter = Boolean(s.fundamentals?.three_rates_rising);
@@ -683,12 +687,13 @@ function App() {
                             <span>{stock.symbol.replace(/\.TWO?$/, '')} {stock.name}</span>
                             {stock.esg_elite && <span className="px-1.5 py-0.5 rounded text-[9px] bg-esg-gold/20 text-esg-gold border border-esg-gold/30 tracking-widest">🌱 ESG護城河</span>}
                             {(() => {
-                              const clean = stock.symbol.replace(/\.TWO?$/, '');
-                              const algoInfo = AI_ALGO_MAP[clean] || AI_ALGO_MAP[stock.symbol];
-                              if (algoInfo) {
+                              const liveCross = stocks?.quant_advisor?.cross || [];
+                              const liveUs = stocks?.quant_advisor?.us || [];
+                              const matchedErc = [...liveCross, ...liveUs].find(r => r.symbol === stock.symbol);
+                              if (matchedErc && matchedErc.weightPct > 0 && stock.signal !== 'Avoid') {
                                 return (
-                                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-black border ${algoInfo.cls}`}>
-                                    {algoInfo.tag}
+                                  <span className="px-1.5 py-0.5 rounded text-[9px] font-black border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
+                                    ⭐ Gen{stocks?.rsi_loop?.gen_version || 20}配置 {matchedErc.weightPct}%
                                   </span>
                                 );
                               }

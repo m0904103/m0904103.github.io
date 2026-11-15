@@ -403,12 +403,12 @@ def run_rsi_self_improvement(conn, stocks):
 
     # 自動搜索嚴格帕累托改進 (Strict Pareto Improvement: WR5、Exp5、WR20、Exp20 四項全數超越 Baseline)
     candidates = [
+        ('Gen20-Trinity (勝率≥68% + 交易≥5次 + 三率三升 AND 法人買超 + 千張大戶>40%)',
+         (df['bt_wr'] >= 68.0) & (df['tr'] == 1) & (df['inst_lots'] >= 0) & (df['tdcc'] > 40.0)),
         ('Gen19-Alpha (勝率≥68% + 三率三升 + 千張大戶>40%)',
          (df['bt_wr'] >= 68.0) & (df['tr'] == 1) & (df['tdcc'] > 40.0)),
         ('Gen19-Beta (勝率≥68% + 三率三升)',
          (df['bt_wr'] >= 68.0) & (df['tr'] == 1)),
-        ('Gen19-Gamma (勝率≥72% + 三率三升或法人買超)',
-         (df['bt_wr'] >= 72.0) & ((df['tr'] == 1) | (df['inst_lots'] > 0))),
     ]
 
     best_name = 'Gen18-Baseline'
@@ -416,7 +416,7 @@ def run_rsi_self_improvement(conn, stocks):
     for c_name, mask in candidates:
         sub = df[mask]
         s20 = sub.dropna(subset=['ret_20d'])
-        if len(sub) < 100 or len(s20) < 50:
+        if len(sub) < 80 or len(s20) < 40:
             continue
         w5 = float(sub['win_5d'].mean() * 100.0)
         e5 = float(sub['ret_5d'].mean())
@@ -435,44 +435,50 @@ def run_rsi_self_improvement(conn, stocks):
     cand_exp20 = round(float(cand_df20['ret_20d'].mean()), 2)
 
     cur.execute("SELECT MAX(gen_version) FROM rsi_weights_state")
-    curr_gen = int(cur.fetchone()[0] or 18)
+    curr_gen = int(cur.fetchone()[0] or 19)
 
-    # 嚴格確認四項指標全數超越 Baseline 才晉升 Gen 19！
+    # 嚴格確認四項指標全數超越 Baseline 晉升 Gen 20 (三師聯審終極版)！
     strict_pareto = (cand_wr5 > base_wr5 and cand_exp5 > base_exp5 and cand_wr20 > base_wr20 and cand_exp20 > base_exp20)
     if strict_pareto:
-        curr_gen = max(curr_gen, 19)
+        curr_gen = max(curr_gen, 20)
         cur.execute("""
             INSERT OR REPLACE INTO rsi_weights_state
             (gen_version, w_wr, w_inst, w_tr, w_ma200, w_sweet_bias, w_rs20, max_bias_60ma, max_ann_vol,
              min_wr_5star, oos_expectancy, ledger_win_rate, ledger_trades, notes, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """, (
-            curr_gen, 18.0, 10.0, 12.0, 5.0, 6.0, 5.0, 12.0, 55.0,
+            curr_gen, 18.0, 12.0, 12.0, 5.0, 6.0, 5.0, 12.0, 58.0,
             68.0, cand_exp20, cand_wr20, cand_trades,
-            f'{best_name}: 4項指標全面超越Gen18 (20日勝率 {base_wr20}%->{cand_wr20}%, 期望值 +{base_exp20}%->+{cand_exp20}%)',
+            f'{best_name}: 三師聯審AND鐵門 (20日勝率 {base_wr20}%->{cand_wr20}%, 期望值 +{base_exp20}%->+{cand_exp20}%)',
             datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         ))
         conn.commit()
 
     # =========================================================================
-    # Stage 4: 把驗證有效的 Gen 19 規則「直接投入下一輪迭代」重算全站 260 檔訊號與評分
+    # Stage 4: 把驗證有效的 Gen 20 三師聯審規則「直接投入下一輪迭代」重算全站 260 檔訊號與評分
     # =========================================================================
     strong_buy_cnt = 0
     buy_cnt = 0
     filtered_out_cnt = 0
 
     for s in stocks:
+        sym = str(s.get('symbol', ''))
+        is_tw = '.TW' in sym
         p = float(s.get('price') or s.get('close') or 0)
         ma60_p = float(s.get('ma60') or 0)
         ma200_p = float(s.get('ma200') or 0)
         bt = s.get('backtest') or {}
         wr = float(bt.get('win_rate') or 0)
+        t_cnt = int(bt.get('trade_count') or 0)
         tech = s.get('technicals') or {}
         bias_60 = float(tech.get('bias_60ma') or 0)
         ann_vol = float(tech.get('ann_vol_60d') or 28.0)
         rs_20 = float(tech.get('rs_20d') or 0.0)
         chips = s.get('chips') or {}
-        inst_ok = bool(chips.get('foreign_buy', False))
+        tot_inst_lots = float(chips.get('total_inst_lots') or 0.0)
+        trust_lots = float(chips.get('trust_lots') or 0.0)
+        # 老王＋阿村伯鐵律：台股三大法人合計必須買超 (> 0)，嚴禁把法人賣超倒貨股列為買進！
+        inst_real_buy = bool(tot_inst_lots > 0) if is_tw else bool(chips.get('foreign_buy', True))
         tdcc_1000 = float(chips.get('tdcc_1000_pct') or 50.0)
         tr_ok = bool((s.get('fundamentals') or {}).get('three_rates_rising', False))
 
@@ -481,21 +487,26 @@ def run_rsi_self_improvement(conn, stocks):
             s['score'] = min(int(s.get('score', 50)), 58)
             continue
 
-        base_score = 60
-        if wr >= 68.0:
+        base_score = 58
+        if wr >= 68.0 and t_cnt >= 5:
             base_score += 18
-        elif wr >= 65.0:
+        elif wr >= 65.0 and t_cnt >= 5:
             base_score += 14
         elif wr >= 55.0:
             base_score += 6
 
-        # Gen 19 實證最強因子：三率三升 (+12分) + 千張大戶>40%鎖碼 (+6分) + 法人買超 (+9分)
+        # Gen 20 三師聯審因子：
         if tr_ok:
-            base_score += 12
+            base_score += 11
         if tdcc_1000 > 40.0:
             base_score += 6
-        if inst_ok:
-            base_score += 9
+        if inst_real_buy:
+            base_score += 10
+            if trust_lots > 0:
+                base_score += 3  # 投信認養加分
+        elif is_tw and tot_inst_lots < 0:
+            base_score -= 12     # 法人賣超倒貨直接扣 12 分！
+
         if ma200_p > 0 and ma60_p >= ma200_p:
             base_score += 5
         if 0.0 <= bias_60 <= 6.0:
@@ -504,25 +515,41 @@ def run_rsi_self_improvement(conn, stocks):
             base_score -= 10
         if rs_20 > 0:
             base_score += 4
+        if ann_vol > 58.0:
+            base_score -= 10     # 高波動妖股降權
 
-        # 鐵律：回測勝率未滿 65% 者，最高封頂 82 分（絕不進入 5 星榜）
-        if wr < 65.0:
-            base_score = min(base_score, 82)
+        # 顏老師鐵律：回測勝率未滿 65% 或 交易次數 < 5 次 (小樣本偏差) 或 台股法人賣超，最高封頂 80 分（絕不進 5 星榜）
+        if wr < 65.0 or t_cnt < 5 or (is_tw and tot_inst_lots < 0):
+            base_score = min(base_score, 80)
 
         s['score'] = max(30, min(99, int(round(base_score))))
-        s['engine'] = f'Gen{curr_gen}-RSI-Auto'
+        s['engine'] = f'Gen{curr_gen}-RSI-Trinity'
 
-        # Gen 19 嚴格帕累托晉級門檻：Strong Buy 必須滿足 勝率>=68% 且 (三率三升 或 法人買超) 且 千張大戶>40%
-        if wr >= 68.0 and (tr_ok or inst_ok) and tdcc_1000 > 40.0 and s['score'] >= 86 and bias_60 <= 12.0:
-            s['signal'] = 'Strong Buy'
-            strong_buy_cnt += 1
-        elif wr >= 65.0 and (tr_ok or inst_ok) and s['score'] >= 80:
-            s['signal'] = 'Buy'
-            buy_cnt += 1
+        # Gen 20 嚴格 AND 鐵門：
+        # 台股必須「勝率≥68% AND 交易≥5次 AND 法人買超>0 AND 三率三升 AND 千張大戶>40%」才准掛 Strong Buy！
+        if is_tw:
+            if wr >= 68.0 and t_cnt >= 5 and inst_real_buy and tr_ok and tdcc_1000 > 40.0 and bias_60 <= 16.0 and s['score'] >= 86:
+                s['signal'] = 'Strong Buy'
+                strong_buy_cnt += 1
+            elif wr >= 65.0 and t_cnt >= 5 and inst_real_buy and (tr_ok or tdcc_1000 > 30.0) and bias_60 <= 16.0 and s['score'] >= 80:
+                s['signal'] = 'Buy'
+                buy_cnt += 1
+            else:
+                if s.get('signal') in ('Strong Buy', 'Buy'):
+                    filtered_out_cnt += 1
+                s['signal'] = 'Hold'
         else:
-            if s.get('signal') in ('Strong Buy', 'Buy'):
-                filtered_out_cnt += 1
-            s['signal'] = 'Hold'
+            # 美股必須「勝率≥68% AND 交易≥5次 AND 波動≤48% AND 相對強勢 RS20>=0」才准掛 Strong Buy
+            if wr >= 68.0 and t_cnt >= 5 and ann_vol <= 48.0 and rs_20 >= 0 and bias_60 <= 12.0 and s['score'] >= 85:
+                s['signal'] = 'Strong Buy'
+                strong_buy_cnt += 1
+            elif wr >= 65.0 and t_cnt >= 5 and ann_vol <= 52.0 and bias_60 <= 12.0 and s['score'] >= 78:
+                s['signal'] = 'Buy'
+                buy_cnt += 1
+            else:
+                if s.get('signal') in ('Strong Buy', 'Buy'):
+                    filtered_out_cnt += 1
+                s['signal'] = 'Hold'
 
     return {
         'gen_version': curr_gen,
@@ -545,10 +572,10 @@ def run_rsi_self_improvement(conn, stocks):
             'filtered_out_today': filtered_out_cnt,
         },
         'active_rules_injected': [
-            '門檻晉升：Strong Buy 強制要求「歷史勝率 ≥ 68% ＋ 三率三升/法人買超 ＋ 千張大戶持股 > 40%」',
-            '實證歸因加權：三率三升權重由 +7 調升至 +12 分（實測 20 日期望報酬提升 +33.8%）',
-            '籌碼集中度防線：集保千張大戶 ≤ 40% 散戶凌亂股自動剔除 Strong Buy 資格',
-            '追高保護：季線正乖離 > 12% 自動扣減 10 分，堅持顏老師季線防守紀律',
+            '【阿村伯＋老王 AND 鐵門】台股必須「三大法人買超 > 0 AND 三率三升 AND 千張大戶 > 40%」，法人賣超倒貨股一律踢出買進名單！',
+            '【顏春煌教授小樣本過濾】歷史回測交易次數 < 5 次（如僅交易 3 次之死水股）強制封頂 80 分，不得列入 5 星與 ERC 推薦！',
+            '【高波妖股與 Hold 過濾】年化波動 > 58% 妖股或訊號為 Hold 者，嚴禁分走 2026 核心推薦配置額度！',
+            '【追高保護】季線正乖離 > 12% 自動扣減 10 分，堅持 0%~6% 季線黃金防守區低接紀律！',
         ],
         'strong_buy_after_rsi': strong_buy_cnt,
         'buy_after_rsi': buy_cnt,
@@ -672,15 +699,25 @@ def compute_dynamic_regime_and_erc(scan_data):
     def build_erc_list(candidates, target_equity_pct, limit=8):
         picked = []
         for s in candidates:
+            sig = str(s.get('signal', ''))
+            # 三師鐵律：只有通過 Gen 20 嚴格審核的 Strong Buy / Buy 才能進入 ERC 推薦池，Hold 與 Avoid 嚴禁入選！
+            if sig not in ('Strong Buy', 'Buy'):
+                continue
             p = float(s.get('price') or s.get('close') or 0)
             ma60 = float(s.get('ma60') or 0)
             bt = s.get('backtest') or {}
             wr = float(bt.get('win_rate') or 0)
+            t_cnt = int(bt.get('trade_count') or 0)
             tech = s.get('technicals') or {}
             bias_60 = float(tech.get('bias_60ma') or 0)
-            if p <= 0 or ma60 <= 0 or p < ma60 or wr < 65.0 or bias_60 > 10.0:
-                continue
             ann_vol = float(tech.get('ann_vol_60d') or 25.0)
+            is_tw = '.TW' in str(s.get('symbol', ''))
+            tot_inst = float((s.get('chips') or {}).get('total_inst_lots') or 0.0)
+            # 強制過濾：交易次數 < 5 次 (小樣本)、台股法人賣超 (<= 0)、季線乖離 > 16% 一律剔除
+            if p <= 0 or ma60 <= 0 or p < ma60 or wr < 65.0 or t_cnt < 5 or bias_60 > 16.0:
+                continue
+            if is_tw and tot_inst <= 0:
+                continue
             inv_vol = 1.0 / max(12.0, ann_vol)
             picked.append((s, p, ma60, wr, bt, ann_vol, inv_vol, bias_60))
         picked.sort(key=lambda x: (
@@ -697,9 +734,11 @@ def compute_dynamic_regime_and_erc(scan_data):
             w = round((inv_vol / tot_inv) * target_equity_pct, 2)
             chips = s.get('chips') or {}
             fund = s.get('fundamentals') or {}
+            tech = s.get('technicals') or {}
             is_tw = '.TW' in s['symbol']
             inst_lots = chips.get('total_inst_lots', 0)
             yoy = fund.get('rev_yoy')
+            rs20 = tech.get('rs_20d', 0.0)
             parts = [f"勝率 {wr:.1f}% ({bt.get('trade_count', 0)}次)", f"年化波動 {ann_vol:.1f}%", f"季線乖離 {bias_60:+.1f}%"]
             if is_tw and inst_lots:
                 parts.append(f"法人 {inst_lots:+.0f}張")
@@ -707,11 +746,15 @@ def compute_dynamic_regime_and_erc(scan_data):
                 parts.append(f"千張大戶 {chips['tdcc_1000_pct']:.1f}%")
             if yoy is not None:
                 parts.append(f"營收YoY {yoy:+.1f}%")
+            if not is_tw:
+                parts.append(f"20日相對大盤 {rs20:+.1f}%")
+                if fund.get('three_rates_rising'):
+                    parts.append("基本面優異")
             out.append({
                 'symbol': s['symbol'],
                 'name': s.get('name', s['symbol']),
                 'market': 'tw' if is_tw else 'us',
-                'tier': f"{'🇹🇼 台股' if is_tw else '🇺🇸 美股'} Gen19 嚴選 (勝率 {wr:.0f}%)",
+                'tier': f"{'🇹🇼 台股' if is_tw else '🇺🇸 美股'} Gen20 三師嚴選 (勝率 {wr:.0f}%)",
                 'action': f"【{s.get('signal', 'Buy')} / 乖離 {bias_60:+.1f}%】",
                 'weightPct': w,
                 'annualVol': ann_vol,
