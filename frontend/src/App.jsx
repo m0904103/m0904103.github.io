@@ -318,23 +318,21 @@ function App() {
     const btWrA = a.backtest?.win_rate != null ? Number(a.backtest.win_rate) : 50.0;
     const btWrB = b.backtest?.win_rate != null ? Number(b.backtest.win_rate) : 50.0;
 
-    // 0. Tier 0 Priority: Stocks triggering >=90 Score AND >=65% RSI Backtest Win Rate get #1 Top Priority!
+    // 0. 嚴格按訊號層級排序：Strong Buy -> Buy -> Hold -> Avoid (破季線 Avoid 強制隔離在名單最底部，絕不混入前段誤導買進)
+    const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
+    if (rankDiff !== 0) return rankDiff;
+
+    // 1. 同訊號層級內：優先排 >=90 分且回測勝率 >=65% 之頂級標的
     const isTopTriggerA = (scoreA >= 90 && btWrA >= 65) ? 1 : 0;
     const isTopTriggerB = (scoreB >= 90 && btWrB >= 65) ? 1 : 0;
     if (isTopTriggerB !== isTopTriggerA) return isTopTriggerB - isTopTriggerA;
 
-    // 1. Dual-Factor Composite Score: TINs Score (50%) + RSI Backtest Win Rate (50%)
+    // 2. Dual-Factor Composite Score: TINs Score (50%) + RSI Backtest Win Rate (50%)
     const compositeA = scoreA * 0.5 + btWrA * 0.5;
     const compositeB = scoreB * 0.5 + btWrB * 0.5;
-
-    // Prioritize composite score descending
     if (Math.abs(compositeB - compositeA) > 0.5) {
       return compositeB - compositeA;
     }
-
-    // 2. Sort by signal strength (Strong Buy first)
-    const rankDiff = (signalRank[a.signal] ?? 9) - (signalRank[b.signal] ?? 9);
-    if (rankDiff !== 0) return rankDiff;
 
     // 3. Within same tier: prioritize stocks in -0.8%~5.0% sweet zone over overbought ones
     const biasA = a.ma60 > 0 ? ((a.close - a.ma60) / a.ma60) * 100 : -99;
