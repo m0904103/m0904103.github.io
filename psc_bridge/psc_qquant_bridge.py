@@ -16,7 +16,8 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta
 
-sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 BASE_DIR = r'C:\Users\manpo\.gemini\antigravity\scratch\m0904103.github.io'
 BRIDGE_DIR = os.path.join(BASE_DIR, 'psc_bridge')
