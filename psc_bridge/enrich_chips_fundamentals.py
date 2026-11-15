@@ -140,6 +140,30 @@ def fetch_tw_chips():
     except Exception as me:
         print(f"[TWSE MI_MARGN] 略過: {me}")
 
+    # 抓上櫃 (TPEx) 真實融資融券 tpex_mainboard_margin_balance
+    try:
+        tmdata = _http_json('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_margin_balance')
+        for r in tmdata:
+            code = str(r.get('SecuritiesCompanyCode', '')).strip()
+            if not code:
+                continue
+            m_prev = _to_int(r.get('MarginPurchaseBalancePreviousDay'))
+            m_curr = _to_int(r.get('MarginPurchaseBalance'))
+            s_prev = _to_int(r.get('ShortSaleBalancePreviousDay'))
+            s_curr = _to_int(r.get('ShortSaleBalance'))
+            entry = chips_map.setdefault(code, {
+                'date': trade_date_str or datetime.now().strftime('%Y-%m-%d'),
+                'foreign_net_shares': 0, 'trust_net_shares': 0,
+                'dealer_net_shares': 0, 'total_inst_shares': 0,
+                'foreign_lots': 0.0, 'trust_lots': 0.0, 'total_inst_lots': 0.0,
+            })
+            entry['margin_diff'] = m_curr - m_prev
+            entry['margin_bal'] = m_curr
+            entry['short_diff'] = s_curr - s_prev
+            entry['short_bal'] = s_curr
+    except Exception as tme:
+        print(f"[TPEx Margin] 略過: {tme}")
+
     # 4. 集保中心 (TDCC) 最新千張大戶與400張大戶持股比例 (getOD.ashx?id=1-5)
     try:
         ctx = ssl._create_unverified_context()

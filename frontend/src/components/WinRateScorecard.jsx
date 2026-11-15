@@ -62,17 +62,49 @@ export function calculateWinRateScore(stock, globalIndices = {}) {
     reasons.push(`⚠️ 實質偏離季線下方 (${biasPct.toFixed(1)}%)，加收負乖離風險扣分 (-${penaltyPoints}分)`);
   }
 
-  // 3. Chip & Fundamental Alignment (TWSE / TPEx / TDCC Real Data)
+  // 3. Chip & Fundamental Alignment (Gen-22 Multi-Day Real Money Flow + PSC Intraday + WallStreet CMF20)
+  const isTw = String(stock.symbol || '').includes('.TW') || stock.market === 'tw';
   const totInstLots = stock.chips?.total_inst_lots != null ? Number(stock.chips.total_inst_lots) : null;
-  if (stock.chips?.foreign_buy && (totInstLots === null || totInstLots > 0)) {
-    score += 10;
-    const fLots = stock.chips?.foreign_lots != null ? `外資 ${stock.chips.foreign_lots > 0 ? '+' : ''}${stock.chips.foreign_lots}張` : '';
-    const tLots = stock.chips?.trust_lots != null ? ` / 投信 ${stock.chips.trust_lots > 0 ? '+' : ''}${stock.chips.trust_lots}張` : '';
-    const tdcc = stock.chips?.tdcc_1000_pct != null ? ` / 千張大戶 ${stock.chips.tdcc_1000_pct}%` : '';
-    reasons.push(`✅ 官方真實法人籌碼偏多${fLots || tLots ? `（${fLots}${tLots}${tdcc}）` : ''} (+10分)`);
-  } else if (totInstLots !== null && totInstLots < 0) {
-    score -= 12;
-    reasons.push(`⚠️ 三大法人合計調節賣超（${totInstLots}張），老王鐵律嚴禁逆勢接刀 (-12分)`);
+  const inst5dLots = stock.chips?.inst_5d_lots != null ? Number(stock.chips.inst_5d_lots) : totInstLots;
+  const instStreak = stock.chips?.inst_streak != null ? Number(stock.chips.inst_streak) : 0;
+  const amt5dM = stock.chips?.inst_5d_amount_m != null ? Number(stock.chips.inst_5d_amount_m) : 0;
+  const cmf20 = stock.technicals?.cmf_20 != null ? Number(stock.technicals.cmf_20) : null;
+  const udVol = stock.technicals?.up_down_vol_ratio != null ? Number(stock.technicals.up_down_vol_ratio) : null;
+
+  if (isTw) {
+    if (stock.chips?.foreign_buy) {
+      score += 10;
+      if (instStreak >= 3 || amt5dM >= 50) score += 4;
+      const streakTxt = instStreak >= 2 ? `連買${instStreak}日 / ` : '';
+      const amtTxt = amt5dM >= 100 ? `（約 ${(amt5dM / 100).toFixed(2)} 億真金白銀）` : amt5dM >= 10 ? `（約 ${amt5dM.toFixed(0)} 百萬）` : '';
+      const tdcc = stock.chips?.tdcc_1000_pct != null ? ` / 千張大戶 ${stock.chips.tdcc_1000_pct}%` : '';
+      reasons.push(`✅ 真金白銀多日籌碼鎖碼：${streakTxt}5日累計 ${inst5dLots > 0 ? '+' : ''}${Math.round(inst5dLots || 0)}張${amtTxt}${tdcc} (+${instStreak >= 3 || amt5dM >= 50 ? 14 : 10}分)`);
+    } else if (totInstLots !== null && (totInstLots < 0 || (inst5dLots !== null && inst5dLots < 0))) {
+      score -= 12;
+      reasons.push(`⚠️ 法人籌碼調節賣超（單日 ${totInstLots}張 / 5日累計 ${Math.round(inst5dLots || 0)}張），嚴禁逆勢接刀 (-12分)`);
+    }
+    if (stock.chips?.margin_surge) {
+      score -= 15;
+      reasons.push(`🚨 散戶融資大增 (+${stock.chips.margin_diff}張) ＋ 法人倒貨，籌碼凌亂高風險 (-15分)`);
+    }
+    const outIn = stock.psc_live?.out_in_ratio != null ? Number(stock.psc_live.out_in_ratio) : null;
+    if (outIn !== null && (Number(stock.psc_live?.in_size || 0) + Number(stock.psc_live?.out_size || 0)) > 50) {
+      if (outIn >= 1.15) {
+        score += 5;
+        reasons.push(`🔥 統一金銀島盤中實測：外盤主動掃貨比 ${outIn.toFixed(2)}x (真買氣強勁) (+5分)`);
+      } else if (outIn < 0.78) {
+        score -= 6;
+        reasons.push(`⚠️ 統一金銀島盤中實測：內盤賣壓偏重 (外內盤比 ${outIn.toFixed(2)}x) (-6分)`);
+      }
+    }
+  } else {
+    if (stock.chips?.foreign_buy) {
+      score += 10;
+      reasons.push(`💵 華爾街機構真金白銀吃貨：20日 CMF 資金流 ${cmf20 >= 0 ? '+' : ''}${cmf20} / 攻擊量比 ${udVol}x (+10分)`);
+    } else if (cmf20 !== null && cmf20 < -0.08) {
+      score -= 12;
+      reasons.push(`⚠️ 華爾街機構拉高派發警示：20日 CMF 資金流出 (${cmf20}) (-12分)`);
+    }
   }
   const revYoy = stock.fundamentals?.rev_yoy != null ? Number(stock.fundamentals.rev_yoy) : null;
   if (stock.fundamentals?.three_rates_rising && (revYoy === null || revYoy > 0)) {

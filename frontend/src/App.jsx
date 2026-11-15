@@ -700,26 +700,51 @@ function App() {
                               return null;
                             })()}
                           </div>
-                          {activeMarket === 'tw' && (
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {stock.fundamentals?.three_rates_rising && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">
-                                  🟢 三率三升{stock.fundamentals?.rev_yoy != null ? ` (YoY ${stock.fundamentals.rev_yoy > 0 ? '+' : ''}${Number(stock.fundamentals.rev_yoy).toFixed(0)}%)` : ''}
-                                </span>
-                              )}
-                              {stock.chips?.foreign_buy && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                                  🔵 法人買超{stock.chips?.total_inst_lots != null ? ` (${stock.chips.total_inst_lots > 0 ? '+' : ''}${Math.round(stock.chips.total_inst_lots)}張)` : ''}
-                                </span>
-                              )}
-                              {stock.chips?.tdcc_1000_pct != null && Number(stock.chips.tdcc_1000_pct) >= 60 && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                                  🐋 千張大戶 {Number(stock.chips.tdcc_1000_pct).toFixed(0)}%
-                                </span>
-                              )}
-                              {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
-                            </div>
-                          )}
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {activeMarket === 'tw' ? (
+                              <>
+                                {stock.fundamentals?.three_rates_rising && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">
+                                    🟢 三率三升{stock.fundamentals?.rev_yoy != null ? ` (YoY ${stock.fundamentals.rev_yoy > 0 ? '+' : ''}${Number(stock.fundamentals.rev_yoy).toFixed(0)}%)` : ''}
+                                  </span>
+                                )}
+                                {stock.chips?.foreign_buy && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                                    🔵 {stock.chips?.inst_streak >= 2 ? `連買${stock.chips.inst_streak}日` : '5日買超'}
+                                    {stock.chips?.inst_5d_lots != null
+                                      ? ` (${stock.chips.inst_5d_lots > 0 ? '+' : ''}${Math.round(stock.chips.inst_5d_lots)}張${stock.chips?.inst_5d_amount_m >= 50 ? `/${(stock.chips.inst_5d_amount_m / 100).toFixed(1)}億` : ''})`
+                                      : stock.chips?.total_inst_lots != null
+                                        ? ` (${stock.chips.total_inst_lots > 0 ? '+' : ''}${Math.round(stock.chips.total_inst_lots)}張)`
+                                        : ''}
+                                  </span>
+                                )}
+                                {stock.chips?.margin_surge && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+                                    🚨 資增法人賣
+                                  </span>
+                                )}
+                                {stock.chips?.tdcc_1000_pct != null && Number(stock.chips.tdcc_1000_pct) >= 60 && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                    🐋 千張大戶 {Number(stock.chips.tdcc_1000_pct).toFixed(0)}%
+                                  </span>
+                                )}
+                                {stock.psc_live?.out_in_ratio >= 1.15 && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                                    🔥 金銀島外盤 {Number(stock.psc_live.out_in_ratio).toFixed(2)}x
+                                  </span>
+                                )}
+                                {stock.technicals?.bb_lower_touch && <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 布林觸底</span>}
+                              </>
+                            ) : (
+                              <>
+                                {stock.chips?.foreign_buy && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                                    💵 機構吃貨 (CMF {stock.technicals?.cmf_20 >= 0 ? '+' : ''}{Number(stock.technicals?.cmf_20 ?? 0).toFixed(2)} / 量比 {Number(stock.technicals?.up_down_vol_ratio ?? 1).toFixed(2)}x)
+                                  </span>
+                                )}
+                              </>
+                            )}
+                          </div>
                           {/* Level 2 & 3: V4-Yen, Gap, K-Line, and Volume Surge Badges */}
                           <div className="flex flex-wrap gap-1 mt-1">
                             {stock.technicals?.v4_trigger && <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/30 text-red-300 border border-red-400/50 tracking-wider font-black">🚨 V4-Yen狙擊</span>}
