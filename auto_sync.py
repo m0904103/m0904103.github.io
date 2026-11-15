@@ -586,7 +586,9 @@ def sync_once():
             if stock_obj.get('fundamentals', {}).get('three_rates_rising'):
                 score_val += 5
             final_score = int(max(10, min(99, score_val)))
-            stock_obj['score'] = final_score
+            has_rsi_gen = bool('Gen' in str(stock_obj.get('engine', '')) or stock_obj.get('auto_order'))
+            if not has_rsi_gen:
+                stock_obj['score'] = final_score
 
             if v4_trigger:
                 signal = "Strong Buy"
@@ -606,7 +608,8 @@ def sync_once():
 
             stock_obj['tactic'] = v4_tactic
             stock_obj['vol_ratio'] = vol_ratio
-            stock_obj['engine'] = 'V4-Yen'
+            if not has_rsi_gen:
+                stock_obj['engine'] = 'V4-Yen'
             stock_obj['technicals'] = {
                 **(stock_obj.get('technicals') or {}),
                 'bb_lower': bb_lower,
@@ -671,7 +674,11 @@ def sync_once():
             stock_obj["price_source"] = price_source
             stock_obj["ma60"] = ma60
             stock_obj["change"] = change
-            stock_obj["signal"] = signal
+            if not is_regular:
+                stock_obj["signal"] = "Avoid"
+                stock_obj["score"] = min(int(stock_obj.get("score", 50)), 58)
+            elif not has_rsi_gen:
+                stock_obj["signal"] = signal
             stock_obj["is_regular"] = is_regular
             stock_obj["market"] = "tw" if ".TW" in sym or ".TWO" in sym else "us"
             stock_obj["gap_up"] = gap_up
