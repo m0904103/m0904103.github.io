@@ -268,6 +268,12 @@ def sync_all_260_and_report(push_tg=False):
             flow = "🟢外盤搶" if ratio >= 1.0 else "🔴內盤洗"
             lines.append(f"• {name} ({sym}) 勝率:{wr}% 評分:{sc} | 現價 {p:.2f} ({chg:+.2f}%) | {flow} {ratio:.2f}x")
 
+    try:
+        import news_radar
+        lines.extend(news_radar.get_news_digest_lines(limit=5, force='--force' in sys.argv))
+    except Exception as ne:
+        print(f"[News] 雷達略過: {ne}")
+
     report_str = "\n".join(lines)
     with open(REPORT_TXT, 'w', encoding='utf-8') as f:
         f.write(report_str)
@@ -299,7 +305,7 @@ def sync_all_260_and_report(push_tg=False):
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 si.wShowWindow = 0
                 cf = 0x08000000
-                subprocess.run(['git', 'add', 'scan_results.json', 'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                subprocess.run(['git', 'add', 'scan_results.json', 'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json', 'news_radar.json', 'q_quant_888/news_radar.json'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                 res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
                 if res.returncode == 0:
                     subprocess.run(['git', 'pull', '--rebase', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
