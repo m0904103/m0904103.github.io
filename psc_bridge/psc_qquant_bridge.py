@@ -100,7 +100,8 @@ CORE_HOLDINGS = {
     'GOOGL': {'psc': 'GOOGL.US', 'name': '谷歌-A (持股5股)', 'cost': 299.142, 'stop': 291.50, 'target': 315.00},
     'VTI':   {'psc': 'VTI.US',   'name': 'VTI 全美股 (15股)', 'cost': 379.00,  'stop': 0.0,    'target': 0.0},
     'DIA':   {'psc': 'DIA.US',   'name': 'DIA 道瓊 (5股)',    'cost': 524.00,  'stop': 0.0,    'target': 0.0},
-    '00406A.TW': {'psc': '00406A.TW', 'name': '主動中信台灣收益', 'cost': 0.0, 'stop': 0.0, 'target': 0.0},
+    '00406A.TW': {'psc': '00406A.TW', 'name': '主動中信台灣收益 (7張)', 'cost': 8.34, 'stop': 0.0, 'target': 0.0},
+    '00981A.TW': {'psc': '00981A.TW', 'name': '主動統一台股增長 (追蹤觀察)', 'cost': 0.0, 'stop': 0.0, 'target': 0.0},
 }
 
 def to_psc_symbol(sym):
@@ -142,28 +143,70 @@ def sync_all_260_and_report(push_tg=False):
     si.wShowWindow = 0
     subprocess.run([ENGINE_EXE, SYMBOLS_TXT, OUT_JSON, '6000'], check=False, startupinfo=si, creationflags=0x08000000)
 
-    if not os.path.exists(OUT_JSON):
-        print("❌ 找不到統一報價輸出檔")
-        return
+    psc_data = {}
+    if os.path.exists(OUT_JSON):
+        try:
+            with open(OUT_JSON, 'r', encoding='utf-8-sig') as f:
+                psc_data = json.load(f)
+        except Exception:
+            psc_data = {}
 
-    with open(OUT_JSON, 'r', encoding='utf-8-sig') as f:
-        psc_data = json.load(f)
-
-    if 'error' in psc_data:
-        print(f"❌ 統一金贏島連線錯誤: {psc_data['error']}")
-        return
-
-    quotes = psc_data.get('quotes', [])
+    quotes = psc_data.get('quotes', []) if 'error' not in psc_data else []
     quote_map = {q['symbol']: q for q in quotes}
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    deltas_15m = log_intraday_and_get_deltas(quotes, now_str)
+    today_compact = datetime.now().strftime('%Y%m%d')
+    deltas_15m = log_intraday_and_get_deltas(quotes, now_str) if quotes else {}
 
-    # 將統一即時報價回寫更新進 scan_results.json
+    # 若台股盤中統一金贏島跨夜連線未刷新當日報價，自動啟動 TWSE 官方 0 延遲 MIS 即時行情雙源融合
+    twse_live_map = {}
+    tw_syms_all = [str(s.get('symbol', '')) for s in stocks if '.TW' in str(s.get('symbol', ''))]
+    fresh_psc_tw = sum(1 for q in quotes if '.TW' in q.get('symbol', '') and str(q.get('date', '')) == today_compact)
+    if fresh_psc_tw < 10 and tw_syms_all:
+        try:
+            sys.path.insert(0, BASE_DIR)
+            import auto_sync
+            twse_live_map = auto_sync.get_twse_prices(tw_syms_all)
+            if '^TWII' in twse_live_map and twse_live_map['^TWII'].get('price'):
+                if 'indices' not in scan_data or not isinstance(scan_data['indices'], dict):
+                    scan_data['indices'] = {}
+                scan_data['indices']['加權指數'] = {'close': twse_live_map['^TWII']['price']}
+        except Exception as te:
+            print(f"[TWSE-MIS] 雙源備援略過: {te}")
+
+    # 將統一即時報價 + TWSE MIS 0延遲即時行情回寫更新進 scan_results.json
     updated_count = 0
     for s in stocks:
-        ps = to_psc_symbol(s.get('symbol', ''))
+        sym = str(s.get('symbol', ''))
+        ps = to_psc_symbol(sym)
         q = quote_map.get(ps)
-        if q and q['price'] > 0:
+        tw_q = twse_live_map.get(sym)
+        use_tw_mis = bool(tw_q and tw_q.get('price', 0) > 0 and (not q or str(q.get('date', '')) != today_compact))
+        if use_tw_mis:
+            p = round(float(tw_q['price']), 2)
+            pre = float(tw_q.get('prev_close') or s.get('close') or p)
+            chg = round(((p - pre) / pre * 100), 2) if pre > 0 else s.get('change', 0)
+            s['price'] = p
+            s['close'] = p
+            s['open'] = float(tw_q.get('open') or p)
+            s['high'] = float(tw_q.get('high') or p)
+            s['low'] = float(tw_q.get('low') or p)
+            s['change'] = chg
+            s['price_source'] = f"TWSE證交所即時 ({tw_q.get('date', today_compact)})"
+            if s.get('technicals'):
+                s['technicals']['chg_1d'] = chg
+                ma60_v = float(s.get('ma60') or 0)
+                if ma60_v > 0:
+                    s['technicals']['bias_60ma'] = round((p - ma60_v) / ma60_v * 100.0, 2)
+            ma60_p = float(s.get('ma60') or 0)
+            if ma60_p > 0 and p < ma60_p:
+                s['signal'] = 'Avoid'
+                s['score'] = min(int(s.get('score', 50)), 58)
+                s['erc_weight'] = 0.0
+                if s.get('auto_order'):
+                    s['auto_order']['gate_status'] = 'BLOCKED_BELOW_MA60'
+                    s['auto_order']['gate_label'] = '🔴 盤中跌破季線熔斷禁買'
+            updated_count += 1
+        elif q and q['price'] > 0:
             p = round(q['price'], 2)
             pre = q['pre_close']
             chg = round(((p - pre) / pre * 100), 2) if pre > 0 else s.get('change', 0)
