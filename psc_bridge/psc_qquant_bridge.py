@@ -457,7 +457,8 @@ if __name__ == '__main__':
         except Exception as ee:
             print(f"[PostMarket] 盤後閉環執行異常: {ee}")
 
-    if '--force' in sys.argv or psc_open or in_tw or in_us:
+    # 若統一金贏島未開啟且非盤中，每 15 分鐘仍自動透過 TWSE/期交所補齊最新數據並推送網站，確保永不中斷
+    if '--force' in sys.argv or psc_open or in_tw or in_us or (now.minute % 15 == 0):
         sync_all_260_and_report(push_tg='--notify' in sys.argv)
     else:
-        print(f"[{now.strftime('%H:%M:%S')}] 統一金贏島未開啟且非開盤時段，靜默待命。")
+        print(f"[{now.strftime('%H:%M:%S')}] 統一金贏島未開啟且非15分整點同步窗，靜默待命。")
