@@ -376,7 +376,7 @@ def sync_all_260_and_report(push_tg=False):
                 ], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                 res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
                 if res.returncode == 0:
-                    subprocess.run(['git', 'pull', '--rebase', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                    subprocess.run(['git', 'pull', '--rebase', '--autostash', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                     subprocess.run(['git', 'push', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                     print("[GitHub] 已將統一即時數據自動同步至線上網站！")
             except Exception as ge:
