@@ -205,6 +205,14 @@ def sync_all_260_and_report(push_tg=False):
                 if s.get('auto_order'):
                     s['auto_order']['gate_status'] = 'BLOCKED_BELOW_MA60'
                     s['auto_order']['gate_label'] = '🔴 盤中跌破季線熔斷禁買'
+            elif chg <= -4.5:
+                if s.get('signal') in ('Strong Buy', 'Buy'):
+                    s['signal'] = 'Hold'
+                    s['score'] = min(int(s.get('score', 50)), 75)
+                    s['erc_weight'] = 0.0
+                    if s.get('auto_order'):
+                        s['auto_order']['gate_status'] = 'BLOCKED_INTRADAY_CRASH'
+                        s['auto_order']['gate_label'] = f'🔴 盤中急殺熔斷 ({chg:+.1f}%)'
             updated_count += 1
         elif q and q['price'] > 0:
             p = round(q['price'], 2)
@@ -234,12 +242,31 @@ def sync_all_260_and_report(push_tg=False):
                 'total_vol': q['total_vol'],
                 'updated_at': now_str
             }
-            # 盤中即時 60MA 季線熔斷防呆：跌破季線立即撤銷買進訊號
+            # 盤中即時雙重熔斷防呆：① 跌破季線立即撤銷買訊、② 盤中急殺 <= -4.5% 或外內盤比 < 0.75 立即撤銷買訊
             ma60_p = float(s.get('ma60') or 0)
             if ma60_p > 0 and p < ma60_p:
+                s['signal'] = 'Avoid'
+                s['score'] = min(int(s.get('score', 50)), 58)
+                s['erc_weight'] = 0.0
+                if s.get('auto_order'):
+                    s['auto_order']['gate_status'] = 'BLOCKED_BELOW_MA60'
+                    s['auto_order']['gate_label'] = '🔴 盤中跌破季線熔斷禁買'
+            elif chg <= -4.5:
                 if s.get('signal') in ('Strong Buy', 'Buy'):
-                    s['signal'] = 'Avoid'
-                    s['score'] = min(int(s.get('score', 50)), 58)
+                    s['signal'] = 'Hold'
+                    s['score'] = min(int(s.get('score', 50)), 75)
+                    s['erc_weight'] = 0.0
+                    if s.get('auto_order'):
+                        s['auto_order']['gate_status'] = 'BLOCKED_INTRADAY_CRASH'
+                        s['auto_order']['gate_label'] = f'🔴 盤中急殺熔斷 ({chg:+.1f}%)'
+            elif chg <= -4.5 or ((in_v + out_v) > 50 and ratio < 0.75):
+                if s.get('signal') in ('Strong Buy', 'Buy'):
+                    s['signal'] = 'Hold'
+                    s['score'] = min(int(s.get('score', 50)), 75)
+                    s['erc_weight'] = 0.0
+                    if s.get('auto_order'):
+                        s['auto_order']['gate_status'] = 'BLOCKED_INTRADAY_CRASH'
+                        s['auto_order']['gate_label'] = f'🔴 盤中急殺/內盤倒貨熔斷 ({chg:+.1f}% / 外內盤 {ratio:.2f}x)'
             updated_count += 1
 
     try:
