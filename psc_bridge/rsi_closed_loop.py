@@ -1185,8 +1185,10 @@ def main():
         'evolution_report': evo_report,
     }
 
-    with open(SCAN_FILE, 'w', encoding='utf-8') as f:
+    tmp_scan = SCAN_FILE + f'.tmp.{os.getpid()}'
+    with open(tmp_scan, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_scan, SCAN_FILE)
     for rel_target in (
         'live_portfolio.json',
         os.path.join('q_quant_888', 'scan_results.json'),
@@ -1198,7 +1200,9 @@ def main():
     ):
         full_t = os.path.join(BASE_DIR, rel_target)
         if os.path.exists(os.path.dirname(full_t)):
-            shutil.copy2(SCAN_FILE, full_t)
+            tmp_t = full_t + f'.tmp.{os.getpid()}'
+            shutil.copy2(SCAN_FILE, tmp_t)
+            os.replace(tmp_t, full_t)
 
     if evo_report:
         print(

@@ -279,12 +279,15 @@ def sync_all_260_and_report(push_tg=False):
 
     scan_data['last_updated'] = now_str
     scan_data['updated_at'] = now_str
-    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen24 RSI走圖防套牢閉環'
+    scan_data['update_sources'] = '統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen26正統雙師嚴審閉環'
 
-    with open(SCAN_FILE, 'w', encoding='utf-8') as f:
+    # Atomic Write 原子寫入，徹底杜絕多進程寫入造成 JSON 損毀
+    tmp_scan = SCAN_FILE + f'.tmp.{os.getpid()}'
+    with open(tmp_scan, 'w', encoding='utf-8') as f:
         json.dump(scan_data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_scan, SCAN_FILE)
 
-    # 同步寫入網站所有實際發布目錄下的 scan_results.json 與 live_portfolio.json
+    # 同步寫入網站所有實際發布目錄下的 scan_results.json 與 live_portfolio.json (Atomic Replace)
     import shutil
     for sub in ['', 'q_quant_888', 'trading', os.path.join('frontend', 'public')]:
         target_dir = os.path.join(BASE_DIR, sub) if sub else BASE_DIR
@@ -292,7 +295,9 @@ def sync_all_260_and_report(push_tg=False):
             for fname in ['scan_results.json', 'live_portfolio.json']:
                 dst = os.path.join(target_dir, fname)
                 if os.path.abspath(dst) != os.path.abspath(SCAN_FILE):
-                    shutil.copy2(SCAN_FILE, dst)
+                    tmp_dst = dst + f'.tmp.{os.getpid()}'
+                    shutil.copy2(SCAN_FILE, tmp_dst)
+                    os.replace(tmp_dst, dst)
 
     # ──────────────────────────────────────────────
     # 產出 100% 對齊網站「高勝率買進邏輯」的戰情報告
