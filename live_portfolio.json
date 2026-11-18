@@ -33702,7 +33702,7 @@
       "erc_weight": 0.0
     }
   ],
-  "last_updated": "2026-11-19 06:33:41",
+  "last_updated": "2026-11-19 06:37:59",
   "indices": {
     "US VIX (恐慌)": {
       "close": 25.46
@@ -33834,7 +33834,7 @@
   },
   "update_sources": "統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen24 RSI走圖防套牢閉環",
   "taifex_oi": -97896,
-  "updated_at": "2026-11-19 06:33:41",
+  "updated_at": "2026-11-19 06:37:59",
   "engine": "V4-Yen × Dr.Tsun Gen26-Orthodox (Macro Breadth Gate + Full Multi-Factor + Atomic Write)",
   "history_pool": {
     "db_path": "D:\\PSC_Quant_DB\\market_history.db",
@@ -33844,10 +33844,26 @@
     "updated_at": "2026-11-15 08:42:23"
   },
   "market_regime": {
-    "regime": "DEFENSE_LOCK_MODE (冰河期防禦鎖倉)",
-    "market_breadth_ma60_pct": 15.8,
-    "max_equity_exposure_pct": 25,
-    "note": "目前全市場僅 15.8% 標的站穩季線 (<25%)，雙師強制啟動冰河期防禦鎖倉：暫停高波動攻擊股，僅保留低波動防禦標的與高現金部位！"
+    "code": "BEAR_LIQUIDITY_CRISIS",
+    "label": "空頭流動性危機警戒（冰河期防禦鎖倉）",
+    "confidence": 72.5,
+    "tone": "red",
+    "cash_pct": 75.0,
+    "equity_pct": 25.0,
+    "orb_mode": "熔斷暫停 (0%)",
+    "foreign_oi": -97896,
+    "tw_vix": 28.25,
+    "tw_breadth_60ma": 10.1,
+    "us_breadth_60ma": 22.3,
+    "total_breadth_60ma": 15.8,
+    "taiex_above_ma60": false,
+    "probs": {
+      "crisis": 72.5,
+      "shakeout": 12.5,
+      "consolidation": 8.0,
+      "expansion": 7.0
+    },
+    "note": "目前全市場僅 15.8%（台股 10.1% / 美股 22.3%）站穩季線 (<25%)，雙師強制啟動冰河期防禦鎖倉：總持股上限 ≤ 25%、現金下限 ≥ 75%！"
   },
   "quant_advisor": {
     "us": [],
@@ -33877,8 +33893,13 @@
   "rsi_loop": {
     "gen_version": 26,
     "trade_date": "2026-11-19",
+    "bars_synced": 260,
     "signals_logged_today": 0,
     "evaluated_now": 260,
+    "total_logged": 4753,
+    "total_evaluated": 4725,
+    "ledger_win_rate_5d": 54.7,
+    "ledger_avg_ret_5d": 2.21,
     "ledger_win_rate_20d": 68.93,
     "ledger_avg_ret_20d": 10.21,
     "shadow_testing_hypotheses": [
@@ -33898,20 +33919,25 @@
       "evolved_wr_20d": 68.93,
       "evolved_exp_20d": 10.21,
       "attribution": {
+        "tr_rising_exp20": 5.67,
+        "no_tr_exp20": 3.13,
+        "whale_tdcc_wr20": 58.33,
+        "retail_tdcc_wr20": 53.83,
+        "filtered_out_today": 236,
         "market_breadth_ma60_pct": 15.8,
         "blocked_ma60": 54,
         "blocked_ma240": 170,
         "blocked_ice_age_high_vol": 12,
         "event_isolated": 0,
         "self_audit_log": [
-          "Audit 1 [大盤廣度總閘門啟動]: 實測全市場 260 檔僅 15.8% (41/260) 站上季線 (<25%)，自動觸發「冰河期防禦鎖倉」，攔截 12 檔高波動攻擊股 (含 3661 世芯-KY、4977 眾達-KY)，絕不在大盤冰河期逆風接補跌！",
+          "Audit 1 [大盤廣度總閘門啟動]: 實測全市場 260 檔僅 15.8% (台股 10.1% / 美股 22.3%) 站上季線 (<25%)，自動觸發「冰河期防禦鎖倉 (現金下限 75%)」，攔截 12 檔高波動攻擊股 (含 3661 世芯-KY、4977 眾達-KY)！",
           "Audit 2 [還原正統多因子＋雙均線防禦]: 全面恢復三率三升、法人籌碼、歷史勝率 ≥ 60%、月線翻揚向上與連站季線 ≥ 3 日；雙均線裝甲攔截 54 檔破季線 ＋ 170 檔破年線 (含 UNH/BE)。",
           "Audit 3 [拒絕偽演化與事後諸葛]: 隔離 0 檔單日極端事件波動股；PANW 盤中外內盤比動能因子列為 [Shadow Testing 影子測試]，必須待 D 槽 109 萬筆歷史 K 線完成樣本外 (OOS) 驗證後才准正式加權。",
-          "Audit 4 [工程防呆升級]: psc_qquant_bridge.py 與 rsi_closed_loop.py 全面升級為 Atomic Write (原子寫入)，100% 杜絕多進程寫入造成 scan_results.json 損毀！"
+          "Audit 4 [工程防呆升級]: psc_qquant_bridge.py 與 rsi_closed_loop.py 全面升級為 Atomic Write (原子寫入)，並補齊全站 Schema 零 undefined / 零 --%！"
         ]
       },
       "active_rules_injected": [
-        "【大盤廣度總閘門 (目前 15.8%)】市場站上季線比例 < 25% 時，強制切換為「冰河期防禦鎖倉」，總持股上限 ≤ 25%，僅放行年化波動 ≤ 32% 之低 Beta 防禦股！",
+        "【大盤廣度總閘門 (目前 15.8%)】市場站上季線比例 < 25% 時，強制切換為「冰河期防禦鎖倉」，總持股上限 ≤ 25%（現金下限 75%），僅放行年化波動 ≤ 32% 之低 Beta 防禦股！",
         "【雙均線裝甲＋季線斜率保護】凡現價 < 60MA 或 < 240MA 一票否決 (攔截 224 檔)，且必須滿足月線翻揚、連站季線 ≥ 3 日、尾盤確認進場！",
         "【事件/財報隔離保護】單日振幅 ≥ 6.5% 之事件/財報股與常規波段徹底隔離，不拿財報盲盒當一般突破追進。",
         "【誠實量化紀律 (防過度擬合)】所有未經樣本外 (OOS) 回測驗證之單日經驗 (如 PANW 動能) 僅列影子觀察，不擅自修改已驗證之 Gen 25 回測基準 (20日勝率 68.93% / 期望值 +10.21%)。"
