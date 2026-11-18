@@ -389,10 +389,17 @@ def sync_all_260_and_report(push_tg=False):
             except Exception as e:
                 print(f"\n[Telegram] 推送失敗: {e}")
 
-    # 自動 Git Push 更新線上網站 (僅當帶 --git 參數時觸發，且每 3 分鐘同步一次網頁避免 GitHub Actions 塞車)
+    # 自動 Git Push 更新線上網站 (僅當帶 --git 參數時觸發，距離上次推送滿 180 秒即推，避免 modulo 錯開)
     if '--git' in sys.argv:
-        now_min = datetime.now().minute
-        if '--force' in sys.argv or (now_min % 3 == 0):
+        push_stamp = os.path.join(BASE_DIR, 'psc_bridge', '.last_git_push')
+        should_push = '--force' in sys.argv
+        if not should_push:
+            try:
+                last_t = float(open(push_stamp, 'r').read().strip()) if os.path.exists(push_stamp) else 0.0
+                should_push = (time.time() - last_t) >= 180.0
+            except Exception:
+                should_push = True
+        if should_push:
             try:
                 si = subprocess.STARTUPINFO()
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -408,9 +415,15 @@ def sync_all_260_and_report(push_tg=False):
                 ], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                 res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
                 if res.returncode == 0:
-                    subprocess.run(['git', 'pull', '--rebase', '--autostash', '-X', 'ours', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
-                    subprocess.run(['git', 'push', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
-                    print("[GitHub] 已將統一即時數據自動同步至線上網站！")
+                    subprocess.run(['git', 'fetch', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                    subprocess.run(['git', 'merge', '-X', 'ours', '--no-edit', 'origin/main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                    push_res = subprocess.run(['git', 'push', 'origin', 'main'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
+                    if push_res.returncode == 0:
+                        with open(push_stamp, 'w') as pf:
+                            pf.write(str(time.time()))
+                        print("[GitHub] 已將統一即時數據自動同步至線上網站！")
+                    else:
+                        print(f"[GitHub] 推送失敗: {push_res.stderr}")
             except Exception as ge:
                 print(f"[GitHub] 自動推送異常: {ge}")
 
