@@ -95,16 +95,16 @@
       "prev_close": 354.88,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率29%不足, 未站上關鍵價357.25)",
         "key_price": 357.25,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 22.1,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.39,
         "entry_trigger_price": 357.25,
         "sl_price": 337.3,
-        "tp_price": 415.89,
+        "tp_price": 405.32,
         "out_in_ratio": 1.1
       },
       "erc_weight": 0.0
@@ -223,17 +223,17 @@
       "prev_low": 179.31,
       "prev_close": 181.13,
       "auto_order": {
-        "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 42.0%) 暫停開槍",
         "key_price": 182.13,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 42.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 3.12,
         "entry_trigger_price": 182.13,
         "sl_price": 171.66,
-        "tp_price": 212.65,
+        "tp_price": 207.24,
         "out_in_ratio": 0.82
       },
       "erc_weight": 0.0
@@ -333,13 +333,13 @@
       "prev_close": 238.54,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 226.20 < 年線 246.91)",
         "key_price": 238.16,
         "above_key_price": false,
         "entry_trigger_price": 250.43,
         "sl_price": 250.43,
-        "tp_price": 266.92,
+        "tp_price": 260.13,
         "out_in_ratio": 1.7
       }
     },
@@ -470,13 +470,13 @@
       "prev_close": 380.95,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 352.30 < 年線 446.43)",
         "key_price": 383.1,
         "above_key_price": false,
         "entry_trigger_price": 435.76,
         "sl_price": 435.76,
-        "tp_price": 415.71,
+        "tp_price": 405.14,
         "out_in_ratio": 1.1
       }
     },
@@ -607,12 +607,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 530.14 < 季線 542.20)",
         "key_price": 571.9,
         "above_key_price": false,
         "entry_trigger_price": 571.9,
         "sl_price": 542.2,
-        "tp_price": 625.57,
+        "tp_price": 609.66,
         "out_in_ratio": 0.99
       }
     },
@@ -730,12 +730,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 235.61 < 季線 242.17)",
         "key_price": 240.89,
         "above_key_price": false,
         "entry_trigger_price": 242.17,
         "sl_price": 242.17,
-        "tp_price": 278.02,
+        "tp_price": 270.95,
         "out_in_ratio": 5.8
       }
     },
@@ -833,17 +833,17 @@
       "prev_low": 267.2,
       "prev_close": 267.44,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (-0.3% / 外內盤 0.60x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (未站上關鍵價270.12)",
         "key_price": 270.12,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 31.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.29,
         "entry_trigger_price": 270.12,
         "sl_price": 255.59,
-        "tp_price": 315.93,
+        "tp_price": 307.9,
         "out_in_ratio": 0.6
       },
       "erc_weight": 0.0
@@ -882,7 +882,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 404.73,
       "technicals": {
         "bb_lower_touch": false,
@@ -943,12 +943,12 @@
       "prev_close": 393.68,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA240",
-        "gate_label": "🔴 破年線深淵禁買 (現價 390.91 < 年線 404.73，如 BE/UNH)",
+        "gate_label": "🔴 破年線深淵禁買 (現價 390.91 < 年線 404.73)",
         "key_price": 399.2,
         "above_key_price": false,
         "entry_trigger_price": 399.2,
         "sl_price": 308.44,
-        "tp_price": 461.27,
+        "tp_price": 449.55,
         "out_in_ratio": 1.25
       },
       "erc_weight": 0.0
@@ -1048,13 +1048,13 @@
       "prev_close": 199.78,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 182.76 < 年線 233.94)",
         "key_price": 197.08,
         "above_key_price": false,
         "entry_trigger_price": 244.13,
         "sl_price": 244.13,
-        "tp_price": 215.66,
+        "tp_price": 210.17,
         "out_in_ratio": 0.96
       }
     },
@@ -1153,13 +1153,13 @@
       "prev_close": 1497.12,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1395.27 < 年線 1597.81)",
         "key_price": 1502.02,
         "above_key_price": false,
         "entry_trigger_price": 1649.66,
         "sl_price": 1649.66,
-        "tp_price": 1646.42,
+        "tp_price": 1604.56,
         "out_in_ratio": 1.12
       }
     },
@@ -1276,13 +1276,13 @@
       "prev_close": 34.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 25.49 < 年線 72.37)",
         "key_price": 34.94,
         "above_key_price": false,
         "entry_trigger_price": 49.76,
         "sl_price": 49.76,
-        "tp_price": 30.08,
+        "tp_price": 29.31,
         "out_in_ratio": 1.15
       }
     },
@@ -1320,7 +1320,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 366.74,
       "technicals": {
         "bb_lower_touch": false,
@@ -1382,12 +1382,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA240",
-        "gate_label": "🔴 破年線深淵禁買 (現價 354.05 < 年線 366.74，如 BE/UNH)",
+        "gate_label": "🔴 破年線深淵禁買 (現價 354.05 < 年線 366.74)",
         "key_price": 360.36,
         "above_key_price": false,
         "entry_trigger_price": 360.36,
         "sl_price": 347.46,
-        "tp_price": 417.78,
+        "tp_price": 407.16,
         "out_in_ratio": 1.09
       }
     },
@@ -1485,13 +1485,13 @@
       "prev_low": 318.02,
       "prev_close": 318.06,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 315.40 < 年線 322.25)",
         "key_price": 321.46,
         "above_key_price": false,
         "entry_trigger_price": 321.46,
         "sl_price": 316.87,
-        "tp_price": 372.17,
+        "tp_price": 362.71,
         "out_in_ratio": 0.33
       },
       "erc_weight": 0.0
@@ -1591,13 +1591,13 @@
       "prev_close": 171.55,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 162.91 < 年線 212.29)",
         "key_price": 172.65,
         "above_key_price": false,
         "entry_trigger_price": 189.96,
         "sl_price": 189.96,
-        "tp_price": 192.23,
+        "tp_price": 187.35,
         "out_in_ratio": 2.48
       }
     },
@@ -1697,13 +1697,13 @@
       "prev_close": 50.51,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 48.91 < 年線 54.44)",
         "key_price": 50.73,
         "above_key_price": false,
         "entry_trigger_price": 54.75,
         "sl_price": 54.75,
-        "tp_price": 57.71,
+        "tp_price": 56.25,
         "out_in_ratio": 0.2
       }
     },
@@ -1797,13 +1797,13 @@
       },
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 170.98 < 年線 223.76)",
         "key_price": 200.93,
         "above_key_price": false,
         "entry_trigger_price": 237.4,
         "sl_price": 237.4,
-        "tp_price": 201.76,
+        "tp_price": 196.63,
         "out_in_ratio": 0.64
       }
     },
@@ -1901,17 +1901,17 @@
       "prev_low": 1214.37,
       "prev_close": 1216.61,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+0.5% / 外內盤 0.31x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率29%不足, 未站上關鍵價1226.86)",
         "key_price": 1226.86,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 26.4,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.52,
         "entry_trigger_price": 1226.86,
         "sl_price": 1119.84,
-        "tp_price": 1379.67,
+        "tp_price": 1344.59,
         "out_in_ratio": 0.31
       },
       "erc_weight": 0.0
@@ -2029,16 +2029,16 @@
       "prev_close": 589.83,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率22%不足, 未站上關鍵價592.81)",
         "key_price": 592.81,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 14.5,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.53,
         "entry_trigger_price": 592.81,
         "sl_price": 529.51,
-        "tp_price": 678.05,
+        "tp_price": 660.81,
         "out_in_ratio": 1.0
       },
       "erc_weight": 0.0
@@ -2138,13 +2138,13 @@
       "prev_close": 118.54,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 115.71 < 年線 120.05)",
         "key_price": 120.19,
         "above_key_price": false,
         "entry_trigger_price": 120.19,
         "sl_price": 120.13,
-        "tp_price": 136.54,
+        "tp_price": 133.07,
         "out_in_ratio": 0.51
       }
     },
@@ -2243,13 +2243,13 @@
       "prev_close": 605.28,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 558.77 < 年線 802.67)",
         "key_price": 605.4,
         "above_key_price": false,
         "entry_trigger_price": 737.79,
         "sl_price": 737.79,
-        "tp_price": 659.35,
+        "tp_price": 642.59,
         "out_in_ratio": 0.54
       }
     },
@@ -2368,13 +2368,13 @@
       "prev_low": 324.35,
       "prev_close": 333.32,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 305.82 < 年線 328.43)",
         "key_price": 331.03,
         "above_key_price": false,
         "entry_trigger_price": 331.03,
         "sl_price": 320.83,
-        "tp_price": 360.87,
+        "tp_price": 351.69,
         "out_in_ratio": 1.7
       },
       "erc_weight": 0.0
@@ -2473,13 +2473,13 @@
       "prev_low": 268.0,
       "prev_close": 282.4,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 262.74 < 年線 277.43)",
         "key_price": 278.49,
         "above_key_price": false,
         "entry_trigger_price": 278.49,
         "sl_price": 270.49,
-        "tp_price": 310.03,
+        "tp_price": 302.15,
         "out_in_ratio": 1.29
       },
       "erc_weight": 0.0
@@ -2579,12 +2579,12 @@
       "prev_close": 296.27,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 285.37 < 季線 286.83)",
         "key_price": 299.28,
         "above_key_price": false,
         "entry_trigger_price": 299.28,
         "sl_price": 286.83,
-        "tp_price": 336.74,
+        "tp_price": 328.18,
         "out_in_ratio": 0.22
       },
       "erc_weight": 0.0
@@ -2684,13 +2684,13 @@
       "prev_close": 127.65,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 110.51 < 年線 172.97)",
         "key_price": 127.87,
         "above_key_price": false,
         "entry_trigger_price": 169.14,
         "sl_price": 169.14,
-        "tp_price": 130.4,
+        "tp_price": 127.09,
         "out_in_ratio": 0.73
       }
     },
@@ -2789,16 +2789,16 @@
       "prev_close": 1092.21,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (季線斜率/月線未穩, 勝率50%不足)",
         "key_price": 1095.47,
         "above_key_price": true,
-        "is_bull_trap_risk": false,
+        "ann_vol": 20.2,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.28,
         "entry_trigger_price": 1095.47,
         "sl_price": 969.77,
-        "tp_price": 1294.01,
+        "tp_price": 1261.11,
         "out_in_ratio": 1.53
       },
       "erc_weight": 0.0
@@ -2917,12 +2917,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 237.03 < 季線 240.43)",
         "key_price": 228.26,
         "above_key_price": true,
         "entry_trigger_price": 240.43,
         "sl_price": 240.43,
-        "tp_price": 279.7,
+        "tp_price": 272.58,
         "out_in_ratio": 0.83
       }
     },
@@ -3021,13 +3021,13 @@
       "prev_close": 102.01,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 97.18 < 年線 101.98)",
         "key_price": 101.01,
         "above_key_price": false,
         "entry_trigger_price": 107.27,
         "sl_price": 107.27,
-        "tp_price": 114.67,
+        "tp_price": 111.76,
         "out_in_ratio": 1.12
       }
     },
@@ -3126,16 +3126,16 @@
       "prev_close": 52.4,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率0%不足, 未站上關鍵價52.4)",
         "key_price": 52.4,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 24.1,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.67,
         "entry_trigger_price": 52.4,
         "sl_price": 49.25,
-        "tp_price": 60.57,
+        "tp_price": 59.03,
         "out_in_ratio": 1.04
       },
       "erc_weight": 0.0
@@ -3235,13 +3235,13 @@
       "prev_close": 89.79,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 81.35 < 年線 88.26)",
         "key_price": 89.61,
         "above_key_price": false,
         "entry_trigger_price": 89.65,
         "sl_price": 89.65,
-        "tp_price": 95.99,
+        "tp_price": 93.55,
         "out_in_ratio": 2.88
       }
     },
@@ -3340,13 +3340,13 @@
       "prev_close": 184.46,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 167.11 < 年線 202.00)",
         "key_price": 183.75,
         "above_key_price": false,
         "entry_trigger_price": 237.9,
         "sl_price": 237.9,
-        "tp_price": 197.19,
+        "tp_price": 192.18,
         "out_in_ratio": 0.8
       }
     },
@@ -3445,13 +3445,13 @@
       "prev_close": 371.17,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 313.11 < 年線 345.65)",
         "key_price": 361.8,
         "above_key_price": false,
         "entry_trigger_price": 481.43,
         "sl_price": 481.43,
-        "tp_price": 369.47,
+        "tp_price": 360.08,
         "out_in_ratio": 0.5
       }
     },
@@ -3567,13 +3567,13 @@
       "prev_low": 522.23,
       "prev_close": 522.47,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 501.73 < 年線 505.37)",
         "key_price": 524.7,
         "above_key_price": false,
         "entry_trigger_price": 524.7,
         "sl_price": 519.93,
-        "tp_price": 592.04,
+        "tp_price": 576.99,
         "out_in_ratio": 1.1
       },
       "erc_weight": 0.0
@@ -3696,13 +3696,13 @@
       "prev_close": 19.12,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 17.92 < 年線 23.56)",
         "key_price": 19.3,
         "above_key_price": false,
         "entry_trigger_price": 21.24,
         "sl_price": 21.24,
-        "tp_price": 21.15,
+        "tp_price": 20.61,
         "out_in_ratio": 0.85
       }
     },
@@ -3741,7 +3741,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 209.28,
       "technicals": {
         "bb_lower_touch": true,
@@ -3802,12 +3802,12 @@
       "prev_close": 209.47,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA240",
-        "gate_label": "🔴 破年線深淵禁買 (現價 202.69 < 年線 209.28，如 BE/UNH)",
+        "gate_label": "🔴 破年線深淵禁買 (現價 202.69 < 年線 209.28)",
         "key_price": 211.17,
         "above_key_price": false,
         "entry_trigger_price": 211.17,
         "sl_price": 196.81,
-        "tp_price": 239.17,
+        "tp_price": 233.09,
         "out_in_ratio": 5.0
       },
       "erc_weight": 0.0
@@ -3938,12 +3938,12 @@
       "prev_close": 429.9,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 400.84 < 季線 414.10)",
         "key_price": 431.44,
         "above_key_price": false,
         "entry_trigger_price": 431.44,
         "sl_price": 414.1,
-        "tp_price": 472.99,
+        "tp_price": 460.97,
         "out_in_ratio": 0.28
       },
       "erc_weight": 0.0
@@ -4063,17 +4063,17 @@
       "prev_low": 164.93,
       "prev_close": 166.32,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+0.0% / 外內盤 0.35x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率20%不足, 未站上關鍵價167.21)",
         "key_price": 167.21,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 25.9,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.03,
         "entry_trigger_price": 167.21,
         "sl_price": 158.31,
-        "tp_price": 191.16,
+        "tp_price": 186.3,
         "out_in_ratio": 0.35
       },
       "erc_weight": 0.0
@@ -4190,17 +4190,17 @@
       "prev_low": 1055.79,
       "prev_close": 1072.77,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (-1.8% / 外內盤 0.60x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率40%不足, 未站上關鍵價1068.81)",
         "key_price": 1068.81,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 29.6,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -1.77,
         "entry_trigger_price": 1068.81,
         "sl_price": 1018.4,
-        "tp_price": 1223.07,
+        "tp_price": 1191.97,
         "out_in_ratio": 0.6
       },
       "erc_weight": 0.0
@@ -4300,13 +4300,13 @@
       "prev_close": 359.04,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 338.34 < 年線 395.23)",
         "key_price": 358.24,
         "above_key_price": false,
         "entry_trigger_price": 397.2,
         "sl_price": 397.2,
-        "tp_price": 399.24,
+        "tp_price": 389.09,
         "out_in_ratio": 0.36
       }
     },
@@ -4404,17 +4404,17 @@
       "prev_low": 319.2,
       "prev_close": 319.3,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+1.5% / 外內盤 0.33x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率29%不足, 未站上關鍵價321.67)",
         "key_price": 321.67,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 25.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.52,
         "entry_trigger_price": 321.67,
         "sl_price": 306.13,
-        "tp_price": 375.61,
+        "tp_price": 366.06,
         "out_in_ratio": 0.33
       },
       "erc_weight": 0.0
@@ -4533,12 +4533,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 131.81 < 季線 162.39)",
         "key_price": 128.78,
         "above_key_price": true,
         "entry_trigger_price": 162.39,
         "sl_price": 162.39,
-        "tp_price": 155.54,
+        "tp_price": 151.58,
         "out_in_ratio": 0.88
       }
     },
@@ -4637,13 +4637,13 @@
       "prev_low": 361.28,
       "prev_close": 363.07,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 349.04 < 年線 352.43)",
         "key_price": 365.94,
         "above_key_price": false,
         "entry_trigger_price": 365.94,
         "sl_price": 351.39,
-        "tp_price": 411.87,
+        "tp_price": 401.4,
         "out_in_ratio": 0.34
       },
       "erc_weight": 0.0
@@ -4761,13 +4761,13 @@
       "prev_close": 818.49,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 772.22 < 年線 951.26)",
         "key_price": 819.08,
         "above_key_price": false,
         "entry_trigger_price": 907.18,
         "sl_price": 907.18,
-        "tp_price": 911.22,
+        "tp_price": 888.05,
         "out_in_ratio": 2.13
       }
     },
@@ -4887,13 +4887,13 @@
       "prev_close": 119.22,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 108.15 < 年線 155.87)",
         "key_price": 117.02,
         "above_key_price": false,
         "entry_trigger_price": 140.26,
         "sl_price": 140.26,
-        "tp_price": 127.62,
+        "tp_price": 124.37,
         "out_in_ratio": 2.5
       }
     },
@@ -5012,12 +5012,12 @@
       "prev_close": 86.25,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 82.13 < 季線 83.81)",
         "key_price": 87.19,
         "above_key_price": false,
         "entry_trigger_price": 87.19,
         "sl_price": 83.81,
-        "tp_price": 96.91,
+        "tp_price": 94.45,
         "out_in_ratio": 1.01
       },
       "erc_weight": 0.0
@@ -5135,13 +5135,13 @@
       "prev_close": 298.7,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 282.44 < 年線 337.33)",
         "key_price": 299.74,
         "above_key_price": false,
         "entry_trigger_price": 327.29,
         "sl_price": 327.29,
-        "tp_price": 333.28,
+        "tp_price": 324.81,
         "out_in_ratio": 1.07
       }
     },
@@ -5240,13 +5240,13 @@
       "prev_close": 913.6,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 873.18 < 年線 949.52)",
         "key_price": 921.83,
         "above_key_price": false,
         "entry_trigger_price": 931.71,
         "sl_price": 931.71,
-        "tp_price": 1030.35,
+        "tp_price": 1004.16,
         "out_in_ratio": 4.56
       }
     },
@@ -5365,13 +5365,13 @@
       "prev_close": 81.35,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 69.17 < 年線 91.08)",
         "key_price": 81.63,
         "above_key_price": false,
         "entry_trigger_price": 102.26,
         "sl_price": 102.26,
-        "tp_price": 81.62,
+        "tp_price": 79.55,
         "out_in_ratio": 1.03
       }
     },
@@ -5471,12 +5471,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 45.78 < 季線 57.50)",
         "key_price": 49.46,
         "above_key_price": false,
         "entry_trigger_price": 57.5,
         "sl_price": 57.5,
-        "tp_price": 54.02,
+        "tp_price": 52.65,
         "out_in_ratio": 2.54
       }
     },
@@ -5593,12 +5593,12 @@
       "prev_close": 443.68,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 385.78 < 季線 407.33)",
         "key_price": 443.26,
         "above_key_price": false,
         "entry_trigger_price": 443.26,
         "sl_price": 407.33,
-        "tp_price": 455.22,
+        "tp_price": 443.65,
         "out_in_ratio": 0.45
       },
       "erc_weight": 0.0
@@ -5697,13 +5697,13 @@
       "prev_low": 244.37,
       "prev_close": 244.67,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 228.53 < 年線 242.25)",
         "key_price": 246.59,
         "above_key_price": false,
         "entry_trigger_price": 246.59,
         "sl_price": 235.88,
-        "tp_price": 269.67,
+        "tp_price": 262.81,
         "out_in_ratio": 0.2
       },
       "erc_weight": 0.0
@@ -5803,13 +5803,13 @@
       "prev_close": 61.2,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 54.67 < 年線 87.50)",
         "key_price": 60.94,
         "above_key_price": false,
         "entry_trigger_price": 92.4,
         "sl_price": 92.4,
-        "tp_price": 64.51,
+        "tp_price": 62.87,
         "out_in_ratio": 0.98
       }
     },
@@ -5908,13 +5908,13 @@
       "prev_close": 30.86,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 23.48 < 年線 41.02)",
         "key_price": 31.29,
         "above_key_price": false,
         "entry_trigger_price": 36.13,
         "sl_price": 36.13,
-        "tp_price": 27.71,
+        "tp_price": 27.0,
         "out_in_ratio": 0.56
       }
     },
@@ -6013,13 +6013,13 @@
       "prev_close": 278.44,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 270.12 < 年線 278.64)",
         "key_price": 279.73,
         "above_key_price": false,
         "entry_trigger_price": 281.81,
         "sl_price": 281.81,
-        "tp_price": 318.74,
+        "tp_price": 310.64,
         "out_in_ratio": 1.73
       }
     },
@@ -6139,13 +6139,13 @@
       "prev_close": 5.34,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 4.19 < 年線 8.11)",
         "key_price": 5.47,
         "above_key_price": false,
         "entry_trigger_price": 5.7,
         "sl_price": 5.7,
-        "tp_price": 4.94,
+        "tp_price": 4.82,
         "out_in_ratio": 0.56
       }
     },
@@ -6244,12 +6244,12 @@
       "prev_close": 342.82,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 324.11 < 季線 341.04)",
         "key_price": 345.32,
         "above_key_price": false,
         "entry_trigger_price": 345.32,
         "sl_price": 341.04,
-        "tp_price": 382.45,
+        "tp_price": 372.73,
         "out_in_ratio": 0.4
       },
       "erc_weight": 0.0
@@ -6369,16 +6369,16 @@
       "prev_close": 97.44,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率43%不足)",
         "key_price": 97.98,
         "above_key_price": true,
-        "is_bull_trap_risk": false,
+        "ann_vol": 17.4,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.86,
         "entry_trigger_price": 97.98,
         "sl_price": 90.88,
-        "tp_price": 115.75,
+        "tp_price": 112.8,
         "out_in_ratio": 3.81
       },
       "erc_weight": 0.0,
@@ -6479,16 +6479,16 @@
       "prev_close": 522.49,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (未站上關鍵價526.09)",
         "key_price": 526.09,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 15.4,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.68,
         "entry_trigger_price": 526.09,
         "sl_price": 491.04,
-        "tp_price": 604.35,
+        "tp_price": 588.98,
         "out_in_ratio": 0.77
       },
       "erc_weight": 0.0
@@ -6605,17 +6605,17 @@
       "prev_low": 1425.55,
       "prev_close": 1425.55,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+1.3% / 外內盤 0.25x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率36%不足, 未站上關鍵價1437.9)",
         "key_price": 1437.9,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 31.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.26,
         "entry_trigger_price": 1437.9,
         "sl_price": 1239.62,
-        "tp_price": 1631.64,
+        "tp_price": 1590.16,
         "out_in_ratio": 0.25
       },
       "erc_weight": 0.0
@@ -6736,13 +6736,13 @@
       "prev_close": 233.78,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 211.67 < 年線 283.18)",
         "key_price": 232.44,
         "above_key_price": false,
         "entry_trigger_price": 276.94,
         "sl_price": 276.94,
-        "tp_price": 249.77,
+        "tp_price": 243.42,
         "out_in_ratio": 1.29
       }
     },
@@ -6841,13 +6841,13 @@
       "prev_close": 13.03,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 10.12 < 年線 19.18)",
         "key_price": 13.6,
         "above_key_price": false,
         "entry_trigger_price": 13.6,
         "sl_price": 13.1,
-        "tp_price": 11.94,
+        "tp_price": 11.64,
         "out_in_ratio": 1.06
       }
     },
@@ -6977,17 +6977,17 @@
       "prev_low": 652.08,
       "prev_close": 652.6,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+1.3% / 外內盤 0.38x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率33%不足, 未站上關鍵價658.5)",
         "key_price": 658.5,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 22.2,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.32,
         "entry_trigger_price": 658.5,
         "sl_price": 600.94,
-        "tp_price": 759.18,
+        "tp_price": 739.88,
         "out_in_ratio": 0.38
       },
       "erc_weight": 0.0
@@ -7087,13 +7087,13 @@
       "prev_close": 7.2,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 6.56 < 年線 10.58)",
         "key_price": 7.28,
         "above_key_price": false,
         "entry_trigger_price": 9.54,
         "sl_price": 9.54,
-        "tp_price": 7.74,
+        "tp_price": 7.54,
         "out_in_ratio": 0.88
       }
     },
@@ -7192,13 +7192,13 @@
       "prev_close": 62.08,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 59.67 < 年線 78.45)",
         "key_price": 61.63,
         "above_key_price": false,
         "entry_trigger_price": 72.96,
         "sl_price": 72.96,
-        "tp_price": 70.41,
+        "tp_price": 68.62,
         "out_in_ratio": 1.04
       }
     },
@@ -7317,13 +7317,13 @@
       "prev_close": 339.78,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 306.71 < 年線 333.45)",
         "key_price": 335.22,
         "above_key_price": false,
         "entry_trigger_price": 368.47,
         "sl_price": 368.47,
-        "tp_price": 361.92,
+        "tp_price": 352.72,
         "out_in_ratio": 0.98
       }
     },
@@ -7453,13 +7453,13 @@
       "prev_close": 623.61,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 616.38 < 年線 628.79)",
         "key_price": 625.48,
         "above_key_price": false,
         "entry_trigger_price": 665.39,
         "sl_price": 665.39,
-        "tp_price": 727.33,
+        "tp_price": 708.84,
         "out_in_ratio": 1.08
       }
     },
@@ -7497,7 +7497,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 1327.65,
       "technicals": {
         "bb_lower_touch": false,
@@ -7558,12 +7558,12 @@
       "prev_close": 1447.4,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA240",
-        "gate_label": "🔴 破年線深淵禁買 (現價 1310.91 < 年線 1327.65，如 BE/UNH)",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1310.91 < 年線 1327.65)",
         "key_price": 1434.51,
         "above_key_price": false,
         "entry_trigger_price": 1434.51,
         "sl_price": 1282.41,
-        "tp_price": 1546.87,
+        "tp_price": 1507.55,
         "out_in_ratio": 1.36
       },
       "erc_weight": 0.0
@@ -7663,13 +7663,13 @@
       "prev_close": 164.45,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 145.54 < 年線 187.97)",
         "key_price": 162.38,
         "above_key_price": false,
         "entry_trigger_price": 223.98,
         "sl_price": 223.98,
-        "tp_price": 171.74,
+        "tp_price": 167.37,
         "out_in_ratio": 1.0
       }
     },
@@ -7768,13 +7768,13 @@
       "prev_close": 189.17,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 181.17 < 年線 192.52)",
         "key_price": 190.92,
         "above_key_price": false,
         "entry_trigger_price": 193.81,
         "sl_price": 193.81,
-        "tp_price": 213.78,
+        "tp_price": 208.35,
         "out_in_ratio": 0.25
       }
     },
@@ -7873,12 +7873,12 @@
       "prev_close": 523.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 508.29 < 季線 516.88)",
         "key_price": 523.14,
         "above_key_price": false,
         "entry_trigger_price": 523.14,
         "sl_price": 516.88,
-        "tp_price": 599.78,
+        "tp_price": 584.53,
         "out_in_ratio": 1.22
       },
       "erc_weight": 0.0
@@ -8009,13 +8009,13 @@
       "prev_close": 114.41,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 90.32 < 年線 132.12)",
         "key_price": 114.67,
         "above_key_price": false,
         "entry_trigger_price": 139.45,
         "sl_price": 139.45,
-        "tp_price": 106.58,
+        "tp_price": 103.87,
         "out_in_ratio": 0.56
       }
     },
@@ -8134,13 +8134,13 @@
       "prev_close": 798.44,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 705.27 < 年線 769.74)",
         "key_price": 782.32,
         "above_key_price": false,
         "entry_trigger_price": 932.22,
         "sl_price": 932.22,
-        "tp_price": 832.22,
+        "tp_price": 811.06,
         "out_in_ratio": 0.83
       }
     },
@@ -8178,7 +8178,7 @@
       "gap_up": false,
       "k_pattern": "Engulfing",
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 86.52,
       "technicals": {
         "bb_lower_touch": false,
@@ -8239,12 +8239,12 @@
       "prev_close": 85.29,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA240",
-        "gate_label": "🔴 破年線深淵禁買 (現價 84.78 < 年線 86.52，如 BE/UNH)",
+        "gate_label": "🔴 破年線深淵禁買 (現價 84.78 < 年線 86.52)",
         "key_price": 85.75,
         "above_key_price": false,
         "entry_trigger_price": 85.75,
         "sl_price": 81.26,
-        "tp_price": 100.04,
+        "tp_price": 97.5,
         "out_in_ratio": 3.5
       },
       "erc_weight": 0.0
@@ -8364,13 +8364,13 @@
       "prev_close": 100.66,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 90.59 < 年線 113.43)",
         "key_price": 101.44,
         "above_key_price": false,
         "entry_trigger_price": 131.16,
         "sl_price": 131.16,
-        "tp_price": 106.9,
+        "tp_price": 104.18,
         "out_in_ratio": 1.6
       }
     },
@@ -8469,12 +8469,12 @@
       "prev_close": 333.24,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 323.50 < 季線 324.89)",
         "key_price": 334.07,
         "above_key_price": false,
         "entry_trigger_price": 334.07,
         "sl_price": 324.89,
-        "tp_price": 381.73,
+        "tp_price": 372.02,
         "out_in_ratio": 2.65
       },
       "erc_weight": 0.0
@@ -8575,12 +8575,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 172.19 < 季線 200.10)",
         "key_price": 183.54,
         "above_key_price": false,
         "entry_trigger_price": 200.1,
         "sl_price": 200.1,
-        "tp_price": 203.18,
+        "tp_price": 198.02,
         "out_in_ratio": 0.96
       }
     },
@@ -8699,13 +8699,13 @@
       "prev_close": 166.19,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 150.96 < 年線 203.45)",
         "key_price": 161.95,
         "above_key_price": false,
         "entry_trigger_price": 212.31,
         "sl_price": 212.31,
-        "tp_price": 178.13,
+        "tp_price": 173.6,
         "out_in_ratio": 0.85
       }
     },
@@ -8803,13 +8803,13 @@
       "prev_low": 40.08,
       "prev_close": 40.65,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 39.43 < 年線 42.32)",
         "key_price": 40.69,
         "above_key_price": false,
         "entry_trigger_price": 40.83,
         "sl_price": 40.83,
-        "tp_price": 46.53,
+        "tp_price": 45.34,
         "out_in_ratio": 0.57
       },
       "erc_weight": 0.0
@@ -8928,17 +8928,17 @@
       "prev_low": 263.03,
       "prev_close": 267.29,
       "auto_order": {
-        "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 38.0%) 暫停開槍",
         "key_price": 267.97,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 38.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.82,
         "entry_trigger_price": 267.97,
         "sl_price": 238.64,
-        "tp_price": 297.91,
+        "tp_price": 290.34,
         "out_in_ratio": 1.23
       },
       "erc_weight": 0.0
@@ -9038,13 +9038,13 @@
       "prev_close": 24.45,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 21.80 < 年線 49.76)",
         "key_price": 24.61,
         "above_key_price": false,
         "entry_trigger_price": 32.59,
         "sl_price": 32.59,
-        "tp_price": 25.72,
+        "tp_price": 25.07,
         "out_in_ratio": 0.33
       }
     },
@@ -9143,13 +9143,13 @@
       "prev_close": 73.73,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 67.23 < 年線 82.89)",
         "key_price": 72.98,
         "above_key_price": false,
         "entry_trigger_price": 73.65,
         "sl_price": 73.65,
-        "tp_price": 79.33,
+        "tp_price": 77.31,
         "out_in_ratio": 1.09
       }
     },
@@ -9280,13 +9280,13 @@
       "prev_close": 127.11,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 113.89 < 年線 152.53)",
         "key_price": 126.54,
         "above_key_price": false,
         "entry_trigger_price": 136.78,
         "sl_price": 136.78,
-        "tp_price": 134.39,
+        "tp_price": 130.97,
         "out_in_ratio": 2.37
       }
     },
@@ -9417,12 +9417,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 339.92 < 季線 363.98)",
         "key_price": 323.88,
         "above_key_price": true,
         "entry_trigger_price": 363.98,
         "sl_price": 363.98,
-        "tp_price": 401.11,
+        "tp_price": 390.91,
         "out_in_ratio": 1.29
       }
     },
@@ -9541,13 +9541,13 @@
       "prev_close": 13.1,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 11.73 < 年線 12.32)",
         "key_price": 13.05,
         "above_key_price": false,
         "entry_trigger_price": 13.9,
         "sl_price": 13.9,
-        "tp_price": 13.84,
+        "tp_price": 13.49,
         "out_in_ratio": 0.64
       }
     },
@@ -9646,17 +9646,17 @@
       "prev_low": 114.57,
       "prev_close": 115.18,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+0.4% / 外內盤 0.56x)",
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 33.4%) 暫停開槍",
         "key_price": 116.32,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 33.4,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 0.43,
         "entry_trigger_price": 116.32,
         "sl_price": 112.11,
-        "tp_price": 134.13,
+        "tp_price": 130.72,
         "out_in_ratio": 0.56
       },
       "erc_weight": 0.0
@@ -9756,13 +9756,13 @@
       "prev_close": 13.9,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 12.05 < 年線 25.87)",
         "key_price": 14.03,
         "above_key_price": false,
         "entry_trigger_price": 15.77,
         "sl_price": 15.77,
-        "tp_price": 14.22,
+        "tp_price": 13.86,
         "out_in_ratio": 0.56
       }
     },
@@ -9862,12 +9862,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 156.67 < 季線 183.02)",
         "key_price": 171.01,
         "above_key_price": false,
         "entry_trigger_price": 183.02,
         "sl_price": 183.02,
-        "tp_price": 184.87,
+        "tp_price": 180.17,
         "out_in_ratio": 0.95
       }
     },
@@ -9966,13 +9966,13 @@
       "prev_close": 606.16,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 602.60 < 年線 633.78)",
         "key_price": 606.09,
         "above_key_price": false,
         "entry_trigger_price": 624.43,
         "sl_price": 624.43,
-        "tp_price": 711.07,
+        "tp_price": 692.99,
         "out_in_ratio": 0.28
       }
     },
@@ -10071,13 +10071,13 @@
       "prev_close": 177.14,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 159.81 < 年線 169.42)",
         "key_price": 178.27,
         "above_key_price": false,
         "entry_trigger_price": 178.27,
         "sl_price": 176.58,
-        "tp_price": 188.58,
+        "tp_price": 183.78,
         "out_in_ratio": 0.78
       }
     },
@@ -10196,13 +10196,13 @@
       "prev_close": 688.17,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 659.51 < 年線 681.80)",
         "key_price": 687.64,
         "above_key_price": false,
         "entry_trigger_price": 714.32,
         "sl_price": 714.32,
-        "tp_price": 778.22,
+        "tp_price": 758.44,
         "out_in_ratio": 1.0
       }
     },
@@ -10319,13 +10319,13 @@
       "prev_close": 99.55,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 94.09 < 年線 152.46)",
         "key_price": 100.18,
         "above_key_price": false,
         "entry_trigger_price": 138.54,
         "sl_price": 138.54,
-        "tp_price": 111.03,
+        "tp_price": 108.2,
         "out_in_ratio": 2.6
       }
     },
@@ -10424,13 +10424,13 @@
       "prev_close": 64.07,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 53.07 < 年線 77.93)",
         "key_price": 64.7,
         "above_key_price": false,
         "entry_trigger_price": 64.7,
         "sl_price": 62.34,
-        "tp_price": 62.62,
+        "tp_price": 61.03,
         "out_in_ratio": 0.9
       }
     },
@@ -10529,16 +10529,16 @@
       "prev_close": 106.63,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率50%不足)",
         "key_price": 107.7,
         "above_key_price": true,
-        "is_bull_trap_risk": false,
+        "ann_vol": 26.0,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.18,
         "entry_trigger_price": 107.7,
         "sl_price": 100.14,
-        "tp_price": 128.75,
+        "tp_price": 125.48,
         "out_in_ratio": 0.75
       },
       "erc_weight": 0.0
@@ -10638,13 +10638,13 @@
       "prev_close": 26.87,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 24.37 < 年線 32.47)",
         "key_price": 26.68,
         "above_key_price": false,
         "entry_trigger_price": 36.04,
         "sl_price": 36.04,
-        "tp_price": 28.76,
+        "tp_price": 28.03,
         "out_in_ratio": 0.87
       }
     },
@@ -10743,13 +10743,13 @@
       "prev_close": 501.73,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 459.54 < 年線 524.75)",
         "key_price": 498.08,
         "above_key_price": false,
         "entry_trigger_price": 554.31,
         "sl_price": 554.31,
-        "tp_price": 542.26,
+        "tp_price": 528.47,
         "out_in_ratio": 1.27
       }
     },
@@ -10869,13 +10869,13 @@
       "prev_close": 4.82,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 3.91 < 年線 9.93)",
         "key_price": 4.93,
         "above_key_price": false,
         "entry_trigger_price": 7.15,
         "sl_price": 7.15,
-        "tp_price": 4.61,
+        "tp_price": 4.5,
         "out_in_ratio": 0.88
       }
     },
@@ -10994,13 +10994,13 @@
       "prev_low": 452.63,
       "prev_close": 462.69,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 434.01 < 年線 440.93)",
         "key_price": 461.37,
         "above_key_price": false,
         "entry_trigger_price": 461.37,
         "sl_price": 442.89,
-        "tp_price": 512.13,
+        "tp_price": 499.11,
         "out_in_ratio": 1.23
       },
       "erc_weight": 0.0
@@ -11100,13 +11100,13 @@
       "prev_close": 154.99,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 141.85 < 年線 160.65)",
         "key_price": 153.66,
         "above_key_price": false,
         "entry_trigger_price": 170.1,
         "sl_price": 170.1,
-        "tp_price": 167.38,
+        "tp_price": 163.13,
         "out_in_ratio": 1.11
       }
     },
@@ -11205,12 +11205,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 143.50 < 季線 147.77)",
         "key_price": 141.84,
         "above_key_price": true,
         "entry_trigger_price": 147.77,
         "sl_price": 147.77,
-        "tp_price": 169.33,
+        "tp_price": 165.02,
         "out_in_ratio": 1.34
       }
     },
@@ -11341,12 +11341,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 730.20 < 季線 762.79)",
         "key_price": 758.93,
         "above_key_price": false,
         "entry_trigger_price": 762.79,
         "sl_price": 762.79,
-        "tp_price": 861.64,
+        "tp_price": 839.73,
         "out_in_ratio": 1.51
       }
     },
@@ -11463,13 +11463,13 @@
       "prev_close": 545.14,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 515.90 < 年線 701.43)",
         "key_price": 536.7,
         "above_key_price": false,
         "entry_trigger_price": 738.53,
         "sl_price": 738.53,
-        "tp_price": 608.76,
+        "tp_price": 593.28,
         "out_in_ratio": 0.76
       }
     },
@@ -11600,12 +11600,12 @@
       "prev_close": 217.82,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 212.09 < 季線 212.38)",
         "key_price": 219.79,
         "above_key_price": false,
         "entry_trigger_price": 219.79,
         "sl_price": 212.38,
-        "tp_price": 250.27,
+        "tp_price": 243.9,
         "out_in_ratio": 0.27
       },
       "erc_weight": 0.0
@@ -11705,13 +11705,13 @@
       "prev_close": 263.75,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 235.21 < 年線 349.71)",
         "key_price": 260.26,
         "above_key_price": false,
         "entry_trigger_price": 338.11,
         "sl_price": 338.11,
-        "tp_price": 277.55,
+        "tp_price": 270.49,
         "out_in_ratio": 1.11
       }
     },
@@ -11809,17 +11809,17 @@
       "prev_low": 385.2,
       "prev_close": 397.45,
       "auto_order": {
-        "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 46.7%) 暫停開槍",
         "key_price": 396.03,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 46.7,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -1.82,
         "entry_trigger_price": 396.03,
         "sl_price": 373.12,
-        "tp_price": 452.79,
+        "tp_price": 441.28,
         "out_in_ratio": 1.0
       },
       "erc_weight": 0.0
@@ -11919,13 +11919,13 @@
       "prev_close": 405.49,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 362.62 < 年線 402.15)",
         "key_price": 404.43,
         "above_key_price": false,
         "entry_trigger_price": 425.16,
         "sl_price": 425.16,
-        "tp_price": 427.89,
+        "tp_price": 417.01,
         "out_in_ratio": 1.4
       }
     },
@@ -12024,13 +12024,13 @@
       "prev_close": 69.12,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 68.76 < 年線 72.50)",
         "key_price": 69.68,
         "above_key_price": false,
         "entry_trigger_price": 70.35,
         "sl_price": 70.35,
-        "tp_price": 81.14,
+        "tp_price": 79.07,
         "out_in_ratio": 0.32
       }
     },
@@ -12128,13 +12128,13 @@
       "prev_low": 399.99,
       "prev_close": 405.13,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 349.91 < 年線 365.17)",
         "key_price": 404.69,
         "above_key_price": false,
         "entry_trigger_price": 404.69,
         "sl_price": 391.16,
-        "tp_price": 412.89,
+        "tp_price": 402.4,
         "out_in_ratio": 1.9
       },
       "erc_weight": 0.0
@@ -12254,16 +12254,16 @@
       "prev_close": 304.2,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率44%不足, 未站上關鍵價305.14)",
         "key_price": 305.14,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 20.8,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.58,
         "entry_trigger_price": 305.14,
         "sl_price": 289.28,
-        "tp_price": 355.06,
+        "tp_price": 346.03,
         "out_in_ratio": 2.86
       },
       "erc_weight": 0.0
@@ -12380,17 +12380,17 @@
       "prev_low": 420.02,
       "prev_close": 420.31,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (+1.3% / 外內盤 0.40x)",
+        "gate_status": "HOLD_OBSERVE",
+        "gate_label": "⚪ 雙師觀望 (勝率50%不足, 未站上關鍵價424.62)",
         "key_price": 424.62,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 21.4,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.3,
         "entry_trigger_price": 424.62,
         "sl_price": 389.88,
-        "tp_price": 489.96,
+        "tp_price": 477.5,
         "out_in_ratio": 0.4
       },
       "erc_weight": 0.0
@@ -12490,12 +12490,12 @@
       "prev_close": 302.42,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 277.20 < 季線 289.50)",
         "key_price": 302.89,
         "above_key_price": false,
         "entry_trigger_price": 302.89,
         "sl_price": 289.5,
-        "tp_price": 327.1,
+        "tp_price": 318.78,
         "out_in_ratio": 0.47
       },
       "erc_weight": 0.0
@@ -12626,13 +12626,13 @@
       "prev_close": 113.09,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 107.03 < 年線 110.29)",
         "key_price": 112.57,
         "above_key_price": false,
         "entry_trigger_price": 120.19,
         "sl_price": 120.19,
-        "tp_price": 126.3,
+        "tp_price": 123.08,
         "out_in_ratio": 0.94
       }
     },
@@ -12763,12 +12763,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 671.31 < 季線 701.15)",
         "key_price": 697.64,
         "above_key_price": false,
         "entry_trigger_price": 701.15,
         "sl_price": 701.15,
-        "tp_price": 792.15,
+        "tp_price": 772.01,
         "out_in_ratio": 1.43
       }
     },
@@ -12867,13 +12867,13 @@
       "prev_close": 209.64,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 194.48 < 年線 271.53)",
         "key_price": 207.09,
         "above_key_price": false,
         "entry_trigger_price": 232.81,
         "sl_price": 232.81,
-        "tp_price": 229.49,
+        "tp_price": 223.65,
         "out_in_ratio": 2.78
       }
     },
@@ -12973,16 +12973,16 @@
       "prev_close": 542.62,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_label": "⚪ 雙師觀望 (勝率50%不足, 未站上關鍵價545.63)",
         "key_price": 545.63,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 27.2,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": -0.74,
         "entry_trigger_price": 545.63,
         "sl_price": 526.17,
-        "tp_price": 633.01,
+        "tp_price": 616.92,
         "out_in_ratio": 1.19
       },
       "erc_weight": 0.0
@@ -13103,13 +13103,13 @@
       "prev_close": 134.51,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 125.58 < 年線 151.17)",
         "key_price": 133.8,
         "above_key_price": false,
         "entry_trigger_price": 142.0,
         "sl_price": 142.0,
-        "tp_price": 148.18,
+        "tp_price": 144.42,
         "out_in_ratio": 0.26
       }
     },
@@ -13239,13 +13239,13 @@
       "prev_close": 372.62,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 359.48 < 年線 359.69)",
         "key_price": 373.72,
         "above_key_price": false,
         "entry_trigger_price": 375.01,
         "sl_price": 375.01,
-        "tp_price": 424.19,
+        "tp_price": 413.4,
         "out_in_ratio": 1.65
       }
     },
@@ -13362,20 +13362,20 @@
       "prev_close": 311.21,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 288.19 < 年線 422.04)",
         "key_price": 305.54,
         "above_key_price": false,
         "entry_trigger_price": 393.65,
         "sl_price": 393.65,
-        "tp_price": 340.06,
+        "tp_price": 331.42,
         "out_in_ratio": 0.84
       }
     },
     {
       "symbol": "WMT",
       "name": "沃爾瑪",
-      "signal": "Hold",
+      "signal": "Buy",
       "close": 127.36,
       "ma60": 114.09,
       "market": "us",
@@ -13484,17 +13484,17 @@
       "prev_low": 125.48,
       "prev_close": 126.19,
       "auto_order": {
-        "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
+        "gate_status": "PASS_DEFENSIVE_BUY",
+        "gate_label": "🛡️ 雙師防禦核准 (低波動 29.5% / 雙均線多頭 / 站上關鍵價 126.64)",
         "key_price": 126.64,
         "above_key_price": true,
-        "is_bull_trap_risk": false,
+        "ann_vol": 29.5,
         "days_above_ma60": 5,
         "ma20_up": true,
         "chg_1d": 1.51,
         "entry_trigger_price": 126.64,
         "sl_price": 114.09,
-        "tp_price": 150.28,
+        "tp_price": 146.46,
         "out_in_ratio": 1.28
       },
       "erc_weight": 0.0
@@ -13594,13 +13594,13 @@
       "prev_close": 26.51,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 22.78 < 年線 30.67)",
         "key_price": 26.57,
         "above_key_price": false,
         "entry_trigger_price": 26.57,
         "sl_price": 26.16,
-        "tp_price": 26.88,
+        "tp_price": 26.2,
         "out_in_ratio": 0.37
       }
     },
@@ -13699,12 +13699,12 @@
       "prev_close": 64.33,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 61.29 < 季線 64.62)",
         "key_price": 64.38,
         "above_key_price": false,
         "entry_trigger_price": 64.62,
         "sl_price": 64.62,
-        "tp_price": 72.32,
+        "tp_price": 70.48,
         "out_in_ratio": 1.21
       },
       "erc_weight": 0.0
@@ -13824,13 +13824,13 @@
       "prev_close": 173.77,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 163.81 < 年線 170.85)",
         "key_price": 172.8,
         "above_key_price": false,
         "entry_trigger_price": 185.67,
         "sl_price": 185.67,
-        "tp_price": 193.3,
+        "tp_price": 188.38,
         "out_in_ratio": 1.51
       }
     },
@@ -13930,12 +13930,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_label": "🔴 破季線熔斷禁買 (現價 197.83 < 季線 205.09)",
         "key_price": 192.09,
         "above_key_price": true,
         "entry_trigger_price": 205.09,
         "sl_price": 205.09,
-        "tp_price": 233.44,
+        "tp_price": 227.5,
         "out_in_ratio": 1.73
       }
     },
@@ -14045,12 +14045,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 7.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 6.37 < 季線 8.94)",
+        "key_price": 7.54,
         "above_key_price": false,
         "entry_trigger_price": 8.94,
         "sl_price": 8.94,
-        "tp_price": 7.52,
+        "tp_price": 7.33,
         "out_in_ratio": 0.59
       }
     },
@@ -14170,7 +14170,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 24.49,
       "engine": "Gen25-CrashGuard",
       "psc_live": {
@@ -14195,12 +14195,12 @@
       "prev_close": 27.35,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 27.15,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 25.65 < 季線 25.91)",
+        "key_price": 27.0,
         "above_key_price": false,
-        "entry_trigger_price": 27.15,
+        "entry_trigger_price": 27.0,
         "sl_price": 25.91,
-        "tp_price": 30.27,
+        "tp_price": 29.5,
         "out_in_ratio": 0.43
       },
       "erc_weight": 0.0
@@ -14325,16 +14325,16 @@
       "prev_close": 78.3,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
-        "key_price": 78.07,
+        "gate_label": "⚪ 雙師觀望 (季線斜率/月線未穩, 勝率25%不足)",
+        "key_price": 78.1,
         "above_key_price": true,
-        "is_bull_trap_risk": true,
+        "ann_vol": 18.7,
         "days_above_ma60": 4,
         "ma20_up": false,
-        "chg_1d": 0.26,
-        "entry_trigger_price": 78.07,
+        "chg_1d": -0.13,
+        "entry_trigger_price": 78.1,
         "sl_price": 76.91,
-        "tp_price": 92.87,
+        "tp_price": 90.5,
         "out_in_ratio": 1.62
       },
       "erc_weight": 0.0
@@ -14459,12 +14459,12 @@
       "prev_close": 304.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 297.33,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 228.50 < 季線 263.83)",
+        "key_price": 289.0,
         "above_key_price": false,
-        "entry_trigger_price": 297.33,
+        "entry_trigger_price": 289.0,
         "sl_price": 263.83,
-        "tp_price": 269.63,
+        "tp_price": 262.77,
         "out_in_ratio": 0.31
       },
       "erc_weight": 0.0
@@ -14610,12 +14610,12 @@
       "prev_close": 75.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 73.3,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 62.70 < 季線 70.33)",
+        "key_price": 72.03,
         "above_key_price": false,
-        "entry_trigger_price": 73.3,
+        "entry_trigger_price": 72.03,
         "sl_price": 70.33,
-        "tp_price": 73.99,
+        "tp_price": 72.11,
         "out_in_ratio": 0.61
       },
       "erc_weight": 0.0
@@ -14772,13 +14772,13 @@
       "prev_close": 27.45,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 27.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 26.45 < 年線 26.89)",
+        "key_price": 27.28,
         "above_key_price": false,
         "entry_trigger_price": 28.28,
         "sl_price": 28.28,
-        "tp_price": 31.21,
+        "tp_price": 30.42,
         "out_in_ratio": 0.67
       }
     },
@@ -14934,13 +14934,13 @@
       "prev_close": 170.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 169.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 159.50 < 年線 200.78)",
+        "key_price": 168.83,
         "above_key_price": false,
         "entry_trigger_price": 192.46,
         "sl_price": 192.46,
-        "tp_price": 188.21,
+        "tp_price": 183.42,
         "out_in_ratio": 1.24
       }
     },
@@ -15085,13 +15085,13 @@
       "prev_close": 64.8,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 63.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 56.80 < 年線 69.05)",
+        "key_price": 62.87,
         "above_key_price": false,
         "entry_trigger_price": 68.93,
         "sl_price": 68.93,
-        "tp_price": 67.02,
+        "tp_price": 65.32,
         "out_in_ratio": 0.84
       }
     },
@@ -15233,13 +15233,13 @@
       "prev_close": 146.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 146.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 138.50 < 年線 158.71)",
+        "key_price": 145.67,
         "above_key_price": false,
         "entry_trigger_price": 160.53,
         "sl_price": 160.53,
-        "tp_price": 163.43,
+        "tp_price": 159.27,
         "out_in_ratio": 0.81
       }
     },
@@ -15394,13 +15394,13 @@
       "prev_close": 84.7,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 84.6,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 74.20 < 年線 107.50)",
+        "key_price": 83.27,
         "above_key_price": false,
         "entry_trigger_price": 97.65,
         "sl_price": 97.65,
-        "tp_price": 87.56,
+        "tp_price": 85.33,
         "out_in_ratio": 0.72
       }
     },
@@ -15524,13 +15524,13 @@
       "prev_close": 505.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 499.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 468.00 < 年線 723.44)",
+        "key_price": 493.0,
         "above_key_price": false,
         "entry_trigger_price": 647.83,
         "sl_price": 647.83,
-        "tp_price": 552.24,
+        "tp_price": 538.2,
         "out_in_ratio": 0.8
       }
     },
@@ -15677,13 +15677,13 @@
       "prev_close": 35.35,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 35.53,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 28.85 < 年線 40.03)",
+        "key_price": 34.78,
         "above_key_price": false,
         "entry_trigger_price": 40.54,
         "sl_price": 40.54,
-        "tp_price": 34.04,
+        "tp_price": 33.18,
         "out_in_ratio": 0.72
       }
     },
@@ -15807,13 +15807,13 @@
       "prev_close": 59.1,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 59.37,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 53.30 < 年線 69.60)",
+        "key_price": 59.13,
         "above_key_price": false,
         "entry_trigger_price": 70.16,
         "sl_price": 70.16,
-        "tp_price": 62.89,
+        "tp_price": 61.29,
         "out_in_ratio": 0.29
       }
     },
@@ -15940,12 +15940,12 @@
       "prev_close": 142.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 140.5,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 110.00 < 季線 126.06)",
+        "key_price": 136.33,
         "above_key_price": false,
-        "entry_trigger_price": 140.5,
+        "entry_trigger_price": 136.33,
         "sl_price": 126.06,
-        "tp_price": 129.8,
+        "tp_price": 126.5,
         "out_in_ratio": 0.55
       },
       "erc_weight": 0.0
@@ -16070,13 +16070,13 @@
       "prev_close": 314.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 311.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 261.00 < 年線 308.96)",
+        "key_price": 306.0,
         "above_key_price": false,
         "entry_trigger_price": 327.86,
         "sl_price": 327.86,
-        "tp_price": 307.98,
+        "tp_price": 300.15,
         "out_in_ratio": 0.89
       }
     },
@@ -16218,13 +16218,13 @@
       "prev_close": 29.35,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 29.28,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 28.55 < 年線 30.36)",
+        "key_price": 29.18,
         "above_key_price": false,
         "entry_trigger_price": 30.59,
         "sl_price": 30.59,
-        "tp_price": 33.69,
+        "tp_price": 32.83,
         "out_in_ratio": 0.45
       }
     },
@@ -16348,13 +16348,13 @@
       "prev_close": 231.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 229.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 193.50 < 年線 216.63)",
+        "key_price": 226.0,
         "above_key_price": false,
         "entry_trigger_price": 269.52,
         "sl_price": 269.52,
-        "tp_price": 228.33,
+        "tp_price": 222.52,
         "out_in_ratio": 0.71
       }
     },
@@ -16478,13 +16478,13 @@
       "prev_close": 101.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 101.1,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 88.20 < 年線 108.85)",
+        "key_price": 99.87,
         "above_key_price": false,
         "entry_trigger_price": 129.54,
         "sl_price": 129.54,
-        "tp_price": 104.08,
+        "tp_price": 101.43,
         "out_in_ratio": 0.69
       }
     },
@@ -16608,13 +16608,13 @@
       "prev_close": 1240.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1220.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1000.00 < 年線 1725.25)",
+        "key_price": 1210.0,
         "above_key_price": false,
         "entry_trigger_price": 1631.75,
         "sl_price": 1631.75,
-        "tp_price": 1180.0,
+        "tp_price": 1150.0,
         "out_in_ratio": 0.67
       }
     },
@@ -16759,13 +16759,13 @@
       "prev_close": 205.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 204.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 169.00 < 年線 225.18)",
+        "key_price": 201.67,
         "above_key_price": false,
         "entry_trigger_price": 221.72,
         "sl_price": 221.72,
-        "tp_price": 199.42,
+        "tp_price": 194.35,
         "out_in_ratio": 0.51
       }
     },
@@ -16907,13 +16907,13 @@
       "prev_close": 241.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 235.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 220.50 < 年線 236.02)",
+        "key_price": 234.5,
         "above_key_price": false,
         "entry_trigger_price": 245.94,
         "sl_price": 245.94,
-        "tp_price": 260.19,
+        "tp_price": 253.57,
         "out_in_ratio": 1.0
       }
     },
@@ -17058,13 +17058,13 @@
       "prev_close": 30.1,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 29.72,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 26.80 < 年線 34.09)",
+        "key_price": 29.48,
         "above_key_price": false,
         "entry_trigger_price": 36.38,
         "sl_price": 36.38,
-        "tp_price": 31.62,
+        "tp_price": 30.82,
         "out_in_ratio": 0.99
       }
     },
@@ -17188,13 +17188,13 @@
       "prev_close": 411.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 407.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 322.50 < 年線 519.33)",
+        "key_price": 397.5,
         "above_key_price": false,
         "entry_trigger_price": 530.0,
         "sl_price": 530.0,
-        "tp_price": 380.55,
+        "tp_price": 370.87,
         "out_in_ratio": 0.8
       }
     },
@@ -17336,13 +17336,13 @@
       "prev_close": 2350.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 2335.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 2100.00 < 年線 2220.75)",
+        "key_price": 2298.33,
         "above_key_price": false,
         "entry_trigger_price": 2403.71,
         "sl_price": 2403.71,
-        "tp_price": 2478.0,
+        "tp_price": 2415.0,
         "out_in_ratio": 1.35
       }
     },
@@ -17484,13 +17484,13 @@
       "prev_close": 79.6,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 77.77,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 64.60 < 年線 124.55)",
+        "key_price": 76.67,
         "above_key_price": false,
         "entry_trigger_price": 108.22,
         "sl_price": 108.22,
-        "tp_price": 76.23,
+        "tp_price": 74.29,
         "out_in_ratio": 0.85
       }
     },
@@ -17646,13 +17646,13 @@
       "prev_close": 125.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 124.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 98.00 < 年線 140.88)",
+        "key_price": 122.17,
         "above_key_price": false,
         "entry_trigger_price": 159.95,
         "sl_price": 159.95,
-        "tp_price": 115.64,
+        "tp_price": 112.7,
         "out_in_ratio": 0.69
       }
     },
@@ -17776,13 +17776,13 @@
       "prev_close": 1520.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1501.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1350.00 < 年線 1956.56)",
+        "key_price": 1518.33,
         "above_key_price": false,
         "entry_trigger_price": 1844.83,
         "sl_price": 1844.83,
-        "tp_price": 1593.0,
+        "tp_price": 1552.5,
         "out_in_ratio": 0.86
       }
     },
@@ -17924,13 +17924,13 @@
       "prev_close": 76.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 75.97,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 74.30 < 年線 82.68)",
+        "key_price": 75.6,
         "above_key_price": false,
         "entry_trigger_price": 90.97,
         "sl_price": 90.97,
-        "tp_price": 87.67,
+        "tp_price": 85.44,
         "out_in_ratio": 1.59
       }
     },
@@ -18074,13 +18074,13 @@
       "prev_close": 28.05,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 27.97,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 25.15 < 年線 27.24)",
+        "key_price": 27.65,
         "above_key_price": false,
         "entry_trigger_price": 28.94,
         "sl_price": 28.94,
-        "tp_price": 29.68,
+        "tp_price": 28.92,
         "out_in_ratio": 0.53
       }
     },
@@ -18204,13 +18204,13 @@
       "prev_close": 29.6,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 29.62,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 27.70 < 年線 29.73)",
+        "key_price": 29.43,
         "above_key_price": false,
         "entry_trigger_price": 31.26,
         "sl_price": 31.26,
-        "tp_price": 32.69,
+        "tp_price": 31.85,
         "out_in_ratio": 0.69
       }
     },
@@ -18334,13 +18334,13 @@
       "prev_close": 46.05,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 46.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 40.55 < 年線 55.20)",
+        "key_price": 45.0,
         "above_key_price": false,
         "entry_trigger_price": 59.49,
         "sl_price": 59.49,
-        "tp_price": 47.85,
+        "tp_price": 46.63,
         "out_in_ratio": 0.59
       }
     },
@@ -18465,12 +18465,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 881.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 800.00 < 季線 946.00)",
+        "key_price": 873.33,
         "above_key_price": false,
         "entry_trigger_price": 946.0,
         "sl_price": 946.0,
-        "tp_price": 944.0,
+        "tp_price": 920.0,
         "out_in_ratio": 0.51
       }
     },
@@ -18594,13 +18594,13 @@
       "prev_close": 98.2,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 96.6,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 77.10 < 年線 127.46)",
+        "key_price": 94.67,
         "above_key_price": false,
         "entry_trigger_price": 123.35,
         "sl_price": 123.35,
-        "tp_price": 90.98,
+        "tp_price": 88.66,
         "out_in_ratio": 0.72
       }
     },
@@ -18744,13 +18744,13 @@
       "prev_close": 1400.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1360.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1030.00 < 年線 1891.42)",
+        "key_price": 1325.0,
         "above_key_price": false,
         "entry_trigger_price": 1940.0,
         "sl_price": 1940.0,
-        "tp_price": 1215.4,
+        "tp_price": 1184.5,
         "out_in_ratio": 0.28
       }
     },
@@ -18895,13 +18895,13 @@
       "prev_close": 1030.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1002.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 790.00 < 年線 1064.52)",
+        "key_price": 981.67,
         "above_key_price": false,
         "entry_trigger_price": 1072.07,
         "sl_price": 1072.07,
-        "tp_price": 932.2,
+        "tp_price": 908.5,
         "out_in_ratio": 0.37
       }
     },
@@ -19045,13 +19045,13 @@
       "prev_close": 284.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 285.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 260.00 < 年線 304.14)",
+        "key_price": 283.0,
         "above_key_price": false,
         "entry_trigger_price": 344.35,
         "sl_price": 344.35,
-        "tp_price": 306.8,
+        "tp_price": 299.0,
         "out_in_ratio": 0.57
       }
     },
@@ -19206,12 +19206,12 @@
       "prev_close": 758.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 749.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 726.00 < 季線 739.13)",
+        "key_price": 753.0,
         "above_key_price": false,
-        "entry_trigger_price": 749.67,
+        "entry_trigger_price": 753.0,
         "sl_price": 739.13,
-        "tp_price": 856.68,
+        "tp_price": 834.9,
         "out_in_ratio": 0.62
       },
       "erc_weight": 0.0
@@ -19356,13 +19356,13 @@
       "prev_close": 276.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 276.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 262.50 < 年線 313.94)",
+        "key_price": 274.5,
         "above_key_price": false,
         "entry_trigger_price": 322.52,
         "sl_price": 322.52,
-        "tp_price": 309.75,
+        "tp_price": 301.88,
         "out_in_ratio": 1.06
       }
     },
@@ -19486,13 +19486,13 @@
       "prev_close": 4215.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 4161.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 3120.00 < 年線 4348.27)",
+        "key_price": 4051.67,
         "above_key_price": false,
         "entry_trigger_price": 4992.63,
         "sl_price": 4992.63,
-        "tp_price": 3681.6,
+        "tp_price": 3588.0,
         "out_in_ratio": 0.4
       }
     },
@@ -19637,12 +19637,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 605.0,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 554.00 < 季線 672.05)",
+        "key_price": 604.0,
         "above_key_price": false,
         "entry_trigger_price": 672.05,
         "sl_price": 672.05,
-        "tp_price": 653.72,
+        "tp_price": 637.1,
         "out_in_ratio": 0.48
       }
     },
@@ -19784,13 +19784,13 @@
       "prev_close": 377.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 374.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 293.50 < 年線 369.77)",
+        "key_price": 366.33,
         "above_key_price": false,
         "entry_trigger_price": 468.95,
         "sl_price": 468.95,
-        "tp_price": 346.33,
+        "tp_price": 337.52,
         "out_in_ratio": 0.8
       }
     },
@@ -19915,12 +19915,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 29.15,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 25.10 < 季線 31.42)",
+        "key_price": 28.98,
         "above_key_price": false,
         "entry_trigger_price": 31.42,
         "sl_price": 31.42,
-        "tp_price": 29.62,
+        "tp_price": 28.86,
         "out_in_ratio": 0.62
       }
     },
@@ -20075,16 +20075,16 @@
       "prev_close": 165.0,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
-        "key_price": 164.0,
+        "gate_label": "⚪ 雙師觀望 (勝率33%不足)",
+        "key_price": 163.67,
         "above_key_price": true,
-        "is_bull_trap_risk": false,
+        "ann_vol": 13.3,
         "days_above_ma60": 5,
         "ma20_up": true,
-        "chg_1d": -0.91,
-        "entry_trigger_price": 164.0,
+        "chg_1d": 0.91,
+        "entry_trigger_price": 163.67,
         "sl_price": 148.73,
-        "tp_price": 195.88,
+        "tp_price": 190.9,
         "out_in_ratio": 0.82
       },
       "erc_weight": 0.0
@@ -20209,13 +20209,13 @@
       "prev_close": 110.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 108.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 96.40 < 年線 108.31)",
+        "key_price": 107.33,
         "above_key_price": false,
         "entry_trigger_price": 115.73,
         "sl_price": 115.73,
-        "tp_price": 113.75,
+        "tp_price": 110.86,
         "out_in_ratio": 0.98
       }
     },
@@ -20339,13 +20339,13 @@
       "prev_close": 213.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 211.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 175.00 < 年線 272.97)",
+        "key_price": 210.67,
         "above_key_price": false,
         "entry_trigger_price": 262.32,
         "sl_price": 262.32,
-        "tp_price": 206.5,
+        "tp_price": 201.25,
         "out_in_ratio": 0.28
       }
     },
@@ -20469,13 +20469,13 @@
       "prev_close": 232.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 226.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 211.00 < 年線 265.81)",
+        "key_price": 226.67,
         "above_key_price": false,
         "entry_trigger_price": 276.03,
         "sl_price": 276.03,
-        "tp_price": 248.98,
+        "tp_price": 242.65,
         "out_in_ratio": 0.97
       }
     },
@@ -20600,12 +20600,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 4065.0,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 3720.00 < 季線 4308.75)",
+        "key_price": 4096.67,
         "above_key_price": false,
         "entry_trigger_price": 4308.75,
         "sl_price": 4308.75,
-        "tp_price": 4389.6,
+        "tp_price": 4278.0,
         "out_in_ratio": 1.15
       }
     },
@@ -20730,13 +20730,13 @@
       "prev_close": 307.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 302.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 242.00 < 年線 487.60)",
+        "key_price": 297.5,
         "above_key_price": false,
         "entry_trigger_price": 493.67,
         "sl_price": 493.67,
-        "tp_price": 285.56,
+        "tp_price": 278.3,
         "out_in_ratio": 1.38
       }
     },
@@ -20882,19 +20882,19 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 194.5,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 197.50 < 季線 200.53)",
+        "key_price": 194.33,
         "above_key_price": true,
         "entry_trigger_price": 200.53,
         "sl_price": 200.53,
-        "tp_price": 233.05,
+        "tp_price": 227.12,
         "out_in_ratio": 1.0
       }
     },
     {
       "symbol": "2480.TW",
       "name": "敦陽科",
-      "signal": "Buy",
+      "signal": "Hold",
       "close": 179.0,
       "ma60": 169.76,
       "market": "tw",
@@ -21041,17 +21041,17 @@
       "prev_low": 188.0,
       "prev_close": 193.5,
       "auto_order": {
-        "gate_status": "WAIT_GATE2_KEY_PRICE",
-        "gate_label": "🟡 二閘待命：待突破關鍵價 191.33 扣扳機",
-        "key_price": 191.33,
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 36.6%) 暫停開槍",
+        "key_price": 190.33,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 36.6,
         "days_above_ma60": 5,
         "ma20_up": true,
-        "chg_1d": -2.84,
-        "entry_trigger_price": 191.33,
+        "chg_1d": -1.65,
+        "entry_trigger_price": 190.33,
         "sl_price": 169.76,
-        "tp_price": 211.22,
+        "tp_price": 205.85,
         "out_in_ratio": 0.8
       },
       "erc_weight": 40.0
@@ -21152,7 +21152,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 210.69,
       "engine": "Gen25-CrashGuard",
       "psc_live": {
@@ -21177,12 +21177,12 @@
       "prev_close": 257.5,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 258.0,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 247.00 < 季線 247.52)",
+        "key_price": 255.83,
         "above_key_price": false,
-        "entry_trigger_price": 258.0,
+        "entry_trigger_price": 255.83,
         "sl_price": 247.52,
-        "tp_price": 291.46,
+        "tp_price": 284.05,
         "out_in_ratio": 0.51
       },
       "erc_weight": 0.0
@@ -21309,12 +21309,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 109.5,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 103.50 < 季線 115.04)",
+        "key_price": 108.67,
         "above_key_price": false,
         "entry_trigger_price": 115.04,
         "sl_price": 115.04,
-        "tp_price": 122.13,
+        "tp_price": 119.02,
         "out_in_ratio": 0.76
       }
     },
@@ -21439,13 +21439,13 @@
       "prev_close": 25.8,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 25.7,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 25.50 < 年線 25.55)",
+        "key_price": 25.65,
         "above_key_price": false,
         "entry_trigger_price": 25.96,
         "sl_price": 25.96,
-        "tp_price": 30.09,
+        "tp_price": 29.32,
         "out_in_ratio": 0.72
       }
     },
@@ -21569,13 +21569,13 @@
       "prev_close": 54.2,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 53.73,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 48.40 < 年線 55.45)",
+        "key_price": 53.23,
         "above_key_price": false,
         "entry_trigger_price": 61.8,
         "sl_price": 61.8,
-        "tp_price": 57.11,
+        "tp_price": 55.66,
         "out_in_ratio": 0.65
       }
     },
@@ -21700,12 +21700,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 97.4,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 90.30 < 季線 98.71)",
+        "key_price": 96.23,
         "above_key_price": false,
         "entry_trigger_price": 98.71,
         "sl_price": 98.71,
-        "tp_price": 106.55,
+        "tp_price": 103.84,
         "out_in_ratio": 0.61
       }
     },
@@ -21861,13 +21861,13 @@
       "prev_close": 170.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 170.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 169.50 < 年線 176.64)",
+        "key_price": 170.0,
         "above_key_price": false,
         "entry_trigger_price": 176.11,
         "sl_price": 176.11,
-        "tp_price": 200.01,
+        "tp_price": 194.92,
         "out_in_ratio": 0.84
       }
     },
@@ -21992,12 +21992,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 230.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 224.00 < 季線 234.97)",
+        "key_price": 228.67,
         "above_key_price": false,
         "entry_trigger_price": 234.97,
         "sl_price": 234.97,
-        "tp_price": 264.32,
+        "tp_price": 257.6,
         "out_in_ratio": 0.52
       }
     },
@@ -22141,12 +22141,12 @@
       "prev_close": 161.5,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 160.33,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 148.00 < 季線 152.30)",
+        "key_price": 156.67,
         "above_key_price": false,
-        "entry_trigger_price": 160.33,
+        "entry_trigger_price": 156.67,
         "sl_price": 152.3,
-        "tp_price": 174.64,
+        "tp_price": 170.2,
         "out_in_ratio": 1.23
       },
       "erc_weight": 0.0
@@ -22291,12 +22291,12 @@
       "prev_close": 114.5,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 112.83,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 103.50 < 季線 111.29)",
+        "key_price": 112.17,
         "above_key_price": false,
-        "entry_trigger_price": 112.83,
+        "entry_trigger_price": 112.17,
         "sl_price": 111.29,
-        "tp_price": 122.13,
+        "tp_price": 119.02,
         "out_in_ratio": 0.69
       },
       "erc_weight": 0.0
@@ -22441,16 +22441,16 @@
       "prev_close": 78.7,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
-        "key_price": 78.17,
+        "gate_label": "⚪ 雙師觀望 (未站上關鍵價77.23)",
+        "key_price": 77.23,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 27.6,
         "days_above_ma60": 5,
         "ma20_up": true,
-        "chg_1d": -2.41,
-        "entry_trigger_price": 78.17,
+        "chg_1d": -0.41,
+        "entry_trigger_price": 77.23,
         "sl_price": 70.55,
-        "tp_price": 86.26,
+        "tp_price": 84.06,
         "out_in_ratio": 1.24
       },
       "erc_weight": 0.0
@@ -22575,13 +22575,13 @@
       "prev_close": 215.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 216.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 210.00 < 年線 217.54)",
+        "key_price": 214.83,
         "above_key_price": false,
         "entry_trigger_price": 217.41,
         "sl_price": 217.41,
-        "tp_price": 247.8,
+        "tp_price": 241.5,
         "out_in_ratio": 0.76
       }
     },
@@ -22705,13 +22705,13 @@
       "prev_close": 233.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 231.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 193.00 < 年線 217.03)",
+        "key_price": 228.5,
         "above_key_price": false,
         "entry_trigger_price": 261.73,
         "sl_price": 261.73,
-        "tp_price": 227.74,
+        "tp_price": 221.95,
         "out_in_ratio": 0.63
       }
     },
@@ -22835,13 +22835,13 @@
       "prev_close": 5310.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 5196.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 3980.00 < 年線 4124.92)",
+        "key_price": 5066.67,
         "above_key_price": false,
         "entry_trigger_price": 6135.67,
         "sl_price": 6135.67,
-        "tp_price": 4696.4,
+        "tp_price": 4577.0,
         "out_in_ratio": 0.68
       }
     },
@@ -22986,13 +22986,13 @@
       "prev_close": 119.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 117.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 110.00 < 年線 124.43)",
+        "key_price": 117.33,
         "above_key_price": false,
         "entry_trigger_price": 127.17,
         "sl_price": 127.17,
-        "tp_price": 129.8,
+        "tp_price": 126.5,
         "out_in_ratio": 0.55
       }
     },
@@ -23134,13 +23134,13 @@
       "prev_close": 135.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 132.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 120.50 < 年線 128.99)",
+        "key_price": 130.33,
         "above_key_price": false,
         "entry_trigger_price": 136.0,
         "sl_price": 136.0,
-        "tp_price": 142.19,
+        "tp_price": 138.57,
         "out_in_ratio": 0.54
       }
     },
@@ -23284,13 +23284,13 @@
       "prev_close": 3040.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 2890.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 2445.00 < 年線 2548.81)",
+        "key_price": 2873.33,
         "above_key_price": false,
         "entry_trigger_price": 3183.58,
         "sl_price": 3183.58,
-        "tp_price": 2885.1,
+        "tp_price": 2811.75,
         "out_in_ratio": 0.62
       }
     },
@@ -23434,12 +23434,12 @@
       "prev_close": 138.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 135.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 113.50 < 季線 118.56)",
+        "key_price": 131.83,
         "above_key_price": false,
-        "entry_trigger_price": 135.67,
+        "entry_trigger_price": 131.83,
         "sl_price": 118.56,
-        "tp_price": 133.93,
+        "tp_price": 130.52,
         "out_in_ratio": 0.61
       },
       "erc_weight": 0.0
@@ -23595,13 +23595,13 @@
       "prev_close": 474.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 471.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 436.50 < 年線 467.82)",
+        "key_price": 469.0,
         "above_key_price": false,
         "entry_trigger_price": 539.79,
         "sl_price": 539.79,
-        "tp_price": 515.07,
+        "tp_price": 501.97,
         "out_in_ratio": 0.72
       }
     },
@@ -23744,13 +23744,13 @@
       "prev_low": 191.0,
       "prev_close": 196.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 193.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 173.00 < 年線 181.67)",
+        "key_price": 190.67,
         "above_key_price": false,
-        "entry_trigger_price": 193.17,
+        "entry_trigger_price": 190.67,
         "sl_price": 190.03,
-        "tp_price": 204.14,
+        "tp_price": 198.95,
         "out_in_ratio": 0.77
       },
       "erc_weight": 0.0
@@ -23875,13 +23875,13 @@
       "prev_close": 785.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 783.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 596.00 < 年線 826.88)",
+        "key_price": 764.67,
         "above_key_price": false,
         "entry_trigger_price": 1016.23,
         "sl_price": 1016.23,
-        "tp_price": 703.28,
+        "tp_price": 685.4,
         "out_in_ratio": 0.41
       }
     },
@@ -24004,13 +24004,13 @@
       "prev_low": 529.0,
       "prev_close": 533.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 533.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 433.50 < 年線 451.42)",
+        "key_price": 529.67,
         "above_key_price": false,
-        "entry_trigger_price": 533.33,
+        "entry_trigger_price": 529.67,
         "sl_price": 516.93,
-        "tp_price": 511.53,
+        "tp_price": 498.52,
         "out_in_ratio": 0.74
       },
       "erc_weight": 0.0
@@ -24155,16 +24155,16 @@
       "prev_close": 131.0,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
-        "key_price": 129.5,
+        "gate_label": "⚪ 雙師觀望 (勝率67%不足, 未站上關鍵價128.67)",
+        "key_price": 128.67,
         "above_key_price": false,
-        "is_bull_trap_risk": false,
+        "ann_vol": 18.7,
         "days_above_ma60": 5,
         "ma20_up": true,
-        "chg_1d": -1.53,
-        "entry_trigger_price": 129.5,
+        "chg_1d": 0.0,
+        "entry_trigger_price": 128.67,
         "sl_price": 124.96,
-        "tp_price": 150.45,
+        "tp_price": 146.62,
         "out_in_ratio": 1.24
       },
       "erc_weight": 0.0
@@ -24292,13 +24292,13 @@
       "prev_close": 2110.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 2061.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1515.00 < 年線 2103.79)",
+        "key_price": 1990.0,
         "above_key_price": false,
         "entry_trigger_price": 2640.83,
         "sl_price": 2640.83,
-        "tp_price": 1787.7,
+        "tp_price": 1742.25,
         "out_in_ratio": 0.37
       }
     },
@@ -24446,13 +24446,13 @@
       "prev_close": 506.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 492.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 380.00 < 年線 692.09)",
+        "key_price": 480.33,
         "above_key_price": false,
         "entry_trigger_price": 616.35,
         "sl_price": 616.35,
-        "tp_price": 448.4,
+        "tp_price": 437.0,
         "out_in_ratio": 0.26
       }
     },
@@ -24576,13 +24576,13 @@
       "prev_close": 824.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 831.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 565.00 < 年線 679.01)",
+        "key_price": 793.33,
         "above_key_price": false,
         "entry_trigger_price": 863.8,
         "sl_price": 863.8,
-        "tp_price": 666.7,
+        "tp_price": 649.75,
         "out_in_ratio": 0.47
       }
     },
@@ -24724,13 +24724,13 @@
       "prev_close": 668.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 653.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 522.00 < 年線 640.11)",
+        "key_price": 637.67,
         "above_key_price": false,
         "entry_trigger_price": 868.88,
         "sl_price": 868.88,
-        "tp_price": 615.96,
+        "tp_price": 600.3,
         "out_in_ratio": 0.42
       }
     },
@@ -24875,12 +24875,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 168.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 156.00 < 季線 181.88)",
+        "key_price": 168.33,
         "above_key_price": false,
         "entry_trigger_price": 181.88,
         "sl_price": 181.88,
-        "tp_price": 184.08,
+        "tp_price": 179.4,
         "out_in_ratio": 0.71
       }
     },
@@ -25025,13 +25025,13 @@
       "prev_close": 302.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 297.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 254.00 < 年線 364.40)",
+        "key_price": 294.33,
         "above_key_price": false,
         "entry_trigger_price": 358.37,
         "sl_price": 358.37,
-        "tp_price": 299.72,
+        "tp_price": 292.1,
         "out_in_ratio": 0.73
       }
     },
@@ -25178,13 +25178,13 @@
       "prev_close": 1140.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1133.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 882.00 < 年線 1106.40)",
+        "key_price": 1109.0,
         "above_key_price": false,
         "entry_trigger_price": 1342.88,
         "sl_price": 1342.88,
-        "tp_price": 1040.76,
+        "tp_price": 1014.3,
         "out_in_ratio": 0.25
       }
     },
@@ -25311,13 +25311,13 @@
       "prev_close": 376.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 370.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 284.50 < 年線 631.61)",
+        "key_price": 362.83,
         "above_key_price": false,
         "entry_trigger_price": 574.54,
         "sl_price": 574.54,
-        "tp_price": 335.71,
+        "tp_price": 327.17,
         "out_in_ratio": 0.45
       }
     },
@@ -25441,12 +25441,12 @@
       "prev_close": 8610.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 8248.33,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 6000.00 < 季線 7135.17)",
+        "key_price": 7833.33,
         "above_key_price": false,
-        "entry_trigger_price": 8248.33,
+        "entry_trigger_price": 7833.33,
         "sl_price": 7135.17,
-        "tp_price": 7080.0,
+        "tp_price": 6900.0,
         "out_in_ratio": 0.5
       },
       "erc_weight": 0.0
@@ -25591,13 +25591,13 @@
       "prev_close": 39.95,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 39.25,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 32.95 < 年線 41.12)",
+        "key_price": 38.83,
         "above_key_price": false,
         "entry_trigger_price": 46.69,
         "sl_price": 46.69,
-        "tp_price": 38.88,
+        "tp_price": 37.89,
         "out_in_ratio": 0.61
       }
     },
@@ -25699,7 +25699,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 1451.36,
       "engine": "Gen24-AntiBullTrap",
       "psc_live": {
@@ -25723,13 +25723,13 @@
       "prev_low": 1390.0,
       "prev_close": 1430.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1468.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1360.00 < 年線 1451.36)",
+        "key_price": 1476.67,
         "above_key_price": false,
-        "entry_trigger_price": 1468.33,
+        "entry_trigger_price": 1476.67,
         "sl_price": 1416.17,
-        "tp_price": 1604.8,
+        "tp_price": 1564.0,
         "out_in_ratio": 0.46
       },
       "erc_weight": 0.0
@@ -25854,13 +25854,13 @@
       "prev_close": 295.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 286.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 207.00 < 年線 292.32)",
+        "key_price": 276.67,
         "above_key_price": false,
         "entry_trigger_price": 389.93,
         "sl_price": 389.93,
-        "tp_price": 244.26,
+        "tp_price": 238.05,
         "out_in_ratio": 0.36
       }
     },
@@ -25987,13 +25987,13 @@
       "prev_close": 105.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 104.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 91.50 < 年線 123.67)",
+        "key_price": 103.77,
         "above_key_price": false,
         "entry_trigger_price": 123.59,
         "sl_price": 123.59,
-        "tp_price": 107.97,
+        "tp_price": 105.22,
         "out_in_ratio": 0.47
       }
     },
@@ -26138,13 +26138,13 @@
       "prev_close": 503.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 492.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 394.50 < 年線 650.20)",
+        "key_price": 485.33,
         "above_key_price": false,
         "entry_trigger_price": 642.07,
         "sl_price": 642.07,
-        "tp_price": 465.51,
+        "tp_price": 453.67,
         "out_in_ratio": 0.38
       }
     },
@@ -26286,13 +26286,13 @@
       "prev_close": 216.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 211.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 191.50 < 年線 232.48)",
+        "key_price": 211.0,
         "above_key_price": false,
         "entry_trigger_price": 230.31,
         "sl_price": 230.31,
-        "tp_price": 225.97,
+        "tp_price": 220.22,
         "out_in_ratio": 0.56
       }
     },
@@ -26412,7 +26412,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 3738.14,
       "engine": "Gen24-AntiBullTrap",
       "psc_live": {
@@ -26436,13 +26436,13 @@
       "prev_low": 3900.0,
       "prev_close": 4020.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 3885.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 3600.00 < 年線 3738.14)",
+        "key_price": 3963.33,
         "above_key_price": false,
-        "entry_trigger_price": 3885.0,
+        "entry_trigger_price": 3963.33,
         "sl_price": 3732.3,
-        "tp_price": 4248.0,
+        "tp_price": 4140.0,
         "out_in_ratio": 0.84
       },
       "erc_weight": 0.0,
@@ -26586,13 +26586,13 @@
       "prev_close": 1520.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1526.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1440.00 < 年線 1989.41)",
+        "key_price": 1550.0,
         "above_key_price": false,
         "entry_trigger_price": 1988.58,
         "sl_price": 1988.58,
-        "tp_price": 1699.2,
+        "tp_price": 1656.0,
         "out_in_ratio": 1.16
       }
     },
@@ -26747,13 +26747,13 @@
       "prev_close": 86.4,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 86.03,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 80.20 < 年線 98.70)",
+        "key_price": 85.27,
         "above_key_price": false,
         "entry_trigger_price": 106.64,
         "sl_price": 106.64,
-        "tp_price": 94.64,
+        "tp_price": 92.23,
         "out_in_ratio": 1.26
       }
     },
@@ -26897,13 +26897,13 @@
       "prev_close": 598.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 593.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 504.00 < 年線 537.17)",
+        "key_price": 589.33,
         "above_key_price": false,
         "entry_trigger_price": 641.53,
         "sl_price": 641.53,
-        "tp_price": 594.72,
+        "tp_price": 579.6,
         "out_in_ratio": 0.74
       }
     },
@@ -27047,16 +27047,16 @@
       "prev_close": 109.5,
       "auto_order": {
         "gate_status": "HOLD_OBSERVE",
-        "gate_label": "⚪ 第一閘未過：觀望不買",
-        "key_price": 109.5,
+        "gate_label": "⚪ 雙師觀望 (季線斜率/月線未穩, 勝率67%不足)",
+        "key_price": 108.5,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
+        "ann_vol": 21.5,
         "days_above_ma60": 4,
         "ma20_up": false,
-        "chg_1d": -0.46,
-        "entry_trigger_price": 109.5,
+        "chg_1d": -0.92,
+        "entry_trigger_price": 108.5,
         "sl_price": 107.18,
-        "tp_price": 127.44,
+        "tp_price": 124.2,
         "out_in_ratio": 0.86
       },
       "erc_weight": 0.0
@@ -27199,13 +27199,13 @@
       "prev_close": 106.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 104.1,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 85.40 < 年線 128.04)",
+        "key_price": 103.0,
         "above_key_price": false,
         "entry_trigger_price": 124.75,
         "sl_price": 124.75,
-        "tp_price": 100.77,
+        "tp_price": 98.21,
         "out_in_ratio": 0.7
       }
     },
@@ -27350,13 +27350,13 @@
       "prev_close": 89.1,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 88.6,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 81.90 < 年線 83.36)",
+        "key_price": 88.07,
         "above_key_price": false,
         "entry_trigger_price": 94.03,
         "sl_price": 94.03,
-        "tp_price": 96.64,
+        "tp_price": 94.19,
         "out_in_ratio": 1.15
       }
     },
@@ -27501,13 +27501,13 @@
       "prev_close": 440.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 434.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 344.00 < 年線 413.99)",
+        "key_price": 427.83,
         "above_key_price": false,
         "entry_trigger_price": 492.07,
         "sl_price": 492.07,
-        "tp_price": 405.92,
+        "tp_price": 395.6,
         "out_in_ratio": 0.6
       }
     },
@@ -27606,7 +27606,7 @@
       "gap_up": false,
       "k_pattern": null,
       "vol_surge": false,
-      "score": 55,
+      "score": 50,
       "ma200": 160.86,
       "engine": "Gen24-AntiBullTrap",
       "psc_live": {
@@ -27631,12 +27631,12 @@
       "prev_close": 185.5,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 181.17,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 171.50 < 季線 177.63)",
+        "key_price": 181.67,
         "above_key_price": false,
-        "entry_trigger_price": 181.17,
+        "entry_trigger_price": 181.67,
         "sl_price": 177.63,
-        "tp_price": 202.37,
+        "tp_price": 197.22,
         "out_in_ratio": 0.51
       },
       "erc_weight": 0.0
@@ -27762,13 +27762,13 @@
       "prev_close": 257.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 256.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 226.50 < 年線 247.06)",
+        "key_price": 253.67,
         "above_key_price": false,
         "entry_trigger_price": 267.8,
         "sl_price": 267.8,
-        "tp_price": 267.27,
+        "tp_price": 260.47,
         "out_in_ratio": 0.68
       }
     },
@@ -27913,17 +27913,13 @@
       "prev_low": 182.0,
       "prev_close": 188.5,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (-8.2% / 外內盤 0.30x)",
-        "key_price": 181.5,
+        "gate_status": "ISOLATED_EVENT_SPIKE",
+        "gate_label": "⚠️ 單日極端波動/財報事件隔離 (-9.9%)：嚴禁盲目追高",
+        "key_price": 188.67,
         "above_key_price": false,
-        "is_bull_trap_risk": true,
-        "days_above_ma60": 5,
-        "ma20_up": false,
-        "chg_1d": -8.22,
-        "entry_trigger_price": 181.5,
+        "entry_trigger_price": 188.67,
         "sl_price": 174.42,
-        "tp_price": 209.45,
+        "tp_price": 204.12,
         "out_in_ratio": 0.3
       },
       "erc_weight": 0.0,
@@ -28052,13 +28048,13 @@
       "prev_close": 379.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 371.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 295.50 < 年線 484.72)",
+        "key_price": 365.17,
         "above_key_price": false,
         "entry_trigger_price": 510.78,
         "sl_price": 510.78,
-        "tp_price": 348.69,
+        "tp_price": 339.82,
         "out_in_ratio": 0.33
       }
     },
@@ -28207,13 +28203,13 @@
       "prev_close": 364.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 350.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 272.50 < 年線 474.15)",
+        "key_price": 342.0,
         "above_key_price": false,
         "entry_trigger_price": 440.02,
         "sl_price": 440.02,
-        "tp_price": 321.55,
+        "tp_price": 313.38,
         "out_in_ratio": 0.28
       }
     },
@@ -28337,13 +28333,13 @@
       "prev_close": 54.4,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 53.8,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 49.30 < 年線 61.88)",
+        "key_price": 53.0,
         "above_key_price": false,
         "entry_trigger_price": 57.06,
         "sl_price": 57.06,
-        "tp_price": 58.17,
+        "tp_price": 56.69,
         "out_in_ratio": 0.48
       }
     },
@@ -28485,13 +28481,13 @@
       "prev_close": 267.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 268.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 226.00 < 年線 350.84)",
+        "key_price": 261.67,
         "above_key_price": false,
         "entry_trigger_price": 288.17,
         "sl_price": 288.17,
-        "tp_price": 266.68,
+        "tp_price": 259.9,
         "out_in_ratio": 0.7
       }
     },
@@ -28633,13 +28629,13 @@
       "prev_close": 1165.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1156.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1180.00 < 年線 1339.26)",
+        "key_price": 1171.67,
         "above_key_price": true,
         "entry_trigger_price": 1399.0,
         "sl_price": 1399.0,
-        "tp_price": 1392.4,
+        "tp_price": 1357.0,
         "out_in_ratio": 0.84
       }
     },
@@ -28766,13 +28762,13 @@
       "prev_close": 960.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 947.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 772.00 < 年線 1254.75)",
+        "key_price": 932.67,
         "above_key_price": false,
         "entry_trigger_price": 1213.19,
         "sl_price": 1213.19,
-        "tp_price": 910.96,
+        "tp_price": 887.8,
         "out_in_ratio": 0.73
       }
     },
@@ -28897,13 +28893,13 @@
       "prev_close": 103.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 102.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 99.50 < 年線 105.88)",
+        "key_price": 101.53,
         "above_key_price": false,
         "entry_trigger_price": 108.3,
         "sl_price": 108.3,
-        "tp_price": 117.41,
+        "tp_price": 114.42,
         "out_in_ratio": 0.99
       }
     },
@@ -29046,13 +29042,13 @@
       "prev_low": 55.3,
       "prev_close": 58.4,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 57.97,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 43.00 < 年線 44.91)",
+        "key_price": 54.17,
         "above_key_price": false,
-        "entry_trigger_price": 57.97,
+        "entry_trigger_price": 54.17,
         "sl_price": 48.18,
-        "tp_price": 50.74,
+        "tp_price": 49.45,
         "out_in_ratio": 0.46
       },
       "erc_weight": 0.0
@@ -29198,13 +29194,13 @@
       "prev_close": 618.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 612.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 549.00 < 年線 683.99)",
+        "key_price": 610.0,
         "above_key_price": false,
         "entry_trigger_price": 694.26,
         "sl_price": 694.26,
-        "tp_price": 647.82,
+        "tp_price": 631.35,
         "out_in_ratio": 0.97
       }
     },
@@ -29348,13 +29344,13 @@
       "prev_close": 59.3,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 57.93,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 48.20 < 年線 65.60)",
+        "key_price": 57.37,
         "above_key_price": false,
         "entry_trigger_price": 64.48,
         "sl_price": 64.48,
-        "tp_price": 56.88,
+        "tp_price": 55.43,
         "out_in_ratio": 0.4
       }
     },
@@ -29478,13 +29474,13 @@
       "prev_close": 116.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 115.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 110.00 < 年線 118.89)",
+        "key_price": 115.33,
         "above_key_price": false,
         "entry_trigger_price": 131.59,
         "sl_price": 131.59,
-        "tp_price": 129.8,
+        "tp_price": 126.5,
         "out_in_ratio": 0.61
       }
     },
@@ -29629,12 +29625,12 @@
       "erc_weight": 0.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 527.0,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 395.00 < 季線 612.17)",
+        "key_price": 510.33,
         "above_key_price": false,
         "entry_trigger_price": 612.17,
         "sl_price": 612.17,
-        "tp_price": 466.1,
+        "tp_price": 454.25,
         "out_in_ratio": 0.37
       }
     },
@@ -29761,13 +29757,13 @@
       "prev_close": 205.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 195.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 159.00 < 年線 240.45)",
+        "key_price": 191.5,
         "above_key_price": false,
         "entry_trigger_price": 219.93,
         "sl_price": 219.93,
-        "tp_price": 187.62,
+        "tp_price": 182.85,
         "out_in_ratio": 0.61
       }
     },
@@ -29909,13 +29905,13 @@
       "prev_close": 251.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 246.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 201.50 < 年線 260.64)",
+        "key_price": 243.33,
         "above_key_price": false,
         "entry_trigger_price": 269.26,
         "sl_price": 269.26,
-        "tp_price": 237.77,
+        "tp_price": 231.72,
         "out_in_ratio": 0.9
       }
     },
@@ -30042,12 +30038,12 @@
       "prev_close": 92.8,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 89.83,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 79.40 < 季線 85.70)",
+        "key_price": 88.53,
         "above_key_price": false,
-        "entry_trigger_price": 89.83,
+        "entry_trigger_price": 88.53,
         "sl_price": 85.7,
-        "tp_price": 93.69,
+        "tp_price": 91.31,
         "out_in_ratio": 0.45
       },
       "erc_weight": 0.0
@@ -30175,13 +30171,13 @@
       "prev_close": 974.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 955.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 692.00 < 年線 1183.02)",
+        "key_price": 918.67,
         "above_key_price": false,
         "entry_trigger_price": 1361.37,
         "sl_price": 1361.37,
-        "tp_price": 816.56,
+        "tp_price": 795.8,
         "out_in_ratio": 0.42
       }
     },
@@ -30305,13 +30301,13 @@
       "prev_close": 193.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 192.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 191.00 < 年線 226.47)",
+        "key_price": 198.0,
         "above_key_price": false,
         "entry_trigger_price": 227.82,
         "sl_price": 227.82,
-        "tp_price": 225.38,
+        "tp_price": 219.65,
         "out_in_ratio": 1.06
       }
     },
@@ -30435,13 +30431,13 @@
       "prev_close": 336.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 333.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 314.50 < 年線 348.47)",
+        "key_price": 332.67,
         "above_key_price": false,
         "entry_trigger_price": 376.23,
         "sl_price": 376.23,
-        "tp_price": 371.11,
+        "tp_price": 361.67,
         "out_in_ratio": 1.21
       }
     },
@@ -30565,13 +30561,13 @@
       "prev_close": 437.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 432.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 308.00 < 年線 422.20)",
+        "key_price": 412.17,
         "above_key_price": false,
         "entry_trigger_price": 439.59,
         "sl_price": 439.59,
-        "tp_price": 363.44,
+        "tp_price": 354.2,
         "out_in_ratio": 0.85
       }
     },
@@ -30716,13 +30712,13 @@
       "prev_close": 1160.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 959.00 < 年線 1681.52)",
         "key_price": 1130.0,
         "above_key_price": false,
         "entry_trigger_price": 1473.98,
         "sl_price": 1473.98,
-        "tp_price": 1131.62,
+        "tp_price": 1102.85,
         "out_in_ratio": 0.45
       }
     },
@@ -30846,12 +30842,12 @@
       "prev_close": 1380.0,
       "auto_order": {
         "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1361.67,
+        "gate_label": "🔴 破季線熔斷禁買 (現價 1205.00 < 季線 1263.83)",
+        "key_price": 1340.0,
         "above_key_price": false,
-        "entry_trigger_price": 1361.67,
+        "entry_trigger_price": 1340.0,
         "sl_price": 1263.83,
-        "tp_price": 1421.9,
+        "tp_price": 1385.75,
         "out_in_ratio": 0.81
       },
       "erc_weight": 0.0
@@ -30997,13 +30993,13 @@
       "prev_close": 285.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 277.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 208.50 < 年線 396.40)",
+        "key_price": 270.33,
         "above_key_price": false,
         "entry_trigger_price": 377.8,
         "sl_price": 377.8,
-        "tp_price": 246.03,
+        "tp_price": 239.77,
         "out_in_ratio": 0.3
       }
     },
@@ -31148,13 +31144,13 @@
       "prev_close": 4115.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 4053.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 3205.00 < 年線 6855.19)",
+        "key_price": 3996.67,
         "above_key_price": false,
         "entry_trigger_price": 5452.17,
         "sl_price": 5452.17,
-        "tp_price": 3781.9,
+        "tp_price": 3685.75,
         "out_in_ratio": 0.59
       }
     },
@@ -31278,13 +31274,13 @@
       "prev_close": 716.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 699.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 536.00 < 年線 781.83)",
+        "key_price": 682.33,
         "above_key_price": false,
         "entry_trigger_price": 860.5,
         "sl_price": 860.5,
-        "tp_price": 632.48,
+        "tp_price": 616.4,
         "out_in_ratio": 0.43
       }
     },
@@ -31428,13 +31424,13 @@
       "prev_close": 249.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 243.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 213.00 < 年線 233.06)",
+        "key_price": 239.0,
         "above_key_price": false,
         "entry_trigger_price": 270.98,
         "sl_price": 270.98,
-        "tp_price": 251.34,
+        "tp_price": 244.95,
         "out_in_ratio": 0.67
       }
     },
@@ -31558,13 +31554,13 @@
       "prev_close": 1635.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1611.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1410.00 < 年線 1691.58)",
+        "key_price": 1596.67,
         "above_key_price": false,
         "entry_trigger_price": 2041.22,
         "sl_price": 2041.22,
-        "tp_price": 1663.8,
+        "tp_price": 1621.5,
         "out_in_ratio": 0.57
       }
     },
@@ -31688,13 +31684,13 @@
       "prev_close": 166.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 164.67,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 162.00 < 年線 197.16)",
+        "key_price": 165.5,
         "above_key_price": false,
         "entry_trigger_price": 181.26,
         "sl_price": 181.26,
-        "tp_price": 191.16,
+        "tp_price": 186.3,
         "out_in_ratio": 0.29
       }
     },
@@ -31851,13 +31847,13 @@
       "prev_low": 237.5,
       "prev_close": 248.5,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 245.5,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 210.00 < 年線 217.81)",
+        "key_price": 237.67,
         "above_key_price": false,
         "entry_trigger_price": 248.31,
         "sl_price": 248.31,
-        "tp_price": 247.8,
+        "tp_price": 241.5,
         "out_in_ratio": 0.59
       },
       "erc_weight": 0.0
@@ -31982,13 +31978,13 @@
       "prev_close": 255.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 252.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 240.00 < 年線 258.10)",
+        "key_price": 253.83,
         "above_key_price": false,
         "entry_trigger_price": 282.49,
         "sl_price": 282.49,
-        "tp_price": 283.2,
+        "tp_price": 276.0,
         "out_in_ratio": 1.17
       }
     },
@@ -32112,13 +32108,13 @@
       "prev_close": 203.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 198.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 152.50 < 年線 242.21)",
+        "key_price": 194.0,
         "above_key_price": false,
         "entry_trigger_price": 242.22,
         "sl_price": 242.22,
-        "tp_price": 179.95,
+        "tp_price": 175.38,
         "out_in_ratio": 0.53
       }
     },
@@ -32263,13 +32259,13 @@
       "prev_close": 145.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 142.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 118.00 < 年線 159.36)",
+        "key_price": 139.83,
         "above_key_price": false,
         "entry_trigger_price": 163.8,
         "sl_price": 163.8,
-        "tp_price": 139.24,
+        "tp_price": 135.7,
         "out_in_ratio": 0.6
       }
     },
@@ -32393,13 +32389,13 @@
       "prev_close": 977.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 970.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 698.00 < 年線 921.15)",
+        "key_price": 930.33,
         "above_key_price": false,
         "entry_trigger_price": 1175.32,
         "sl_price": 1175.32,
-        "tp_price": 823.64,
+        "tp_price": 802.7,
         "out_in_ratio": 0.44
       }
     },
@@ -32526,13 +32522,13 @@
       "prev_close": 146.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 142.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 132.50 < 年線 166.69)",
+        "key_price": 142.0,
         "above_key_price": false,
         "entry_trigger_price": 148.82,
         "sl_price": 148.82,
-        "tp_price": 156.35,
+        "tp_price": 152.38,
         "out_in_ratio": 0.92
       }
     },
@@ -32656,13 +32652,13 @@
       "prev_close": 155.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 143.50 < 年線 185.68)",
         "key_price": 153.17,
         "above_key_price": false,
         "entry_trigger_price": 176.39,
         "sl_price": 176.39,
-        "tp_price": 169.33,
+        "tp_price": 165.02,
         "out_in_ratio": 0.47
       }
     },
@@ -32804,13 +32800,13 @@
       "prev_close": 84.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 82.83,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 67.50 < 年線 84.27)",
+        "key_price": 81.7,
         "above_key_price": false,
         "entry_trigger_price": 96.06,
         "sl_price": 96.06,
-        "tp_price": 79.65,
+        "tp_price": 77.62,
         "out_in_ratio": 0.7
       }
     },
@@ -32934,13 +32930,13 @@
       "prev_close": 599.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 592.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 471.00 < 年線 1017.29)",
+        "key_price": 579.0,
         "above_key_price": false,
         "entry_trigger_price": 816.92,
         "sl_price": 816.92,
-        "tp_price": 555.78,
+        "tp_price": 541.65,
         "out_in_ratio": 0.87
       }
     },
@@ -33098,13 +33094,13 @@
       "prev_close": 1640.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 1633.33,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 1455.00 < 年線 2015.57)",
+        "key_price": 1626.67,
         "above_key_price": false,
         "entry_trigger_price": 1951.17,
         "sl_price": 1951.17,
-        "tp_price": 1716.9,
+        "tp_price": 1673.25,
         "out_in_ratio": 0.75
       }
     },
@@ -33253,13 +33249,13 @@
       "prev_close": 376.5,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 370.0,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 274.00 < 年線 412.80)",
+        "key_price": 357.5,
         "above_key_price": false,
         "entry_trigger_price": 458.21,
         "sl_price": 458.21,
-        "tp_price": 323.32,
+        "tp_price": 315.1,
         "out_in_ratio": 0.35
       }
     },
@@ -33383,13 +33379,13 @@
       "prev_close": 235.0,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 228.17,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 216.50 < 年線 229.42)",
+        "key_price": 224.67,
         "above_key_price": false,
         "entry_trigger_price": 240.62,
         "sl_price": 240.62,
-        "tp_price": 255.47,
+        "tp_price": 248.97,
         "out_in_ratio": 0.5
       }
     },
@@ -33533,13 +33529,13 @@
       "prev_close": 85.7,
       "erc_weight": 0.0,
       "auto_order": {
-        "gate_status": "BLOCKED_BELOW_MA60",
-        "gate_label": "🔴 盤中跌破季線熔斷禁買",
-        "key_price": 86.27,
+        "gate_status": "BLOCKED_BELOW_MA240",
+        "gate_label": "🔴 破年線深淵禁買 (現價 79.50 < 年線 81.73)",
+        "key_price": 84.67,
         "above_key_price": false,
         "entry_trigger_price": 92.45,
         "sl_price": 92.45,
-        "tp_price": 93.81,
+        "tp_price": 91.42,
         "out_in_ratio": 0.67
       }
     },
@@ -33662,23 +33658,23 @@
       "prev_low": 49.7,
       "prev_close": 51.6,
       "auto_order": {
-        "gate_status": "BLOCKED_INTRADAY_CRASH",
-        "gate_label": "🔴 盤中急殺/內盤倒貨熔斷 (-0.2% / 外內盤 0.59x)",
-        "key_price": 50.77,
+        "gate_status": "BLOCKED_ICE_AGE_HIGH_VOL",
+        "gate_label": "🛡️ 大盤廣度僅 13.5% (<25%) 冰河鎖倉：高波動股 (年化波動 40.3%) 暫停開槍",
+        "key_price": 53.23,
         "above_key_price": true,
-        "is_bull_trap_risk": true,
+        "ann_vol": 40.3,
         "days_above_ma60": 5,
         "ma20_up": true,
-        "chg_1d": -0.19,
-        "entry_trigger_price": 50.77,
+        "chg_1d": -1.57,
+        "entry_trigger_price": 53.23,
         "sl_price": 43.66,
-        "tp_price": 66.79,
+        "tp_price": 65.09,
         "out_in_ratio": 0.59
       },
       "erc_weight": 0.0
     }
   ],
-  "last_updated": "2026-11-19 19:16:09",
+  "last_updated": "2026-11-19 19:16:24",
   "indices": {
     "US VIX (恐慌)": {
       "close": 24.56
@@ -33810,8 +33806,8 @@
   },
   "update_sources": "統一證券金贏島 62欄原生DATA + V4-Yen雙師演算法 + Gen26正統雙師嚴審閉環",
   "taifex_oi": -97896,
-  "updated_at": "2026-11-19 19:16:09",
-  "engine": "V4-Yen × Gen26-AutoOrderGate (3-Stage Execution Gate + KeyPrice + 6D Chips + CMF20)",
+  "updated_at": "2026-11-19 19:16:24",
+  "engine": "V4-Yen × Dr.Tsun Gen26-Orthodox (Macro Breadth Gate + Full Multi-Factor + Atomic Write)",
   "history_pool": {
     "db_path": "D:\\PSC_Quant_DB\\market_history.db",
     "symbols_synced": 260,
@@ -33821,24 +33817,25 @@
   },
   "market_regime": {
     "code": "BEAR_LIQUIDITY_CRISIS",
-    "label": "空頭流動性危機警戒",
-    "confidence": 61.42,
+    "label": "空頭流動性危機警戒（冰河期防禦鎖倉）",
+    "confidence": 72.5,
     "tone": "red",
-    "cash_pct": 60.0,
-    "equity_pct": 40.0,
+    "cash_pct": 75.0,
+    "equity_pct": 25.0,
     "orb_mode": "熔斷暫停 (0%)",
-    "foreign_oi": -99438,
+    "foreign_oi": -97896,
     "tw_vix": 28.25,
     "tw_breadth_60ma": 5.8,
     "us_breadth_60ma": 22.3,
     "total_breadth_60ma": 13.5,
     "taiex_above_ma60": false,
     "probs": {
-      "crisis": 61.42,
-      "shakeout": 11.97,
-      "consolidation": 13.3,
-      "expansion": 13.31
-    }
+      "crisis": 72.5,
+      "shakeout": 12.5,
+      "consolidation": 8.0,
+      "expansion": 7.0
+    },
+    "note": "目前全市場僅 13.5%（台股 5.8% / 美股 22.3%）站穩季線 (<25%)，雙師強制啟動冰河期防禦鎖倉：總持股上限 ≤ 25%、現金下限 ≥ 75%！"
   },
   "quant_advisor": {
     "us": [],
@@ -33870,16 +33867,19 @@
     "trade_date": "2026-11-19",
     "bars_synced": 260,
     "signals_logged_today": 1,
-    "evaluated_now": 0,
-    "total_logged": 4754,
+    "evaluated_now": 260,
+    "total_logged": 4753,
     "total_evaluated": 4725,
     "ledger_win_rate_5d": 54.7,
     "ledger_avg_ret_5d": 2.21,
     "ledger_win_rate_20d": 68.93,
     "ledger_avg_ret_20d": 10.21,
+    "shadow_testing_hypotheses": [
+      "PANW Intraday Out/In Ratio >= 1.35x (Pending OOS Walk-Forward Validation)"
+    ],
     "evolution_report": {
       "gen_version": 26,
-      "rule_name": "Gen26-FalconArmor (獵鷹突破與裝甲避坑雙閉環：PANW大單推土機動能 ＋ UNH/BE破季線年線雙熔斷 ＋ 20日相對大盤強勢)",
+      "rule_name": "Gen26-Orthodox (雙師正統嚴審版：大盤廣度鎖倉閘門 ＋ 完整多因子 ＋ 事件隔離 ＋ Atomic Write)",
       "baseline_trades": 4725,
       "baseline_wr_5d": 50.77,
       "baseline_exp_5d": 1.15,
@@ -33895,19 +33895,24 @@
         "no_tr_exp20": 3.13,
         "whale_tdcc_wr20": 58.33,
         "retail_tdcc_wr20": 53.83,
-        "filtered_out_today": 8,
+        "filtered_out_today": 236,
+        "market_breadth_ma60_pct": 13.5,
+        "blocked_ma60": 46,
+        "blocked_ma240": 184,
+        "blocked_ice_age_high_vol": 6,
+        "event_isolated": 1,
         "self_audit_log": [
-          "Iter 1 [實盤漏洞巡檢與血訓覆盤]: 覆盤 11/18~11/19 UNH(破季線與年線單日暴跌-10.07%/兩天累計-15%)與 BE(摜穿年線206元摔至169元)之落體飛刀教訓，確立「破季線/年線一票否決裝甲熔斷 (Broken MA Hard Filter)」！",
-          "Iter 2 [實盤封神捕獲驗證：PANW 獵鷹突破動能]: 11/19 凌晨 02:26 盤中大單推土機掃描鎖定 PANW (外內盤比 1.50x / 大單淨流入超 1,300 萬美元 / 跳空站上 VWAP)，收盤大漲 +8.30% 收最高 334.95 元，盤後財報暴衝至 +9.9% (360+ 元)！驗證「Falcon-Momentum 獵鷹突破動能因子」極度有效！",
-          "Iter 3 [Gen 26 雙閉環升級發布]: 疊加「獵鷹突破動能因子 (外內盤比≥1.35x + 突破VWAP + 族群共振)」與「破季線年線雙裝甲熔斷 (MA60/MA240 Hard Stop)」，20日勝率達 68.93%、20日期望報酬穩居 +10.21%！",
-          "Iter 3 [Gen 26 獵鷹突破與裝甲避坑雙閉環佈署完成]: 注入「PANW 獵鷹突破動能 (外內盤≥1.35x + 關鍵價) + UNH/BE 破季線年線雙裝甲熔斷」，嚴選出真金白銀 Strong Buy 0 檔 / 待命 Buy 1 檔！"
+          "Audit 1 [大盤廣度總閘門啟動]: 實測全市場 260 檔僅 13.5% (台股 5.8% / 美股 22.3%) 站上季線 (<25%)，自動觸發「冰河期防禦鎖倉 (現金下限 75%)」，攔截 6 檔高波動攻擊股 (含 3661 世芯-KY、4977 眾達-KY)！",
+          "Audit 2 [還原正統多因子＋雙均線防禦]: 全面恢復三率三升、法人籌碼、歷史勝率 ≥ 60%、月線翻揚向上與連站季線 ≥ 3 日；雙均線裝甲攔截 46 檔破季線 ＋ 184 檔破年線 (含 UNH/BE)。",
+          "Audit 3 [拒絕偽演化與事後諸葛]: 隔離 1 檔單日極端事件波動股；PANW 盤中外內盤比動能因子列為 [Shadow Testing 影子測試]，必須待 D 槽 109 萬筆歷史 K 線完成樣本外 (OOS) 驗證後才准正式加權。",
+          "Audit 4 [工程防呆升級]: psc_qquant_bridge.py 與 rsi_closed_loop.py 全面升級為 Atomic Write (原子寫入)，並補齊全站 Schema 零 undefined / 零 --%！"
         ]
       },
       "active_rules_injected": [
-        "【Gen 26 獵鷹突破動能因子 (PANW 封神實證)】金贏島外內盤比 ≥ 1.35x 且站上阿村伯開盤關鍵價、今日漲幅 ≥ 2.0% 且 CMF-20 > 0 者，自動觸發獵鷹突破動能加權，精準鎖定主升段大牛！",
-        "【Gen 26 雙均線防禦裝甲 (UNH/BE 破線熔斷)】顏春煌老師葛蘭碧走圖鐵律：凡現價 < 60MA 季線或 < 240MA 年線者，一票否決直接標註 Avoid 禁買，徹底杜絕接下墜飛刀！",
-        "【實證突破：20日期望值穩居雙位數 +10.21%】4,725 筆帳本交叉 109 萬筆日 K 驗證：疊加「20日相對大盤強勢 > 0%」將 20 日勝率推升至 68.93%、期望值達 +10.21%！",
-        "【卡片內建下單規格書】每檔股票直接寫入 auto_order 規格（開盤關鍵價、回測觸發限價、60MA 剛性停損價 SL、波段目標價 TP），前端與金贏島下單機 100% 同步！"
+        "【大盤廣度總閘門 (目前 13.5%)】市場站上季線比例 < 25% 時，強制切換為「冰河期防禦鎖倉」，總持股上限 ≤ 25%（現金下限 75%），僅放行年化波動 ≤ 32% 之低 Beta 防禦股！",
+        "【雙均線裝甲＋季線斜率保護】凡現價 < 60MA 或 < 240MA 一票否決 (攔截 230 檔)，且必須滿足月線翻揚、連站季線 ≥ 3 日、尾盤確認進場！",
+        "【事件/財報隔離保護】單日振幅 ≥ 6.5% 之事件/財報股與常規波段徹底隔離，不拿財報盲盒當一般突破追進。",
+        "【誠實量化紀律 (防過度擬合)】所有未經樣本外 (OOS) 回測驗證之單日經驗 (如 PANW 動能) 僅列影子觀察，不擅自修改已驗證之 Gen 25 回測基準 (20日勝率 68.93% / 期望值 +10.21%)。"
       ],
       "strong_buy_after_rsi": 0,
       "buy_after_rsi": 1
