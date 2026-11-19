@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   ShieldCheck, AlertTriangle, TrendingUp, TrendingDown, Target, 
   Cpu, Zap, PieChart, Coins, ArrowUpRight, CheckCircle2, 
@@ -318,6 +318,14 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
   const [totalCapital, setTotalCapital] = useState(100); // 預設 100 萬元實戰本金
   const [filterType, setFilterType] = useState('all'); // 'all', 'buy', 'avoid'
   const [universeMode, setUniverseMode] = useState('cross'); // 'us' (純美股 ERC 2.0) | 'cross' (台美跨市場 2.0)
+  const cardsGridRef = useRef(null);
+
+  const handleFilterChange = (nextType) => {
+    setFilterType(nextType);
+    if (cardsGridRef.current) {
+      cardsGridRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
 
   const mr = stocks?.market_regime;
   const rsiInfo = stocks?.rsi_loop;
@@ -603,14 +611,16 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex items-center gap-1 p-1 bg-[#1A2026] rounded-xl border border-amber-500/30 text-xs font-black">
               <button
+                type="button"
                 onClick={() => setUniverseMode('us')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${universeMode === 'us' ? 'bg-amber-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${universeMode === 'us' ? 'bg-amber-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
               >
                 🇺🇸 純美股 ERC 2.0
               </button>
               <button
+                type="button"
                 onClick={() => setUniverseMode('cross')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${universeMode === 'cross' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${universeMode === 'cross' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
               >
                 🌐 台美跨市場 2.0
               </button>
@@ -618,20 +628,23 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
 
             <div className="flex items-center gap-1.5 p-1 bg-[#1A2026] rounded-xl border border-white/10 text-xs font-black">
               <button
-                onClick={() => setFilterType('all')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'all' ? 'bg-white/10 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+                type="button"
+                onClick={() => handleFilterChange('all')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${filterType === 'all' ? 'bg-sky-600 text-white shadow-md ring-1 ring-sky-400/50' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
               >
                 全部標的 ({activeRecs.length})
               </button>
               <button
-                onClick={() => setFilterType('buy')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'buy' ? 'bg-emerald-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+                type="button"
+                onClick={() => handleFilterChange('buy')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${filterType === 'buy' ? 'bg-emerald-600 text-white shadow-md ring-1 ring-emerald-400/50' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
               >
                 推薦配置 ({activeRecs.filter(r => r.weightPct > 0).length})
               </button>
               <button
-                onClick={() => setFilterType('avoid')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${filterType === 'avoid' ? 'bg-red-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+                type="button"
+                onClick={() => handleFilterChange('avoid')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${filterType === 'avoid' ? 'bg-red-600 text-white shadow-md ring-1 ring-red-400/50' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
               >
                 衛星 / 剔除 ({activeRecs.filter(r => r.weightPct === 0).length})
               </button>
@@ -640,7 +653,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
         </div>
 
         {/* 推薦卡片列表 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div ref={cardsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredRecs.map((rec) => {
             const cleanSym = rec.symbol.replace(/\.TWO?$/, '');
             let liveStock = null;
