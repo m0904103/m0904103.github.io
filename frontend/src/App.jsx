@@ -130,6 +130,7 @@ function App() {
           market_regime: stockData.market_regime,
           quant_advisor: stockData.quant_advisor,
           rsi_loop: stockData.rsi_loop,
+          tri_resonance_summary: stockData.tri_resonance_summary,
         };
       } else if (!stockData || !stockData.tw) {
         // Fallback to prevent TypeError in render if data is corrupted
@@ -538,6 +539,70 @@ function App() {
               <div className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white text-xs font-black group-hover:from-red-500 group-hover:to-amber-500 transition-all shrink-0 shadow-lg shadow-red-600/30">
                 <span>查看 2026 推薦參考</span>
                 <ArrowRight size={14} />
+              </div>
+            </div>
+          );
+        })()}
+        {/* 📡 Gen27 雙師三週期多空共振溫度計 (阿村伯 週/日/60分K × 顏老師尾盤確認) */}
+        {(() => {
+          const tri = stocks?.tri_resonance_summary;
+          if (!tri) return null;
+          const twBull = (tri.tw?.tri_bull || 0) + (tri.tw?.dual_bull || 0);
+          const twBear = (tri.tw?.tri_bear || 0) + (tri.tw?.dual_bear || 0);
+          const usBull = (tri.us?.tri_bull || 0) + (tri.us?.dual_bull || 0);
+          const usBear = (tri.us?.tri_bear || 0) + (tri.us?.dual_bear || 0);
+          const isBearDom = (twBear + usBear) > (twBull + usBull) * 2;
+          return (
+            <div className={`w-full p-4 rounded-2xl border shadow-xl ${isBearDom ? 'bg-[#171119]/95 border-rose-500/40' : 'bg-[#10191C]/95 border-cyan-500/40'}`}>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-sm font-black text-cyan-300">
+                    📡 【Gen27 雙師三週期共振溫度計】週 K × 日 K × 60 分 K
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                    阿村伯音叉共振 × 顏老師 13:15 尾盤確認
+                  </span>
+                </div>
+                <span className="text-[11px] text-gray-400 font-mono">
+                  掃描時間：{tri.updated_at || '--'}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-black/30 border border-white/10">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-bold text-gray-200">🇹🇼 台股三週期共振比</span>
+                    <span className="font-mono font-black">
+                      <span className="text-emerald-400">多頭 {twBull} 檔</span>
+                      <span className="text-gray-500 mx-1.5">vs</span>
+                      <span className="text-rose-400">空頭 {twBear} 檔</span>
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-gray-400">
+                    🟢 多頭共振：{tri.tw?.bull_list?.length ? tri.tw.bull_list.slice(0, 5).map(x => `${x.symbol.replace('.TW','')} ${x.name}`).join('、') : '目前 0 檔（全面防禦）'}
+                  </div>
+                  <div className="text-[11px] text-rose-300/80 mt-1 truncate">
+                    🔴 空頭防雷（禁買）：{tri.tw?.bear_list?.length ? tri.tw.bear_list.slice(0, 6).map(x => `${x.symbol.replace('.TW','')} ${x.name}`).join('、') : '無'}
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-black/30 border border-white/10">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-bold text-gray-200">🇺🇸 美股三週期共振比</span>
+                    <span className="font-mono font-black">
+                      <span className="text-emerald-400">多頭 {usBull} 檔</span>
+                      <span className="text-gray-500 mx-1.5">vs</span>
+                      <span className="text-rose-400">空頭 {usBear} 檔</span>
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-gray-400">
+                    🟢 多頭共振：{tri.us?.bull_list?.length ? tri.us.bull_list.slice(0, 5).map(x => `${x.symbol}`).join('、') : '目前 0 檔（全面防禦）'}
+                  </div>
+                  <div className="text-[11px] text-rose-300/80 mt-1 truncate">
+                    🔴 空頭防雷（禁買）：{tri.us?.bear_list?.length ? tri.us.bear_list.slice(0, 6).map(x => `${x.symbol}`).join('、') : '無'}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2.5 text-[11px] text-amber-300/90 flex items-center gap-1.5">
+                <span>🛡️ 雙師鐵律：凡「週K＋日K 雙空頭共振」系統一票否決禁買；60 分 K 僅作確認燈號，波段進場仍嚴守顏老師 13:15 尾盤確認與買進日低點停損！</span>
               </div>
             </div>
           );
