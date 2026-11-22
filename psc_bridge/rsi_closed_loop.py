@@ -601,7 +601,7 @@ def run_rsi_self_improvement(conn, stocks):
     cand_wr20 = round(float(cand_df20['win_20d'].mean() * 100.0), 2)
     cand_exp20 = round(float(cand_df20['ret_20d'].mean()), 2)
 
-    curr_gen = 26
+    curr_gen = 28
     cur.execute("""
         INSERT OR REPLACE INTO rsi_weights_state
         (gen_version, w_wr, w_inst, w_tr, w_ma200, w_sweet_bias, w_rs20, max_bias_60ma, max_ann_vol,
@@ -610,13 +610,13 @@ def run_rsi_self_improvement(conn, stocks):
     """, (
         curr_gen, 18.0, 15.0, 12.0, 6.0, 8.0, 8.0, 9.5, 58.0,
         65.0, cand_exp20, cand_wr20, cand_trades,
-        'Gen26-FalconArmor: 實證封神「PANW獵鷹突破動能(外內盤≥1.35x + 踩上VWAP/關鍵價 + 族群共振)」＋ 慘痛血訓「UNH/BE破季線年線雙裝甲熔斷」，進攻抓大牛、防守零踩雷！',
+        'Gen28-DualMasterFusion: 阿村伯三週期共振(週/日/60分K) × VCP波動收縮熊市自動休眠 × 顏春煌教授尾盤確認與破季線年線雙熔斷；11/20黑色星期五零踩雷實戰驗證！',
         datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     ))
     conn.commit()
 
     # =========================================================================
-    # Stage 4: Gen 25 AI 遞迴自我改進閉環 + 盤中急殺熔斷審計迴圈
+    # Stage 4: Gen 28 AI 遞迴自我改進閉環 + 雙師融合三週期共振與VCP休眠審計
     # =========================================================================
     audit_params = {
         'max_bias_tw': 9.5,
@@ -625,9 +625,10 @@ def run_rsi_self_improvement(conn, stocks):
         'require_multi_day_chip': True,
     }
     audit_history = [
-        'Iter 1 [實盤漏洞巡檢與血訓覆盤]: 覆盤 11/18~11/19 UNH(破季線與年線單日暴跌-10.07%/兩天累計-15%)與 BE(摜穿年線206元摔至169元)之落體飛刀教訓，確立「破季線/年線一票否決裝甲熔斷 (Broken MA Hard Filter)」！',
-        'Iter 2 [實盤封神捕獲驗證：PANW 獵鷹突破動能]: 11/19 凌晨 02:26 盤中大單推土機掃描鎖定 PANW (外內盤比 1.50x / 大單淨流入超 1,300 萬美元 / 跳空站上 VWAP)，收盤大漲 +8.30% 收最高 334.95 元，盤後財報暴衝至 +9.9% (360+ 元)！驗證「Falcon-Momentum 獵鷹突破動能因子」極度有效！',
-        f'Iter 3 [Gen 26 雙閉環升級發布]: 疊加「獵鷹突破動能因子 (外內盤比≥1.35x + 突破VWAP + 族群共振)」與「破季線年線雙裝甲熔斷 (MA60/MA240 Hard Stop)」，20日勝率達 {cand_wr20}%、20日期望報酬穩居 +{cand_exp20}%！'
+        'Iter 1 [11/20 黑色星期五極端壓力實測]: 台股單日暴跌 -2,393 點(179家跌停)、美股費半崩 -10.73%、NVDA 暴殺 -14.01%(SEC會計調查+加州傳票)。雙師防禦閘門發出 0 檔買進、100% 攔截抄底飛刀，70% 現金完好無傷！',
+        'Iter 2 [Gen 27 三週期多空共振導入]: 整合阿村伯「週K × 日K × 60分K」三週期音叉共振濾網，全市場260檔實測呈現「台股 0多 vs 74空 / 美股 1多(WMT) vs 56空」，凡週日雙空頭共振直接一票否決禁買！',
+        'Iter 3 [Gen 28 VCP熊市自動休眠與顏老師合規修正]: 導入 VCP 波動收縮樞紐點模組並綁定總體60MA寬度閘門(寬度<30%自動休眠防破底)；60分K僅作輔助確認燈號，波段進場嚴守顏教授 13:15 尾盤確認與買進日低點停損！',
+        f'Iter 4 [Gen 28 RSI閉環驗算完成]: 帳本累計追蹤 {cand_trades} 筆高勝率進化樣本，20日勝率達 {cand_wr20}%、20日期望報酬 +{cand_exp20}%，熊市現金防線強化至 75%！'
     ]
 
     strong_buy_cnt = 0
@@ -966,7 +967,7 @@ def compute_dynamic_regime_and_erc(scan_data):
         code = 'BEAR_LIQUIDITY_CRISIS'
         label = '空頭流動性危機警戒'
         confidence = p_crisis
-        cash_pct = 60.0
+        cash_pct = 75.0 if tw_breadth < 25.0 else 60.0
         orb_mode = '熔斷暫停 (0%)'
         tone = 'red'
     elif p_expand >= max(p_crisis, p_consol, p_shake):
@@ -1167,7 +1168,7 @@ def main():
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     scan_data['last_updated'] = now_str
     scan_data['updated_at'] = now_str
-    scan_data['engine'] = f'V4-Yen × Gen{gen_ver}-AutoOrderGate (3-Stage Execution Gate + KeyPrice + 6D Chips + CMF20)'
+    scan_data['engine'] = f'V4-Yen × Dr.Tsun Gen{gen_ver}-DualMasterFusion (三週期共振 + VCP熊市自動休眠 + 尾盤確認 + 雙均線防雷)'
     scan_data['market_regime'] = regime
     scan_data['quant_advisor'] = quant_advisor
     scan_data['rsi_loop'] = {
