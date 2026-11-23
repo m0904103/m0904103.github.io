@@ -6,311 +6,311 @@ import {
   HelpCircle, Compass, Activity, ArrowRight, DollarSign
 } from 'lucide-react';
 
-// 2026-11-10 Wall Street Buy-Side Consensus ERC 2.0: Pure US Universe
+// 2027 Wall Street Buy-Side Consensus Constrained ERC 2.0: Pure US Universe (5 Low-Corr Pillars)
 const RECOMMENDATIONS_US = [
   {
-    symbol: 'VTI',
-    name: 'Vanguard 全美指數 ETF',
+    symbol: 'LLY',
+    name: 'Eli Lilly 禮來',
     market: 'us',
-    tier: '🇺🇸 全市場防禦底倉 (Core Anchor)',
-    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
-    action: '【回撤 $338~$347 分批建倉】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 25.0,
-    annualVol: 16.5,
-    slPrice: 376.23,
-    tpPrice: 420.0,
-    currPrice: 370.9,
-    highlight: '涵蓋全美數千家企業，捕捉非科技股滾動式復甦，抵禦 5% 美債利率衝擊的最強防禦核心。'
-  },
-  {
-    symbol: 'AVGO',
-    name: 'Broadcom 博通',
-    market: 'us',
-    tier: '🇺🇸 AI ASIC 霸主 (去輝達化首選)',
+    tier: '🧬 2027 華爾街首選醫療引擎',
     tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
-    action: '【站穩月線/頸線分批佈局】',
+    action: '【左側分批建倉 / 美銀淨超配 34%】',
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 15.0,
-    annualVol: 32.4,
-    slPrice: 350.13,
-    tpPrice: 399.0,
-    currPrice: 319.48,
-    highlight: '掌握 Google TPU 70~80% 市佔與 Meta MTIA，Q2 AI 營收年增 143%，完美對沖 GPU 壟斷鬆動。'
+    weightPct: 20.0,
+    annualVol: 23.0,
+    slPrice: 1248.39,
+    tpPrice: 1580.0,
+    currPrice: 1364.6,
+    highlight: '美銀 11 月調查機構大舉加碼醫療板塊；GLP-1 帶動營收年增 45.5%、淨利率 31.9%，貝他值僅 0.39 兼具成長與抗震。'
   },
   {
-    symbol: 'GOOGL',
-    name: 'Alphabet 谷歌-A',
+    symbol: 'JPM',
+    name: 'JPMorgan 摩根大通',
     market: 'us',
-    tier: '🇺🇸 低估值 TPU 帝國 (P/E ~15x)',
+    tier: '🏦 2027 高利率持久戰金融王者',
+    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
+    action: '【左側分批 / 前瞻 PE 僅 12.1x】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 18.0,
+    annualVol: 21.0,
+    slPrice: 339.15,
+    tpPrice: 380.0,
+    currPrice: 316.66,
+    highlight: '上調 2027 年淨利息收入 (NII) 指引至 1,070 億美元，直接受惠 Fed 利率維持 4.25%~4.75% 高檔平台。'
+  },
+  {
+    symbol: 'MSFT',
+    name: 'Microsoft 微軟',
+    market: 'us',
+    tier: '💻 AI 企業軟體與 Agent 商業化',
     tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
-    action: '【黃金坑 $265~$272 低接】',
+    action: '【左側逢回分批 / 低於十年均值】',
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 15.0,
-    annualVol: 28.2,
-    slPrice: 333.79,
-    tpPrice: 360.0,
-    currPrice: 288.15,
-    highlight: 'TPU v8 推論成本僅 GPU 一半（$0.42 vs $0.91），本益比七巨頭最低，重倉 SpaceX 攻守兼備。'
+    weightPct: 16.0,
+    annualVol: 22.0,
+    slPrice: 515.34,
+    tpPrice: 600.0,
+    currPrice: 492.95,
+    highlight: '從硬體燒錢切換至軟體變現的核心交匯點，ROE 32.3%、前瞻本益比降至 24.6 倍（低於十年均值 30 倍）。'
   },
   {
-    symbol: 'TSM',
-    name: '台積電 ADR',
+    symbol: 'WMT',
+    name: 'Walmart 沃爾瑪',
     market: 'us',
-    tier: '🏆 全球先進製程壟斷 (賣鏟總司令)',
+    tier: '🛒 2027 高現金流防禦現金牛',
     tierColor: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
-    action: '【黃金坑 $335~$345 低接】',
+    action: '【三線多頭＋KD金叉 / 防禦底倉】',
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 12.0,
-    annualVol: 31.5,
-    slPrice: 428.52,
-    tpPrice: 486.0,
-    currPrice: 388.62,
-    highlight: '無論 GPU 或 ASIC 競爭誰勝，全須經由 2nm/CoWoS/3D DRAM 製造，完全免疫設計端洗牌。'
-  },
-  {
-    symbol: 'ETN',
-    name: 'Eaton 伊頓電力',
-    market: 'us',
-    tier: '⚡ 電網基建與變壓器龍頭',
-    tierColor: 'text-purple-300 bg-purple-500/10 border-purple-500/30',
-    action: '【電網剛需 / 降低科技相關性】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 10.0,
-    annualVol: 24.8,
-    slPrice: 407.04,
-    tpPrice: 450.0,
-    currPrice: 359.3,
-    highlight: '電氣在手訂單飆升 46% 至 200 億美元，配電與資料中心剛需大幅平滑純科技股波動。'
+    weightPct: 14.0,
+    annualVol: 19.5,
+    slPrice: 115.30,
+    tpPrice: 145.0,
+    currPrice: 129.44,
+    highlight: '全美股唯一三週期多頭共振防禦堡壘，強勁自由現金流與定價權，完美對沖高利率與 AI 估值波動。'
   },
   {
     symbol: 'CEG',
     name: 'Constellation 核能電力',
     market: 'us',
-    tier: '⚛️ 核能全天候零碳電力',
+    tier: '⚛️ 24/7 無碳核能基載底座',
     tierColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
-    action: '【已站回 60MA 季線偏多！】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 8.0,
-    annualVol: 36.2,
-    slPrice: 270.93,
-    tpPrice: 348.0,
-    currPrice: 276.09,
-    highlight: '已率先收復季線！手握 8,500 MW 長期核電協議，不受限於藍潮綠能併網阻礙，高盛美銀喊買。'
-  },
-  {
-    symbol: 'MU',
-    name: 'Micron 美光科技',
-    market: 'us',
-    tier: '🧠 HBM3e/HBM4 超級週期',
-    tierColor: 'text-pink-300 bg-pink-500/10 border-pink-500/30',
-    action: '【回測 $600~$635 分批布局】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 6.0,
-    annualVol: 48.5,
-    slPrice: 955.94,
-    tpPrice: 916.0,
-    currPrice: 733.15,
-    highlight: '記憶體佔 AI 資本支出比重將升至 64%，做空 ETF (MUZ) 遭主力軋空，HBM 報價強勁上行。'
-  },
-  {
-    symbol: 'NVDA',
-    name: 'NVIDIA 輝達',
-    market: 'us',
-    tier: '⚠️ 獨立調查案降權控管',
-    tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
-    action: '【靜待 11/17 財報 / $155~$175 鐵底】',
-    actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
-    weightPct: 5.0,
-    annualVol: 45.78,
-    slPrice: 218.64,
-    tpPrice: 223.0,
-    currPrice: 178.67,
-    highlight: '面臨 CEO 調查與 ESG 治理折價，ERC 主動壓低權重至 5%；11/17 財報與 $155~$175 區間為關鍵防線。'
-  },
-  {
-    symbol: 'VRT',
-    name: 'Vertiv Holdings 液冷',
-    market: 'us',
-    tier: '❄️ 高密度 DLC 液冷與電源',
-    tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
-    action: '【已站回 $200 / 等站穩季線】',
+    action: '【嚴守右側站回 60MA 季線進場】',
     actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-    weightPct: 4.0,
-    annualVol: 41.2,
-    slPrice: 240.76,
-    tpPrice: 330.0,
-    currPrice: 200.47,
-    highlight: 'Q3 營收年增 61%、積壓訂單 150 億美元，遠期本益比已修正至 26 倍均值，大摩目標價 $330。'
+    weightPct: 12.0,
+    annualVol: 24.0,
+    slPrice: 268.86,
+    tpPrice: 346.0,
+    currPrice: 251.69,
+    highlight: '全美最大無碳核電資產商，毛利率 53.9%，2026 年已修正逾 30% 消化估值，直擊資料中心電力剛性瓶頸。'
   },
   {
-    symbol: 'BE',
-    name: 'Bloom Energy 燃料電池',
+    symbol: 'ASML',
+    name: 'ASML 艾司摩爾',
     market: 'us',
-    tier: '🔋 離網供電 Alpha 衛星觀察',
-    tierColor: 'text-lime-300 bg-lime-500/10 border-lime-500/30',
-    action: '【突破觀察 / 逢回配置】',
-    actionColor: 'text-lime-300 bg-lime-500/20 border-lime-500/30',
-    weightPct: 0.0,
-    annualVol: 58.0,
-    slPrice: 150.0,
-    tpPrice: 242.0,
-    currPrice: 193.88,
-    highlight: '與 Oracle 簽 2.8 GW 離網合約，繞過藍潮電網排隊期，Q3 營收暴增 138%，可作 CEG 衛星替補。'
-  }
-];
-
-// 2026-11-10 Cross-Market TW+US ERC 2.0
-const RECOMMENDATIONS_CROSS = [
-  {
-    symbol: '2330.TW',
-    name: '台積電',
-    market: 'tw',
-    tier: '🏆 核心壓艙石 (Core #1)',
-    tierColor: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
-    action: '【分批逢低承接 / 守季線】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 15.0,
-    annualVol: 27.06,
-    slPrice: 2414.51,
-    tpPrice: 2856.0,
-    currPrice: 2285.0,
-    highlight: '全球 2nm/CoWoS/3D DRAM 大壟斷，免疫 GPU 與 ASIC 設計架構轉換，外資長線核心定海神針。'
-  },
-  {
-    symbol: '2454.TW',
-    name: '聯發科',
-    market: 'tw',
-    tier: '🚀 ASIC 進攻主軸 (價值重估)',
-    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
-    action: '【TPU 推理贏家 / 搶先突圍觀察】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 15.0,
-    annualVol: 42.8,
-    slPrice: 4315.08,
-    tpPrice: 4788.0,
-    currPrice: 3830.0,
-    highlight: '切入 Google TPU v8x (Zebrafish) 推理晶片打破博通壟斷，外資大幅重估 AI ASIC 長線成長。'
+    tier: '🏗️ EUV 微影設備獨家壟斷',
+    tierColor: 'text-sky-300 bg-sky-500/10 border-sky-500/30',
+    action: '【右側站回 60MA 季線分批回補】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 10.0,
+    annualVol: 34.0,
+    slPrice: 1630.21,
+    tpPrice: 1850.0,
+    currPrice: 1383.8,
+    highlight: '全球 EUV 獨家壟斷，現金為負債 6.5 倍（127.4 億歐元 vs 19.6 億），管理層預告 2027~2028 產能仍供不應求。'
   },
   {
     symbol: 'AVGO',
     name: 'Broadcom 博通',
     market: 'us',
-    tier: '🇺🇸 ASIC 對沖雙引擎',
+    tier: '🚀 AI 客製化 ASIC 與高速網通',
+    tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
+    action: '【右側站回 60MA 季線分批回補】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 10.0,
+    annualVol: 36.0,
+    slPrice: 345.24,
+    tpPrice: 410.0,
+    currPrice: 313.42,
+    highlight: '2027 年 AI 投報率 (ROI) 檢驗期最大贏家，協助雲端巨頭自研 ASIC 壓低推論成本，毛利率 66.5%＋VMware 現金流。'
+  },
+  {
+    symbol: 'NVDA',
+    name: 'NVIDIA 輝達',
+    market: 'us',
+    tier: '⚠️ 降權移出核心 (衛星觀察 ≤5%)',
+    tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
+    action: '【待 12/03 國會聽證與站回季線】',
+    actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
+    weightPct: 0.0,
+    annualVol: 45.8,
+    slPrice: 208.67,
+    tpPrice: 240.0,
+    currPrice: 165.19,
+    highlight: '毛利率指引緩降至 71%~72%，疊加高層治理風波、國會聽證與合規審查；待風險落地並站回季線後再列衛星操作。'
+  },
+  {
+    symbol: 'VRT',
+    name: 'Vertiv Holdings 液冷',
+    market: 'us',
+    tier: '❄️ 高波動液冷衛星 (改列觀察)',
+    tierColor: 'text-purple-300 bg-purple-500/10 border-purple-500/30',
+    action: '【年內最大回撤 -53% / 衛星波段】',
+    actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
+    weightPct: 0.0,
+    annualVol: 32.5,
+    slPrice: 229.78,
+    tpPrice: 260.0,
+    currPrice: 166.24,
+    highlight: '中長線基本面佳但年化波動 32.5% 且最大回撤達 -53%，移出核心 10 檔以保護組合夏普值，改列右側衛星波段。'
+  }
+];
+
+// 2027 Cross-Market TW+US Constrained ERC 2.0 (5 Low-Correlation Pillars, Vol -53.3%: 28.11% -> 13.13%)
+const RECOMMENDATIONS_CROSS = [
+  {
+    symbol: '2891.TW',
+    name: '中信金',
+    market: 'tw',
+    tier: '🏦 台股高利差金融錨點 (16.0%)',
     tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
-    action: '【對沖去輝達化核心】',
+    action: '【左側分批佈局 / 穩定高息防禦】',
     actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 15.0,
-    annualVol: 32.4,
-    slPrice: 350.13,
-    tpPrice: 399.0,
-    currPrice: 319.48,
-    highlight: 'Google TPU 與 Meta MTIA 核心夥伴，結合乙太網與 VMware 軟體現金流，完美分散 NVDA 風險。'
+    weightPct: 16.0,
+    annualVol: 16.0,
+    slPrice: 70.75,
+    tpPrice: 78.0,
+    currPrice: 63.8,
+    highlight: '受惠 2027 高利差環境與財富管理動能，與科技硬體低相關 (0.18~0.24)，20 日機構 CMF (+0.32) 強勢吸籌。'
+  },
+  {
+    symbol: '2412.TW',
+    name: '中華電',
+    market: 'tw',
+    tier: '🛡️ 負 Beta 電信與 AIDC 防禦 (15.9%)',
+    tierColor: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30',
+    action: '【已站穩季線 / 逢回左側補齊】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 15.9,
+    annualVol: 11.0,
+    slPrice: 150.12,
+    tpPrice: 180.0,
+    currPrice: 164.5,
+    highlight: '6 個月貝他值為負數 (-0.05) 提供最強下檔緩衝，結合資安與 AIDC 機房現金流，20 日 CMF (+0.36) 全台股第一。'
+  },
+  {
+    symbol: 'LLY',
+    name: 'Eli Lilly 禮來',
+    market: 'us',
+    tier: '🧬 非 AI 醫療生技成長引擎 (13.5%)',
+    tierColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
+    action: '【已站穩季線 / 左側分批核心】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 13.5,
+    annualVol: 23.0,
+    slPrice: 1248.39,
+    tpPrice: 1580.0,
+    currPrice: 1364.6,
+    highlight: '美銀 11 月調查全球經理人淨超配躍升至 34%；GLP-1 帶動營收年增 45.5%、淨利率 31.9%，貝他僅 0.39。'
+  },
+  {
+    symbol: 'JPM',
+    name: 'JPMorgan 摩根大通',
+    market: 'us',
+    tier: '🇺🇸 美股高利率金融龍頭 (11.8%)',
+    tierColor: 'text-sky-300 bg-sky-500/10 border-sky-500/30',
+    action: '【左側分批 / 前瞻 PE 僅 12.1x】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 11.8,
+    annualVol: 21.0,
+    slPrice: 339.15,
+    tpPrice: 380.0,
+    currPrice: 316.66,
+    highlight: '上調 2027 年淨利息收入預測至 1,070 億美元，高安全邊際直接受惠於 2027 年「高利率持久戰」環境。'
+  },
+  {
+    symbol: 'MSFT',
+    name: 'Microsoft 微軟',
+    market: 'us',
+    tier: '💻 企業級 AI 軟體與 Agent (9.7%)',
+    tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
+    action: '【左側逢回分批 / 低於十年均值】',
+    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    weightPct: 9.7,
+    annualVol: 22.0,
+    slPrice: 515.34,
+    tpPrice: 600.0,
+    currPrice: 492.95,
+    highlight: '站在 AI 硬體轉向軟體商業化的核心交匯點，ROE 32.3%、前瞻 PE 壓縮至 24.6 倍（低於十年均值 30 倍）。'
   },
   {
     symbol: 'CEG',
     name: 'Constellation 核電',
     market: 'us',
-    tier: '⚛️ 電力基建 (降低相關性)',
-    tierColor: 'text-teal-300 bg-teal-500/10 border-teal-500/30',
-    action: '【已站穩季線 / 抗震防禦】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 12.0,
-    annualVol: 36.2,
-    slPrice: 270.93,
-    tpPrice: 348.0,
-    currPrice: 276.09,
-    highlight: '打破純半導體硬體高相關性，受惠 AI 無碳基載剛需，目前股價已強勢站上 60MA 季線。'
+    tier: '⚛️ 核能基載電力底座 (9.7%)',
+    tierColor: 'text-purple-300 bg-purple-500/10 border-purple-500/30',
+    action: '【嚴禁抄底 / 待右側站回 60MA】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 9.7,
+    annualVol: 24.0,
+    slPrice: 268.86,
+    tpPrice: 346.0,
+    currPrice: 251.69,
+    highlight: '全美最大無碳核電商，毛利率 53.9%、2026 已修正 30% 消化估值；等 12 月 Fed 點陣圖落地並站回季線再補齊。'
+  },
+  {
+    symbol: '2330.TW',
+    name: '台積電',
+    market: 'tw',
+    tier: '🏆 AI 核心晶圓與封裝壟斷 (6.3%)',
+    tierColor: 'text-amber-300 bg-amber-500/10 border-amber-500/30',
+    action: '【右側帶量站回 60MA 季線進場】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 6.3,
+    annualVol: 30.0,
+    slPrice: 2386.47,
+    tpPrice: 2680.0,
+    currPrice: 2030.0,
+    highlight: 'N2 先進製程與 CoWoS 絕對壟斷，通吃 GPU 與雲端自研 ASIC；ERC 嚴控權重至 6.3% 避免單一供應鏈風險。'
   },
   {
     symbol: 'ASML',
     name: '艾司摩爾',
     market: 'us',
-    tier: '🏗️ 半導體設備賣鏟人',
-    tierColor: 'text-sky-300 bg-sky-500/10 border-sky-500/30',
-    action: '【壟斷設備 / 平滑淨值】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 12.0,
-    annualVol: 30.8,
-    slPrice: 1686.33,
-    tpPrice: 1891.0,
-    currPrice: 1513.25,
-    highlight: 'EUV 光刻機全球唯一壟斷，完全免疫下游晶片廠市佔廝殺，擔任底層低波壓艙石。'
-  },
-  {
-    symbol: 'VRT',
-    name: 'Vertiv Holdings',
-    market: 'us',
-    tier: '🇺🇸 美股 AI 基建與液冷',
+    tier: '🏗️ EUV 微影設備獨家壟斷 (5.9%)',
     tierColor: 'text-indigo-300 bg-indigo-500/10 border-indigo-500/30',
-    action: '【強彈回 $200 / 等站回季線】',
+    action: '【右側站回 60MA 季線分批回補】',
     actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-    weightPct: 10.0,
-    annualVol: 41.2,
-    slPrice: 240.76,
-    tpPrice: 330.0,
-    currPrice: 200.47,
-    highlight: '全球數據中心熱管理與電力系統龍頭，Q3 營收年增 61%，回測修正至合理本益比區間。'
+    weightPct: 5.9,
+    annualVol: 34.0,
+    slPrice: 1630.21,
+    tpPrice: 1850.0,
+    currPrice: 1383.8,
+    highlight: 'High-NA EUV 獨家壟斷、淨現金資產負債表（現金為負債 6.5 倍），管理層預期 2027~2028 產能仍供不應求。'
   },
   {
-    symbol: '3017.TW',
-    name: '奇鋐',
+    symbol: '2308.TW',
+    name: '台達電',
     market: 'tw',
-    tier: '⭐ 散熱龍頭 (精選保留)',
-    tierColor: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30',
-    action: '【適度降權至 8% / 等站回季線】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 8.0,
-    annualVol: 39.67,
-    slPrice: 3221.34,
-    tpPrice: 3488.0,
-    currPrice: 2790.0,
-    highlight: '水冷板與分歧管核心供應商，縮減同質重疊保留最強龍頭，待站穩季線分批承接。'
+    tier: '⚡ AI 高壓電源、液冷與電網 (5.9%)',
+    tierColor: 'text-lime-300 bg-lime-500/10 border-lime-500/30',
+    action: '【取代奇鋐雙鴻 / 待站回 60MA】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 5.9,
+    annualVol: 35.0,
+    slPrice: 1593.33,
+    tpPrice: 1650.0,
+    currPrice: 990.0,
+    highlight: '兼具 AI 伺服器高壓電源、液冷與電網儲能；本益比已大幅修正，機構預估 EPS 將由 2026 年 41 元跳升至 2027 年 65.6 元。'
   },
   {
-    symbol: '2317.TW',
-    name: '鴻海',
-    market: 'tw',
-    tier: '⭐ 機櫃整合雙軌受惠',
-    tierColor: 'text-blue-300 bg-blue-500/10 border-blue-500/30',
-    action: '【最接近季線 / 準備轉強】',
-    actionColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    weightPct: 8.0,
-    annualVol: 28.51,
-    slPrice: 248.2,
-    tpPrice: 302.0,
-    currPrice: 241.5,
-    highlight: 'GB200 與 TPU L10-L11 機櫃雙軌受惠，現價距離季線僅約 2.7%，最有潛力率先突破。'
+    symbol: 'AVGO',
+    name: 'Broadcom 博通',
+    market: 'us',
+    tier: '🚀 AI 客製化 ASIC 與網通 (5.3%)',
+    tierColor: 'text-pink-300 bg-pink-500/10 border-pink-500/30',
+    action: '【右側站回 60MA 季線分批回補】',
+    actionColor: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
+    weightPct: 5.3,
+    annualVol: 36.0,
+    slPrice: 345.24,
+    tpPrice: 410.0,
+    currPrice: 313.42,
+    highlight: '2027 AI 投報率 (ROI) 檢驗期受惠者，協助雲端巨頭自研 ASIC 降低推論成本，66.5% 高毛利率＋VMware 現金流。'
   },
   {
     symbol: 'NVDA',
     name: '輝達',
     market: 'us',
-    tier: '⚠️ 調查案降權控管',
+    tier: '⚠️ 2027 降權移出核心 (衛星 ≤5%)',
     tierColor: 'text-yellow-300 bg-yellow-500/10 border-yellow-500/30',
-    action: '【降權 5% / $155~$175 鐵底】',
+    action: '【待 12/03 國會聽證與站回 60MA】',
     actionColor: 'text-amber-400 bg-amber-500/20 border-amber-500/30',
-    weightPct: 5.0,
-    annualVol: 45.78,
-    slPrice: 218.64,
-    tpPrice: 223.0,
-    currPrice: 178.67,
-    highlight: '面臨 CEO 獨立調查與治理折價，ERC 主動壓低權重至 5%；靜待 11/17 財報檢驗與鐵底支撐。'
-  },
-  {
-    symbol: '3324.TWO',
-    name: '雙鴻',
-    market: 'tw',
-    tier: '🚨 破季線剔除避開',
-    tierColor: 'text-red-400 bg-red-500/20 border-red-500/40',
-    action: '【剛性避開 / 0% 配比 / 嚴禁接飛刀】',
-    actionColor: 'text-red-400 bg-red-600/30 border-red-500/50',
     weightPct: 0.0,
-    annualVol: 36.06,
-    slPrice: 1335.4,
-    tpPrice: 0.0,
-    currPrice: 1235.0,
-    highlight: '【顏春煌教授鐵律】散熱集中度過高且跌破 60MA 生命線，ERC 強制歸零避開。'
+    annualVol: 45.8,
+    slPrice: 208.67,
+    tpPrice: 240.0,
+    currPrice: 165.19,
+    highlight: 'Q4 毛利率緩降至 71%~72% 且面臨高層治理與國會出口管制調查；移出核心 10 檔，待風險落地且站回季線再列衛星倉位。'
   }
 ];
 
@@ -412,7 +412,7 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-lg md:text-xl font-black tracking-tight text-white flex items-center gap-2">
-                  🤖 2026 正規軍量化演算與推薦參考系統
+                  🤖 2027 正規軍量化演算與推薦參考系統
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-600/20 text-emerald-300 border border-emerald-500/30">
                   Gen{rsiInfo?.gen_version || 18}-RSI-Live
@@ -585,25 +585,25 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
             <span className="text-[10px] text-gray-400 mt-0.5 block">由 Gen{rsiInfo?.gen_version || 20} 三師聯審高勝率池依反波動率 (ERC) 風險均等化配置</span>
           </div>
           <div className="p-3.5 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 sm:col-span-2 md:col-span-1">
-            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block">SLSQP 最佳化成效</span>
-            <span className="text-2xl font-black font-mono text-emerald-300 mt-1 block">-4.85% 波動降幅</span>
-            <span className="text-[10px] text-gray-400 mt-0.5 block">由等權重 13.40% 降至 12.75%，避免黑天鵝重擊</span>
+            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block">2027 限制性 ERC 最佳化成效</span>
+            <span className="text-2xl font-black font-mono text-emerald-300 mt-1 block">-53.3% 波動降幅</span>
+            <span className="text-[10px] text-gray-400 mt-0.5 block">五大低相關板塊由 28.11% 降至 13.13%，分散化比率 1.69</span>
           </div>
         </div>
       </div>
 
-      {/* ⭐ 模組二：2026 正規軍量化推薦參考名單與精準配比 */}
+      {/* ⭐ 模組二：2027 正規軍量化推薦參考名單與精準配比 */}
       <div className="glass rounded-3xl p-5 md:p-6 border border-white/10 bg-[#12161A] shadow-xl space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex items-center gap-2.5">
             <Target size={22} className="text-emerald-400" />
             <div>
               <h3 className="text-base font-black text-white flex items-center gap-2">
-                ⭐ 2026 核心推薦參考組合與量化配比
+                ⭐ 2027 核心推薦參考組合與量化配比
                 <span className="text-xs text-gray-400 font-normal">（點選任一檔可即時聯動技術圖表）</span>
               </h3>
               <p className="text-xs text-gray-400">
-                以等風險貢獻 (ERC) 計算最優配比，兼顧產業成長與極致風控
+                以限制性等風險貢獻 (Constrained ERC) 橫跨五大低相關板塊（美股 55.9% ＋ 台股 44.1%），兼顧 2027 成長與極致防禦
               </p>
             </div>
           </div>
@@ -615,14 +615,14 @@ export default function AIQuantAdvisor({ onSelectStock, stocks }) {
                 onClick={() => setUniverseMode('us')}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${universeMode === 'us' ? 'bg-amber-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
               >
-                🇺🇸 純美股 ERC 2.0
+                🇺🇸 2027 純美股 ERC
               </button>
               <button
                 type="button"
                 onClick={() => setUniverseMode('cross')}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer active:scale-95 ${universeMode === 'cross' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
               >
-                🌐 台美跨市場 2.0
+                🌐 2027 台美跨市場
               </button>
             </div>
 

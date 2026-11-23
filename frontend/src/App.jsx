@@ -537,7 +537,7 @@ function App() {
                 </div>
               </div>
               <div className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white text-xs font-black group-hover:from-red-500 group-hover:to-amber-500 transition-all shrink-0 shadow-lg shadow-red-600/30">
-                <span>查看 2026 推薦參考</span>
+                <span>查看 2027 推薦參考</span>
                 <ArrowRight size={14} />
               </div>
             </div>
@@ -626,7 +626,7 @@ function App() {
                 activeMainTab === 'algo' ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-lg shadow-red-600/40 ring-1 ring-amber-400/50' : 'text-amber-400 bg-amber-500/10 hover:bg-amber-500/20'
               }`}
             >
-              <Cpu size={14} className="text-amber-300" /> 🤖 2026 演算法推薦
+              <Cpu size={14} className="text-amber-300" /> 🤖 2027 演算法推薦
               <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-red-500 text-white font-black">NEW</span>
             </button>
             <button
