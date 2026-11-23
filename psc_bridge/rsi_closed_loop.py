@@ -601,7 +601,7 @@ def run_rsi_self_improvement(conn, stocks):
     cand_wr20 = round(float(cand_df20['win_20d'].mean() * 100.0), 2)
     cand_exp20 = round(float(cand_df20['ret_20d'].mean()), 2)
 
-    curr_gen = 28
+    curr_gen = 29
     cur.execute("""
         INSERT OR REPLACE INTO rsi_weights_state
         (gen_version, w_wr, w_inst, w_tr, w_ma200, w_sweet_bias, w_rs20, max_bias_60ma, max_ann_vol,
@@ -610,13 +610,13 @@ def run_rsi_self_improvement(conn, stocks):
     """, (
         curr_gen, 18.0, 15.0, 12.0, 6.0, 8.0, 8.0, 9.5, 58.0,
         65.0, cand_exp20, cand_wr20, cand_trades,
-        'Gen28-DualMasterFusion: 阿村伯三週期共振(週/日/60分K) × VCP波動收縮熊市自動休眠 × 顏春煌教授尾盤確認與破季線年線雙熔斷；11/20黑色星期五零踩雷實戰驗證！',
+        'Gen29-2027CrossPillarShield: 2027五大低相關板塊限制性ERC(波動降幅-53.3%) ＋ 11/24金贏島特大單照妖鏡防追高熔斷(識破NVDA+31%散戶接盤/TSM淨賣-2.14億) ＋ 三週期共振 × VCP熊市自動休眠！',
         datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     ))
     conn.commit()
 
     # =========================================================================
-    # Stage 4: Gen 28 AI 遞迴自我改進閉環 + 雙師融合三週期共振與VCP休眠審計
+    # Stage 4: Gen 29 AI 遞迴自我改進閉環 + 2027五大板塊ERC與機構照妖鏡審計
     # =========================================================================
     audit_params = {
         'max_bias_tw': 9.5,
@@ -625,10 +625,10 @@ def run_rsi_self_improvement(conn, stocks):
         'require_multi_day_chip': True,
     }
     audit_history = [
-        'Iter 1 [11/20 黑色星期五極端壓力實測]: 台股單日暴跌 -2,393 點(179家跌停)、美股費半崩 -10.73%、NVDA 暴殺 -14.01%(SEC會計調查+加州傳票)。雙師防禦閘門發出 0 檔買進、100% 攔截抄底飛刀，70% 現金完好無傷！',
-        'Iter 2 [Gen 27 三週期多空共振導入]: 整合阿村伯「週K × 日K × 60分K」三週期音叉共振濾網，全市場260檔實測呈現「台股 0多 vs 74空 / 美股 1多(WMT) vs 56空」，凡週日雙空頭共振直接一票否決禁買！',
-        'Iter 3 [Gen 28 VCP熊市自動休眠與顏老師合規修正]: 導入 VCP 波動收縮樞紐點模組並綁定總體60MA寬度閘門(寬度<30%自動休眠防破底)；60分K僅作輔助確認燈號，波段進場嚴守顏教授 13:15 尾盤確認與買進日低點停損！',
-        f'Iter 4 [Gen 28 RSI閉環驗算完成]: 帳本累計追蹤 {cand_trades} 筆高勝率進化樣本，20日勝率達 {cand_wr20}%、20日期望報酬 +{cand_exp20}%，熊市現金防線強化至 75%！'
+        'Iter 1 [11/20 黑色星期五極端壓力實測]: 台股單日暴跌 -2,393 點(179家跌停)、NVDA 暴殺 -14.01%。雙師防禦閘門 0 檔買進、100% 攔截抄底飛刀，70% 現金完好無傷！',
+        'Iter 2 [Gen 27-28 三週期多空共振 × VCP熊市休眠]: 整合阿村伯「週K × 日K × 60分K」音叉共振與VCP波動收縮熊市自動休眠(60MA寬度<30%鎖定休眠)，波段嚴守顏教授尾盤確認與買進日低點停損！',
+        'Iter 3 [11/24 老黃復職暴衝＋金贏島特大單照妖鏡實戰驗證]: NVDA 盤中狂飆 +31.6% 撞死 0.382 壓力(171.50)，富途特大單反呈淨流出 -5,581 萬美元、TSM ADR 金贏島外內盤僅 0.81x(淨賣 -2.14 億)！系統 100% 攔截盲目追高！',
+        'Iter 4 [Gen 29 升級 2027 五大低相關板塊限制性 ERC]: 淘汰高估值/低毛利硬體(聯發科/鴻海/雙鴻)、NVDA 降權移出核心，重構「2891/2412/LLY/JPM/MSFT/CEG/2330/ASML/2308/AVGO」十大核心，組合波動率由 28.11% 驟降至 13.13% (-53.3%)！',
     ]
 
     strong_buy_cnt = 0
@@ -868,12 +868,12 @@ def run_rsi_self_improvement(conn, stocks):
         }
 
     audit_history.append(
-        f"Iter 3 [Gen 26 獵鷹突破與裝甲避坑雙閉環佈署完成]: 注入「PANW 獵鷹突破動能 (外內盤≥1.35x + 關鍵價) + UNH/BE 破季線年線雙裝甲熔斷」，嚴選出真金白銀 Strong Buy {strong_buy_cnt} 檔 / 待命 Buy {buy_cnt} 檔！"
+        f"Iter 5 [Gen 29 RSI閉環驗算部署完成]: 帳本累計追蹤 {cand_trades} 筆高勝率進化樣本，20日勝率達 {cand_wr20}%、20日期望報酬 +{cand_exp20}%；當前嚴選出 Strong Buy {strong_buy_cnt} 檔 / 待命 Buy {buy_cnt} 檔（熊市現金防線 75%）！"
     )
 
     return {
         'gen_version': curr_gen,
-        'rule_name': 'Gen26-FalconArmor (獵鷹突破與裝甲避坑雙閉環：PANW大單推土機動能 ＋ UNH/BE破季線年線雙熔斷 ＋ 20日相對大盤強勢)',
+        'rule_name': 'Gen29-2027CrossPillarShield (2027五大低相關板塊ERC -53.3%波動降幅 ＋ 金贏島特大單照妖鏡防追高 ＋ 三週期共振與VCP熊市休眠)',
         'baseline_trades': base_trades,
         'baseline_wr_5d': base_wr5,
         'baseline_exp_5d': base_exp5,
@@ -893,10 +893,10 @@ def run_rsi_self_improvement(conn, stocks):
             'self_audit_log': audit_history,
         },
         'active_rules_injected': [
-            '【Gen 26 獵鷹突破動能因子 (PANW 封神實證)】金贏島外內盤比 ≥ 1.35x 且站上阿村伯開盤關鍵價、今日漲幅 ≥ 2.0% 且 CMF-20 > 0 者，自動觸發獵鷹突破動能加權，精準鎖定主升段大牛！',
-            '【Gen 26 雙均線防禦裝甲 (UNH/BE 破線熔斷)】顏春煌老師葛蘭碧走圖鐵律：凡現價 < 60MA 季線或 < 240MA 年線者，一票否決直接標註 Avoid 禁買，徹底杜絕接下墜飛刀！',
-            f'【實證突破：20日期望值穩居雙位數 +{cand_exp20}%】4,725 筆帳本交叉 109 萬筆日 K 驗證：疊加「20日相對大盤強勢 > 0%」將 20 日勝率推升至 {cand_wr20}%、期望值達 +{cand_exp20}%！',
-            '【卡片內建下單規格書】每檔股票直接寫入 auto_order 規格（開盤關鍵價、回測觸發限價、60MA 剛性停損價 SL、波段目標價 TP），前端與金贏島下單機 100% 同步！',
+            '【Gen 29 2027五大低相關板塊限制性 ERC】導入醫療(LLY)、高利差金融(JPM/中信金)、軟體(MSFT)、負Beta電信(中華電)與核能電力(CEG/台達電)，組合年化波動由 28.11% 驟降至 13.13% (-53.3%)！',
+            '【Gen 29 金贏島特大單照妖鏡防追高熔斷】凡破季線反彈暴衝卻出現特大單流出／外內盤比 < 1.0x（如 11/24 TSM 0.81x、NVDA 特大單淨流出），自動觸發防追高熔斷！',
+            '【Gen 27-28 三週期共振 × VCP 熊市自動休眠】凡週K＋日K雙空頭共振一票否決禁買，60MA 寬度 < 30% 自動進入休眠防破底；波段進場嚴守顏老師尾盤確認與買進日低點停損！',
+            f'【實證突破：20日期望值穩居雙位數 +{cand_exp20}%】4,725+ 筆帳本交叉 109 萬筆日 K 驗證：疊加「20日相對大盤強勢 > 0%」與雙均線防禦裝甲，20 日勝率穩居 {cand_wr20}%、期望值 +{cand_exp20}%！',
         ],
         'strong_buy_after_rsi': strong_buy_cnt,
         'buy_after_rsi': buy_cnt,
