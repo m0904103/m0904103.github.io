@@ -406,25 +406,31 @@ def sync_all_260_and_report(push_tg=False):
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 si.wShowWindow = 0
                 cf = 0x08000000
-                subprocess.run([
-                    'git', 'add',
+                add_candidates = [
                     'scan_results.json', 'live_portfolio.json',
                     'q_quant_888/scan_results.json', 'q_quant_888/live_portfolio.json',
+                    'q_quant_888/gen31_rsi_status.json',
                     'trading/scan_results.json', 'trading/live_portfolio.json',
                     'frontend/public/scan_results.json', 'frontend/public/live_portfolio.json',
                     'news_radar.json', 'q_quant_888/news_radar.json'
-                ], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                ]
+                existing_files = [f for f in add_candidates if os.path.exists(os.path.join(BASE_DIR, f))]
+                subprocess.run(['git', 'add'] + existing_files, cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
                 res = subprocess.run(['git', 'commit', '-m', f'auto(psc): sync live quotes {now_str}'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
-                if res.returncode == 0:
-                    subprocess.run(['git', 'fetch', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
-                    subprocess.run(['git', 'merge', '-X', 'ours', '--no-edit', 'origin/main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
-                    push_res = subprocess.run(['git', 'push', 'origin', 'main'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
-                    if push_res.returncode == 0:
-                        with open(push_stamp, 'w') as pf:
-                            pf.write(str(time.time()))
-                        print("[GitHub] 已將統一即時數據自動同步至線上網站！")
-                    else:
-                        print(f"[GitHub] 推送失敗: {push_res.stderr}")
+                subprocess.run(['git', 'fetch', 'origin', 'main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                subprocess.run(['git', 'merge', '-X', 'ours', '--no-edit', 'origin/main'], cwd=BASE_DIR, check=False, startupinfo=si, creationflags=cf)
+                push_res = subprocess.run(['git', '-c', 'http.postBuffer=524288000', 'push', 'origin', 'main'], cwd=BASE_DIR, capture_output=True, text=True, startupinfo=si, creationflags=cf)
+                log_path = os.path.join(BASE_DIR, 'psc_bridge', 'git_sync.log')
+                if push_res.returncode == 0 and res.returncode == 0:
+                    with open(push_stamp, 'w') as pf:
+                        pf.write(str(time.time()))
+                    with open(log_path, 'a', encoding='utf-8') as lf:
+                        lf.write(f"[{now_str}] COMMIT+PUSH OK ({len(existing_files)} files)\n")
+                    print("[GitHub] 已將統一即時數據自動同步至線上網站！")
+                else:
+                    with open(log_path, 'a', encoding='utf-8') as lf:
+                        lf.write(f"[{now_str}] SYNC WARN commit_rc={res.returncode} push_rc={push_res.returncode}: {(push_res.stderr or res.stdout or '').strip()[:160]}\n")
+                    print(f"[GitHub] 同步異常: commit={res.returncode} push={push_res.returncode} {push_res.stderr}")
             except Exception as ge:
                 print(f"[GitHub] 自動推送異常: {ge}")
 
@@ -475,6 +481,27 @@ if __name__ == '__main__':
                 sf.write(today_ymd)
         except Exception as ee:
             print(f"[PostMarket] 盤後閉環執行異常: {ee}")
+
+    # Gen 31 憲法層 × AI 遞迴進化引擎 (每小時或強制執行時自動快照 + T+5/T+20 對帳 + 影子進化)
+    rsi_stamp = os.path.join(BRIDGE_DIR, '.last_gen31_rsi')
+    need_rsi = '--rsi' in sys.argv or '--force' in sys.argv
+    if not need_rsi:
+        if not os.path.exists(rsi_stamp):
+            need_rsi = True
+        else:
+            try:
+                with open(rsi_stamp, 'r', encoding='utf-8') as rf:
+                    need_rsi = (time.time() - float(rf.read().strip())) >= 3600.0
+            except Exception:
+                need_rsi = True
+    if need_rsi:
+        try:
+            import rsi_evolution_engine
+            rsi_evolution_engine.run_gen31_cycle()
+            with open(rsi_stamp, 'w', encoding='utf-8') as rf:
+                rf.write(str(time.time()))
+        except Exception as re_err:
+            print(f"[Gen31-RSI] 遞迴引擎略過: {re_err}")
 
     # 若統一金贏島未開啟且非盤中，每 15 分鐘仍自動透過 TWSE/期交所補齊最新數據並推送網站，確保永不中斷
     if '--force' in sys.argv or psc_open or in_tw or in_us or (now.minute % 15 == 0):
