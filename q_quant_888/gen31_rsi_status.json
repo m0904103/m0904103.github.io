@@ -1,13 +1,13 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-27 17:19:06",
+  "updated_at": "2026-11-27 17:26:59",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
     "articles_count": 15,
     "immutable": true
   },
-  "live_vix": 24.66,
+  "live_vix": 24.64,
   "active_gen": 31,
   "active_params": {
     "score_threshold_strong_buy": 80.0,
@@ -43,6 +43,112 @@
     "evaluated_oos_samples": 0,
     "required_samples": 15,
     "message": "目前累積 0/15 筆已驗收樣本，達標後自動啟動影子參數遞迴優化並提交司令官核准。"
+  },
+  "feature_engineering": {
+    "source_course": "國立空中大學《資料科學的特徵工程》(Ch.3 MI / Ch.4 群組合成 / Ch.9 IQR 異常值 / Ch.11 Robust Scaling)",
+    "total_processed": 260,
+    "outliers_capped_count": 1,
+    "sample_outliers": [
+      {
+        "symbol": "9933.TW",
+        "market": "TW",
+        "bias_ma60": 19.56,
+        "capped_to": 17.02
+      }
+    ],
+    "market_robust_stats": {
+      "TW": {
+        "count": 139,
+        "bias_ma60_median": -14.88,
+        "bias_ma60_iqr": 17.76,
+        "score_median": 23.0
+      },
+      "US": {
+        "count": 121,
+        "bias_ma60_median": -10.43,
+        "bias_ma60_iqr": 24.45,
+        "score_median": 35.0
+      }
+    },
+    "robust_leaders_above_ma60": {
+      "TW": [
+        {
+          "symbol": "9933.TW",
+          "name": "中鼎",
+          "price": 54.1,
+          "bias_ma60": 19.56,
+          "fe_composite_z": 1.566
+        },
+        {
+          "symbol": "2412.TW",
+          "name": "中華電",
+          "price": 165.5,
+          "bias_ma60": 8.83,
+          "fe_composite_z": 1.455
+        },
+        {
+          "symbol": "2480.TW",
+          "name": "敦陽科",
+          "price": 175.0,
+          "bias_ma60": 1.92,
+          "fe_composite_z": 1.057
+        },
+        {
+          "symbol": "3491.TWO",
+          "name": "昇達科",
+          "price": 1480.0,
+          "bias_ma60": 4.7,
+          "fe_composite_z": 1.023
+        },
+        {
+          "symbol": "1216.TW",
+          "name": "統一",
+          "price": 77.9,
+          "bias_ma60": 1.26,
+          "fe_composite_z": 1.016
+        }
+      ],
+      "US": [
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharm",
+          "price": 564.12,
+          "bias_ma60": 7.3,
+          "fe_composite_z": 1.025
+        },
+        {
+          "symbol": "AAPL",
+          "name": "蘋果",
+          "price": 355.58,
+          "bias_ma60": 4.58,
+          "fe_composite_z": 0.999
+        },
+        {
+          "symbol": "WMT",
+          "name": "沃爾瑪",
+          "price": 131.94,
+          "bias_ma60": 13.54,
+          "fe_composite_z": 0.981
+        },
+        {
+          "symbol": "LLY",
+          "name": "禮來",
+          "price": 1392.22,
+          "bias_ma60": 10.8,
+          "fe_composite_z": 0.923
+        },
+        {
+          "symbol": "SBUX",
+          "name": "星巴克",
+          "price": 107.74,
+          "bias_ma60": 7.68,
+          "fe_composite_z": 0.892
+        }
+      ]
+    },
+    "factor_mutual_information_5d": {
+      "status": "ACCUMULATING (0/10 筆已驗收樣本後自動啟動 MI 因子淘汰)"
+    }
   },
   "pending_commander_approvals": 0
 }
