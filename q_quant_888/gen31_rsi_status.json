@@ -1,13 +1,13 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-27 17:31:21",
+  "updated_at": "2026-11-27 17:41:30",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
     "articles_count": 15,
     "immutable": true
   },
-  "live_vix": 24.72,
+  "live_vix": 24.62,
   "active_gen": 31,
   "active_params": {
     "score_threshold_strong_buy": 80.0,
@@ -431,6 +431,35 @@
         "above_ma60": false
       }
     ]
+  },
+  "derivatives_shield": {
+    "source_course": "國立空中大學《衍生性金融商品》(第09講避險比率/第20講VIX波動/第27講CDS/槓桿耗損)",
+    "taifex_foreign_txf": {
+      "date": "20261126",
+      "foreign_txf_net_oi": -106275,
+      "long_oi": 9083,
+      "short_oi": 115358,
+      "net_value_yi_twd": -8394.2,
+      "shield_status": "EXTREME_RED (史詩級空單警戒，嚴禁滿倉追高)"
+    },
+    "vix_daily_1sigma_move_pct": 1.55,
+    "leveraged_etf_annual_vol_drag_pct": {
+      "2x_long_etf_00637L": 6.06,
+      "1x_inverse_etf_00632R": 6.06,
+      "warning": "在 VIX=24.62 環境下，盤整一年單純波動耗損即吃掉 -6.06%，嚴禁長期死抱正2/反1！"
+    },
+    "user_00406A_50pct_hedge_plan": {
+      "portfolio_value_twd": 46340.0,
+      "hedge_ratio_target_pct": 50.0,
+      "recommended_00632R_lots": 2.27,
+      "recommended_lots_rounded": 2
+    },
+    "cds_reference_5y_pd_pct": {
+      "CoreWeave_1314bps": 66.5,
+      "SoftBank_536bps": 36.0,
+      "Oracle_356bps": 25.7,
+      "BigTech4_115bps": 9.2
+    }
   },
   "pending_commander_approvals": 0
 }
