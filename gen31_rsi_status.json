@@ -1,0 +1,719 @@
+{
+  "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
+  "updated_at": "2026-11-27 17:55:51",
+  "constitution": {
+    "version": "Gen31-Constitution-v1.1",
+    "sha256_seal": "2f67605b8a1de3ab",
+    "articles_count": 15,
+    "immutable": true
+  },
+  "live_vix": 24.64,
+  "active_gen": 31,
+  "active_params": {
+    "score_threshold_strong_buy": 80.0,
+    "score_threshold_buy": 65.0,
+    "max_bias_ma60_pct": 15.0,
+    "min_rs_20d_pct": 0.0,
+    "rsi_entry_low": 42.0,
+    "rsi_entry_high": 68.0,
+    "vix_defensive_trigger": 25.0
+  },
+  "snapshot": {
+    "trade_date": "2026-11-27",
+    "total_snapshotted": 260,
+    "constitution_buy_passed": 0,
+    "constitution_vetoed": 0,
+    "sample_vetoes": []
+  },
+  "evaluation": {
+    "newly_evaluated_5d": 0,
+    "newly_evaluated_20d": 0,
+    "total_ledger_rows": 520,
+    "total_tracked_days": 2,
+    "total_evaluated_5d": 0,
+    "total_evaluated_20d": 0,
+    "passed_buy_trades_5d": 0,
+    "passed_buy_winrate_5d": 0.0,
+    "passed_buy_avg_ret_5d": 0.0,
+    "vetoed_trades_5d": 0,
+    "vetoed_avg_ret_5d": 0.0
+  },
+  "evolution": {
+    "mode": "ACCUMULATING_OOS_DATA",
+    "evaluated_oos_samples": 0,
+    "required_samples": 15,
+    "message": "目前累積 0/15 筆已驗收樣本，達標後自動啟動影子參數遞迴優化並提交司令官核准。"
+  },
+  "feature_engineering": {
+    "source_course": "國立空中大學《資料科學的特徵工程》(Ch.3 MI / Ch.4 群組合成 / Ch.9 IQR 異常值 / Ch.11 Robust Scaling)",
+    "total_processed": 260,
+    "outliers_capped_count": 1,
+    "sample_outliers": [
+      {
+        "symbol": "9933.TW",
+        "market": "TW",
+        "bias_ma60": 19.56,
+        "capped_to": 17.02
+      }
+    ],
+    "market_robust_stats": {
+      "TW": {
+        "count": 139,
+        "bias_ma60_median": -14.88,
+        "bias_ma60_iqr": 17.76,
+        "score_median": 23.0
+      },
+      "US": {
+        "count": 121,
+        "bias_ma60_median": -10.43,
+        "bias_ma60_iqr": 24.45,
+        "score_median": 35.0
+      }
+    },
+    "robust_leaders_above_ma60": {
+      "TW": [
+        {
+          "symbol": "9933.TW",
+          "name": "中鼎",
+          "price": 54.1,
+          "bias_ma60": 19.56,
+          "fe_composite_z": 1.566
+        },
+        {
+          "symbol": "2412.TW",
+          "name": "中華電",
+          "price": 165.5,
+          "bias_ma60": 8.83,
+          "fe_composite_z": 1.455
+        },
+        {
+          "symbol": "2480.TW",
+          "name": "敦陽科",
+          "price": 175.0,
+          "bias_ma60": 1.92,
+          "fe_composite_z": 1.057
+        },
+        {
+          "symbol": "3491.TWO",
+          "name": "昇達科",
+          "price": 1480.0,
+          "bias_ma60": 4.7,
+          "fe_composite_z": 1.023
+        },
+        {
+          "symbol": "1216.TW",
+          "name": "統一",
+          "price": 77.9,
+          "bias_ma60": 1.26,
+          "fe_composite_z": 1.016
+        }
+      ],
+      "US": [
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharm",
+          "price": 564.12,
+          "bias_ma60": 7.3,
+          "fe_composite_z": 1.025
+        },
+        {
+          "symbol": "AAPL",
+          "name": "蘋果",
+          "price": 355.58,
+          "bias_ma60": 4.58,
+          "fe_composite_z": 0.999
+        },
+        {
+          "symbol": "WMT",
+          "name": "沃爾瑪",
+          "price": 131.94,
+          "bias_ma60": 13.54,
+          "fe_composite_z": 0.981
+        },
+        {
+          "symbol": "LLY",
+          "name": "禮來",
+          "price": 1392.22,
+          "bias_ma60": 10.8,
+          "fe_composite_z": 0.923
+        },
+        {
+          "symbol": "SBUX",
+          "name": "星巴克",
+          "price": 107.74,
+          "bias_ma60": 7.68,
+          "fe_composite_z": 0.892
+        }
+      ]
+    },
+    "factor_mutual_information_5d": {
+      "status": "ACCUMULATING (0/10 筆已驗收樣本後自動啟動 MI 因子淘汰)"
+    }
+  },
+  "financial_audit": {
+    "source_course": "國立空中大學《財務資訊分析與應用》(72.1萬字：三率安全邊際/盈餘品質勾稽/價值陷阱防雷)",
+    "audited_count": 137,
+    "grade_a_plus_count": 61,
+    "red_flag_count": 34,
+    "top_quality_stocks": [
+      {
+        "symbol": "2337.TW",
+        "name": "旺宏",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 6.88,
+        "rev_yoy": 217.2,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(62.6%)",
+          "高本業營益(44.3%)",
+          "營收強增(+217.2%)",
+          "估值安全邊際(PE 6.9x)"
+        ],
+        "price": 65.4,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2344.TW",
+        "name": "華邦電",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 6.96,
+        "rev_yoy": 257.0,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(65.5%)",
+          "高本業營益(47.3%)",
+          "營收強增(+257.0%)",
+          "估值安全邊際(PE 7.0x)"
+        ],
+        "price": 104.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2408.TW",
+        "name": "南亞科",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 6.41,
+        "rev_yoy": 487.7,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(80.5%)",
+          "高本業營益(74.6%)",
+          "營收強增(+487.7%)",
+          "估值安全邊際(PE 6.4x)"
+        ],
+        "price": 308.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2451.TW",
+        "name": "創見",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 3.12,
+        "rev_yoy": 191.6,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(70.0%)",
+          "高本業營益(66.6%)",
+          "營收強增(+191.6%)",
+          "估值安全邊際(PE 3.1x)",
+          "穩健殖利率(5.4%)"
+        ],
+        "price": 239.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2603.TW",
+        "name": "長榮",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 7.01,
+        "rev_yoy": 96.1,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高本業營益(23.7%)",
+          "營收強增(+96.1%)",
+          "估值安全邊際(PE 7.0x)",
+          "穩健殖利率(6.2%)"
+        ],
+        "price": 249.0,
+        "above_ma60": true
+      },
+      {
+        "symbol": "2615.TW",
+        "name": "萬海",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 6.11,
+        "rev_yoy": 124.4,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(36.0%)",
+          "高本業營益(31.8%)",
+          "營收強增(+124.4%)",
+          "估值安全邊際(PE 6.1x)"
+        ],
+        "price": 99.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2637.TW",
+        "name": "慧洋-KY",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 8.2,
+        "rev_yoy": 31.2,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(38.4%)",
+          "高本業營益(37.2%)",
+          "營收強增(+31.2%)",
+          "估值安全邊際(PE 8.2x)"
+        ],
+        "price": 88.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "3006.TW",
+        "name": "壓力",
+        "grade": "A+",
+        "fa_score": 100.0,
+        "pe": 2.98,
+        "rev_yoy": 430.1,
+        "red_flags": [],
+        "strengths": [
+          "三率三升",
+          "高毛利(69.6%)",
+          "高本業營益(52.1%)",
+          "營收強增(+430.1%)",
+          "估值安全邊際(PE 3.0x)"
+        ],
+        "price": 184.5,
+        "above_ma60": false
+      }
+    ],
+    "financial_landmines": [
+      {
+        "symbol": "2409.TW",
+        "name": "友達",
+        "grade": "D (財報地雷)",
+        "fa_score": 3.0,
+        "pe": 342.5,
+        "rev_yoy": -0.7,
+        "red_flags": [
+          "本業虧損(營益率-1.4%)",
+          "稅後虧損(-0.6%)",
+          "高估值泡沫警戒(PE 342.5x)"
+        ],
+        "strengths": [],
+        "price": 24.9,
+        "above_ma60": false
+      },
+      {
+        "symbol": "8033.TW",
+        "name": "雷虎",
+        "grade": "D (財報地雷)",
+        "fa_score": 10.0,
+        "pe": 409.38,
+        "rev_yoy": 8.4,
+        "red_flags": [
+          "本業虧損(營益率-0.5%)",
+          "盈餘品質警訊(業外灌水: 營益-0.5% vs 淨利6.0%)",
+          "高估值泡沫警戒(PE 409.4x)"
+        ],
+        "strengths": [
+          "高毛利(39.2%)"
+        ],
+        "price": 116.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2359.TW",
+        "name": "所羅門",
+        "grade": "D (財報地雷)",
+        "fa_score": 15.0,
+        "pe": 14.09,
+        "rev_yoy": -8.1,
+        "red_flags": [
+          "本業虧損(營益率-1.6%)",
+          "盈餘品質警訊(業外灌水: 營益-1.6% vs 淨利27.9%)"
+        ],
+        "strengths": [],
+        "price": 75.1,
+        "above_ma60": false
+      },
+      {
+        "symbol": "6451.TW",
+        "name": "訊芯-KY",
+        "grade": "D (財報地雷)",
+        "fa_score": 18.0,
+        "pe": 1157.5,
+        "rev_yoy": 10.5,
+        "red_flags": [
+          "本業虧損(營益率-0.6%)",
+          "稅後虧損(-0.9%)",
+          "高估值泡沫警戒(PE 1157.5x)"
+        ],
+        "strengths": [
+          "三率三升"
+        ],
+        "price": 193.5,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2474.TW",
+        "name": "可成",
+        "grade": "D (財報地雷)",
+        "fa_score": 25.0,
+        "pe": 15.5,
+        "rev_yoy": -12.9,
+        "red_flags": [
+          "盈餘品質警訊(業外灌水: 營益1.1% vs 淨利45.1%)",
+          "低PB價值陷阱(PB 0.80x 但本業營益僅 1.1%)"
+        ],
+        "strengths": [],
+        "price": 199.5,
+        "above_ma60": false
+      },
+      {
+        "symbol": "4919.TW",
+        "name": "新唐",
+        "grade": "D (財報地雷)",
+        "fa_score": 28.0,
+        "pe": null,
+        "rev_yoy": 17.7,
+        "red_flags": [
+          "本業虧損(營益率-4.0%)",
+          "稅後虧損(-3.4%)"
+        ],
+        "strengths": [
+          "高毛利(38.3%)"
+        ],
+        "price": 88.0,
+        "above_ma60": false
+      },
+      {
+        "symbol": "3163.TWO",
+        "name": "波若威",
+        "grade": "D (財報地雷)",
+        "fa_score": 35.0,
+        "pe": 51.35,
+        "rev_yoy": 11.4,
+        "red_flags": [
+          "高估值泡沫警戒(PE 51.4x)"
+        ],
+        "strengths": [],
+        "price": 355.5,
+        "above_ma60": false
+      },
+      {
+        "symbol": "2881.TW",
+        "name": "富邦金",
+        "grade": "C",
+        "fa_score": 38.0,
+        "pe": 13.93,
+        "rev_yoy": -83.4,
+        "red_flags": [
+          "營收衰退(-83.4%)"
+        ],
+        "strengths": [],
+        "price": 140.0,
+        "above_ma60": false
+      }
+    ]
+  },
+  "derivatives_shield": {
+    "source_course": "國立空中大學《衍生性金融商品》(第09講避險比率/第20講VIX波動/第27講CDS/槓桿耗損)",
+    "taifex_foreign_txf": {
+      "date": "20261126",
+      "foreign_txf_net_oi": -106275,
+      "long_oi": 9083,
+      "short_oi": 115358,
+      "net_value_yi_twd": -8394.2,
+      "shield_status": "EXTREME_RED (史詩級空單警戒，嚴禁滿倉追高)"
+    },
+    "vix_daily_1sigma_move_pct": 1.55,
+    "leveraged_etf_annual_vol_drag_pct": {
+      "2x_long_etf_00637L": 6.07,
+      "1x_inverse_etf_00632R": 6.07,
+      "warning": "在 VIX=24.64 環境下，盤整一年單純波動耗損即吃掉 -6.07%，嚴禁長期死抱正2/反1！"
+    },
+    "user_00406A_50pct_hedge_plan": {
+      "portfolio_value_twd": 46340.0,
+      "hedge_ratio_target_pct": 50.0,
+      "recommended_00632R_lots": 2.27,
+      "recommended_lots_rounded": 2
+    },
+    "cds_reference_5y_pd_pct": {
+      "CoreWeave_1314bps": 66.5,
+      "SoftBank_536bps": 36.0,
+      "Oracle_356bps": 25.7,
+      "BigTech4_115bps": 9.2
+    }
+  },
+  "macro_geopolitics": {
+    "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
+    "updated_at": "2026-11-27 17:55:45",
+    "macro_stress_score": 66.0,
+    "macro_regime": "ORANGE_STAGFLATION_RISK",
+    "recommended_cash_floor_pct": 55,
+    "action_note": "停滯性通膨與關稅摩擦警戒！維持 55%~70% 高現金水位，避開高關稅轉口股與高本益比 AI 股。",
+    "stress_drivers": [
+      "美債10Y殖利率飆至 4.85% (>4.75% 財政赤字殺估值紅線)",
+      "WTI原油走揚 $86.01 (20日 -15.5%) — 需防能源通膨反撲",
+      "VIX=24.64 處於震盪防禦區"
+    ],
+    "live_telemetry": {
+      "us10y": {
+        "ticker": "^TNX",
+        "price": 4.848,
+        "chg_1d_pct": -1.14,
+        "chg_5d_pct": -4.3,
+        "chg_20d_pct": -2.77,
+        "label": "美國10年期公債殖利率 (%)"
+      },
+      "dxy": {
+        "ticker": "DX-Y.NYB",
+        "price": 103.828,
+        "chg_1d_pct": 0.15,
+        "chg_5d_pct": -0.07,
+        "chg_20d_pct": 1.83,
+        "label": "美元指數 (DXY)"
+      },
+      "usdtwd": {
+        "ticker": "TWD=X",
+        "price": 32.939,
+        "chg_1d_pct": -0.75,
+        "chg_5d_pct": -0.26,
+        "chg_20d_pct": 1.24,
+        "label": "美元兌新台幣 (USD/TWD)"
+      },
+      "wti_oil": {
+        "ticker": "CL=F",
+        "price": 86.01,
+        "chg_1d_pct": 2.78,
+        "chg_5d_pct": 3.36,
+        "chg_20d_pct": -15.48,
+        "label": "WTI 原油期貨 (USD/桶)"
+      },
+      "gold": {
+        "ticker": "GC=F",
+        "price": 3706.1,
+        "chg_1d_pct": 4.82,
+        "chg_5d_pct": 0.56,
+        "chg_20d_pct": -8.23,
+        "label": "黃金期貨 (USD/盎司)"
+      },
+      "spx": {
+        "ticker": "^GSPC",
+        "price": 7182.78,
+        "chg_1d_pct": -0.25,
+        "chg_5d_pct": -1.92,
+        "chg_20d_pct": -6.43,
+        "label": "標普500指數 (S&P 500)"
+      },
+      "ndx": {
+        "ticker": "^NDX",
+        "price": 26046.896,
+        "chg_1d_pct": -0.64,
+        "chg_5d_pct": -3.94,
+        "chg_20d_pct": -11.02,
+        "label": "那斯達克100指數 (NDX)"
+      }
+    },
+    "taiwan_ppp_fx_gauge": {
+      "usdtwd": 32.939,
+      "big_mac_implied_ppp": 13.18,
+      "twd_ppp_undervaluation_pct": 60.0,
+      "usdtwd_5d_chg_pct": -0.26,
+      "status": "ALERT",
+      "alerts": [
+        "台幣偏弱(>32.5)，外資匯出壓力大且觸及美國匯率操縱觀察警戒線"
+      ]
+    },
+    "ai_bubble_cycle": {
+      "ndx_20d_pct": -11.02,
+      "spx_20d_pct": -6.43,
+      "ndx_vs_spx_spread_20d_pct": -4.59,
+      "bigtech_2026_capex_usd_b": 700,
+      "oil_gas_capex_benchmark_usd_b": 570,
+      "phase": "DELEVERAGING_SHAKEOUT",
+      "verdict": "AI 權值股正經歷殺估值去槓桿（NDX 顯著弱於 SPX），嚴禁抄底高本益比無現金流 AI 股！"
+    },
+    "supply_chain_tariff_audit": {
+      "high_tariff_exposure_count": 6,
+      "high_tariff_exposure_list": [
+        {
+          "symbol": "ASML",
+          "name": "艾司摩爾",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "對中設備禁令＋歐洲能源成本曝險",
+          "price": 1303.08
+        },
+        {
+          "symbol": "NVDA",
+          "name": "輝達",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "對中晶片出口管制＋台海地緣溢價",
+          "price": 149.3
+        },
+        {
+          "symbol": "2317.TW",
+          "name": "鴻海",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "中國/墨西哥代工組裝關稅敏感",
+          "price": 219.0
+        },
+        {
+          "symbol": "2382.TW",
+          "name": "廣達",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "AI 伺服器跨國供應鏈關稅敏感",
+          "price": 278.0
+        },
+        {
+          "symbol": "3017.TW",
+          "name": "奇鋐",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "越南/中國散熱轉口 301 關稅曝險",
+          "price": 2805.0
+        },
+        {
+          "symbol": "3231.TW",
+          "name": "緯創",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "跨國組裝廠關稅與匯率雙重敏感",
+          "price": 162.0
+        }
+      ],
+      "tariff_insulated_count": 4,
+      "tariff_insulated_list": [
+        {
+          "symbol": "JPM",
+          "name": "摩根大通",
+          "grade": "INSULATED",
+          "tag": "美國最大銀行（高殖利率環境淨利差受惠）",
+          "price": 316.74
+        },
+        {
+          "symbol": "LLY",
+          "name": "禮來",
+          "grade": "INSULATED",
+          "tag": "高毛利剛性醫療（專利保護＋抗景氣循環）",
+          "price": 1392.22
+        },
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharm",
+          "grade": "INSULATED",
+          "tag": "生技孤兒藥壟斷（零關稅敏感度）",
+          "price": 564.12
+        },
+        {
+          "symbol": "XLE",
+          "name": "能源ETF",
+          "grade": "INSULATED",
+          "tag": "美國能源龍頭（荷姆茲油價飆升直接對沖）",
+          "price": 60.9
+        }
+      ]
+    }
+  },
+  "monetary_liquidity": {
+    "source_courses": [
+      "國立空中大學《貨幣銀行學》（黃昱程、楊啟均教授）",
+      "國立空中大學《總體經濟學》（IS-LM / AD-AS 貨幣傳導）"
+    ],
+    "updated_at": "2026-11-27 17:55:51",
+    "liquidity_stress_score": 94.0,
+    "liquidity_regime": "RESTRICTIVE_LIQUIDITY_SQUEEZE",
+    "yield_curve_clock": {
+      "us10y_pct": 4.848,
+      "us5y_pct": 4.66,
+      "us3m_pct": 4.155,
+      "spread_10y_3m_bps": 69.3,
+      "spread_10y_5y_bps": 18.8,
+      "curve_state": "BEAR_STEEPENING_FISCAL_STRESS",
+      "note": "10Y-3M 正斜率 +69.3 bps 但長端利率飆破 4.75%（熊市陡峭化）：債市正在懲罰通膨與財政赤字。"
+    },
+    "fisher_real_rate": {
+      "nominal_10y_pct": 4.848,
+      "expected_inflation_pct": 2.6,
+      "fisher_real_rate_pct": 2.25,
+      "implied_fair_pe_ceiling": 15.8,
+      "pressure": "HIGH_VALUATION_GRAVITY",
+      "desc": "實質利率達 2.25%（高重力區），合理市場本益比壓縮至約 15.8x，高 PE 股極易殺估值。"
+    },
+    "credit_transmission": {
+      "hyg_20d_pct": -0.88,
+      "ief_20d_pct": 1.03,
+      "hyg_vs_ief_spread_20d_pct": -1.91,
+      "kre_vs_xlf_20d_pct": -4.86,
+      "status": "CREDIT_TIGHTENING",
+      "note": "高收益債 20 日落後美債 -1.91%：信用市場開始收緊，遠離高負債與高 CDS 公司。"
+    }
+  },
+  "statistical_modeling": {
+    "source_courses": [
+      "國立空中大學《數據分析建模的理論與實務》（顏春煌教授）",
+      "國立空中大學《統計學概論》",
+      "國立空中大學《機器學習的原理與應用》",
+      "國立空中大學《理財規劃與實務》"
+    ],
+    "updated_at": "2026-11-27 17:55:51",
+    "oos_wilson_95ci": {
+      "point_est_pct": 0.0,
+      "ci95_low_pct": 0.0,
+      "ci95_high_pct": 0.0,
+      "sample_size": 0,
+      "reliable": false
+    },
+    "oos_positive_expectancy_ttest": {
+      "n": 0,
+      "mean_pct": 0.0,
+      "t_stat": 0.0,
+      "p_value_one_tailed": 1.0,
+      "statistically_significant": false
+    },
+    "classifier_confusion_matrix": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0,
+      "f1_score": 0.0
+    },
+    "market_fat_tail_audit": {
+      "sample_size": 260,
+      "mean_ma60_bias_pct": -15.67,
+      "std_ma60_bias_pct": 14.35,
+      "skewness": -0.178,
+      "excess_kurtosis": -0.496,
+      "below_ma60_breadth_pct": 85.8,
+      "tail_status": "NORMAL_DISPERSION",
+      "note": "市場橫斷面分佈正常 (Skew=-0.18, Kurt=-0.50)，85.8% 個股在季線下。"
+    },
+    "half_kelly_position_sizing": {
+      "assumed_win_rate_pct": 58.0,
+      "assumed_payoff_ratio": 1.8,
+      "full_kelly_pct": 34.7,
+      "half_kelly_pct": 17.3,
+      "macro_stress_multiplier": 0.57,
+      "recommended_max_single_pos_pct": 9.9,
+      "constitution_a7_cap_pct": 25.0,
+      "note": "依半凱利準則與當前總經壓力 (66.0/100) 折減後，單檔個股建議上限為總資金 9.9%（嚴守憲法 <= 25.0%）。"
+    }
+  },
+  "pending_commander_approvals": 0
+}

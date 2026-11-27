@@ -29,6 +29,7 @@ import InstitutionalRadar from './components/InstitutionalRadar';
 import SeasonalityCalendar from './components/SeasonalityCalendar';
 import RetirementCorePortfolio from './components/RetirementCorePortfolio';
 import AIQuantAdvisor from './components/AIQuantAdvisor';
+import Gen31AcademicDashboard from './components/Gen31AcademicDashboard';
 
 const AI_ALGO_MAP = {
   'VTI':   { tag: '🇺🇸 美股底倉 25%', cls: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
@@ -495,6 +496,7 @@ function App() {
         <section id="weather-station" className="space-y-4">
           {renderWeatherStation()}
           <InstitutionalRadar indices={indices} taifexOi={taifexOi} />
+          <Gen31AcademicDashboard />
         </section>
 
         {/* 🚨 2026 演算法升級直通推薦條 (動態大盤狀態與 Gen18 RSI 閉環) */}
