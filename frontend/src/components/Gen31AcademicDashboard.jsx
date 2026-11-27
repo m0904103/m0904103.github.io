@@ -56,8 +56,12 @@ export default function Gen31AcademicDashboard() {
   const fe = data.feature_engineering || {};
 
   const txOi = ds.taifex_foreign_txf || {};
-  const vixDaily1Sigma = ds.vix_daily_1sigma_move_pct;
-  const levAnnualDrag = ds.leveraged_etf_annual_vol_drag_pct;
+  const vixDaily1Sigma = typeof ds.vix_daily_1sigma_move_pct === 'number' ? ds.vix_daily_1sigma_move_pct : '--';
+  const rawDrag = ds.leveraged_etf_annual_vol_drag_pct;
+  const levAnnualDrag =
+    typeof rawDrag === 'number'
+      ? rawDrag
+      : (rawDrag && typeof rawDrag === 'object' ? rawDrag['1x_inverse_etf_00632R'] ?? rawDrag['2x_long_etf_00637L'] ?? '--' : '--');
   const hedge = ds.user_00406A_50pct_hedge_plan || {};
   const cdsEntries = Object.entries(ds.cds_reference_5y_pd_pct || {});
 
@@ -167,7 +171,7 @@ export default function Gen31AcademicDashboard() {
                   ±{vixDaily1Sigma ?? '--'}%
                 </div>
                 <div className="text-[10px] text-gray-500">
-                  反1/正2年耗損 {levAnnualDrag ?? '--'}%
+                  反1/正2年耗損 -{levAnnualDrag}%
                 </div>
               </div>
             </div>
