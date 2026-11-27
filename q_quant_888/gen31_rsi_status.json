@@ -1,13 +1,13 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-27 17:41:30",
+  "updated_at": "2026-11-27 17:48:57",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
     "articles_count": 15,
     "immutable": true
   },
-  "live_vix": 24.62,
+  "live_vix": 24.56,
   "active_gen": 31,
   "active_params": {
     "score_threshold_strong_buy": 80.0,
@@ -444,9 +444,9 @@
     },
     "vix_daily_1sigma_move_pct": 1.55,
     "leveraged_etf_annual_vol_drag_pct": {
-      "2x_long_etf_00637L": 6.06,
-      "1x_inverse_etf_00632R": 6.06,
-      "warning": "在 VIX=24.62 環境下，盤整一年單純波動耗損即吃掉 -6.06%，嚴禁長期死抱正2/反1！"
+      "2x_long_etf_00637L": 6.03,
+      "1x_inverse_etf_00632R": 6.03,
+      "warning": "在 VIX=24.56 環境下，盤整一年單純波動耗損即吃掉 -6.03%，嚴禁長期死抱正2/反1！"
     },
     "user_00406A_50pct_hedge_plan": {
       "portfolio_value_twd": 46340.0,
@@ -459,6 +459,174 @@
       "SoftBank_536bps": 36.0,
       "Oracle_356bps": 25.7,
       "BigTech4_115bps": 9.2
+    }
+  },
+  "macro_geopolitics": {
+    "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
+    "updated_at": "2026-11-27 17:48:57",
+    "macro_stress_score": 66.0,
+    "macro_regime": "ORANGE_STAGFLATION_RISK",
+    "recommended_cash_floor_pct": 55,
+    "action_note": "停滯性通膨與關稅摩擦警戒！維持 55%~70% 高現金水位，避開高關稅轉口股與高本益比 AI 股。",
+    "stress_drivers": [
+      "美債10Y殖利率飆至 4.85% (>4.75% 財政赤字殺估值紅線)",
+      "WTI原油走揚 $86.03 (20日 -15.5%) — 需防能源通膨反撲",
+      "VIX=24.56 處於震盪防禦區"
+    ],
+    "live_telemetry": {
+      "us10y": {
+        "ticker": "^TNX",
+        "price": 4.848,
+        "chg_1d_pct": -1.14,
+        "chg_5d_pct": -4.3,
+        "chg_20d_pct": -2.77,
+        "label": "美國10年期公債殖利率 (%)"
+      },
+      "dxy": {
+        "ticker": "DX-Y.NYB",
+        "price": 103.829,
+        "chg_1d_pct": 0.15,
+        "chg_5d_pct": -0.07,
+        "chg_20d_pct": 1.83,
+        "label": "美元指數 (DXY)"
+      },
+      "usdtwd": {
+        "ticker": "TWD=X",
+        "price": 32.932,
+        "chg_1d_pct": -0.77,
+        "chg_5d_pct": -0.29,
+        "chg_20d_pct": 1.22,
+        "label": "美元兌新台幣 (USD/TWD)"
+      },
+      "wti_oil": {
+        "ticker": "CL=F",
+        "price": 86.03,
+        "chg_1d_pct": 2.81,
+        "chg_5d_pct": 3.39,
+        "chg_20d_pct": -15.46,
+        "label": "WTI 原油期貨 (USD/桶)"
+      },
+      "gold": {
+        "ticker": "GC=F",
+        "price": 3707.1,
+        "chg_1d_pct": 4.84,
+        "chg_5d_pct": 0.59,
+        "chg_20d_pct": -8.2,
+        "label": "黃金期貨 (USD/盎司)"
+      },
+      "spx": {
+        "ticker": "^GSPC",
+        "price": 7182.78,
+        "chg_1d_pct": -0.25,
+        "chg_5d_pct": -1.92,
+        "chg_20d_pct": -6.43,
+        "label": "標普500指數 (S&P 500)"
+      },
+      "ndx": {
+        "ticker": "^NDX",
+        "price": 26046.896,
+        "chg_1d_pct": -0.64,
+        "chg_5d_pct": -3.94,
+        "chg_20d_pct": -11.02,
+        "label": "那斯達克100指數 (NDX)"
+      }
+    },
+    "taiwan_ppp_fx_gauge": {
+      "usdtwd": 32.932,
+      "big_mac_implied_ppp": 13.18,
+      "twd_ppp_undervaluation_pct": 60.0,
+      "usdtwd_5d_chg_pct": -0.29,
+      "status": "ALERT",
+      "alerts": [
+        "台幣偏弱(>32.5)，外資匯出壓力大且觸及美國匯率操縱觀察警戒線"
+      ]
+    },
+    "ai_bubble_cycle": {
+      "ndx_20d_pct": -11.02,
+      "spx_20d_pct": -6.43,
+      "ndx_vs_spx_spread_20d_pct": -4.59,
+      "bigtech_2026_capex_usd_b": 700,
+      "oil_gas_capex_benchmark_usd_b": 570,
+      "phase": "DELEVERAGING_SHAKEOUT",
+      "verdict": "AI 權值股正經歷殺估值去槓桿（NDX 顯著弱於 SPX），嚴禁抄底高本益比無現金流 AI 股！"
+    },
+    "supply_chain_tariff_audit": {
+      "high_tariff_exposure_count": 6,
+      "high_tariff_exposure_list": [
+        {
+          "symbol": "ASML",
+          "name": "艾司摩爾",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "對中設備禁令＋歐洲能源成本曝險",
+          "price": 1303.08
+        },
+        {
+          "symbol": "NVDA",
+          "name": "輝達",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "對中晶片出口管制＋台海地緣溢價",
+          "price": 149.3
+        },
+        {
+          "symbol": "2317.TW",
+          "name": "鴻海",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "中國/墨西哥代工組裝關稅敏感",
+          "price": 219.0
+        },
+        {
+          "symbol": "2382.TW",
+          "name": "廣達",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "AI 伺服器跨國供應鏈關稅敏感",
+          "price": 278.0
+        },
+        {
+          "symbol": "3017.TW",
+          "name": "奇鋐",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "越南/中國散熱轉口 301 關稅曝險",
+          "price": 2805.0
+        },
+        {
+          "symbol": "3231.TW",
+          "name": "緯創",
+          "grade": "HIGH_EXPOSURE",
+          "tag": "跨國組裝廠關稅與匯率雙重敏感",
+          "price": 162.0
+        }
+      ],
+      "tariff_insulated_count": 4,
+      "tariff_insulated_list": [
+        {
+          "symbol": "JPM",
+          "name": "摩根大通",
+          "grade": "INSULATED",
+          "tag": "美國最大銀行（高殖利率環境淨利差受惠）",
+          "price": 316.74
+        },
+        {
+          "symbol": "LLY",
+          "name": "禮來",
+          "grade": "INSULATED",
+          "tag": "高毛利剛性醫療（專利保護＋抗景氣循環）",
+          "price": 1392.22
+        },
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharm",
+          "grade": "INSULATED",
+          "tag": "生技孤兒藥壟斷（零關稅敏感度）",
+          "price": 564.12
+        },
+        {
+          "symbol": "XLE",
+          "name": "能源ETF",
+          "grade": "INSULATED",
+          "tag": "美國能源龍頭（荷姆茲油價飆升直接對沖）",
+          "price": 60.9
+        }
+      ]
     }
   },
   "pending_commander_approvals": 0
