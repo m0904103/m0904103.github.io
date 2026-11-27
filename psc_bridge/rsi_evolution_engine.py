@@ -34,6 +34,12 @@ WEB_STATUS_JSON = os.path.join(BASE_DIR, "q_quant_888", "gen31_rsi_status.json")
 
 sys.path.insert(0, BRIDGE_DIR)
 import constitution_layer as const
+import feature_engineering_fe as fe
+import financial_audit_fa as fa
+import derivatives_shield_ds as ds
+import macro_geopolitics_mg as mg
+import monetary_liquidity_ml as ml
+import stat_modeling_sm as sm
 
 
 DEFAULT_GEN31_PARAMS = {
@@ -390,8 +396,34 @@ def run_gen31_cycle(vix_override: float = None) -> Dict[str, Any]:
     snap_res = step1_snapshot_today(conn, stocks, vix, active_gen)
     eval_res = step2_evaluate_past_signals(conn, stocks)
     evo_res = step3_shadow_rsi_evolution(conn, active_gen, active_params)
+    fe_res = fe.engineer_market_features(stocks)
+    fa_res = fa.audit_market_financials(stocks)
+    ds_res = ds.run_derivatives_shield(live_vix=vix)
+    mg_res = mg.run_macro_geopolitics_radar(stocks=stocks, live_vix=vix)
+    ml_res = ml.run_monetary_liquidity_engine()
 
+    # 讀取已驗收 5 日樣本供統計建模 (SM) 與特徵工程 (MI) 雙重檢定
     cur = conn.cursor()
+    cur.execute("SELECT enforced_signal, ret_5d FROM signal_snapshots WHERE ret_5d IS NOT NULL")
+    sm_eval_rows = [(r[0], float(r[1])) for r in cur.fetchall()]
+    sm_res = sm.run_statistical_modeling_engine(
+        stocks=stocks,
+        eval_rows=sm_eval_rows,
+        macro_stress_score=float(mg_res.get("macro_stress_score", 60.0)),
+    )
+
+    # 若已累積 >= 10 筆已驗收 5 日樣本，自動用《資料科學的特徵工程》Ch.3 計算各選股因子之交互資訊 (MI)
+    cur.execute("SELECT score, rsi14, entry_price, ma60, ret_5d FROM signal_snapshots WHERE ret_5d IS NOT NULL AND entry_price > 0 AND ma60 > 0")
+    mi_rows = cur.fetchall()
+    if len(mi_rows) >= 10:
+        fe_res["factor_mutual_information_5d"] = {
+            "score_mi": fe.compute_mutual_information([r[0] for r in mi_rows], [r[4] for r in mi_rows]),
+            "rsi14_mi": fe.compute_mutual_information([r[1] for r in mi_rows], [r[4] for r in mi_rows]),
+            "bias_ma60_mi": fe.compute_mutual_information([(r[2]-r[3])/r[3]*100 for r in mi_rows], [r[4] for r in mi_rows]),
+        }
+    else:
+        fe_res["factor_mutual_information_5d"] = {"status": f"ACCUMULATING ({len(mi_rows)}/10 筆已驗收樣本後自動啟動 MI 因子淘汰)"}
+
     cur.execute("SELECT COUNT(*) FROM evolution_proposals WHERE commander_status = 'PENDING_COMMANDER_APPROVAL'")
     pending_proposals = int(cur.fetchone()[0] or 0)
     conn.close()
@@ -420,6 +452,12 @@ def run_gen31_cycle(vix_override: float = None) -> Dict[str, Any]:
         "snapshot": snap_res,
         "evaluation": eval_res,
         "evolution": evo_res,
+        "feature_engineering": fe_res,
+        "financial_audit": fa_res,
+        "derivatives_shield": ds_res,
+        "macro_geopolitics": mg_res,
+        "monetary_liquidity": ml_res,
+        "statistical_modeling": sm_res,
         "pending_commander_approvals": pending_proposals,
     }
 

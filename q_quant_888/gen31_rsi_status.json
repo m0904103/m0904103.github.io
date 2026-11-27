@@ -1,13 +1,13 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-27 17:48:57",
+  "updated_at": "2026-11-27 17:55:51",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
     "articles_count": 15,
     "immutable": true
   },
-  "live_vix": 24.56,
+  "live_vix": 24.64,
   "active_gen": 31,
   "active_params": {
     "score_threshold_strong_buy": 80.0,
@@ -444,9 +444,9 @@
     },
     "vix_daily_1sigma_move_pct": 1.55,
     "leveraged_etf_annual_vol_drag_pct": {
-      "2x_long_etf_00637L": 6.03,
-      "1x_inverse_etf_00632R": 6.03,
-      "warning": "在 VIX=24.56 環境下，盤整一年單純波動耗損即吃掉 -6.03%，嚴禁長期死抱正2/反1！"
+      "2x_long_etf_00637L": 6.07,
+      "1x_inverse_etf_00632R": 6.07,
+      "warning": "在 VIX=24.64 環境下，盤整一年單純波動耗損即吃掉 -6.07%，嚴禁長期死抱正2/反1！"
     },
     "user_00406A_50pct_hedge_plan": {
       "portfolio_value_twd": 46340.0,
@@ -463,15 +463,15 @@
   },
   "macro_geopolitics": {
     "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
-    "updated_at": "2026-11-27 17:48:57",
+    "updated_at": "2026-11-27 17:55:45",
     "macro_stress_score": 66.0,
     "macro_regime": "ORANGE_STAGFLATION_RISK",
     "recommended_cash_floor_pct": 55,
     "action_note": "停滯性通膨與關稅摩擦警戒！維持 55%~70% 高現金水位，避開高關稅轉口股與高本益比 AI 股。",
     "stress_drivers": [
       "美債10Y殖利率飆至 4.85% (>4.75% 財政赤字殺估值紅線)",
-      "WTI原油走揚 $86.03 (20日 -15.5%) — 需防能源通膨反撲",
-      "VIX=24.56 處於震盪防禦區"
+      "WTI原油走揚 $86.01 (20日 -15.5%) — 需防能源通膨反撲",
+      "VIX=24.64 處於震盪防禦區"
     ],
     "live_telemetry": {
       "us10y": {
@@ -484,7 +484,7 @@
       },
       "dxy": {
         "ticker": "DX-Y.NYB",
-        "price": 103.829,
+        "price": 103.828,
         "chg_1d_pct": 0.15,
         "chg_5d_pct": -0.07,
         "chg_20d_pct": 1.83,
@@ -492,26 +492,26 @@
       },
       "usdtwd": {
         "ticker": "TWD=X",
-        "price": 32.932,
-        "chg_1d_pct": -0.77,
-        "chg_5d_pct": -0.29,
-        "chg_20d_pct": 1.22,
+        "price": 32.939,
+        "chg_1d_pct": -0.75,
+        "chg_5d_pct": -0.26,
+        "chg_20d_pct": 1.24,
         "label": "美元兌新台幣 (USD/TWD)"
       },
       "wti_oil": {
         "ticker": "CL=F",
-        "price": 86.03,
-        "chg_1d_pct": 2.81,
-        "chg_5d_pct": 3.39,
-        "chg_20d_pct": -15.46,
+        "price": 86.01,
+        "chg_1d_pct": 2.78,
+        "chg_5d_pct": 3.36,
+        "chg_20d_pct": -15.48,
         "label": "WTI 原油期貨 (USD/桶)"
       },
       "gold": {
         "ticker": "GC=F",
-        "price": 3707.1,
-        "chg_1d_pct": 4.84,
-        "chg_5d_pct": 0.59,
-        "chg_20d_pct": -8.2,
+        "price": 3706.1,
+        "chg_1d_pct": 4.82,
+        "chg_5d_pct": 0.56,
+        "chg_20d_pct": -8.23,
         "label": "黃金期貨 (USD/盎司)"
       },
       "spx": {
@@ -532,10 +532,10 @@
       }
     },
     "taiwan_ppp_fx_gauge": {
-      "usdtwd": 32.932,
+      "usdtwd": 32.939,
       "big_mac_implied_ppp": 13.18,
       "twd_ppp_undervaluation_pct": 60.0,
-      "usdtwd_5d_chg_pct": -0.29,
+      "usdtwd_5d_chg_pct": -0.26,
       "status": "ALERT",
       "alerts": [
         "台幣偏弱(>32.5)，外資匯出壓力大且觸及美國匯率操縱觀察警戒線"
@@ -627,6 +627,92 @@
           "price": 60.9
         }
       ]
+    }
+  },
+  "monetary_liquidity": {
+    "source_courses": [
+      "國立空中大學《貨幣銀行學》（黃昱程、楊啟均教授）",
+      "國立空中大學《總體經濟學》（IS-LM / AD-AS 貨幣傳導）"
+    ],
+    "updated_at": "2026-11-27 17:55:51",
+    "liquidity_stress_score": 94.0,
+    "liquidity_regime": "RESTRICTIVE_LIQUIDITY_SQUEEZE",
+    "yield_curve_clock": {
+      "us10y_pct": 4.848,
+      "us5y_pct": 4.66,
+      "us3m_pct": 4.155,
+      "spread_10y_3m_bps": 69.3,
+      "spread_10y_5y_bps": 18.8,
+      "curve_state": "BEAR_STEEPENING_FISCAL_STRESS",
+      "note": "10Y-3M 正斜率 +69.3 bps 但長端利率飆破 4.75%（熊市陡峭化）：債市正在懲罰通膨與財政赤字。"
+    },
+    "fisher_real_rate": {
+      "nominal_10y_pct": 4.848,
+      "expected_inflation_pct": 2.6,
+      "fisher_real_rate_pct": 2.25,
+      "implied_fair_pe_ceiling": 15.8,
+      "pressure": "HIGH_VALUATION_GRAVITY",
+      "desc": "實質利率達 2.25%（高重力區），合理市場本益比壓縮至約 15.8x，高 PE 股極易殺估值。"
+    },
+    "credit_transmission": {
+      "hyg_20d_pct": -0.88,
+      "ief_20d_pct": 1.03,
+      "hyg_vs_ief_spread_20d_pct": -1.91,
+      "kre_vs_xlf_20d_pct": -4.86,
+      "status": "CREDIT_TIGHTENING",
+      "note": "高收益債 20 日落後美債 -1.91%：信用市場開始收緊，遠離高負債與高 CDS 公司。"
+    }
+  },
+  "statistical_modeling": {
+    "source_courses": [
+      "國立空中大學《數據分析建模的理論與實務》（顏春煌教授）",
+      "國立空中大學《統計學概論》",
+      "國立空中大學《機器學習的原理與應用》",
+      "國立空中大學《理財規劃與實務》"
+    ],
+    "updated_at": "2026-11-27 17:55:51",
+    "oos_wilson_95ci": {
+      "point_est_pct": 0.0,
+      "ci95_low_pct": 0.0,
+      "ci95_high_pct": 0.0,
+      "sample_size": 0,
+      "reliable": false
+    },
+    "oos_positive_expectancy_ttest": {
+      "n": 0,
+      "mean_pct": 0.0,
+      "t_stat": 0.0,
+      "p_value_one_tailed": 1.0,
+      "statistically_significant": false
+    },
+    "classifier_confusion_matrix": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0,
+      "f1_score": 0.0
+    },
+    "market_fat_tail_audit": {
+      "sample_size": 260,
+      "mean_ma60_bias_pct": -15.67,
+      "std_ma60_bias_pct": 14.35,
+      "skewness": -0.178,
+      "excess_kurtosis": -0.496,
+      "below_ma60_breadth_pct": 85.8,
+      "tail_status": "NORMAL_DISPERSION",
+      "note": "市場橫斷面分佈正常 (Skew=-0.18, Kurt=-0.50)，85.8% 個股在季線下。"
+    },
+    "half_kelly_position_sizing": {
+      "assumed_win_rate_pct": 58.0,
+      "assumed_payoff_ratio": 1.8,
+      "full_kelly_pct": 34.7,
+      "half_kelly_pct": 17.3,
+      "macro_stress_multiplier": 0.57,
+      "recommended_max_single_pos_pct": 9.9,
+      "constitution_a7_cap_pct": 25.0,
+      "note": "依半凱利準則與當前總經壓力 (66.0/100) 折減後，單檔個股建議上限為總資金 9.9%（嚴守憲法 <= 25.0%）。"
     }
   },
   "pending_commander_approvals": 0
