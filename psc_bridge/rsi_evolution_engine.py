@@ -41,6 +41,7 @@ import macro_geopolitics_mg as mg
 import monetary_liquidity_ml as ml
 import stat_modeling_sm as sm
 import walkforward_rsi_lab as wf_rsi
+import inject_gen31_core_pool as gen31_pool
 
 
 DEFAULT_GEN31_PARAMS = {
@@ -383,6 +384,11 @@ def step3_shadow_rsi_evolution(conn: sqlite3.Connection, active_gen: int, active
 def run_gen31_cycle(vix_override: float = None) -> Dict[str, Any]:
     if not os.path.exists(SCAN_FILE):
         raise FileNotFoundError(f"找不到 {SCAN_FILE}")
+
+    try:
+        gen31_pool.ensure_gen31_pool()
+    except Exception:
+        pass
 
     with open(SCAN_FILE, "r", encoding="utf-8") as f:
         scan_data = json.load(f)

@@ -1,6 +1,6 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-28 09:53:25",
+  "updated_at": "2026-11-28 09:59:55",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
@@ -20,15 +20,15 @@
   },
   "snapshot": {
     "trade_date": "2026-11-28",
-    "total_snapshotted": 260,
-    "constitution_buy_passed": 0,
+    "total_snapshotted": 265,
+    "constitution_buy_passed": 3,
     "constitution_vetoed": 0,
     "sample_vetoes": []
   },
   "evaluation": {
     "newly_evaluated_5d": 0,
     "newly_evaluated_20d": 0,
-    "total_ledger_rows": 780,
+    "total_ledger_rows": 785,
     "total_tracked_days": 3,
     "total_evaluated_5d": 0,
     "total_evaluated_20d": 0,
@@ -45,7 +45,7 @@
     "message": "目前累積 0/15 筆已驗收樣本，達標後自動啟動影子參數遞迴優化並提交司令官核准。"
   },
   "walkforward_rsi_lab": {
-    "updated_at": "2026-11-28 09:53:06",
+    "updated_at": "2026-11-28 09:59:37",
     "universe_size": 12,
     "total_independent_5d_samples": 444,
     "is_samples": 222,
@@ -92,7 +92,7 @@
   },
   "feature_engineering": {
     "source_course": "國立空中大學《資料科學的特徵工程》(Ch.3 MI / Ch.4 群組合成 / Ch.9 IQR 異常值 / Ch.11 Robust Scaling)",
-    "total_processed": 260,
+    "total_processed": 265,
     "outliers_capped_count": 1,
     "sample_outliers": [
       {
@@ -110,10 +110,10 @@
         "score_median": 23.0
       },
       "US": {
-        "count": 121,
-        "bias_ma60_median": -8.33,
-        "bias_ma60_iqr": 22.9,
-        "score_median": 35.0
+        "count": 126,
+        "bias_ma60_median": -8.175,
+        "bias_ma60_iqr": 22.74,
+        "score_median": 36.0
       }
     },
     "robust_leaders_above_ma60": {
@@ -160,35 +160,35 @@
           "name": "蘋果",
           "price": 358.68,
           "bias_ma60": 5.49,
-          "fe_composite_z": 0.995
+          "fe_composite_z": 0.979
         },
         {
           "symbol": "WMT",
           "name": "沃爾瑪",
           "price": 133.12,
           "bias_ma60": 14.55,
-          "fe_composite_z": 0.987
+          "fe_composite_z": 0.976
+        },
+        {
+          "symbol": "PGR",
+          "name": "Progressive 前進保險",
+          "price": 239.14,
+          "bias_ma60": 7.79,
+          "fe_composite_z": 0.968
         },
         {
           "symbol": "LLY",
           "name": "禮來",
           "price": 1392.38,
           "bias_ma60": 10.81,
-          "fe_composite_z": 0.911
+          "fe_composite_z": 0.895
         },
         {
           "symbol": "SBUX",
           "name": "星巴克",
           "price": 108.79,
           "bias_ma60": 8.72,
-          "fe_composite_z": 0.893
-        },
-        {
-          "symbol": "APP",
-          "name": "AppLovin",
-          "price": 398.96,
-          "bias_ma60": 27.29,
-          "fe_composite_z": 0.879
+          "fe_composite_z": 0.877
         }
       ]
     },
@@ -509,7 +509,7 @@
   },
   "macro_geopolitics": {
     "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
-    "updated_at": "2026-11-28 09:53:11",
+    "updated_at": "2026-11-28 09:59:42",
     "macro_stress_score": 66.0,
     "macro_regime": "ORANGE_STAGFLATION_RISK",
     "recommended_cash_floor_pct": 55,
@@ -642,7 +642,7 @@
           "price": 162.0
         }
       ],
-      "tariff_insulated_count": 4,
+      "tariff_insulated_count": 8,
       "tariff_insulated_list": [
         {
           "symbol": "JPM",
@@ -671,6 +671,34 @@
           "grade": "INSULATED",
           "tag": "美國能源龍頭（荷姆茲油價飆升直接對沖）",
           "price": 61.67
+        },
+        {
+          "symbol": "ITA",
+          "name": "美國航太國防ETF",
+          "grade": "INSULATED",
+          "tag": "美國航太國防（地緣衝突直接受惠盾牌）",
+          "price": 70.36
+        },
+        {
+          "symbol": "PGR",
+          "name": "Progressive 前進保險",
+          "grade": "INSULATED",
+          "tag": "純美國本土產險（零關稅、高利率受惠）",
+          "price": 239.14
+        },
+        {
+          "symbol": "SGOV",
+          "name": "iShares 0-3月美國短債",
+          "grade": "INSULATED",
+          "tag": "美國短債現金堡壘（零關稅、零信用風險）",
+          "price": 100.71
+        },
+        {
+          "symbol": "GLD",
+          "name": "SPDR 實體黃金ETF",
+          "grade": "INSULATED",
+          "tag": "實體黃金（去美元化＋美債赤字避險核心）",
+          "price": 334.4
         }
       ]
     }
@@ -680,7 +708,7 @@
       "國立空中大學《貨幣銀行學》（黃昱程、楊啟均教授）",
       "國立空中大學《總體經濟學》（IS-LM / AD-AS 貨幣傳導）"
     ],
-    "updated_at": "2026-11-28 09:53:25",
+    "updated_at": "2026-11-28 09:59:55",
     "liquidity_stress_score": 94.0,
     "liquidity_regime": "RESTRICTIVE_LIQUIDITY_SQUEEZE",
     "yield_curve_clock": {
@@ -716,7 +744,7 @@
       "國立空中大學《機器學習的原理與應用》",
       "國立空中大學《理財規劃與實務》"
     ],
-    "updated_at": "2026-11-28 09:53:25",
+    "updated_at": "2026-11-28 09:59:55",
     "oos_wilson_95ci": {
       "point_est_pct": 0.0,
       "ci95_low_pct": 0.0,
@@ -741,14 +769,14 @@
       "f1_score": 0.0
     },
     "market_fat_tail_audit": {
-      "sample_size": 260,
-      "mean_ma60_bias_pct": -14.6,
+      "sample_size": 265,
+      "mean_ma60_bias_pct": -14.42,
       "std_ma60_bias_pct": 14.35,
-      "skewness": -0.154,
-      "excess_kurtosis": -0.364,
-      "below_ma60_breadth_pct": 83.8,
+      "skewness": -0.167,
+      "excess_kurtosis": -0.372,
+      "below_ma60_breadth_pct": 83.0,
       "tail_status": "NORMAL_DISPERSION",
-      "note": "市場橫斷面分佈正常 (Skew=-0.15, Kurt=-0.36)，83.8% 個股在季線下。"
+      "note": "市場橫斷面分佈正常 (Skew=-0.17, Kurt=-0.37)，83.0% 個股在季線下。"
     },
     "half_kelly_position_sizing": {
       "assumed_win_rate_pct": 58.0,
