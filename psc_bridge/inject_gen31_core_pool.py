@@ -22,6 +22,11 @@ HISTORY_DIRS = [
     os.path.join(BASE_DIR, "q_quant_888", "history"),
     os.path.join(BASE_DIR, "trading", "history"),
 ]
+ASSET_DIRS = [
+    os.path.join(BASE_DIR, "assets"),
+    os.path.join(BASE_DIR, "q_quant_888", "assets"),
+    os.path.join(BASE_DIR, "trading", "assets"),
+]
 
 GEN31_CORE_TARGETS = [
     {"symbol": "ITA", "name": "美國航太國防ETF", "sector": "國防航太與地緣盾牌", "erc_weight": 9.0},
@@ -89,6 +94,12 @@ def fetch_stock_entry(meta_cfg: Dict[str, Any]) -> Dict[str, Any]:
             hp = os.path.join(hdir, f"{sym}.json")
             with open(hp, "w", encoding="utf-8") as hf:
                 json.dump(hist_120, hf, ensure_ascii=False)
+    for adir in ASSET_DIRS:
+        if os.path.exists(os.path.dirname(adir)):
+            os.makedirs(adir, exist_ok=True)
+            ap = os.path.join(adir, f"history_{sym}.json")
+            with open(ap, "w", encoding="utf-8") as af:
+                json.dump(hist_120, af, ensure_ascii=False)
 
     closes = [float(c) for c in raw_closes if c is not None]
     vols = [float(v) for v in raw_vols if v is not None]
