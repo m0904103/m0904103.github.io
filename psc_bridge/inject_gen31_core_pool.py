@@ -17,6 +17,11 @@ SCAN_FILES = [
     os.path.join(BASE_DIR, "q_quant_888", "scan_results.json"),
     os.path.join(BASE_DIR, "trading", "scan_results.json"),
 ]
+HISTORY_DIRS = [
+    os.path.join(BASE_DIR, "history"),
+    os.path.join(BASE_DIR, "q_quant_888", "history"),
+    os.path.join(BASE_DIR, "trading", "history"),
+]
 
 GEN31_CORE_TARGETS = [
     {"symbol": "ITA", "name": "美國航太國防ETF", "sector": "國防航太與地緣盾牌", "erc_weight": 9.0},
@@ -51,9 +56,42 @@ def fetch_stock_entry(meta_cfg: Dict[str, Any]) -> Dict[str, Any]:
         d = json.loads(resp.read().decode("utf-8"))
     res = d["chart"]["result"][0]
     m = res["meta"]
+    ts_list = res.get("timestamp", [])
     q = res["indicators"]["quote"][0]
-    closes = [float(c) for c in q.get("close", []) if c is not None]
-    vols = [float(v) for v in q.get("volume", []) if v is not None]
+    opens = q.get("open", [])
+    highs = q.get("high", [])
+    lows = q.get("low", [])
+    raw_closes = q.get("close", [])
+    raw_vols = q.get("volume", [])
+
+    # 同步產生前端 K 線圖需要的 120 日 history/<SYM>.json
+    bars = []
+    valid_closes = []
+    for t, o, h, l, c, v in zip(ts_list, opens, highs, lows, raw_closes, raw_vols):
+        if t is None or c is None:
+            continue
+        c_val = float(c)
+        valid_closes.append(c_val)
+        ma60_i = round(sum(valid_closes[-60:]) / min(60, len(valid_closes)), 2)
+        bars.append({
+            "time": datetime.utcfromtimestamp(int(t)).strftime("%Y-%m-%d"),
+            "open": round(float(o if o is not None else c_val), 2),
+            "high": round(float(h if h is not None else c_val), 2),
+            "low": round(float(l if l is not None else c_val), 2),
+            "close": round(c_val, 2),
+            "ma60": ma60_i,
+            "volume": int(v or 0),
+        })
+    hist_120 = bars[-120:]
+    for hdir in HISTORY_DIRS:
+        if os.path.exists(os.path.dirname(hdir)):
+            os.makedirs(hdir, exist_ok=True)
+            hp = os.path.join(hdir, f"{sym}.json")
+            with open(hp, "w", encoding="utf-8") as hf:
+                json.dump(hist_120, hf, ensure_ascii=False)
+
+    closes = [float(c) for c in raw_closes if c is not None]
+    vols = [float(v) for v in raw_vols if v is not None]
     p = round(float(m.get("regularMarketPrice") or closes[-1]), 2)
     prev = round(closes[-2] if len(closes) >= 2 else p, 2)
     chg = round((p - prev) / prev * 100.0, 2) if prev else 0.0
