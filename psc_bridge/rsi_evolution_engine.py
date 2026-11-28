@@ -40,6 +40,7 @@ import derivatives_shield_ds as ds
 import macro_geopolitics_mg as mg
 import monetary_liquidity_ml as ml
 import stat_modeling_sm as sm
+import walkforward_rsi_lab as wf_rsi
 
 
 DEFAULT_GEN31_PARAMS = {
@@ -396,6 +397,7 @@ def run_gen31_cycle(vix_override: float = None) -> Dict[str, Any]:
     snap_res = step1_snapshot_today(conn, stocks, vix, active_gen)
     eval_res = step2_evaluate_past_signals(conn, stocks)
     evo_res = step3_shadow_rsi_evolution(conn, active_gen, active_params)
+    wf_res = wf_rsi.run_walkforward_rsi_lab(active_params)
     fe_res = fe.engineer_market_features(stocks)
     fa_res = fa.audit_market_financials(stocks)
     ds_res = ds.run_derivatives_shield(live_vix=vix)
@@ -452,6 +454,7 @@ def run_gen31_cycle(vix_override: float = None) -> Dict[str, Any]:
         "snapshot": snap_res,
         "evaluation": eval_res,
         "evolution": evo_res,
+        "walkforward_rsi_lab": wf_res,
         "feature_engineering": fe_res,
         "financial_audit": fa_res,
         "derivatives_shield": ds_res,

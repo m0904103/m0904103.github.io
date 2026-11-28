@@ -1,13 +1,13 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-27 17:55:51",
+  "updated_at": "2026-11-28 09:53:25",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
     "articles_count": 15,
     "immutable": true
   },
-  "live_vix": 24.64,
+  "live_vix": 23.81,
   "active_gen": 31,
   "active_params": {
     "score_threshold_strong_buy": 80.0,
@@ -19,7 +19,7 @@
     "vix_defensive_trigger": 25.0
   },
   "snapshot": {
-    "trade_date": "2026-11-27",
+    "trade_date": "2026-11-28",
     "total_snapshotted": 260,
     "constitution_buy_passed": 0,
     "constitution_vetoed": 0,
@@ -28,8 +28,8 @@
   "evaluation": {
     "newly_evaluated_5d": 0,
     "newly_evaluated_20d": 0,
-    "total_ledger_rows": 520,
-    "total_tracked_days": 2,
+    "total_ledger_rows": 780,
+    "total_tracked_days": 3,
     "total_evaluated_5d": 0,
     "total_evaluated_20d": 0,
     "passed_buy_trades_5d": 0,
@@ -43,6 +43,52 @@
     "evaluated_oos_samples": 0,
     "required_samples": 15,
     "message": "目前累積 0/15 筆已驗收樣本，達標後自動啟動影子參數遞迴優化並提交司令官核准。"
+  },
+  "walkforward_rsi_lab": {
+    "updated_at": "2026-11-28 09:53:06",
+    "universe_size": 12,
+    "total_independent_5d_samples": 444,
+    "is_samples": 222,
+    "oos_samples": 222,
+    "tested_mutations": 36,
+    "unconstitutional_below_ma60_oos": {
+      "trades": 95,
+      "win_rate": 50.53,
+      "avg_ret_5d": 0.26
+    },
+    "gen31_baseline_oos": {
+      "trades": 82,
+      "win_rate": 48.78,
+      "avg_ret": -0.37,
+      "max_drawdown": 12.88,
+      "profit_factor": 0.77,
+      "wilson_95ci_low": 38.3,
+      "wilson_95ci_high": 59.4,
+      "p_value": 0.8188,
+      "statistically_significant": false
+    },
+    "best_is_candidate_params": {
+      "max_bias_ma60_pct": 12.0,
+      "rsi_entry_low": 46.0,
+      "rsi_entry_high": 72.0
+    },
+    "best_candidate_oos": {
+      "trades": 87,
+      "win_rate": 41.38,
+      "avg_ret": -0.83,
+      "max_drawdown": 12.88,
+      "profit_factor": 0.54,
+      "wilson_95ci_low": 31.6,
+      "wilson_95ci_high": 51.9,
+      "p_value": 0.9843,
+      "statistically_significant": false
+    },
+    "constitution_audit_passed": false,
+    "constitution_audit_notes": [
+      "[Y5-未達顯著進步] 候選 OOS 勝率 41.4% vs 舊版 48.8%，進步未達 +2.0%"
+    ],
+    "proposal_ready_for_commander": false,
+    "verdict": "GEN31_DEFENDED_CROWN: 測試 36 組參數突變後，現行 Gen 31 在未知 OOS 仍表現穩健（勝率 48.78%、5日均報酬 -0.37%、獲利因子 0.77），無需貿然改參數（成功防堵過擬合）！"
   },
   "feature_engineering": {
     "source_course": "國立空中大學《資料科學的特徵工程》(Ch.3 MI / Ch.4 群組合成 / Ch.9 IQR 異常值 / Ch.11 Robust Scaling)",
@@ -65,8 +111,8 @@
       },
       "US": {
         "count": 121,
-        "bias_ma60_median": -10.43,
-        "bias_ma60_iqr": 24.45,
+        "bias_ma60_median": -8.33,
+        "bias_ma60_iqr": 22.9,
         "score_median": 35.0
       }
     },
@@ -91,7 +137,14 @@
           "name": "敦陽科",
           "price": 175.0,
           "bias_ma60": 1.92,
-          "fe_composite_z": 1.057
+          "fe_composite_z": 1.066
+        },
+        {
+          "symbol": "1216.TW",
+          "name": "統一",
+          "price": 77.9,
+          "bias_ma60": 1.26,
+          "fe_composite_z": 1.024
         },
         {
           "symbol": "3491.TWO",
@@ -99,50 +152,43 @@
           "price": 1480.0,
           "bias_ma60": 4.7,
           "fe_composite_z": 1.023
-        },
-        {
-          "symbol": "1216.TW",
-          "name": "統一",
-          "price": 77.9,
-          "bias_ma60": 1.26,
-          "fe_composite_z": 1.016
         }
       ],
       "US": [
         {
-          "symbol": "VRTX",
-          "name": "Vertex Pharm",
-          "price": 564.12,
-          "bias_ma60": 7.3,
-          "fe_composite_z": 1.025
-        },
-        {
           "symbol": "AAPL",
           "name": "蘋果",
-          "price": 355.58,
-          "bias_ma60": 4.58,
-          "fe_composite_z": 0.999
+          "price": 358.68,
+          "bias_ma60": 5.49,
+          "fe_composite_z": 0.995
         },
         {
           "symbol": "WMT",
           "name": "沃爾瑪",
-          "price": 131.94,
-          "bias_ma60": 13.54,
-          "fe_composite_z": 0.981
+          "price": 133.12,
+          "bias_ma60": 14.55,
+          "fe_composite_z": 0.987
         },
         {
           "symbol": "LLY",
           "name": "禮來",
-          "price": 1392.22,
-          "bias_ma60": 10.8,
-          "fe_composite_z": 0.923
+          "price": 1392.38,
+          "bias_ma60": 10.81,
+          "fe_composite_z": 0.911
         },
         {
           "symbol": "SBUX",
           "name": "星巴克",
-          "price": 107.74,
-          "bias_ma60": 7.68,
-          "fe_composite_z": 0.892
+          "price": 108.79,
+          "bias_ma60": 8.72,
+          "fe_composite_z": 0.893
+        },
+        {
+          "symbol": "APP",
+          "name": "AppLovin",
+          "price": 398.96,
+          "bias_ma60": 27.29,
+          "fe_composite_z": 0.879
         }
       ]
     },
@@ -435,18 +481,18 @@
   "derivatives_shield": {
     "source_course": "國立空中大學《衍生性金融商品》(第09講避險比率/第20講VIX波動/第27講CDS/槓桿耗損)",
     "taifex_foreign_txf": {
-      "date": "20261126",
-      "foreign_txf_net_oi": -106275,
-      "long_oi": 9083,
-      "short_oi": 115358,
-      "net_value_yi_twd": -8394.2,
+      "date": "20261127",
+      "foreign_txf_net_oi": -107503,
+      "long_oi": 7862,
+      "short_oi": 115365,
+      "net_value_yi_twd": -8460.7,
       "shield_status": "EXTREME_RED (史詩級空單警戒，嚴禁滿倉追高)"
     },
-    "vix_daily_1sigma_move_pct": 1.55,
+    "vix_daily_1sigma_move_pct": 1.5,
     "leveraged_etf_annual_vol_drag_pct": {
-      "2x_long_etf_00637L": 6.07,
-      "1x_inverse_etf_00632R": 6.07,
-      "warning": "在 VIX=24.64 環境下，盤整一年單純波動耗損即吃掉 -6.07%，嚴禁長期死抱正2/反1！"
+      "2x_long_etf_00637L": 5.67,
+      "1x_inverse_etf_00632R": 5.67,
+      "warning": "在 VIX=23.81 環境下，盤整一年單純波動耗損即吃掉 -5.67%，嚴禁長期死抱正2/反1！"
     },
     "user_00406A_50pct_hedge_plan": {
       "portfolio_value_twd": 46340.0,
@@ -463,88 +509,88 @@
   },
   "macro_geopolitics": {
     "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
-    "updated_at": "2026-11-27 17:55:45",
+    "updated_at": "2026-11-28 09:53:11",
     "macro_stress_score": 66.0,
     "macro_regime": "ORANGE_STAGFLATION_RISK",
     "recommended_cash_floor_pct": 55,
     "action_note": "停滯性通膨與關稅摩擦警戒！維持 55%~70% 高現金水位，避開高關稅轉口股與高本益比 AI 股。",
     "stress_drivers": [
-      "美債10Y殖利率飆至 4.85% (>4.75% 財政赤字殺估值紅線)",
-      "WTI原油走揚 $86.01 (20日 -15.5%) — 需防能源通膨反撲",
-      "VIX=24.64 處於震盪防禦區"
+      "美債10Y殖利率飆至 4.94% (>4.75% 財政赤字殺估值紅線)",
+      "WTI原油走揚 $83.08 (20日 -19.2%) — 需防能源通膨反撲",
+      "VIX=23.81 處於震盪防禦區"
     ],
     "live_telemetry": {
       "us10y": {
         "ticker": "^TNX",
-        "price": 4.848,
-        "chg_1d_pct": -1.14,
-        "chg_5d_pct": -4.3,
-        "chg_20d_pct": -2.77,
+        "price": 4.936,
+        "chg_1d_pct": 1.82,
+        "chg_5d_pct": -2.3,
+        "chg_20d_pct": -1.14,
         "label": "美國10年期公債殖利率 (%)"
       },
       "dxy": {
         "ticker": "DX-Y.NYB",
-        "price": 103.828,
-        "chg_1d_pct": 0.15,
-        "chg_5d_pct": -0.07,
-        "chg_20d_pct": 1.83,
+        "price": 104.014,
+        "chg_1d_pct": 0.33,
+        "chg_5d_pct": 0.11,
+        "chg_20d_pct": 1.78,
         "label": "美元指數 (DXY)"
       },
       "usdtwd": {
         "ticker": "TWD=X",
-        "price": 32.939,
-        "chg_1d_pct": -0.75,
-        "chg_5d_pct": -0.26,
-        "chg_20d_pct": 1.24,
+        "price": 32.979,
+        "chg_1d_pct": -0.63,
+        "chg_5d_pct": -0.14,
+        "chg_20d_pct": 1.37,
         "label": "美元兌新台幣 (USD/TWD)"
       },
       "wti_oil": {
         "ticker": "CL=F",
-        "price": 86.01,
-        "chg_1d_pct": 2.78,
-        "chg_5d_pct": 3.36,
-        "chg_20d_pct": -15.48,
+        "price": 83.08,
+        "chg_1d_pct": -0.72,
+        "chg_5d_pct": -0.16,
+        "chg_20d_pct": -19.17,
         "label": "WTI 原油期貨 (USD/桶)"
       },
       "gold": {
         "ticker": "GC=F",
-        "price": 3706.1,
-        "chg_1d_pct": 4.82,
-        "chg_5d_pct": 0.56,
-        "chg_20d_pct": -8.23,
+        "price": 3668.5,
+        "chg_1d_pct": 3.75,
+        "chg_5d_pct": -0.46,
+        "chg_20d_pct": -9.46,
         "label": "黃金期貨 (USD/盎司)"
       },
       "spx": {
         "ticker": "^GSPC",
-        "price": 7182.78,
-        "chg_1d_pct": -0.25,
-        "chg_5d_pct": -1.92,
-        "chg_20d_pct": -6.43,
+        "price": 7297.49,
+        "chg_1d_pct": 1.6,
+        "chg_5d_pct": 1.7,
+        "chg_20d_pct": -5.77,
         "label": "標普500指數 (S&P 500)"
       },
       "ndx": {
         "ticker": "^NDX",
-        "price": 26046.896,
-        "chg_1d_pct": -0.64,
-        "chg_5d_pct": -3.94,
-        "chg_20d_pct": -11.02,
+        "price": 26726.389,
+        "chg_1d_pct": 2.61,
+        "chg_5d_pct": 0.79,
+        "chg_20d_pct": -10.35,
         "label": "那斯達克100指數 (NDX)"
       }
     },
     "taiwan_ppp_fx_gauge": {
-      "usdtwd": 32.939,
+      "usdtwd": 32.979,
       "big_mac_implied_ppp": 13.18,
       "twd_ppp_undervaluation_pct": 60.0,
-      "usdtwd_5d_chg_pct": -0.26,
+      "usdtwd_5d_chg_pct": -0.14,
       "status": "ALERT",
       "alerts": [
         "台幣偏弱(>32.5)，外資匯出壓力大且觸及美國匯率操縱觀察警戒線"
       ]
     },
     "ai_bubble_cycle": {
-      "ndx_20d_pct": -11.02,
-      "spx_20d_pct": -6.43,
-      "ndx_vs_spx_spread_20d_pct": -4.59,
+      "ndx_20d_pct": -10.35,
+      "spx_20d_pct": -5.77,
+      "ndx_vs_spx_spread_20d_pct": -4.58,
       "bigtech_2026_capex_usd_b": 700,
       "oil_gas_capex_benchmark_usd_b": 570,
       "phase": "DELEVERAGING_SHAKEOUT",
@@ -558,14 +604,14 @@
           "name": "艾司摩爾",
           "grade": "HIGH_EXPOSURE",
           "tag": "對中設備禁令＋歐洲能源成本曝險",
-          "price": 1303.08
+          "price": 1329.11
         },
         {
           "symbol": "NVDA",
           "name": "輝達",
           "grade": "HIGH_EXPOSURE",
           "tag": "對中晶片出口管制＋台海地緣溢價",
-          "price": 149.3
+          "price": 150.65
         },
         {
           "symbol": "2317.TW",
@@ -603,28 +649,28 @@
           "name": "摩根大通",
           "grade": "INSULATED",
           "tag": "美國最大銀行（高殖利率環境淨利差受惠）",
-          "price": 316.74
+          "price": 322.96
         },
         {
           "symbol": "LLY",
           "name": "禮來",
           "grade": "INSULATED",
           "tag": "高毛利剛性醫療（專利保護＋抗景氣循環）",
-          "price": 1392.22
+          "price": 1392.38
         },
         {
           "symbol": "VRTX",
           "name": "Vertex Pharm",
           "grade": "INSULATED",
           "tag": "生技孤兒藥壟斷（零關稅敏感度）",
-          "price": 564.12
+          "price": 534.74
         },
         {
           "symbol": "XLE",
           "name": "能源ETF",
           "grade": "INSULATED",
           "tag": "美國能源龍頭（荷姆茲油價飆升直接對沖）",
-          "price": 60.9
+          "price": 61.67
         }
       ]
     }
@@ -634,33 +680,33 @@
       "國立空中大學《貨幣銀行學》（黃昱程、楊啟均教授）",
       "國立空中大學《總體經濟學》（IS-LM / AD-AS 貨幣傳導）"
     ],
-    "updated_at": "2026-11-27 17:55:51",
+    "updated_at": "2026-11-28 09:53:25",
     "liquidity_stress_score": 94.0,
     "liquidity_regime": "RESTRICTIVE_LIQUIDITY_SQUEEZE",
     "yield_curve_clock": {
-      "us10y_pct": 4.848,
-      "us5y_pct": 4.66,
-      "us3m_pct": 4.155,
-      "spread_10y_3m_bps": 69.3,
-      "spread_10y_5y_bps": 18.8,
+      "us10y_pct": 4.936,
+      "us5y_pct": 4.746,
+      "us3m_pct": 4.153,
+      "spread_10y_3m_bps": 78.3,
+      "spread_10y_5y_bps": 19.0,
       "curve_state": "BEAR_STEEPENING_FISCAL_STRESS",
-      "note": "10Y-3M 正斜率 +69.3 bps 但長端利率飆破 4.75%（熊市陡峭化）：債市正在懲罰通膨與財政赤字。"
+      "note": "10Y-3M 正斜率 +78.3 bps 但長端利率飆破 4.75%（熊市陡峭化）：債市正在懲罰通膨與財政赤字。"
     },
     "fisher_real_rate": {
-      "nominal_10y_pct": 4.848,
+      "nominal_10y_pct": 4.936,
       "expected_inflation_pct": 2.6,
-      "fisher_real_rate_pct": 2.25,
-      "implied_fair_pe_ceiling": 15.8,
+      "fisher_real_rate_pct": 2.34,
+      "implied_fair_pe_ceiling": 15.5,
       "pressure": "HIGH_VALUATION_GRAVITY",
-      "desc": "實質利率達 2.25%（高重力區），合理市場本益比壓縮至約 15.8x，高 PE 股極易殺估值。"
+      "desc": "實質利率達 2.34%（高重力區），合理市場本益比壓縮至約 15.5x，高 PE 股極易殺估值。"
     },
     "credit_transmission": {
-      "hyg_20d_pct": -0.88,
-      "ief_20d_pct": 1.03,
-      "hyg_vs_ief_spread_20d_pct": -1.91,
-      "kre_vs_xlf_20d_pct": -4.86,
+      "hyg_20d_pct": -1.26,
+      "ief_20d_pct": 0.89,
+      "hyg_vs_ief_spread_20d_pct": -2.15,
+      "kre_vs_xlf_20d_pct": -4.28,
       "status": "CREDIT_TIGHTENING",
-      "note": "高收益債 20 日落後美債 -1.91%：信用市場開始收緊，遠離高負債與高 CDS 公司。"
+      "note": "高收益債 20 日落後美債 -2.15%：信用市場開始收緊，遠離高負債與高 CDS 公司。"
     }
   },
   "statistical_modeling": {
@@ -670,7 +716,7 @@
       "國立空中大學《機器學習的原理與應用》",
       "國立空中大學《理財規劃與實務》"
     ],
-    "updated_at": "2026-11-27 17:55:51",
+    "updated_at": "2026-11-28 09:53:25",
     "oos_wilson_95ci": {
       "point_est_pct": 0.0,
       "ci95_low_pct": 0.0,
@@ -696,13 +742,13 @@
     },
     "market_fat_tail_audit": {
       "sample_size": 260,
-      "mean_ma60_bias_pct": -15.67,
+      "mean_ma60_bias_pct": -14.6,
       "std_ma60_bias_pct": 14.35,
-      "skewness": -0.178,
-      "excess_kurtosis": -0.496,
-      "below_ma60_breadth_pct": 85.8,
+      "skewness": -0.154,
+      "excess_kurtosis": -0.364,
+      "below_ma60_breadth_pct": 83.8,
       "tail_status": "NORMAL_DISPERSION",
-      "note": "市場橫斷面分佈正常 (Skew=-0.18, Kurt=-0.50)，85.8% 個股在季線下。"
+      "note": "市場橫斷面分佈正常 (Skew=-0.15, Kurt=-0.36)，83.8% 個股在季線下。"
     },
     "half_kelly_position_sizing": {
       "assumed_win_rate_pct": 58.0,
