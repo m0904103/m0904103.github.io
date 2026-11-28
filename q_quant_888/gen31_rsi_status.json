@@ -1,6 +1,6 @@
 {
   "engine": "Gen 31 Constitutional RSI (阿村伯×顏老師憲法層 + AI 遞迴進化層)",
-  "updated_at": "2026-11-28 10:07:29",
+  "updated_at": "2026-11-28 11:10:29",
   "constitution": {
     "version": "Gen31-Constitution-v1.1",
     "sha256_seal": "2f67605b8a1de3ab",
@@ -45,26 +45,26 @@
     "message": "目前累積 0/15 筆已驗收樣本，達標後自動啟動影子參數遞迴優化並提交司令官核准。"
   },
   "walkforward_rsi_lab": {
-    "updated_at": "2026-11-28 10:07:19",
+    "updated_at": "2026-11-28 11:10:19",
     "universe_size": 12,
-    "total_independent_5d_samples": 444,
-    "is_samples": 222,
-    "oos_samples": 222,
+    "total_independent_5d_samples": 456,
+    "is_samples": 228,
+    "oos_samples": 228,
     "tested_mutations": 36,
     "unconstitutional_below_ma60_oos": {
-      "trades": 95,
-      "win_rate": 50.53,
-      "avg_ret_5d": 0.26
+      "trades": 101,
+      "win_rate": 50.5,
+      "avg_ret_5d": 0.14
     },
     "gen31_baseline_oos": {
-      "trades": 82,
-      "win_rate": 48.78,
-      "avg_ret": -0.37,
+      "trades": 81,
+      "win_rate": 49.38,
+      "avg_ret": -0.31,
       "max_drawdown": 12.88,
-      "profit_factor": 0.77,
-      "wilson_95ci_low": 38.3,
-      "wilson_95ci_high": 59.4,
-      "p_value": 0.8188,
+      "profit_factor": 0.8,
+      "wilson_95ci_low": 38.8,
+      "wilson_95ci_high": 60.0,
+      "p_value": 0.7749,
       "statistically_significant": false
     },
     "best_is_candidate_params": {
@@ -74,21 +74,21 @@
     },
     "best_candidate_oos": {
       "trades": 87,
-      "win_rate": 41.38,
-      "avg_ret": -0.83,
+      "win_rate": 42.53,
+      "avg_ret": -0.76,
       "max_drawdown": 12.88,
-      "profit_factor": 0.54,
-      "wilson_95ci_low": 31.6,
-      "wilson_95ci_high": 51.9,
-      "p_value": 0.9843,
+      "profit_factor": 0.57,
+      "wilson_95ci_low": 32.7,
+      "wilson_95ci_high": 53.0,
+      "p_value": 0.9757,
       "statistically_significant": false
     },
     "constitution_audit_passed": false,
     "constitution_audit_notes": [
-      "[Y5-未達顯著進步] 候選 OOS 勝率 41.4% vs 舊版 48.8%，進步未達 +2.0%"
+      "[Y5-未達顯著進步] 候選 OOS 勝率 42.5% vs 舊版 49.4%，進步未達 +2.0%"
     ],
     "proposal_ready_for_commander": false,
-    "verdict": "GEN31_DEFENDED_CROWN: 測試 36 組參數突變後，現行 Gen 31 在未知 OOS 仍表現穩健（勝率 48.78%、5日均報酬 -0.37%、獲利因子 0.77），無需貿然改參數（成功防堵過擬合）！"
+    "verdict": "GEN31_DEFENDED_CROWN: 測試 36 組參數突變後，現行 Gen 31 在未知 OOS 仍表現穩健（勝率 49.38%、5日均報酬 -0.31%、獲利因子 0.8），無需貿然改參數（成功防堵過擬合）！"
   },
   "feature_engineering": {
     "source_course": "國立空中大學《資料科學的特徵工程》(Ch.3 MI / Ch.4 群組合成 / Ch.9 IQR 異常值 / Ch.11 Robust Scaling)",
@@ -156,11 +156,11 @@
       ],
       "US": [
         {
-          "symbol": "AAPL",
-          "name": "蘋果",
-          "price": 358.68,
-          "bias_ma60": 5.49,
-          "fe_composite_z": 0.979
+          "symbol": "PGR",
+          "name": "Progressive 前進保險",
+          "price": 239.14,
+          "bias_ma60": 7.65,
+          "fe_composite_z": 1.061
         },
         {
           "symbol": "WMT",
@@ -170,25 +170,25 @@
           "fe_composite_z": 0.976
         },
         {
-          "symbol": "PGR",
-          "name": "Progressive 前進保險",
-          "price": 239.14,
-          "bias_ma60": 7.79,
-          "fe_composite_z": 0.968
+          "symbol": "AAPL",
+          "name": "蘋果",
+          "price": 358.68,
+          "bias_ma60": 5.49,
+          "fe_composite_z": 0.974
         },
         {
           "symbol": "LLY",
           "name": "禮來",
           "price": 1392.38,
           "bias_ma60": 10.81,
-          "fe_composite_z": 0.895
+          "fe_composite_z": 0.893
         },
         {
           "symbol": "SBUX",
           "name": "星巴克",
           "price": 108.79,
           "bias_ma60": 8.72,
-          "fe_composite_z": 0.877
+          "fe_composite_z": 0.875
         }
       ]
     },
@@ -509,7 +509,7 @@
   },
   "macro_geopolitics": {
     "source_course": "國立空中大學《115上_全球經貿個案解讀(一)》（方晨教授）",
-    "updated_at": "2026-11-28 10:07:24",
+    "updated_at": "2026-11-28 11:10:24",
     "macro_stress_score": 66.0,
     "macro_regime": "ORANGE_STAGFLATION_RISK",
     "recommended_cash_floor_pct": 55,
@@ -708,7 +708,7 @@
       "國立空中大學《貨幣銀行學》（黃昱程、楊啟均教授）",
       "國立空中大學《總體經濟學》（IS-LM / AD-AS 貨幣傳導）"
     ],
-    "updated_at": "2026-11-28 10:07:29",
+    "updated_at": "2026-11-28 11:10:29",
     "liquidity_stress_score": 94.0,
     "liquidity_regime": "RESTRICTIVE_LIQUIDITY_SQUEEZE",
     "yield_curve_clock": {
@@ -744,7 +744,7 @@
       "國立空中大學《機器學習的原理與應用》",
       "國立空中大學《理財規劃與實務》"
     ],
-    "updated_at": "2026-11-28 10:07:29",
+    "updated_at": "2026-11-28 11:10:29",
     "oos_wilson_95ci": {
       "point_est_pct": 0.0,
       "ci95_low_pct": 0.0,
